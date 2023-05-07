@@ -9,6 +9,10 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+
+
+
+
     <!--Servlet de spring, el mismo es configurado por el archivo spring-servlet.xml y se usa para TODAS las URL, ya que el pattern es /-->
     <servlet>
         <servlet-name>spring</servlet-name>
