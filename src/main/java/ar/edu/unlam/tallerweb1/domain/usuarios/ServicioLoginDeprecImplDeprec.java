@@ -12,17 +12,17 @@ import org.springframework.transaction.annotation.Transactional;
 // en hibernateCOntext.xml. De esta manera todos los metodos de cualquier dao invocados dentro de un servicio se ejecutan en la misma transaccion
 @Service("servicioLogin")
 @Transactional
-public class ServicioLoginImpl implements ServicioLogin {
+public class ServicioLoginDeprecImplDeprec implements ServicioLoginDeprec {
 
-	private RepositorioUsuario servicioLoginDao;
+	private RepositorioUsuarioDeprec servicioLoginDao;
 
 	@Autowired
-	public ServicioLoginImpl(RepositorioUsuario servicioLoginDao){
+	public ServicioLoginDeprecImplDeprec(RepositorioUsuarioDeprec servicioLoginDao){
 		this.servicioLoginDao = servicioLoginDao;
 	}
 
 	@Override
-	public Usuario consultarUsuario (String email, String password) {
+	public UsuarioDeprec consultarUsuario (String email, String password) {
 		return servicioLoginDao.buscarUsuario(email, password);
 	}
 

@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
-import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
-import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
+import ar.edu.unlam.tallerweb1.domain.usuarios.UsuarioDeprec;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLoginDeprec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,22 +13,22 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ControladorLogin {
+public class ControladorLoginDeprec {
 
 	// La anotacion @Autowired indica a Spring que se debe utilizar el contructor como mecanismo de inyección de dependencias,
 	// es decir, qeue lo parametros del mismo deben ser un bean de spring y el framewrok automaticamente pasa como parametro
 	// el bean correspondiente, en este caso, un objeto de una clase que implemente la interface ServicioLogin,
 	// dicha clase debe estar anotada como @Service o @Repository y debe estar en un paquete de los indicados en
 	// applicationContext.xml
-	private ServicioLogin servicioLogin;
+	private ServicioLoginDeprec servicioLoginDeprec;
 
 	@Autowired
-	public ControladorLogin(ServicioLogin servicioLogin){
-		this.servicioLogin = servicioLogin;
+	public ControladorLoginDeprec(ServicioLoginDeprec servicioLoginDeprec){
+		this.servicioLoginDeprec = servicioLoginDeprec;
 	}
 
 	// Este metodo escucha la URL localhost:8080/NOMBRE_APP/login si la misma es invocada por metodo http GET
-	@RequestMapping("/login")
+	@RequestMapping("/login2")
 	public ModelAndView irALogin() {
 
 		ModelMap modelo = new ModelMap();
@@ -49,9 +49,9 @@ public class ControladorLogin {
 
 		// invoca el metodo consultarUsuario del servicio y hace un redirect a la URL /home, esto es, en lugar de enviar a una vista
 		// hace una llamada a otro action a traves de la URL correspondiente a esta
-		Usuario usuarioBuscado = servicioLogin.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
-		if (usuarioBuscado != null) {
-			request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
+		UsuarioDeprec usuarioDeprecBuscado = servicioLoginDeprec.consultarUsuario(datosLogin.getEmail(), datosLogin.getPassword());
+		if (usuarioDeprecBuscado != null) {
+			request.getSession().setAttribute("ROL", usuarioDeprecBuscado.getRol());
 			return new ModelAndView("redirect:/home");
 		} else {
 			// si el usuario no existe agrega un mensaje de error en el modelo.
@@ -61,13 +61,13 @@ public class ControladorLogin {
 	}
 
 	// Escucha la URL /home por GET, y redirige a una vista.
-	@RequestMapping(path = "/home", method = RequestMethod.GET)
+	@RequestMapping(path = "/home2", method = RequestMethod.GET)
 	public ModelAndView irAHome() {
 		return new ModelAndView("index-feed");
 	}
 
 	// Escucha la url /, y redirige a la URL /login, es lo mismo que si se invoca la url /login directamente.
-	@RequestMapping(path = "/", method = RequestMethod.GET)
+	@RequestMapping(path = "/2", method = RequestMethod.GET)
 	public ModelAndView inicio() {
 		return new ModelAndView("redirect:/login");
 	}

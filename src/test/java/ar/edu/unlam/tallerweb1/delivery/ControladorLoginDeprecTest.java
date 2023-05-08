@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
-import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLogin;
-import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioLoginDeprec;
+import ar.edu.unlam.tallerweb1.domain.usuarios.UsuarioDeprec;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,18 +10,18 @@ import javax.servlet.http.HttpSession;
 import static org.mockito.Mockito.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ControladorLoginTest {
-    private ServicioLogin servicioLogin;
+public class ControladorLoginDeprecTest {
+    private ServicioLoginDeprec servicioLoginDeprec;
     private HttpServletRequest request;
     private HttpSession sesion;
-    private ControladorLogin controladorLogin;
+    private ControladorLoginDeprec controladorLoginDeprec;
 
     @Before
     public void init() {
-        servicioLogin = mock(ServicioLogin.class);
+        servicioLoginDeprec = mock(ServicioLoginDeprec.class);
         sesion = mock(HttpSession.class);
         request = mock(HttpServletRequest.class);
-        controladorLogin = new ControladorLogin(this.servicioLogin);
+        controladorLoginDeprec = new ControladorLoginDeprec(this.servicioLoginDeprec);
     }
 
     @Test
@@ -30,9 +30,9 @@ public class ControladorLoginTest {
         String ROL = "admin";
 
         DatosLogin datosLogin = dadoQueTengoDatosDeLoginValidos();
-        Usuario usuarioEsperado = dadoQueTengoUnUsuarioConRol(ROL);
+        UsuarioDeprec usuarioDeprecEsperado = dadoQueTengoUnUsuarioConRol(ROL);
 
-        ModelAndView vista = cuandoQuieroValidarElLogin(datosLogin, usuarioEsperado, ROL);
+        ModelAndView vista = cuandoQuieroValidarElLogin(datosLogin, usuarioDeprecEsperado, ROL);
 
         entoncesMeDevuelveLaVistaCorrecta(vista);
 
@@ -45,18 +45,18 @@ public class ControladorLoginTest {
         return new DatosLogin();
     }
 
-    private Usuario dadoQueTengoUnUsuarioConRol(String rol) {
-        Usuario usuario = new Usuario();
-        usuario.setRol(rol);
-        return usuario;
+    private UsuarioDeprec dadoQueTengoUnUsuarioConRol(String rol) {
+        UsuarioDeprec usuarioDeprec = new UsuarioDeprec();
+        usuarioDeprec.setRol(rol);
+        return usuarioDeprec;
     }
 
     //Dado
-    private ModelAndView cuandoQuieroValidarElLogin(DatosLogin datosLogin, Usuario usuarioEsperado,String rol) {
-        when(servicioLogin.consultarUsuario(any(), any())).thenReturn(usuarioEsperado);
+    private ModelAndView cuandoQuieroValidarElLogin(DatosLogin datosLogin, UsuarioDeprec usuarioDeprecEsperado, String rol) {
+        when(servicioLoginDeprec.consultarUsuario(any(), any())).thenReturn(usuarioDeprecEsperado);
         when(request.getSession()).thenReturn(sesion);
         when(sesion.getAttribute("ROL")).thenReturn(rol);
-        return controladorLogin.validarLogin(datosLogin, request);
+        return controladorLoginDeprec.validarLogin(datosLogin, request);
     }
 
     //Entonces

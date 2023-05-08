@@ -25,7 +25,7 @@
                                      class="rounded img-fluid portrait-profile" loading="lazy">
 
                             </div>
-                            <!-- Imagen del usuario -->
+                            <!-- Imagen del usuarioDeprec -->
                             <div class="user-detail text-center mb-3">
                                 <div class="profile-img">
                                     <img src="images/user/11.png" alt="profile-img" loading="lazy"
@@ -172,7 +172,7 @@
                                                     <table class="table forum-table mb-0 rounded">
                                                         <thead class="bg-primary text-white">
                                                         <tr>
-                                                            <th>Publicacíon</th>
+                                                            <th>Publicacï¿½on</th>
                                                             <th>Solicitudes</th>
                                                             <th>Preguntas</th>
                                                             <th>Estado</th>
@@ -191,7 +191,7 @@
                                                                             </h6>
                                                                             <p class="mb-0"><span class="text-muted">Hace </span>
                                                                                 <span class="link-primary"> 3
-                                                                        días</span>
+                                                                        dï¿½as</span>
                                                                             </p>
                                                                         </div>
                                                                     </div>

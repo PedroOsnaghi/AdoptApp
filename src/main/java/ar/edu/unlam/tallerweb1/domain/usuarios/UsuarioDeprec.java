@@ -11,7 +11,7 @@ import javax.persistence.Id;
 @Entity
 public class
 
-Usuario {
+UsuarioDeprec {
 
 	// La anotacion id indica que este atributo es el utilizado como clave primaria de la entity, se indica que el valor es autogenerado.
 	@Id
