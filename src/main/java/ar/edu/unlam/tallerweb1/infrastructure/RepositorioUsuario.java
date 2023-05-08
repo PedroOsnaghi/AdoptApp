@@ -1,9 +1,9 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-//@Service
+@Repository
 public class RepositorioUsuario {
 
     //TODO
