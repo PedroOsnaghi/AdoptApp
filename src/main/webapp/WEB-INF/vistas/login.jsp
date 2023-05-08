@@ -1,6 +1,13 @@
 <!-- head -->
 
 <%@ include file="partials/head.jsp" %>
+<!-- loader inicial -->
+<c:if test="${empty error}">
+    <div id="firstload">
+        <div id="loading-center">
+        </div>
+    </div>
+</c:if>
 
     <div class="wrapper">
         <section class="sign-in-page">

@@ -12183,7 +12183,7 @@ fieldset:disabled .btn {
     width: 100%;
     height: 100%
 }
-#loading {
+#loading, #firstload {
     background-color: #f8f9fa;
     height: 100%;
     width: 100%;
@@ -21444,6 +21444,10 @@ button.bg-soft-dark:hover {
     color: #c7c7c7
 }
 .dark #loading {
+    background-color: #1a1a1a;
+    color: #c7c7c7
+}
+.dark #firstload {
     background-color: #1a1a1a;
     color: #c7c7c7
 }

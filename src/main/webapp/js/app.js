@@ -351,6 +351,7 @@ Index Of Script
     -----------------------------------------------------------------------*/
         jQuery("#load").fadeOut();
         jQuery("#loading").delay().fadeOut("");
+      jQuery("#firstload").delay(2500).fadeOut("");
 
     /*---------------------------------------------------------------------
         Mailbox
