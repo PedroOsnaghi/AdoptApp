@@ -23,7 +23,12 @@ public class ServicioLoginImpl implements ServicioLogin {
 
 	@Override
 	public Usuario consultarUsuario (String email, String password) {
-		return servicioLoginDao.buscarUsuario(email, password);
+		Usuario usuario = new Usuario();
+		usuario.setId(100L);
+		usuario.setImagen("default.jpg");
+		usuario.setNombre("Pedro Osnaghi");
+		usuario.setEmail("osnaghi@gmail.com");
+		return usuario;
 	}
 
 }

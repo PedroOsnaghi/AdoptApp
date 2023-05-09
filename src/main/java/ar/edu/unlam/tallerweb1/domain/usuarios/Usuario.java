@@ -24,6 +24,8 @@ Usuario {
 	private String password;
 	private String rol;
 	private Boolean activo = false;
+
+	private String imagen;
 	
 	public Long getId() {
 		return id;
@@ -63,6 +65,14 @@ Usuario {
 	}
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	public boolean activo() {

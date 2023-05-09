@@ -41,7 +41,7 @@ public class ControladorHomeTest {
     }
 
     private void debeEnviarAlHome(ModelAndView vista) {
-        assertThat(vista.getViewName()).isEqualTo("feed");
+        assertThat(vista.getViewName()).isEqualTo("index-feed");
     }
 
     private void dadoQueHayUsuarioAutenticado() {
@@ -49,7 +49,7 @@ public class ControladorHomeTest {
         usuario.setId(100L);
         usuario.setNombre("Pedro Osnaghi");
         usuario.setEmail("osnaghi@gmail.com");
-        when(session.getAttribute("usuario-autenticado")).thenReturn(usuario);
+        when(session.getAttribute("usuarioAutenticado")).thenReturn(usuario);
     }
 
     private void debeEnviarAlLogin(ModelAndView vista) {
@@ -61,7 +61,7 @@ public class ControladorHomeTest {
     }
 
     private void dadoQueNoHayUsuarioAutenticado() {
-        when(session.getAttribute("usuario-autenticado")).thenReturn(null);
+        when(session.getAttribute("usuarioAutenticado")).thenReturn(null);
     }
 
 
