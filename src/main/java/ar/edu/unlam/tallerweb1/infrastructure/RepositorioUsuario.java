@@ -14,8 +14,6 @@ public class RepositorioUsuario {
         return usuario;
     }
 
-    ;
-
     //TODO
     public Usuario buscarPorEmail(String email) {
         //TODO BORRAR TODO ESTO
@@ -24,8 +22,7 @@ public class RepositorioUsuario {
         Base64.Encoder encoder = Base64.getEncoder();
         String mockPassword = encoder.encodeToString(jsonByte);
 
-         new Usuario(email, mockPassword);
-        return new Usuario(email, mockPassword);
+        return new Usuario("usuario mock", email, mockPassword);
     }
 
     ;

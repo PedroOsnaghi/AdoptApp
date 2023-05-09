@@ -41,28 +41,32 @@ public class ServicioAuth {
         return _passwordHasheada.equals(passwordHasheada);
     }
 
-    public void eliminarSesion(HttpSession session) {
+    public void eliminarSesion() {
         session.invalidate();
     }
 
-    public void setUsuarioAutenticado(Usuario usuario, HttpSession session) {
+    public void setUsuarioAutenticado(Usuario usuario) {
         session.setAttribute("usuarioAutenticado", usuario);
     }
 
-    public Usuario getUsuarioAutenticado(HttpSession session) {
+    public Usuario getUsuarioAutenticado() {
         return (Usuario) session.getAttribute("usuarioAutenticado");
     }
 
-    public void setTiempoSesion(HttpSession session, int tiempo) {
+    public void setTiempoSesion(int tiempo) {
         session.setMaxInactiveInterval(tiempo);
     }
 
-    public boolean validarSesion(HttpSession session) {
+    public boolean usuarioLoggeado() {
         return session.getAttribute("usuarioAutenticado") != null;
     }
 
-    public void guardarAtributoEnSesion(String clave, Object valor, HttpSession session) {
+    public void guardarAtributoEnSesion(String clave, Object valor) {
         session.setAttribute(clave, valor);
+    }
+
+    public Object getAtributoDeSesion(String clave) {
+        return session.getAttribute(clave);
     }
 
 

@@ -11,14 +11,10 @@ public class ServicioUsuario {
     @Autowired
     RepositorioUsuario repositorioUsuario;
 
-    public Usuario crearUsuario(String email, String password) {
-        Usuario usuario = new Usuario(email, password);
+    public Usuario crearUsuario(String nombre, String email, String password) {
+        Usuario usuario = new Usuario(nombre, email, password);
         Usuario usuarioGuardado = repositorioUsuario.guardar(usuario);
 
-        if (usuarioGuardado != null) {
-            return usuario;
-        }
-
-        return null;
+        return usuarioGuardado;
     }
 }

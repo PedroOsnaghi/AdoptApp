@@ -10,7 +10,8 @@ public class Usuario {
     private String tel;
     private String created_at;
 
-    public Usuario(String email, String password) {
+    public Usuario(String nombre, String email, String password) {
+        this.nombre = nombre;
         this.email = email;
         this.password = password;
     }
