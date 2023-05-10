@@ -17,6 +17,7 @@ public class ControladorHome {
     public ModelAndView inicio() {
         return new ModelAndView("redirect:/home");
     }
+
     @RequestMapping(path = "/home",method = RequestMethod.GET)
     public ModelAndView home(HttpSession session) {
 
