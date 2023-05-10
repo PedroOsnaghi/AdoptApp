@@ -6,18 +6,23 @@ import java.util.Date;
 public class DatosIngresoMascota {
 
     private String nombre;
+
+    private Tipo tipo;
+
     private Date nacimiento;
     private String obs;
     private File foto;
 
 
 
-    public enum Tipo
-    {
-        PERRO, GATO
 
-    }
     public DatosIngresoMascota() {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.nacimiento = nacimiento;
+        this.obs = obs;
+        this.foto = foto;
+
 
     }
 
@@ -33,6 +38,13 @@ public class DatosIngresoMascota {
 
     public void setNacimiento(Date nacimiento) {
         this.nacimiento = nacimiento;
+    }
+
+    public Tipo getTipo(){
+        return tipo;
+    }
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     public String getObs() {

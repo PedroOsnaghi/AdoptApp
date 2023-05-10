@@ -1,15 +1,4 @@
-<!-- head -->
-
 <%@ include file="partials/head.jsp" %>
-
-<!-- navbar -->
-
-<%@ include file="partials/navbar.jsp" %>
-
-<!-- sidebar -->
-<%@ include file="partials/sidebar.jsp" %>
-
-
    
 <!-- AQUI VA EL CONTENIDO -->
 
@@ -26,8 +15,8 @@
                         </div>
                      </div>
                      <div class="card-body">
+                    <form:form class="row" action="ingresar-mascota" method="post" modelAttribute="datosIngresoMascota">
 
-                        <form:form action="nuevaMascota" method="POST" modelAttribute="datosIngresoMascota" class="row needs-validation" novalidate="">
                            <div class="row align-items-center mb-3">
                               <div class="col-3 ">
                                  <div class="profile-img ms-2">
@@ -38,7 +27,7 @@
                                     <div class="material-symbols-outlined btn btn-primary btn-profile">
                                        photo_camera
                                        <input path="imagen" name="archivoImagen" id="file" type="file"
-                                          class="form-control opacity-0" />
+                                          class="form-control opacity-0" >
 
                                     </div>
                                  </div>
@@ -48,8 +37,8 @@
                               <div class="col-9 position-relative">
                                  <label for="nombre" class="form-label"><strong>C�mo se llama la mascota
                                        ?</strong></label>
-                                 <input type="text" class="form-control" id="nombre" required=""
-                                    placeholder="Escribe el nombre..." control-id="ControlID-24">
+                                 <form:input path="nombre" type="text" class="form-control" id="nombre" required=""
+                                    placeholder="Escribe el nombre..." control-id="ControlID-24" />
                                  <div class="invalid-tooltip">
                                     Debes poner un nombre.
                                  </div>
@@ -109,8 +98,8 @@
                                  <label class="form-label" for="exampleInputdate"><strong>C�ando naci�?</strong> (si
                                     no s�bes dejalo
                                     vacio)</label>
-                                 <input type="date" class="form-control" id="exampleInputdate" value="Now"
-                                    control-id="ControlID-15">
+                                  <form:input path="nacimiento"  type="date" class="form-control" id="nacimiento" value="Now"
+                                    control-id="ControlID-15"/>
                               </div>
                               <div class="col-md-6 position-relative">
                                  <label for="validationTooltip04" class="form-label"><strong>Descr�be su
@@ -132,8 +121,8 @@
                               <div class="col-md-12 position-relative">
                                  <label for="validationTooltip03" class="form-label"><strong>Cual es su estado de
                                        salud?</strong> (50 caracteres)</label>
-                                 <input type="text" class="form-control" id="validationTooltip03" required=""
-                                    maxlength="50" control-id="ControlID-27">
+                                  <form:input path="obs" type="text" class="form-control" id="obs" required=""
+                                    maxlength="50" control-id="ControlID-27"/>
                                  <div class="invalid-tooltip">
                                     Debes completar su estado de salud.
                                  </div>
@@ -148,13 +137,15 @@
                            </div>
 
 
-                          
+
                            <div class="col-12 text-center mt-3">
                               <a href="new-post.html" class="btn btn-secondary">Cancelar</a>
                               <button class="btn btn-primary" type="submit" control-id="ControlID-30">Guardar</button>
                            </div>
-                        </form>
-
+                        </form:form>
+                        <c:if test="${not empty msg}">
+                        <h4><span>${msg}</span></h4>
+                        </c:if>
                      </div>
 
 
@@ -171,7 +162,6 @@
 <script src="vendor/dropzone/dropzone-min.js"></script>
 
 <script src="js/form-file-upload.init.js"></script>
-
 
 <!-- footer -->
 

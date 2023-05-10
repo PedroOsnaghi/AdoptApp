@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain;
 
-import ar.edu.unlam.tallerweb1.delivery.DatosIngresoMascota;
+import ar.edu.unlam.tallerweb1.delivery.Tipo;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,7 +9,7 @@ public class ServicioIngresarMascotaTest {
     @Test
     public void alIngresarLosDatosNecesariosDevuelveVerdadero()
     {
-        Boolean sonValidos = servicioIngresarMascota.sonValidos("Juan", DatosIngresoMascota.Tipo.valueOf("PERRO"), null , null , null);
+        Boolean sonValidos = servicioIngresarMascota.sonValidos("Juan", Tipo.PERRO, null , null , null);
         entoncesMisDatos(sonValidos);
 
     }

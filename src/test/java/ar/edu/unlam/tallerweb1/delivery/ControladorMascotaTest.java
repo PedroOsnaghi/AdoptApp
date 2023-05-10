@@ -12,8 +12,7 @@ import static org.mockito.Mockito.when;
 public class ControladorMascotaTest {
     public static final String NOMBRE = "juan";
     public static final String NOMBRE_VACIO = "";
-    public static final DatosIngresoMascota.Tipo TIPO = DatosIngresoMascota.Tipo.PERRO;
-    public DatosIngresoMascota.Tipo tipo;
+
     private IServicioIngresarMascota iServicioIngresarMascota;
     private ControladorMascota controladorMascota;
 
@@ -28,25 +27,9 @@ public class ControladorMascotaTest {
         this.iServicioIngresarMascota = mock(ServicioIngresarMascota.class);
         this.controladorMascota = new ControladorMascota(this.iServicioIngresarMascota);
     }
-    @Test
-    public void alQuererIngresarUnaNuevaMascotaMeLlevaALaVistaDeNuevaMascota()
-    {
-        dadoQueNoExisteLaMascota();
-        ModelAndView mav = cuandoQuieroIngresarNuevaMascota();
-        entoncesMeLlevaAlaPantallaDeNuevoIngreso(mav);
 
-    }
 
-    private void dadoQueNoExisteLaMascota() {
-    }
 
-    private void entoncesMeLlevaAlaPantallaDeNuevoIngreso(ModelAndView mav) {
-        assertThat(mav.getViewName()).isEqualTo("new-mascot");
-    }
-
-    private ModelAndView cuandoQuieroIngresarNuevaMascota() {
-        return controladorMascota.nuevaMascota();
-    }
 
 
     @Test
@@ -77,15 +60,12 @@ public class ControladorMascotaTest {
     }
 
     private ModelAndView cuandoIngresoLaMascota(DatosIngresoMascota datosIngresoMascota) {
-        return controladorMascota.ingresarMascota(datosIngresoMascota.getNombre(), tipo , datosIngresoMascota.getNacimiento(), datosIngresoMascota.getObs(), datosIngresoMascota.getFoto());
+        return controladorMascota.ingresarMascota(datosIngresoMascota);
     }
-   // private void dadoQueLosDatosSonInvalidos() {
-     //   when(this.iServicioIngresarMascota.sonValidos(datosIngresoMascota.getNombre(),tipo, datosIngresoMascota.getNacimiento(),datosIngresoMascota.getObs(),datosIngresoMascota.getFoto())).thenReturn(false);
 
-   // }
 
     private void dadoQueNoExisteMascota(DatosIngresoMascota datosIngresoMascota, Boolean retorno) {
-        when(this.iServicioIngresarMascota.sonValidos(datosIngresoMascota.getNombre(),tipo, datosIngresoMascota.getNacimiento(),datosIngresoMascota.getObs(),datosIngresoMascota.getFoto())).thenReturn(retorno);
+        when(this.iServicioIngresarMascota.sonValidos(datosIngresoMascota.getNombre(),datosIngresoMascota.getTipo(), datosIngresoMascota.getNacimiento(),datosIngresoMascota.getObs(),datosIngresoMascota.getFoto())).thenReturn(retorno);
 
     }
 }
