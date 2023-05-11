@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ControladorPublicacion {
-    private ServicioPublicacion servicioPublicacion;
+    private final ServicioPublicacion servicioPublicacion;
 
     @Autowired
     public ControladorPublicacion(ServicioPublicacion servicioPublicacion) {

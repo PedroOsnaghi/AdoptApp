@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ServicioPublicacion implements IServicioPublicacion{
 
-    private RepositorioPublicacion repositorioPublicacion;
+    private final RepositorioPublicacion repositorioPublicacion;
 
     @Autowired
     public ServicioPublicacion(RepositorioPublicacion repositorioPublicacion){
