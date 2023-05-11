@@ -1,7 +1,7 @@
 
 <!-- head -->
 
-<%@ include file="partials/head.jsp" %>
+<%@ include file="head.jsp" %>
 
    <!-- navbar superior -->
    <div class="iq-top-navbar">
@@ -194,16 +194,17 @@
                <li class="nav-item dropdown user-dropdown">
                   <a href="javascript:void(0);" class="d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <img src="images/user/1.jpg" class="img-fluid rounded-circle me-3" alt="user" loading="lazy">
+                     <img src="images/user/${usuario.imagen}" class="img-fluid rounded-circle me-3" alt="user" loading="lazy">
                      <div class="caption d-none d-lg-block">
-                        <h6 class="mb-0 line-height">Juan Daniel</h6>
+                        <h6 class="mb-0 line-height">${usuario.nombre}</h6>
                      </div>
                   </a>
+                  <!-- menu usuario -->
                   <div class="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
                      <div class="card shadow-none m-0">
                         <div class="card-header ">
                            <div class="header-title">
-                              <h5 class="mb-0 ">Hola Juan Daniel</h5>
+                              <h5 class="mb-0 ">Hola ${usuario.nombre}</h5>
                            </div>
                         </div>
                         <div class="card-body p-0 ">
