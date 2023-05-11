@@ -5,7 +5,7 @@ import java.util.List;
 public interface IServicioPublicacion {
 
     Publicacion findPublicacion(Long id);
-    void guardarPublicacion(Publicacion publicacion);
+    Publicacion guardarPublicacion(Publicacion publicacion);
     void modificarPublicacion(Publicacion publicacion);
 
     void eliminarPublicacion(Long IdPublicacion);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -25,9 +26,10 @@ public class ControladorPublicacion {
     }
 
     @RequestMapping(path = "/crear-publicacion", method = RequestMethod.POST)
-    public ModelAndView guardarPublicacion(@ModelAttribute("publicacion") DatosPublicacion datosPublicacion, HttpServletRequest request) {
+    public ModelAndView guardarPublicacion(@ModelAttribute("publicacion") DatosPublicacion datosPublicacion, HttpSession session) {
         ModelMap model = new ModelMap();
-        Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+
+        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
 
         try{
             Publicacion publicacion = new Publicacion();
@@ -38,7 +40,7 @@ public class ControladorPublicacion {
             publicacion.setMascotaId(datosPublicacion.getMascotaId());
             publicacion.setFechaCreacion(datosPublicacion.getFechaCreacion());
 
-            //servicioPublicacion.guardarPublicacion(publicacion);
+            servicioPublicacion.guardarPublicacion(publicacion);
         } catch (Exception e) {
             model.put("error", "No se pudo guardar la publicacion");
         }
@@ -50,15 +52,11 @@ public class ControladorPublicacion {
     @RequestMapping(path = "/publicaciones-feed", method = RequestMethod.GET)
     public ModelAndView verPublicacionesFeed() {
         ModelMap model = new ModelMap();
-        List<Publicacion> publicaciones = null;
 
-        try {
-            publicaciones = servicioPublicacion.listarPublicaciones();
-        } catch (Exception e) {
-            model.put("error", "No se encontraron publicaciones");
-        }
+        List<Publicacion> publicaciones = servicioPublicacion.listarPublicaciones();
 
         model.put("publicaciones", publicaciones);
+
         return new ModelAndView("index-feed", model);
     }
 

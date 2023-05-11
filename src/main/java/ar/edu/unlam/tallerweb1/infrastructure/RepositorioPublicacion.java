@@ -21,8 +21,8 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     }
 
     @Override
-    public void guardarPublicacion(Publicacion publicacion) {
-        sessionFactory.getCurrentSession().save(publicacion);
+    public Publicacion guardarPublicacion(Publicacion publicacion) {
+        return (Publicacion) sessionFactory.getCurrentSession().save(publicacion);
     }
 
     @Override

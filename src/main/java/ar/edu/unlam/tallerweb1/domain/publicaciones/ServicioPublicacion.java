@@ -24,8 +24,8 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
-    public void guardarPublicacion(Publicacion publicacion) {
-        repositorioPublicacion.guardarPublicacion(publicacion);
+    public Publicacion  guardarPublicacion(Publicacion publicacion) {
+       return repositorioPublicacion.guardarPublicacion(publicacion);
     }
 
     @Override

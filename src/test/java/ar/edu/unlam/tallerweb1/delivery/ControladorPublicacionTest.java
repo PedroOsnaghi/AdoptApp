@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.domain.publicaciones.Publicacion;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
+import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +12,8 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,46 +24,61 @@ import static org.mockito.Mockito.when;
 public class ControladorPublicacionTest {
     @Mock
     private ServicioPublicacion servicioPublicacion;
+
     @Mock
-    HttpServletRequest request;
+    HttpSession session;
+
     @InjectMocks
     ControladorPublicacion controladorPublicacion;
 
     @Test
     public void alPedirTodasLasPublicacionesDevuelveLaListaCompleta() {
-        List<Publicacion> datosPublicacion = dadoQueTengoDatosDePublicacionValidos();
-        ModelAndView vista = cuandoQuieroVerTodasLasPublicaciones(datosPublicacion);
+        dadoQueExistenPublicaciones();
+        ModelAndView vista = cuandoQuieroVerTodasLasPublicaciones();
         entoncesMeDevuelveLaVistaCorrecta(vista);
     }
 
     @Test
     public void testAlGuardarPublicacion() {
-        DatosPublicacion publicacion = dadoQueTengoDatosDePublicacion();
+        DatosPublicacion publicacion = dadoQueTengoDatosDePublicacionDeUnUsuario();
         ModelAndView vista = cuandoQuieroGuardarPublicacion(publicacion);
         entoncesMeDevuelveLaVistaCorrecta(vista);
     }
 
 
 
-    private DatosPublicacion dadoQueTengoDatosDePublicacion() {
-        DatosPublicacion publicacion = new DatosPublicacion();
-        publicacion.setCuerpo("Cuerpo");
-        publicacion.setTitulo("Titulo");
-        publicacion.setMascotaId(1L);
-        publicacion.setAutorId(1L);
-        publicacion.setFechaCreacion(new Date());
-        return publicacion;
+    private DatosPublicacion dadoQueTengoDatosDePublicacionDeUnUsuario() {
+        DatosPublicacion datosPublicacion = new DatosPublicacion();
+        datosPublicacion.setTitulo("Prueba");
+        datosPublicacion.setCuerpo("Esto es un Test de publicacion");
+
+        Usuario usuario = new Usuario();
+        usuario.setId(100L);
+        usuario.setEmail("aa@aa");
+
+
+        when(session.getAttribute("usuarioAutenticado")).thenReturn(usuario);
+
+
+        return datosPublicacion;
     }
     private ModelAndView cuandoQuieroGuardarPublicacion(DatosPublicacion datosPublicacion) {
-        return controladorPublicacion.guardarPublicacion(datosPublicacion, request);
+
+
+        when(servicioPublicacion.guardarPublicacion(new Publicacion())).thenReturn(null);
+
+
+        return controladorPublicacion.guardarPublicacion(datosPublicacion, session);
     }
 
-    private List<Publicacion> dadoQueTengoDatosDePublicacionValidos() {
-        return servicioPublicacion.listarPublicaciones();
+    private void dadoQueExistenPublicaciones() {
+
+        when(servicioPublicacion.listarPublicaciones()).thenReturn(new ArrayList<Publicacion>());
+
     }
 
-    private ModelAndView cuandoQuieroVerTodasLasPublicaciones(List<Publicacion> datosPublicacion) {
-        when(servicioPublicacion.listarPublicaciones()).thenReturn(datosPublicacion);
+    private ModelAndView cuandoQuieroVerTodasLasPublicaciones() {
+
         return controladorPublicacion.verPublicacionesFeed();
     }
 
