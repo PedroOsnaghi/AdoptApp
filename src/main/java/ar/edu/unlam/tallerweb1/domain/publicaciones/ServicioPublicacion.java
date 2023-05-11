@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.publicaciones;
 
+import ar.edu.unlam.tallerweb1.delivery.DatosPublicacion;
+import ar.edu.unlam.tallerweb1.infrastructure.IRepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +13,7 @@ import java.util.List;
 @Transactional
 public class ServicioPublicacion implements IServicioPublicacion{
 
-    private final RepositorioPublicacion repositorioPublicacion;
+    private RepositorioPublicacion repositorioPublicacion;
 
     @Autowired
     public ServicioPublicacion(RepositorioPublicacion repositorioPublicacion){
@@ -20,7 +22,7 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
     @Override
     public Publicacion findPublicacion (Long id) {
-        return repositorioPublicacion.findPublicacion(id);
+        return repositorioPublicacion.buscarPublicacionPorId(id);
     }
 
     @Override
@@ -34,7 +36,17 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
+    public void eliminarPublicacion(Long IdPublicacion) {
+
+    }
+
+    @Override
     public List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario) {
-        return null;
+        return repositorioPublicacion.listarPublicacionesPorUsuarioId(idUsuario);
+    }
+
+    @Override
+    public List<Publicacion> listarPublicaciones() {
+        return repositorioPublicacion.listarPublicaciones();
     }
 }

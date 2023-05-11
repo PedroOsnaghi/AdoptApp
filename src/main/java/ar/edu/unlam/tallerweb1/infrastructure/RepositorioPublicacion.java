@@ -4,6 +4,8 @@ import ar.edu.unlam.tallerweb1.domain.publicaciones.Publicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository("repositorioPublicacion")
 public class RepositorioPublicacion implements IRepositorioPublicacion {
 
@@ -12,7 +14,7 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     }
 
     @Override
-    public Publicacion findPublicacion(Long id) {
+    public Publicacion buscarPublicacionPorId(Long id) {
         return null;
     }
 
@@ -23,6 +25,20 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
 
     @Override
     public void modificarPublicacion(Publicacion publicacion) {
+    }
 
+    @Override
+    public void eliminarPublicacion(Long IdPublicacion) {
+
+    }
+
+    @Override
+    public List<Publicacion> listarPublicaciones() {
+        return null;
+    }
+
+    @Override
+    public List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario) {
+        return null;
     }
 }

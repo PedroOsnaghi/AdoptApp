@@ -8,5 +8,10 @@ public interface IServicioPublicacion {
     void guardarPublicacion(Publicacion publicacion);
     void modificarPublicacion(Publicacion publicacion);
 
+    void eliminarPublicacion(Long IdPublicacion);
+
+    List<Publicacion> listarPublicaciones();
+
     List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario);
+
 }
