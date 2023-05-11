@@ -101,7 +101,7 @@
                         </div>
                         <div class="flex-grow-1 ms-3">
                           <h6><strong>Olimpia </strong> <small class="text-muted">de <a
-                                  href="#">GastÃ³n Barrientos</a></small></h6>
+                                  href="#">Gastón Barrientos</a></small></h6>
                           <p class="mb-0">35 Interesados</p>
                         </div>
                         <div class="d-flex align-items-center mt-2 mt-md-0">
@@ -147,7 +147,7 @@
         <div class="card">
           <div class="card-header d-flex justify-content-between">
             <div class="header-title">
-              <h4 class="card-title">Acceso RÃ¡pido</h4>
+              <h4 class="card-title">Acceso Rápido</h4>
             </div>
           </div>
           <div class="card-body">
@@ -161,8 +161,8 @@
                                  </span>
 
                   <div class="stories-data ms-3">
-                    <h5>Crea una publicaciÃ³n</h5>
-                    <p class="mb-0">PublÃ­ca tu mascota</p>
+                    <h5>Crea una publicación</h5>
+                    <p class="mb-0">Publíca tu mascota</p>
                   </div>
                 </li>
               </a>

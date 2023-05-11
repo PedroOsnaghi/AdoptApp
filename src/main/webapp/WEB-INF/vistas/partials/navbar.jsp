@@ -194,7 +194,7 @@
                <li class="nav-item dropdown user-dropdown">
                   <a href="javascript:void(0);" class="d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <img src="${pageContext.request.contextPath}/images/user/${usuario.imagen}" class="img-fluid rounded-circle me-3" alt="user" loading="lazy">
+                     <img src="${pageContext.request.contextPath}/images/user/default.jpg" class="img-fluid rounded-circle me-3" alt="user" loading="lazy">
                      <div class="caption d-none d-lg-block">
                         <h6 class="mb-0 line-height">${usuario.nombre}</h6>
                      </div>
@@ -237,15 +237,15 @@
                                  login
                               </span>
                               <div class="ms-3">
-                                 <form action="cerrarSesion" method="POST">
+                                 <form action="${pageContext.request.contextPath}/cerrarSesion" method="POST">
                                  <button class="btn border-0 mb-0 h6">
-                                    Cerrar Sesi�n
+                                    Cerrar Sesión
                                  </button>
                                  </form>
                               </div>
                            </div>
                            <div class=" iq-sub-card">
-                              <h5>Configuraci�n</h5>
+                              <h5>Configuración</h5>
                            </div>
                            <div class=" mb-3 iq-sub-card border-0" data-setting="radio">
                               <div class="form-check mb-0 w-100">

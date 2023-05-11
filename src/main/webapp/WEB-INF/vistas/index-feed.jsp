@@ -21,7 +21,7 @@
                      <div id="post-modal-data" class="card card-block card-stretch card-height">
                         <div class="card-header d-flex justify-content-start">
                            <div class="user-img me-3">
-                              <img src="${pageContext.request.contextPath}/images/user/${usuario.imagen}" alt="userimg" class="avatar-60 rounded-circle"
+                              <img src="${pageContext.request.contextPath}/images/user/default.jpg" alt="userimg" class="avatar-60 rounded-circle"
                                  loading="lazy">
                            </div>
                            <div class="header-title">
