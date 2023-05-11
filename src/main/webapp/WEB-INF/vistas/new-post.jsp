@@ -30,7 +30,7 @@
 
                      <div class="card-body">
 
-                        <form id="form-wizard1" class="text-center mt-3">
+                        <form:form  class="text-center mt-3" action="" id="form"  method="POST" modelAttribute="" enctype="multipart/form-data">
                            <ul id="top-tab-list" class="p-0 row list-inline mb-2">
                               <li class="col-lg-4 col-md-12 text-start mb-2 active" id="mascota">
                                  <a href="javascript:void(0);">
@@ -69,7 +69,7 @@
                                        <hr class="mt-0">
                                        <div class="row">
                                           <div class="col-8">
-                                             <input type="radio" class="btn-check" name="mascota" id="m-1" checked>
+                                             <form:input path="" type="radio" class="btn-check" name="mascota" id="m-1" checked/>
                                              <label for="m-1" class="btn-radio-mascota mb-1 p-1 ps-2">
                                                 <div class="d-flex align-items-center  justify-content-between flex-wrap">
                                                    <div class="user-img img-fluid flex-shrink-0">
@@ -87,7 +87,7 @@
                                                   
                                                 </div>
                                              </label>
-                                             <input type="radio" class="btn-check" name="mascota" id="m-2">
+                                             <form:input path="" type="radio" class="btn-check" name="mascota" id="m-2"/>
                                              <label for="m-2" class="btn-radio-mascota mb-1 p-1 ps-2">
                                                 <div class="d-flex align-items-center  justify-content-between flex-wrap">
                                                    <div class="user-img img-fluid flex-shrink-0">
@@ -128,7 +128,7 @@
 
                                        <div class="dropzone mb-3">
                                           <div class="fallback">
-                                             <input name="file" type="file" multiple="multiple">
+                                             <form:input path="" name="file" type="file" multiple="multiple"/>
                                           </div>
                                           <div class=" dz-message needsclick">
                                              <div class="mb-3">
@@ -202,8 +202,8 @@
                                                 </p>
                                              </div>
                                              <div class="card-body">
-                                                <input type="text" class="form-control" id="exampleInputText1"
-                                                   placeholder="Escribe tu dirección..." control-id="ControlID-9">
+                                                <form:input path="" type="text" class="form-control" id="exampleInputText1"
+                                                   placeholder="Escribe tu dirección..." control-id="ControlID-9"/>
 
                                                 <div>
                                                    <img src="images/page-img/mapa.avif"
@@ -222,8 +222,12 @@
                                                 </p>
                                              </div>
                                              <div class="card-body">
-                                                
-                                                   <textarea class="form-control" name="" rows="5" placeholder="Escribe aqui los dias y horarios para que el Adoptante pueda encontrarse contigo y retirar la mascota" ></textarea>
+
+                                                <form:textarea path=""
+                                                               class="form-control"
+                                                               name=""
+                                                               rows="5"
+                                                               placeholder="Escribe aqui los dias y horarios para que el Adoptante pueda encontrarse contigo y retirar la mascota"></form:textarea>
                                               
                                              </div>
 
@@ -233,14 +237,14 @@
                                  </div>
                               </div>
                             
-                              <button type="button" name="next" class="btn btn-primary next action-button float-end"
+                              <button type="submit" name="next" class="btn btn-primary next action-button float-end"
                                  value="Submit" control-id="ControlID-8">Publicar</button>
                               <button type="button" name="previous"
                                  class="btn btn-dark previous action-button-previous float-end me-3" value="Previous"
                                  control-id="ControlID-9">Atrás</button>
                            </fieldset>
                         
-                        </form>
+                        </form:form>
 
 
 

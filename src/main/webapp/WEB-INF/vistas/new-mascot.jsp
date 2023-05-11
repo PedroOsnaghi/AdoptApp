@@ -27,7 +27,7 @@
                      </div>
                      <div class="card-body">
 
-                        <form class="row needs-validation" novalidate="">
+                        <form:form class="row needs-validation" action="" id="form"  method="POST" modelAttribute="" enctype="multipart/form-data" novalidate="" >
                            <div class="row align-items-center mb-3">
                               <div class="col-3 ">
                                  <div class="profile-img ms-2">
@@ -37,7 +37,7 @@
                                        id="preview" alt="">
                                     <div class="material-symbols-outlined btn btn-primary btn-profile">
                                        photo_camera
-                                       <input path="imagen" name="archivoImagen" id="file" type="file"
+                                       <form:input path="imagen" name="archivoImagen" id="file" type="file"
                                           class="form-control opacity-0" />
 
                                     </div>
@@ -48,8 +48,8 @@
                               <div class="col-9 position-relative">
                                  <label for="nombre" class="form-label"><strong>Cómo se llama la mascota
                                        ?</strong></label>
-                                 <input type="text" class="form-control" id="nombre" required=""
-                                    placeholder="Escribe el nombre..." control-id="ControlID-24">
+                                 <form:input path="" type="text" class="form-control" id="nombre" required=""
+                                    placeholder="Escribe el nombre..." control-id="ControlID-24"/>
                                  <div class="invalid-tooltip">
                                     Debes poner un nombre.
                                  </div>
@@ -68,32 +68,32 @@
                               <div class="col-md-6 position-relative">
                                  <label for="validationTooltip04" class="form-label"><strong>Qué tipo de mascota
                                        es?</strong></label>
-                                 <select class="form-select" id="validationTooltip04" required=""
+                                 <form:select path="" class="form-select" id="validationTooltip04" required=""
                                     control-id="ControlID-28">
-                                    <option selected="" disabled="" value="">Selecciona un tipo</option>
-                                    <option>PERRO</option>
-                                    <option>GATO</option>
-                                 </select>
+                                    <form:option selected="" disabled="" value="0">Selecciona un tipo</form:option>
+                                    <form:option value="1">PERRO</form:option>
+                                    <form:option value="2">GATO</form:option>
+                                 </form:select>
                                  <div class="invalid-tooltip">
                                     Selecciona un tipo.
                                  </div>
                               </div>
                               <div class="col-md-6 position-relative">
                                  <label for="validationTooltip04" class="form-label"><strong>Género</strong></label>
-                                 <select class="form-select" id="validationTooltip04" required=""
+                                 <form:select path="" class="form-select" id="validationTooltip04" required=""
                                     control-id="ControlID-28">
-                                    <option selected="" disabled="" value="">Selecciona un Género</option>
-                                    <option>HEMBRA</option>
-                                    <option>MACHO</option>
-                                 </select>
+                                    <form:option selected="" disabled="" value="0">Selecciona un Género</form:option>
+                                    <form:option value="1">HEMBRA</form:option>
+                                    <form:option value="2">MACHO</form:option>
+                                 </form:select>
                                  <div class="invalid-tooltip">
                                     Selecciona un género.
                                  </div>
                               </div>
                               <div class="col-md-6 position-relative">
                                  <label for="validationTooltip02" class="form-label"><strong>Raza</strong></label>
-                                 <input type="text" class="form-control" id="validationTooltip02"
-                                    placeholder="Que raza es?" required="" control-id="ControlID-25">
+                                 <form:input path="" type="text" class="form-control" id="validationTooltip02"
+                                    placeholder="Que raza es?" required="" control-id="ControlID-25"/>
                                  <div class="invalid-tooltip">
                                     Selecciona una Raza.
                                  </div>
@@ -102,29 +102,29 @@
                                  <label class="form-label" for="exampleInputNumber1"><strong>Cuanto pesa en
                                        Kg?</strong>
                                     (aporx.)</label>
-                                 <input type="number" class="form-control" id="exampleInputNumber1" value="0.5"
-                                    step="0.500" control-id="ControlID-13">
+                                 <form:input path="" type="number" class="form-control" id="exampleInputNumber1" value="0.5"
+                                    step="0.500" control-id="ControlID-13"/>
                               </div>
                               <div class="col-md-6 position-relative">
                                  <label class="form-label" for="exampleInputdate"><strong>Cúando nació?</strong> (si
                                     no sábes dejalo
                                     vacio)</label>
-                                 <input type="date" class="form-control" id="exampleInputdate" value="Now"
+                                 <form:input path="" type="date" class="form-control" id="exampleInputdate" value="Now"
                                     control-id="ControlID-15">
                               </div>
                               <div class="col-md-6 position-relative">
                                  <label for="validationTooltip04" class="form-label"><strong>Descríbe su
                                        personalidad</strong></label>
-                                 <select class="form-select" id="validationTooltip04" required=""
+                                 <form:select path="" class="form-select" id="validationTooltip04" required=""
                                     control-id="ControlID-28">
-                                    <option selected="" disabled="" value="">Selecciona una</option>
-                                    <option>Cariñoso/a</option>
-                                    <option>Amoroso/a</option>
-                                    <option>Jugueton/a</option>
-                                    <option>Travieso/a</option>
-                                    <option>Dormilon/a</option>
-                                    <option>Momoso/a</option>
-                                 </select>
+                                    <form:option selected="" disabled="" value="0">Selecciona una</form:option>
+                                    <form:option value="">Cariñoso/a</form:option>
+                                    <form:option value="">Amoroso/a</form:option>
+                                    <form:option value="">Jugueton/a</form:option>
+                                    <form:option value="">Travieso/a</form:option>
+                                    <form:option value="">Dormilon/a</form:option>
+                                    <form:option value="">Momoso/a</form:option>
+                                 </form:select>
                                  <div class="invalid-tooltip">
                                     Selecciona una personalidad.
                                  </div>
@@ -132,8 +132,8 @@
                               <div class="col-md-12 position-relative">
                                  <label for="validationTooltip03" class="form-label"><strong>Cual es su estado de
                                        salud?</strong> (50 caracteres)</label>
-                                 <input type="text" class="form-control" id="validationTooltip03" required=""
-                                    maxlength="50" control-id="ControlID-27">
+                                 <form:input path="" type="text" class="form-control" id="validationTooltip03" required=""
+                                    maxlength="50" control-id="ControlID-27"/>
                                  <div class="invalid-tooltip">
                                     Debes completar su estado de salud.
                                  </div>
@@ -153,7 +153,7 @@
                               <a href="new-post.html" class="btn btn-secondary">Cancelar</a>
                               <button class="btn btn-primary" type="submit" control-id="ControlID-30">Guardar</button>
                            </div>
-                        </form>
+                        </form:form>
 
                      </div>
 
