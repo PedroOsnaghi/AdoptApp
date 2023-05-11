@@ -1,15 +1,4 @@
-<!-- head -->
-
 <%@ include file="partials/head.jsp" %>
-
-<!-- navbar -->
-
-<%@ include file="partials/navbar.jsp" %>
-
-<!-- sidebar -->
-<%@ include file="partials/sidebar.jsp" %>
-
-
    
 <!-- AQUI VA EL CONTENIDO -->
 
@@ -22,23 +11,23 @@
                      <div class="card-header d-flex justify-content-start">
                         <div class="header-title">
                            <h4 class="card-title">Nueva Mascota</h4>
-                           <p class="link-primary mb-3">Aquí puedes registrar una nueva Mascota en tu lista.</p>
+                           <p class="link-primary mb-3">Aquï¿½ puedes registrar una nueva Mascota en tu lista.</p>
                         </div>
                      </div>
                      <div class="card-body">
+                    <form:form class="row" action="ingresar-mascota" method="POST" modelAttribute="datosIngresoMascota">
 
-                        <form:form class="row needs-validation" action="" id="form"  method="POST" modelAttribute="" enctype="multipart/form-data" novalidate="" >
                            <div class="row align-items-center mb-3">
                               <div class="col-3 ">
                                  <div class="profile-img ms-2">
 
 
-                                    <img class="avatar-130 img-fluid" src="${pageContext.request.contextPath}/images/mascota/profiles/default.webp"
+                                    <img class="avatar-130 img-fluid" src="images/mascota/profiles/default.webp"
                                        id="preview" alt="">
                                     <div class="material-symbols-outlined btn btn-primary btn-profile">
                                        photo_camera
-                                       <form:input path="imagen" name="archivoImagen" id="file" type="file"
-                                          class="form-control opacity-0" />
+                                       <input path="" name="archivoImagen" id="file" type="file"
+                                          class="form-control opacity-0" >
 
                                     </div>
                                  </div>
@@ -46,10 +35,10 @@
                               </div>
 
                               <div class="col-9 position-relative">
-                                 <label for="nombre" class="form-label"><strong>Cómo se llama la mascota
+                                 <label for="nombre" class="form-label"><strong>Cï¿½mo se llama la mascota
                                        ?</strong></label>
-                                 <form:input path="" type="text" class="form-control" id="nombre" required=""
-                                    placeholder="Escribe el nombre..." control-id="ControlID-24"/>
+                                 <form:input path="nombre" type="text" class="form-control" id="nombre" required=""
+                                    placeholder="Escribe el nombre..." control-id="ControlID-24" />
                                  <div class="invalid-tooltip">
                                     Debes poner un nombre.
                                  </div>
@@ -57,98 +46,90 @@
 
                            </div>
 
-
-
-
-
-                           <h5>Ficha de Mascota</h5>
+           <h5>Ficha de Mascota</h5>
                            <hr class="mt-0">
 
                            <div class="row ">
                               <div class="col-md-6 position-relative">
-                                 <label for="validationTooltip04" class="form-label"><strong>Qué tipo de mascota
+                                 <label for="validationTooltip04" class="form-label"><strong>Quï¿½ tipo de mascota
                                        es?</strong></label>
-                                 <form:select path="" class="form-select" id="validationTooltip04" required=""
-                                    control-id="ControlID-28">
-                                    <form:option selected="" disabled="" value="0">Selecciona un tipo</form:option>
-                                    <form:option value="1">PERRO</form:option>
-                                    <form:option value="2">GATO</form:option>
-                                 </form:select>
+                                  <form:input path="tipo" type="text" class="form-control" id="tipo" required=""
+                                    placeholder="Escribe el tipo..." control-id="ControlID-24" />
                                  <div class="invalid-tooltip">
                                     Selecciona un tipo.
                                  </div>
                               </div>
-                              <div class="col-md-6 position-relative">
-                                 <label for="validationTooltip04" class="form-label"><strong>Género</strong></label>
-                                 <form:select path="" class="form-select" id="validationTooltip04" required=""
-                                    control-id="ControlID-28">
-                                    <form:option selected="" disabled="" value="0">Selecciona un Género</form:option>
-                                    <form:option value="1">HEMBRA</form:option>
-                                    <form:option value="2">MACHO</form:option>
-                                 </form:select>
-                                 <div class="invalid-tooltip">
-                                    Selecciona un género.
-                                 </div>
+
+                                <div class="col-md-6 position-relative">
+                                 <label for="validationTooltip04" class="form-label"><strong>Gï¿½nero</strong></label>
+                                 <select class="form-select" id="validationTooltip04" >
+                                    <option selected="" disabled="" value="">Selecciona un Gï¿½nero</option>
+                                    <option>HEMBRA</option>
+                                    <option>MACHO</option>
+                                 </select>
+
                               </div>
-                              <div class="col-md-6 position-relative">
+
+                        <div class="col-md-6 position-relative">
                                  <label for="validationTooltip02" class="form-label"><strong>Raza</strong></label>
-                                 <form:input path="" type="text" class="form-control" id="validationTooltip02"
-                                    placeholder="Que raza es?" required="" control-id="ControlID-25"/>
+                               <form:input path="raza" type="text" class="form-control" id="raza" required=""
+                                   placeholder="Escribe la raza" control-id="ControlID-24" />
                                  <div class="invalid-tooltip">
-                                    Selecciona una Raza.
+                                    Escribe una Raza.
                                  </div>
                               </div>
-                              <div class="col-md-6 position-relative">
+
+                                <div class="col-md-6 position-relative">
                                  <label class="form-label" for="exampleInputNumber1"><strong>Cuanto pesa en
                                        Kg?</strong>
                                     (aporx.)</label>
-                                 <form:input path="" type="number" class="form-control" id="exampleInputNumber1" value="0.5"
+                                  <form:input path="peso" type="number" class="form-control" id="exampleInputNumber1" value="0.5"
                                     step="0.500" control-id="ControlID-13"/>
                               </div>
-                              <div class="col-md-6 position-relative">
-                                 <label class="form-label" for="exampleInputdate"><strong>Cúando nació?</strong> (si
-                                    no sábes dejalo
+
+                                <div class="col-md-6 position-relative">
+                                 <label class="form-label" for="exampleInputdate"><strong>Cï¿½ando naciï¿½?</strong> (si
+                                    no sï¿½bes dejalo
                                     vacio)</label>
-                                 <form:input path="" type="date" class="form-control" id="exampleInputdate" value="Now"
+                                  <input path="" type="date"  class="form-control" id="nacimiento" value="Now"
                                     control-id="ControlID-15">
                               </div>
-                              <div class="col-md-6 position-relative">
-                                 <label for="validationTooltip04" class="form-label"><strong>Descríbe su
+                       <div class="col-md-6 position-relative">
+                                 <label for="validationTooltip04" class="form-label"><strong>Descrï¿½be su
                                        personalidad</strong></label>
-                                 <form:select path="" class="form-select" id="validationTooltip04" required=""
-                                    control-id="ControlID-28">
-                                    <form:option selected="" disabled="" value="0">Selecciona una</form:option>
-                                    <form:option value="">Cariñoso/a</form:option>
-                                    <form:option value="">Amoroso/a</form:option>
-                                    <form:option value="">Jugueton/a</form:option>
-                                    <form:option value="">Travieso/a</form:option>
-                                    <form:option value="">Dormilon/a</form:option>
-                                    <form:option value="">Momoso/a</form:option>
-                                 </form:select>
-                                 <div class="invalid-tooltip">
-                                    Selecciona una personalidad.
-                                 </div>
+                                 <select class="form-select" id="validationTooltip04" >
+                                    <option selected="" disabled="" value="">Selecciona una</option>
+                                    <option>Cariï¿½oso/a</option>
+                                    <option>Amoroso/a</option>
+                                    <option>Jugueton/a</option>
+                                    <option>Travieso/a</option>
+                                    <option>Dormilon/a</option>
+                                    <option>Momoso/a</option>
+                                 </select>
+
                               </div>
                               <div class="col-md-12 position-relative">
                                  <label for="validationTooltip03" class="form-label"><strong>Cual es su estado de
                                        salud?</strong> (50 caracteres)</label>
-                                 <form:input path="" type="text" class="form-control" id="validationTooltip03" required=""
+                                  <form:input path="obs" type="text" class="form-control" id="obs" required=""
                                     maxlength="50" control-id="ControlID-27"/>
                                  <div class="invalid-tooltip">
                                     Debes completar su estado de salud.
                                  </div>
                               </div>
+                              <c:if test="${not empty msg}">
+
                               <div class=" col-md-12 position-relative mt-2 mb-2">
                                  <div class="alert alert-solid alert-danger alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
                                      <span class="d-flex"><i class="material-symbols-outlined">error</i></span>
-                                     <span> Ups! aqui va un mensaje de error</span>
+                                     <span><h4><span>${msg}</span></h4></span>
                                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close" control-id="ControlID-9"></button>
                                   </div>
                              </div>
                            </div>
+</c:if>
 
 
-                          
                            <div class="col-12 text-center mt-3">
                               <a href="new-post.html" class="btn btn-secondary">Cancelar</a>
                               <button class="btn btn-primary" type="submit" control-id="ControlID-30">Guardar</button>
@@ -171,7 +152,6 @@
 <script src="vendor/dropzone/dropzone-min.js"></script>
 
 <script src="js/form-file-upload.init.js"></script>
-
 
 <!-- footer -->
 

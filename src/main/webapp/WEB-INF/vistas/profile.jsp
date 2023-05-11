@@ -1,15 +1,4 @@
-<!-- head -->
-
 <%@ include file="partials/head.jsp" %>
-
-<!-- navbar -->
-
-<%@ include file="partials/navbar.jsp" %>
-
-<!-- sidebar -->
-
-<%@ include file="partials/sidebar.jsp" %>
-
 
  
 <!-- AQUI VA EL CONTENIDO -->
@@ -174,7 +163,7 @@
                                              <table class="table forum-table mb-0 rounded">
                                                 <thead class="bg-primary text-white">
                                                    <tr>
-                                                      <th>Publicacíon</th>
+                                                      <th>Publicacï¿½on</th>
                                                       <th>Solicitudes</th>
                                                       <th>Preguntas</th>
                                                       <th>Estado</th>
@@ -192,7 +181,7 @@
                                                                   <h6 class="text-dark"><strong>Ninna</strong> </h6>
                                                                   <p class="mb-0"><span class="text-muted">Hace </span>
                                                                      <span class="link-primary"> 3
-                                                                        días</span>
+                                                                        dï¿½as</span>
                                                                   </p>
                                                                </div>
                                                             </div>
@@ -281,7 +270,7 @@
                                                    </div>
                                                    <div class="flex-grow-1 ms-3">
                                                       <h6><strong>Olimpia </strong> <small class="text-muted">de <a
-                                                               href="#">Gastón Barrientos</a></small></h6>
+                                                               href="#">Gastï¿½n Barrientos</a></small></h6>
                                                       <p class="mb-0">35 Interesados</p>
                                                    </div>
                                                    <div class="d-flex align-items-center mt-2 mt-md-0">
@@ -303,7 +292,7 @@
                                           <!-- POR ADOPTAR -->
                                           <div class="tab-pane fade " id="v-pills-poradoptar-tab" role="tabpanel"
                                              aria-labelledby="v-pills-poradoptar-tab">
-                                             <h4>Mis Solicitudes de Adopción</h4>
+                                             <h4>Mis Solicitudes de Adopciï¿½n</h4>
                                              <hr>
                                              <ul class="request-list list-inline m-0 p-0">
                                                 <li
@@ -386,7 +375,7 @@
                                              <div class="d-flex align-items-center justify-content-between">
                                                 <h4>Mis Mascotas</h4>
                                                 <div >
-                                                   <a href="new-mascot.html" class="btn btn-primary">Agregar nueva..</a>
+                                                   <a href="new-mascot" class="btn btn-primary">Agregar nueva Mascota</a>
                                                 </div>
                                              </div>
                                              
@@ -472,7 +461,7 @@
                                  <ul class="nav nav-pills basic-info-items list-inline d-block p-0 m-0">
                                     <li>
                                        <a class="nav-link active" href="#v-pills-basicinfo-tab" data-bs-toggle="pill"
-                                          data-bs-target="#v-pills-basicinfo-tab" role="button">Información Personal
+                                          data-bs-target="#v-pills-basicinfo-tab" role="button">Informaciï¿½n Personal
                                        </a>
                                     </li>
 
@@ -487,7 +476,7 @@
                                     <div class="tab-pane fade show active" id="v-pills-basicinfo-tab" role="tabpanel"
                                        aria-labelledby="v-pills-basicinfo-tab">
                                        <div class="d-flex align-items-center justify-content-between">
-                                          <h4>Información Personal</h4>
+                                          <h4>Informaciï¿½n Personal</h4>
                                           <a href="edit-profile.html" class="material-symbols-outlined btn btn-primary">
                                              edit
                                           </a>
@@ -497,12 +486,12 @@
                                        <div class="alert alert-warning d-flex align-items-center" role="alert">
                                           <i class="fa-solid fa-triangle-exclamation font-size-14 me-2"></i>
                                           <div>
-                                             Actualiza tu Información Personal. Te dará mejor reputación para Adoptar.
+                                             Actualiza tu Informaciï¿½n Personal. Te darï¿½ mejor reputaciï¿½n para Adoptar.
                                           </div>
                                        </div>
                                        <div class="row mb-2">
                                           <div class="col-3">
-                                             <h6>Presentación:</h6>
+                                             <h6>Presentaciï¿½n:</h6>
                                           </div>
                                           <div class="col-9">
                                              <p class="mb-0"></p>
@@ -558,7 +547,7 @@
                                        </div>
                                        <div class="row mb-2">
                                           <div class="col-3">
-                                             <h6>Teléfono:</h6>
+                                             <h6>Telï¿½fono:</h6>
                                           </div>
                                           <div class="col-9">
                                              <p class="mb-0">(011) --</p>
@@ -594,7 +583,7 @@
                         <div class="col-md-4">
                            <div class="card">
                               <div class="card-body">
-                                 <h4>Publicación</h4>
+                                 <h4>Publicaciï¿½n</h4>
                                  <hr>
                                  <ul class="nav nav-pills basic-info-items list-inline d-block p-0 m-0">
                                     <li>
@@ -610,7 +599,7 @@
                                                 <h6 class="text-dark"><strong>Ninna</strong> </h6>
                                                 <p class="mb-0"><span class="text-muted">Hace </span>
                                                    <span class="link-primary"> 3
-                                                      días</span>
+                                                      dï¿½as</span>
                                                 </p>
                                              </div>
                                              
@@ -648,7 +637,7 @@
                            <div class="card">
                               <div class="card-body">
                                  <div class="">
-                                    <h4>Solicitudes de Adopción</h4>
+                                    <h4>Solicitudes de Adopciï¿½n</h4>
                                     <p class="font-size-12 text-primary">Elije al mejor candidato para tu mascota. </p>
                                   
                                  </div>
@@ -731,7 +720,7 @@
                                     aria-labelledby="v-pills-solicitud-p2-tab">
                                   
                                   <div class="d-flex w-100 justify-content-center">
-                                    <p class="text-muted">Aún no tenés Solicitudes para esta publicación</p>
+                                    <p class="text-muted">Aï¿½n no tenï¿½s Solicitudes para esta publicaciï¿½n</p>
                                   </div>
                                  
 
@@ -752,7 +741,7 @@
                       <div class="col-md-4">
                          <div class="card">
                             <div class="card-body">
-                               <h4>Publicación</h4>
+                               <h4>Publicaciï¿½n</h4>
                                <hr>
                                <ul class="nav nav-pills basic-info-items list-inline d-block p-0 m-0">
                                   <li>
@@ -768,7 +757,7 @@
                                               <h6 class="text-dark"><strong>Ninna</strong> </h6>
                                               <p class="mb-0"><span class="text-muted">Hace </span>
                                                  <span class="link-primary"> 3
-                                                    días</span>
+                                                    dï¿½as</span>
                                               </p>
                                            </div>
                                            
@@ -816,7 +805,7 @@
                                   <div class="tab-pane fade show active" id="v-pills-preguntas-p1-tab" role="tabpanel"
                                      aria-labelledby="v-pills-preguntas-p1-tab">
                                      <div class="d-flex w-100 justify-content-center">
-                                       <p class="text-muted">Aún no has recibido preguntas para esta publicación</p>
+                                       <p class="text-muted">Aï¿½n no has recibido preguntas para esta publicaciï¿½n</p>
                                      </div>
                                     
 
@@ -829,7 +818,7 @@
                                   aria-labelledby="v-pills-preguntas-p2-tab">
                                 
                                 <div class="d-flex w-100 justify-content-center">
-                                  <p class="text-muted">Aún no has recibido preguntas para esta publicación</p>
+                                  <p class="text-muted">Aï¿½n no has recibido preguntas para esta publicaciï¿½n</p>
                                 </div>
                                
 
@@ -843,7 +832,17 @@
                 </div>
                 </div>
                 
+ <c:if test="${not empty msg}">
 
+                              <div class=" col-md-12 position-relative mt-2 mb-2">
+                                 <div class="alert alert-solid  alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
+                                     <span class="d-flex"><i class="material-symbols-outlined">error</i></span>
+                                     <span><h4><span>${msg}</span></h4></span>
+                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close" control-id="ControlID-9"></button>
+                                  </div>
+                             </div>
+                           </div>
+                        </c:if>
                </div>
             
             </div>
