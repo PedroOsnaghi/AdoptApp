@@ -10,26 +10,22 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 public class ControladorMascotaTest {
-    public static final String NOMBRE = "juan";
-    public static final String NOMBRE_VACIO = "";
+
 
     private IServicioIngresarMascota iServicioIngresarMascota;
     private ControladorMascota controladorMascota;
 
     private DatosIngresoMascota datosIngresoMascota;
-    private DatosIngresoMascota datosIngresoMascotaInvalidos;
+
 
     @Before
     public void init()
     {
-        this.datosIngresoMascotaInvalidos  = new DatosIngresoMascota();
+
         this.datosIngresoMascota  = new DatosIngresoMascota();
         this.iServicioIngresarMascota = mock(ServicioIngresarMascota.class);
         this.controladorMascota = new ControladorMascota(this.iServicioIngresarMascota);
     }
-
-
-
 
 
     @Test
@@ -44,8 +40,8 @@ public class ControladorMascotaTest {
     public void alNoIngresarDatosMinimosDeMascotaNoSePuedeIgresarLaMisma()
     {
 
-        dadoQueNoExisteMascota(this.datosIngresoMascotaInvalidos, false);
-        ModelAndView mav = cuandoIngresoLaMascota(this.datosIngresoMascotaInvalidos);
+        dadoQueNoExisteMascota(this.datosIngresoMascota, false);
+        ModelAndView mav = cuandoIngresoLaMascota(this.datosIngresoMascota);
         entoncesElIngresoNoEsExitoso(mav);
     }
 
@@ -56,7 +52,7 @@ public class ControladorMascotaTest {
 
     private void entoncesElIngresoNoEsExitoso(ModelAndView mav) {
         assertThat(mav.getViewName()).isEqualTo("new-mascot");
-        assertThat(mav.getModel().get("msg")).isEqualTo("No se Pudo Ingresar La mascota");
+        assertThat(mav.getModel().get("msg")).isEqualTo("No se Pudo Ingresar La mascota, ingrese los campos mínimos");
     }
 
     private ModelAndView cuandoIngresoLaMascota(DatosIngresoMascota datosIngresoMascota) {
@@ -65,7 +61,7 @@ public class ControladorMascotaTest {
 
 
     private void dadoQueNoExisteMascota(DatosIngresoMascota datosIngresoMascota, Boolean retorno) {
-        when(this.iServicioIngresarMascota.sonValidos(datosIngresoMascota.getNombre(),datosIngresoMascota.getTipo(), datosIngresoMascota.getNacimiento(),datosIngresoMascota.getObs(),datosIngresoMascota.getFoto())).thenReturn(retorno);
+        when(this.iServicioIngresarMascota.sonValidos(datosIngresoMascota.getNombre(),datosIngresoMascota.getTipo(), datosIngresoMascota.getRaza(), datosIngresoMascota.getPeso(),datosIngresoMascota.getNacimiento(),datosIngresoMascota.getObs(),datosIngresoMascota.getFoto())).thenReturn(retorno);
 
     }
 }

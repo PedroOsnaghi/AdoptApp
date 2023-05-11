@@ -19,31 +19,33 @@ public class ControladorMascota {
         this.iServicioIngresarMascota = iServicioIngresarMascota;
     }
 
+    @RequestMapping("/new-mascot")
+    public ModelAndView irANewMascot() {
+
+        ModelMap modelo = new ModelMap();
+
+        modelo.put("datosIngresoMascota",new DatosIngresoMascota());
+
+        return new ModelAndView("new-mascot", modelo);
+    }
 
 
-
-    @RequestMapping(value = "/new-mascot", method={RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(path = "/ingresar-mascota", method=RequestMethod.POST)
     public ModelAndView ingresarMascota(@ModelAttribute DatosIngresoMascota datosIngresoMascota) {
-
         ModelMap model = new ModelMap();
 
         String viewName = "";
 
         if (this.iServicioIngresarMascota.sonValidos(datosIngresoMascota.getNombre(),datosIngresoMascota.getTipo(),
-                datosIngresoMascota.getNacimiento() , datosIngresoMascota.getObs() ,  datosIngresoMascota.getFoto()))
+                datosIngresoMascota.getRaza(), datosIngresoMascota.getPeso(), datosIngresoMascota.getNacimiento() , datosIngresoMascota.getObs() ,  datosIngresoMascota.getFoto()))
         {
-
             model.put("msg", "Mascota Ingresada");
-
             viewName = "profile";
 
-
         } else {
-            model.put("msg", "No se Pudo Ingresar La mascota");
+            model.put("msg", "No se Pudo Ingresar La mascota, ingrese los campos mínimos");
             model.put("datosIngresoMascota",new DatosIngresoMascota());
             viewName = "new-mascot";
-
-
 
         }
         return new ModelAndView(viewName, model);

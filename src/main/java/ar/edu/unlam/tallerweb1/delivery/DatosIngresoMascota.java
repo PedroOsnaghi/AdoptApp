@@ -6,31 +6,36 @@ import java.util.Date;
 public class DatosIngresoMascota {
 
     private String nombre;
+    private String tipo;
 
-    private Tipo tipo;
+    private String raza;
 
+
+
+    private Float peso;
     private Date nacimiento;
     private String obs;
     private File foto;
 
-
-
-
-    public DatosIngresoMascota() {
-        this.nombre = nombre;
-        this.tipo = tipo;
-        this.nacimiento = nacimiento;
-        this.obs = obs;
-        this.foto = foto;
-
-
-    }
 
     public String getNombre() {
         return nombre;
     }
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    public String getTipo() {
+        return tipo;
+    }
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getRaza() {
+        return raza;
+    }
+    public void setRaza(String raza) {
+        this.raza = raza;
     }
     public Date getNacimiento() {
         return nacimiento;
@@ -40,15 +45,16 @@ public class DatosIngresoMascota {
         this.nacimiento = nacimiento;
     }
 
-    public Tipo getTipo(){
-        return tipo;
-    }
-    public void setTipo(Tipo tipo) {
-        this.tipo = tipo;
-    }
-
     public String getObs() {
         return obs;
+    }
+
+    public Float getPeso() {
+        return peso;
+    }
+
+    public void setPeso(Float peso) {
+        this.peso = peso;
     }
 
     public void setObs(String obs) {

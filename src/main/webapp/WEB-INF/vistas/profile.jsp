@@ -832,7 +832,17 @@
                 </div>
                 </div>
                 
+ <c:if test="${not empty msg}">
 
+                              <div class=" col-md-12 position-relative mt-2 mb-2">
+                                 <div class="alert alert-solid  alert-dismissible fade show d-flex align-items-center gap-2" role="alert">
+                                     <span class="d-flex"><i class="material-symbols-outlined">error</i></span>
+                                     <span><h4><span>${msg}</span></h4></span>
+                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close" control-id="ControlID-9"></button>
+                                  </div>
+                             </div>
+                           </div>
+                        </c:if>
                </div>
             
             </div>
