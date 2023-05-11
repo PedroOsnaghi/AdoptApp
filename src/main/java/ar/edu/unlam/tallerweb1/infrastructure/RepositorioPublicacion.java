@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.domain.publicaciones.Publicacion;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -8,9 +9,10 @@ import java.util.List;
 
 @Repository("repositorioPublicacion")
 public class RepositorioPublicacion implements IRepositorioPublicacion {
-
+    private SessionFactory sessionFactory;
     @Autowired
-    public RepositorioPublicacion(){
+    public RepositorioPublicacion(SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
     }
 
     @Override
@@ -20,7 +22,7 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
 
     @Override
     public void guardarPublicacion(Publicacion publicacion) {
-
+        sessionFactory.getCurrentSession().save(publicacion);
     }
 
     @Override

@@ -20,13 +20,19 @@ public class Publicacion {
     private String direccion;
     private Double latitud;
     private Double longitud;
-
     private EstadoPublicacion estado;
     private Long autorId;
     private Long mascotaId;
 
     private Date fechaCreacion;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getCuerpo() {
         return cuerpo;
@@ -106,12 +112,5 @@ public class Publicacion {
 
     public void setFechaCreacion(Date fechaCreacion) {
         this.fechaCreacion = fechaCreacion;
-    }
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 }
