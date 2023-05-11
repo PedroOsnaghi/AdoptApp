@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service("servicioPublicacion")
 @Transactional
 public class ServicioPublicacion implements IServicioPublicacion{
@@ -29,5 +31,10 @@ public class ServicioPublicacion implements IServicioPublicacion{
     @Override
     public void modificarPublicacion(Publicacion publicacion) {
 
+    }
+
+    @Override
+    public List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario) {
+        return null;
     }
 }
