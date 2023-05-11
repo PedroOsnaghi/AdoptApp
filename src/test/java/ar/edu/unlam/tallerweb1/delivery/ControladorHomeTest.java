@@ -45,10 +45,10 @@ public class ControladorHomeTest {
     }
 
     private void dadoQueHayUsuarioAutenticado() {
-        usuario = new Usuario();
-        usuario.setId(100L);
-        usuario.setNombre("Pedro Osnaghi");
-        usuario.setEmail("osnaghi@gmail.com");
+        usuario = new Usuario("Pedro Osnaghi", "osnaghi@gmail.com", "1234");
+//        usuario.setId(100L);
+//        usuario.setNombre("Pedro Osnaghi");
+//        usuario.setEmail("osnaghi@gmail.com");
         when(session.getAttribute("usuarioAutenticado")).thenReturn(usuario);
     }
 

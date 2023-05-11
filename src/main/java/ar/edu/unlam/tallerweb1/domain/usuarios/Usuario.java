@@ -9,6 +9,8 @@ public class Usuario {
     private String dni;
     private String tel;
     private String created_at;
+    private String imagen;
+    private boolean activado = false;
 
     public Usuario(String nombre, String email, String password) {
         this.nombre = nombre;
@@ -78,5 +80,13 @@ public class Usuario {
 
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
+    }
+
+    public String getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }
