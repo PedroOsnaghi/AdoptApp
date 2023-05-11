@@ -21,7 +21,6 @@ public class ServicioAuth {
     public boolean validarCredenciales(String email, String password) {
 
         Usuario usuario = repositorioUsuario.buscarPorEmail(email);
-        String passwordHasheada = encriptarPassword(password);
 
         boolean passwordCorrecta = validarPasswordHasheada(password, usuario.getPassword());
 
