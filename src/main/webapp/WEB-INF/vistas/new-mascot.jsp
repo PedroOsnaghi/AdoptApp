@@ -1,4 +1,13 @@
+<!-- head -->
+
 <%@ include file="partials/head.jsp" %>
+
+<!-- navbar -->
+
+<%@ include file="partials/navbar.jsp" %>
+
+<!-- sidebar -->
+<%@ include file="partials/sidebar.jsp" %>
    
 <!-- AQUI VA EL CONTENIDO -->
 

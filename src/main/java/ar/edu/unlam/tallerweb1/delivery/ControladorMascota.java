@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
-import ar.edu.unlam.tallerweb1.domain.IServicioIngresarMascota;
+import ar.edu.unlam.tallerweb1.domain.IServicioMascota;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/mascota")
 public class ControladorMascota {
     @Autowired
-    private IServicioIngresarMascota iServicioIngresarMascota;
+    private IServicioMascota iServicioMascota;
     @Autowired
-    public ControladorMascota(IServicioIngresarMascota iServicioIngresarMascota)
+    public ControladorMascota(IServicioMascota iServicioMascota)
     {
-        this.iServicioIngresarMascota = iServicioIngresarMascota;
+        this.iServicioMascota = iServicioMascota;
     }
 
-    @RequestMapping("/new-mascot")
+    @RequestMapping("/crear")
     public ModelAndView irANewMascot() {
 
         ModelMap modelo = new ModelMap();
@@ -36,7 +37,7 @@ public class ControladorMascota {
 
         String viewName = "";
 
-        if (this.iServicioIngresarMascota.sonValidos(datosIngresoMascota.getNombre(),datosIngresoMascota.getTipo(),
+        if (this.iServicioMascota.sonValidos(datosIngresoMascota.getNombre(),datosIngresoMascota.getTipo(),
                 datosIngresoMascota.getRaza(), datosIngresoMascota.getPeso(), datosIngresoMascota.getNacimiento() , datosIngresoMascota.getObs() ,  datosIngresoMascota.getFoto()))
         {
             model.put("msg", "Mascota Ingresada");

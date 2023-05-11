@@ -107,7 +107,7 @@
                                              </label>
                                           </div>
                                           <div class="col-4">
-                                             <a href="new-mascot.html" class="btn btn-primary">Agregar nueva..</a>
+                                             <a href="${pageContext.request.contextPath}/mascota/crear" class="btn btn-primary">Agregar nueva..</a>
                                           </div>
                                        </div>
                                     </div>
