@@ -28,7 +28,7 @@
                      <span class="material-symbols-outlined">search</span>
                   </a>
                   <input type="text" class="text search-input form-control bg-soft-primary  d-none d-lg-block"
-                     placeholder="¿Qué estás buscando?">
+                     placeholder="ï¿½Quï¿½ estï¿½s buscando?">
                   <a class="d-lg-none d-flex d-none d-lg-block" href="javascript:void(0);" data-bs-toggle="modal"
                      data-bs-target="#searchmodal">
                      <span class="material-symbols-outlined">search</span>
@@ -47,7 +47,7 @@
                                     <span class="material-symbols-outlined">search</span>
                                  </a>
                                  <input type="text" class="text search-input form-control bg-soft-primary"
-                                    placeholder="¿Qué estás buscando?">
+                                    placeholder="ï¿½Quï¿½ estï¿½s buscando?">
                               </form>
                               <a href="javascript:void(0);" class="material-symbols-outlined text-dark"
                                  data-bs-dismiss="modal">close</a>
@@ -74,7 +74,7 @@
                               </div>
                               <div class="d-flex align-items-center ms-auto">
                                  <a href="javascript:void(0);"
-                                    class="me-3 d-flex align-items-center"><small>Publicación</small>
+                                    class="me-3 d-flex align-items-center"><small>Publicaciï¿½n</small>
                                  </a>
                                  <a href="javascript:void(0);" class="material-symbols-outlined text-dark">close</a>
                               </div>
@@ -95,7 +95,7 @@
                                  </div>
                                  <div class="d-flex align-items-center ms-auto">
                                     <a href="javascript:void(0);"
-                                       class="me-3 d-flex align-items-center"><small>Publicación</small>
+                                       class="me-3 d-flex align-items-center"><small>Publicaciï¿½n</small>
                                     </a>
                                     <a href="javascript:void(0);" class="material-symbols-outlined text-dark">close</a>
                                  </div>
@@ -237,13 +237,15 @@
                                  login
                               </span>
                               <div class="ms-3">
-                                 <a href="sign-in.html" class="mb-0 h6">
-                                    Cerrar Sesión
-                                 </a>
+                                 <form action="cerrarSesion" method="POST">
+                                 <button class="btn border-0 mb-0 h6">
+                                    Cerrar Sesiï¿½n
+                                 </button>
+                                 </form>
                               </div>
                            </div>
                            <div class=" iq-sub-card">
-                              <h5>Configuración</h5>
+                              <h5>Configuraciï¿½n</h5>
                            </div>
                            <div class=" mb-3 iq-sub-card border-0" data-setting="radio">
                               <div class="form-check mb-0 w-100">
