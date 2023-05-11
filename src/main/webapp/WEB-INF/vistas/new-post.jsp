@@ -30,7 +30,7 @@
 
                      <div class="card-body">
 
-                        <form:form  class="text-center mt-3" action="" id="form"  method="POST" modelAttribute="" enctype="multipart/form-data">
+                        <form  class="text-center mt-3" action="" id="form"  method="POST" modelAttribute="" enctype="multipart/form-data">
                            <ul id="top-tab-list" class="p-0 row list-inline mb-2">
                               <li class="col-lg-4 col-md-12 text-start mb-2 active" id="mascota">
                                  <a href="javascript:void(0);">
@@ -53,7 +53,7 @@
                                     </i><span>Entrega</span>
                                  </a>
                               </li>
-                             
+
                            </ul>
                            <!-- fieldsets -->
                            <fieldset control-id="ControlID-2" >
@@ -61,7 +61,7 @@
                                  <div class="row">
                                     <div class="col-12">
                                        <h5 class="mb-1">Selecciona la mascota a publicar:</h5>
-                                    
+
                                     </div>
                                     </div>
                                     <div class="card-body">
@@ -69,11 +69,11 @@
                                        <hr class="mt-0">
                                        <div class="row">
                                           <div class="col-8">
-                                             <form:input path="" type="radio" class="btn-check" name="mascota" id="m-1" checked/>
+                                             <input path="" type="radio" class="btn-check" name="mascota" id="m-1" checked/>
                                              <label for="m-1" class="btn-radio-mascota mb-1 p-1 ps-2">
                                                 <div class="d-flex align-items-center  justify-content-between flex-wrap">
                                                    <div class="user-img img-fluid flex-shrink-0">
-                                                      <img src="images/posts/1/1.jpg" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
+                                                      <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
                                                    </div>
                                                    <div class="flex-grow-1 ms-3">
                                                       <h6><strong>Tobby </strong></h6>
@@ -84,14 +84,14 @@
                                                          check_circle
                                                       </i>
                                                    </div>
-                                                  
+
                                                 </div>
                                              </label>
-                                             <form:input path="" type="radio" class="btn-check" name="mascota" id="m-2"/>
+                                             <input path="" type="radio" class="btn-check" name="mascota" id="m-2"/>
                                              <label for="m-2" class="btn-radio-mascota mb-1 p-1 ps-2">
                                                 <div class="d-flex align-items-center  justify-content-between flex-wrap">
                                                    <div class="user-img img-fluid flex-shrink-0">
-                                                      <img src="images/posts/1/1.jpg" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
+                                                      <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
                                                    </div>
                                                    <div class="flex-grow-1 ms-3">
                                                       <h6><strong>Tobby </strong></h6>
@@ -102,7 +102,7 @@
                                                          check_circle
                                                       </i>
                                                    </div>
-                                                  
+
                                                 </div>
                                              </label>
                                           </div>
@@ -111,7 +111,7 @@
                                           </div>
                                        </div>
                                     </div>
-                               
+
                               </div>
                               <button type="button" name="next" class="btn btn-primary next action-button float-end"
                                  value="Next" control-id="ControlID-3">Continuar</button>
@@ -128,7 +128,7 @@
 
                                        <div class="dropzone mb-3">
                                           <div class="fallback">
-                                             <form:input path="" name="file" type="file" multiple="multiple"/>
+                                             <input path="" name="file" type="file" multiple="multiple"/>
                                           </div>
                                           <div class=" dz-message needsclick">
                                              <div class="mb-3">
@@ -149,7 +149,7 @@
                                                    <div class="flex-shrink-0 me-3">
                                                       <div class="avatar-sm bg-light rounded">
                                                          <img data-dz-thumbnail class="img-fluid rounded d-block"
-                                                            src="images/new-document.png"
+                                                            src="${pageContext.request.contextPath}/images/new-document.png"
                                                             alt="Dropzone-Image" />
                                                       </div>
                                                    </div>
@@ -181,7 +181,7 @@
                            </fieldset>
                            <fieldset control-id="ControlID-7" >
                               <div class="form-card text-start">
-                             
+
                                  <div class="row">
                                     <div class="col-12">
                                        <h5 class="mb-1">Lugar de entrega:</h5>
@@ -202,11 +202,11 @@
                                                 </p>
                                              </div>
                                              <div class="card-body">
-                                                <form:input path="" type="text" class="form-control" id="exampleInputText1"
+                                                <input path="" type="text" class="form-control" id="exampleInputText1"
                                                    placeholder="Escribe tu dirección..." control-id="ControlID-9"/>
 
                                                 <div>
-                                                   <img src="images/page-img/mapa.avif"
+                                                   <img src="${pageContext.request.contextPath}/images/page-img/mapa.avif"
                                                       class="w-100 d-block img-fluid mt-2" alt="">
                                                 </div>
                                              </div>
@@ -223,12 +223,12 @@
                                              </div>
                                              <div class="card-body">
 
-                                                <form:textarea path=""
+                                                <textarea path=""
                                                                class="form-control"
                                                                name=""
                                                                rows="5"
-                                                               placeholder="Escribe aqui los dias y horarios para que el Adoptante pueda encontrarse contigo y retirar la mascota"></form:textarea>
-                                              
+                                                               placeholder="Escribe aqui los dias y horarios para que el Adoptante pueda encontrarse contigo y retirar la mascota"></textarea>
+
                                              </div>
 
                                           </div>
@@ -236,15 +236,15 @@
                                     </div>
                                  </div>
                               </div>
-                            
+
                               <button type="submit" name="next" class="btn btn-primary next action-button float-end"
                                  value="Submit" control-id="ControlID-8">Publicar</button>
                               <button type="button" name="previous"
                                  class="btn btn-dark previous action-button-previous float-end me-3" value="Previous"
                                  control-id="ControlID-9">Atrás</button>
                            </fieldset>
-                        
-                        </form:form>
+
+                        </form>
 
 
 
@@ -261,10 +261,10 @@
 </div>
 
 
-<script src="vendor/dropzone/dropzone-min.js"></script>
+<script src="${pageContext.request.contextPath}/vendor/dropzone/dropzone-min.js"></script>
 
   
-<script src="js/form-file-upload.init.js"></script>
+<script src="${pageContext.request.contextPath}/js/form-file-upload.init.js"></script>
 
 
 <!-- footer -->

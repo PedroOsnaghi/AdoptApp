@@ -52,9 +52,8 @@ public class ControladorPublicacionTest {
         datosPublicacion.setTitulo("Prueba");
         datosPublicacion.setCuerpo("Esto es un Test de publicacion");
 
-        Usuario usuario = new Usuario();
-        usuario.setId(100L);
-        usuario.setEmail("aa@aa");
+        Usuario usuario = new Usuario("juani","juani@aa","1234");
+
 
 
         when(session.getAttribute("usuarioAutenticado")).thenReturn(usuario);

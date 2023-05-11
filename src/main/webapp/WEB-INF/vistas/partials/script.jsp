@@ -1,36 +1,36 @@
 
  <!-- Backend Bundle JavaScript -->
- <script src="js/libs.min.js"></script>
+ <script src="${pageContext.request.contextPath}/js/libs.min.js"></script>
  <!-- Lodash Utility -->
- <script src="vendor/lodash/lodash.min.js"></script>
+ <script src="${pageContext.request.contextPath}/vendor/lodash/lodash.min.js"></script>
  <!-- Utilities Functions -->
- <script src="js/setting/utility.js"></script>
+ <script src="${pageContext.request.contextPath}/js/setting/utility.js"></script>
  <!-- Settings Script -->
- <script src="js/setting/setting.js"></script>
+ <script src="${pageContext.request.contextPath}/js/setting/setting.js"></script>
  <!-- Settings Init Script -->
- <script src="js/setting/setting-init.js" defer></script>
+ <script src="${pageContext.request.contextPath}/js/setting/setting-init.js" defer></script>
  <!-- slider JavaScript -->
- <script src="js/slider.js"></script>
+ <script src="${pageContext.request.contextPath}/js/slider.js"></script>
  <!-- masonry JavaScript -->
- <script src="js/masonry.pkgd.min.js"></script>
+ <script src="${pageContext.request.contextPath}/js/masonry.pkgd.min.js"></script>
  <!-- SweetAlert JavaScript -->
- <script src="js/enchanter.js"></script>
+ <script src="${pageContext.request.contextPath}/js/enchanter.js"></script>
  <!-- Sweet-alert Script -->
- <script src="vendor/sweetalert2/dist/sweetalert2.min.js" async></script>
- <script src="js/sweet-alert.js" defer></script>
+ <script src="${pageContext.request.contextPath}/vendor/sweetalert2/dist/sweetalert2.min.js" async></script>
+ <script src="${pageContext.request.contextPath}/js/sweet-alert.js" defer></script>
  <!-- Chart Custom JavaScript -->
- <script src="js/customizer.js"></script>
+ <script src="${pageContext.request.contextPath}/js/customizer.js"></script>
  <!-- app JavaScript -->
 
- <script src="js/app.js"></script>
+ <script src="${pageContext.request.contextPath}/js/app.js"></script>
  <!-- Flatpickr Script -->
- <script src="vendor/flatpickr/dist/flatpickr.min.js"></script>
+ <script src="${pageContext.request.contextPath}/vendor/flatpickr/dist/flatpickr.min.js"></script>
 
  <!-- vanilla Script -->
- <script src="vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
+ <script src="${pageContext.request.contextPath}/vendor/vanillajs-datepicker/dist/js/datepicker.min.js"></script>
 
  <!--select2 Script -->
- <script src="js/select2.js"></script>
+ <script src="${pageContext.request.contextPath}/js/select2.js"></script>
 
 
 

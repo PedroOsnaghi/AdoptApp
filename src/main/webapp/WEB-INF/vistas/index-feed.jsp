@@ -21,7 +21,7 @@
                      <div id="post-modal-data" class="card card-block card-stretch card-height">
                         <div class="card-header d-flex justify-content-start">
                            <div class="user-img me-3">
-                              <img src="images/user/${usuario.imagen}" alt="userimg" class="avatar-60 rounded-circle"
+                              <img src="${pageContext.request.contextPath}/images/user/${usuario.imagen}" alt="userimg" class="avatar-60 rounded-circle"
                                  loading="lazy">
                            </div>
                            <div class="header-title">
@@ -70,7 +70,7 @@
                                        <div class="d-flex justify-content-between">
                                           <a href="">
                                              <div class="me-3">
-                                                <img class="rounded-circle img-fluid" src="images/user/01.jpg"
+                                                <img class="rounded-circle img-fluid" src="${pageContext.request.contextPath}/images/user/01.jpg"
                                                      style="max-width: 40px;" alt="" loading="lazy">
                                              </div>
                                           </a>
@@ -180,15 +180,15 @@
                                           </div>
                                           <div class="carousel-inner " style="height: 400px;">
                                              <div class="carousel-item active">
-                                                <img src="images/posts/1/1.jpg" class="img-fluid w-100 image-cover"
+                                                <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" class="img-fluid w-100 image-cover"
                                                      height="100" loading="lazy" alt="image">
                                              </div>
                                              <div class="carousel-item">
-                                                <img src="images/posts/1/2.jpg" class="img-fluid w-100 image-cover"
+                                                <img src="${pageContext.request.contextPath}/images/posts/1/2.jpg" class="img-fluid w-100 image-cover"
                                                      height="100" loading="lazy" alt="image">
                                              </div>
                                              <div class="carousel-item">
-                                                <img src="images/posts/1/3.jpg" class="img-fluid w-100 image-cover"
+                                                <img src="${pageContext.request.contextPath}/images/posts/1/3.jpg" class="img-fluid w-100 image-cover"
                                                      height="100" loading="lazy" alt="image">
                                              </div>
                                           </div>
@@ -244,7 +244,7 @@
 
                            <!-- LOADER -->
                            <div class="col-sm-12 text-center">
-                              <img src="images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;"
+                              <img src="${pageContext.request.contextPath}/images/page-img/page-load-loader.gif" alt="loader" style="height: 100px;"
                                  loading="lazy">
                            </div>
 
@@ -277,7 +277,7 @@
                      </div>
                      <div class="card-body">
                         <ul class="media-story list-inline m-0 p-0">
-                           <a href="new-post.html">
+                           <a href="${pageContext.request.contextPath}/publicacion/crear">
                               <li class="d-flex mb-3 align-items-center">
                                  <span class="rounded-circle img-fluid bg-primary new-post font-size-12">
                                     <i class="material-symbols-outlined">

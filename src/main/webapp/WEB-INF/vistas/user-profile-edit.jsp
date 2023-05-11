@@ -19,13 +19,13 @@
                     <div class="card-body profile-page p-0">
                         <div class="profile-header">
                             <div class="position-relative">
-                                <img src="images/page-img/user-bg.avif" alt="profile-bg"
+                                <img src="${pageContext.request.contextPath}/images/page-img/user-bg.avif" alt="profile-bg"
                                      class="rounded img-fluid portrait-profile" loading="lazy">
 
                             </div>
                             <div class="user-detail text-center mb-3">
                                 <div class="profile-img">
-                                    <img src="images/user/11.png" alt="profile-img" loading="lazy"
+                                    <img src="${pageContext.request.contextPath}/images/user/11.png" alt="profile-img" loading="lazy"
                                          class="avatar-130 img-fluid"/>
                                 </div>
                                 <div class="profile-detail">
@@ -124,7 +124,7 @@
 
 
                                                                 <img class="avatar-130 img-fluid"
-                                                                     src="images/user/1.jpg"
+                                                                     src="${pageContext.request.contextPath}/images/user/1.jpg"
                                                                      id="preview" alt="">
                                                                 <div class="material-symbols-outlined btn btn-primary btn-profile">
                                                                     photo_camera
@@ -179,7 +179,7 @@
                                                                    required="required"
                                                                    control-id="ControlID-3"/>
                                                             <div>
-                                                                <img src="images/page-img/mapa.avif"
+                                                                <img src="${pageContext.request.contextPath}/images/page-img/mapa.avif"
                                                                      class="w-100 d-block img-fluid mt-2" alt="">
                                                             </div>
                                                         </div>

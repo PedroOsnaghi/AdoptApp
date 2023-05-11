@@ -15,7 +15,7 @@
                 <div class="row no-gutters">
                     <div class="col-md-6 text-center pt-5">
                         <div class="sign-in-detail text-white px-0">
-                            <a class="sign-in-logo mb-5" href="#"><img src="images/brand/logo-full.png"
+                            <a class="sign-in-logo mb-5" href="#"><img src="${pageContext.request.contextPath}/images/brand/logo-full.png"
                                     class="img-fluid" alt="logo" loading="lazy"></a>
                             <div class="sign-slider overflow-hidden ">
                                 <h3 class="text-white">Conectando personas con mascotas</h3>
@@ -26,7 +26,7 @@
                         <div class="text-center">
                             <h1 class="mb-3 mt-5">Felicitaciones!</h1>
                             <div class="">
-                                <img src="images/login/success_celebration.gif" width="50%" alt="">
+                                <img src="${pageContext.request.contextPath}/images/login/success_celebration.gif" width="50%" alt="">
                             </div>
                             
                             <h4>Ya eres parte de la Familia</h4>

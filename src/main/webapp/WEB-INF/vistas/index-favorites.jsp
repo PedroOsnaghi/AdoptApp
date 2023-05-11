@@ -21,7 +21,7 @@
           <div id="post-modal-data" class="card card-block card-stretch card-height">
             <div class="card-header d-flex justify-content-start">
               <div class="user-img me-3">
-                <img src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle"
+                <img src="${pageContext.request.contextPath}/images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle"
                      loading="lazy">
               </div>
               <div class="header-title">
@@ -75,7 +75,7 @@
                     <ul class="request-list list-inline m-0 p-0">
                       <li class="d-flex align-items-center  justify-content-between flex-wrap">
                         <div class="user-img img-fluid flex-shrink-0">
-                          <img src="images/posts/1/1.jpg" alt="story-img"
+                          <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" alt="story-img"
                                class="rounded-circle avatar-40" loading="lazy">
                         </div>
                         <div class="flex-grow-1 ms-3">
@@ -96,7 +96,7 @@
                       </li>
                       <li class="d-flex align-items-center  justify-content-between flex-wrap">
                         <div class="user-img img-fluid flex-shrink-0">
-                          <img src="images/posts/2/1.webp" alt="story-img"
+                          <img src="${pageContext.request.contextPath}/images/posts/2/1.webp" alt="story-img"
                                class="rounded-circle avatar-40" loading="lazy">
                         </div>
                         <div class="flex-grow-1 ms-3">

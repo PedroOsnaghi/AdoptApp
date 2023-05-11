@@ -20,13 +20,13 @@
                     <div class="card-body profile-page p-0">
                         <div class="profile-header">
                             <div class="position-relative">
-                                <img src="images/page-img/user-bg.avif" alt="profile-bg"
+                                <img src="${pageContext.request.contextPath}/images/page-img/user-bg.avif" alt="profile-bg"
                                      class="rounded img-fluid portrait-profile" loading="lazy">
 
                             </div>
                             <div class="user-detail text-center mb-3">
                                 <div class="profile-img">
-                                    <img src="images/user/11.png" alt="profile-img" loading="lazy"
+                                    <img src="${pageContext.request.contextPath}/images/user/11.png" alt="profile-img" loading="lazy"
                                          class="avatar-130 img-fluid"/>
                                 </div>
                                 <div class="profile-detail">

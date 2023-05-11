@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.Publicacion;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
@@ -16,12 +17,13 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+@RequestMapping("publicacion")
 public class ControladorPublicacion {
 
-    private ServicioPublicacion servicioPublicacion;
+    private IServicioPublicacion servicioPublicacion;
 
     @Autowired
-    public ControladorPublicacion(ServicioPublicacion servicioPublicacion) {
+    public ControladorPublicacion(IServicioPublicacion servicioPublicacion) {
         this.servicioPublicacion = servicioPublicacion;
     }
 
@@ -74,4 +76,11 @@ public class ControladorPublicacion {
         model.put("publicaciones", publicaciones);
         return new ModelAndView("index-misposts", model);
     }
+    @RequestMapping(path = "/crear", method = RequestMethod.GET)
+    public ModelAndView crear(HttpSession session) {
+
+        return new ModelAndView("new-post");
+    }
+
+
 }

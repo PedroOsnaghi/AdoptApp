@@ -13,7 +13,7 @@
           </li>
           <!-- HOME -->
           <li class="nav-item">
-             <a class="nav-link active" aria-current="page" href="index.html">
+             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/home/">
                 <i class="icon material-symbols-outlined">
                    home
                 </i>
@@ -43,7 +43,7 @@
              </a>
              <ul class="sub-nav collapse" id="post" data-bs-parent="#sidebar-menu">
                 <li class="nav-item">
-                   <a class="nav-link " href="new-post.html">
+                   <a class="nav-link " href="${pageContext.request.contextPath}/publicacion/crear">
                       <i class="icon material-symbols-outlined filled">
                          fiber_manual_record
                       </i>

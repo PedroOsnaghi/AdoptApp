@@ -65,7 +65,7 @@
 
                            <div class="d-flex align-items-center border-bottom search-hover py-2 px-3">
                               <div class="flex-shrink-0">
-                                 <img src="images/page-img/19.jpg"
+                                 <img src="${pageContext.request.contextPath}/images/page-img/19.jpg"
                                     class="align-self-center img-fluid avatar-50 rounded-pill" alt="#">
                               </div>
                               <div class="d-flex flex-column ms-3 w-100">
@@ -86,7 +86,7 @@
 
                               <div class="d-flex align-items-center border-bottom search-hover py-2 px-3">
                                  <div class="flex-shrink-0">
-                                    <img src="images/page-img/19.jpg"
+                                    <img src="${pageContext.request.contextPath}/images/page-img/19.jpg"
                                        class="align-self-center img-fluid avatar-50 rounded-pill" alt="#">
                                  </div>
                                  <div class="d-flex flex-column ms-3 w-100">
@@ -134,7 +134,7 @@
                            <a href="javascript:void(0);" class="iq-sub-card">
                               <div class="d-flex align-items-center">
                                  <div class="">
-                                    <img class="avatar-40 rounded" src="images/user/01.jpg" alt="">
+                                    <img class="avatar-40 rounded" src="${pageContext.request.contextPath}/images/user/01.jpg" alt="">
                                  </div>
                                  <div class="ms-3 w-100">
                                     <h6 class="mb-0 ">Emma Watson Bni</h6>
@@ -148,7 +148,7 @@
                            <a href="javascript:void(0);" class="iq-sub-card">
                               <div class="d-flex align-items-center">
                                  <div class="">
-                                    <img class="avatar-40 rounded" src="images/user/02.jpg" alt="" loading="lazy">
+                                    <img class="avatar-40 rounded" src="${pageContext.request.contextPath}/images/user/02.jpg" alt="" loading="lazy">
                                  </div>
                                  <div class="ms-3 w-100">
                                     <h6 class="mb-0 ">New customer is join</h6>
@@ -162,7 +162,7 @@
                            <a href="javascript:void(0);" class="iq-sub-card">
                               <div class="d-flex align-items-center">
                                  <div class="">
-                                    <img class="avatar-40 rounded" src="images/user/03.jpg" alt="" loading="lazy">
+                                    <img class="avatar-40 rounded" src="${pageContext.request.contextPath}/images/user/03.jpg" alt="" loading="lazy">
                                  </div>
                                  <div class="ms-3 w-100">
                                     <h6 class="mb-0 ">Two customer is left</h6>
@@ -176,7 +176,7 @@
                            <a href="javascript:void(0);" class="iq-sub-card">
                               <div class="d-flex align-items-center">
                                  <div class="">
-                                    <img class="avatar-40 rounded" src="images/user/04.jpg" alt="" loading="lazy">
+                                    <img class="avatar-40 rounded" src="${pageContext.request.contextPath}/images/user/04.jpg" alt="" loading="lazy">
                                  </div>
                                  <div class="w-100 ms-3">
                                     <h6 class="mb-0 ">New Mail from Fenny</h6>
@@ -194,7 +194,7 @@
                <li class="nav-item dropdown user-dropdown">
                   <a href="javascript:void(0);" class="d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <img src="images/user/${usuario.imagen}" class="img-fluid rounded-circle me-3" alt="user" loading="lazy">
+                     <img src="${pageContext.request.contextPath}/images/user/${usuario.imagen}" class="img-fluid rounded-circle me-3" alt="user" loading="lazy">
                      <div class="caption d-none d-lg-block">
                         <h6 class="mb-0 line-height">${usuario.nombre}</h6>
                      </div>

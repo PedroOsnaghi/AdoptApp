@@ -21,14 +21,14 @@
                         <div class="profile-header">
                             <div class="position-relative">
 
-                                <img src="images/page-img/user-bg.avif" alt="profile-bg"
+                                <img src="${pageContext.request.contextPath}/images/page-img/user-bg.avif" alt="profile-bg"
                                      class="rounded img-fluid portrait-profile" loading="lazy">
 
                             </div>
                             <!-- Imagen del usuarioDeprec -->
                             <div class="user-detail text-center mb-3">
                                 <div class="profile-img">
-                                    <img src="images/user/11.png" alt="profile-img" loading="lazy"
+                                    <img src="${pageContext.request.contextPath}/images/user/11.png" alt="profile-img" loading="lazy"
                                          class="avatar-130 img-fluid"/>
                                 </div>
                                 <div class="profile-detail">
@@ -184,7 +184,7 @@
                                                                 <a href="#">
                                                                     <div class="d-flex align-items-center">
                                                                         <img class="img-fluid rounded-circle avatar-40"
-                                                                             src="images/posts/4/1.jpg" alt=""
+                                                                             src="${pageContext.request.contextPath}/images/posts/4/1.jpg" alt=""
                                                                              loading="lazy">
                                                                         <div class="media-body ms-3">
                                                                             <h6 class="text-dark"><strong>Ninna</strong>
@@ -215,7 +215,7 @@
                                                                 <a href="#">
                                                                     <div class="d-flex align-items-center">
                                                                         <img class="img-fluid rounded-circle avatar-40"
-                                                                             src="images/posts/3/1.avif" alt=""
+                                                                             src="${pageContext.request.contextPath}/images/posts/3/1.avif" alt=""
                                                                              loading="lazy">
                                                                         <div class="media-body ms-3">
                                                                             <h6 class="text-dark">

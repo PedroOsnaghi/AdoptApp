@@ -20,13 +20,13 @@
                     <div class="card-body profile-page p-0">
                         <div class="profile-header">
                             <div class="position-relative">
-                                <img src="images/page-img/user-bg.avif" alt="profile-bg"
+                                <img src="${pageContext.request.contextPath}/images/page-img/user-bg.avif" alt="profile-bg"
                                      class="rounded img-fluid portrait-profile" loading="lazy">
 
                             </div>
                             <div class="user-detail text-center mb-3">
                                 <div class="profile-img">
-                                    <img src="images/user/01.jpg" alt="profile-img" loading="lazy"
+                                    <img src="${pageContext.request.contextPath}/images/user/01.jpg" alt="profile-img" loading="lazy"
                                          class="avatar-130 img-fluid"/>
                                 </div>
                                 <div class="profile-detail">
@@ -165,7 +165,7 @@
                                                     <a href="">
                                                         <div class="me-3">
                                                             <img class="rounded-circle img-fluid"
-                                                                 src="images/user/01.jpg"
+                                                                 src="${pageContext.request.contextPath}/images/user/01.jpg"
                                                                  style="max-width: 40px;" alt="" loading="lazy">
                                                         </div>
                                                     </a>
@@ -292,17 +292,17 @@
                                                     </div>
                                                     <div class="carousel-inner " style="height: 400px;">
                                                         <div class="carousel-item active">
-                                                            <img src="images/posts/1/1.jpg"
+                                                            <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg"
                                                                  class="img-fluid w-100 image-cover"
                                                                  height="100" loading="lazy" alt="image">
                                                         </div>
                                                         <div class="carousel-item">
-                                                            <img src="images/posts/1/2.jpg"
+                                                            <img src="${pageContext.request.contextPath}/images/posts/1/2.jpg"
                                                                  class="img-fluid w-100 image-cover"
                                                                  height="100" loading="lazy" alt="image">
                                                         </div>
                                                         <div class="carousel-item">
-                                                            <img src="images/posts/1/3.jpg"
+                                                            <img src="${pageContext.request.contextPath}/images/posts/1/3.jpg"
                                                                  class="img-fluid w-100 image-cover"
                                                                  height="100" loading="lazy" alt="image">
                                                         </div>
@@ -360,7 +360,7 @@
                                     </div>
                                     <!-- LOADER -->
                                     <div class="col-sm-12 text-center">
-                                        <img src="images/page-img/page-load-loader.gif" alt="loader"
+                                        <img src="${pageContext.request.contextPath}/images/page-img/page-load-loader.gif" alt="loader"
                                              style="height: 100px;"
                                              loading="lazy">
                                     </div>

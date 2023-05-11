@@ -20,13 +20,13 @@
                     <div class="card-body profile-page p-0">
                         <div class="profile-header">
                             <div class="position-relative">
-                                <img src="images/page-img/user-bg.avif" alt="profile-bg"
+                                <img src="${pageContext.request.contextPath}/images/page-img/user-bg.avif" alt="profile-bg"
                                      class="rounded img-fluid portrait-profile" loading="lazy">
 
                             </div>
                             <div class="user-detail text-center mb-3">
                                 <div class="profile-img">
-                                    <img src="images/user/11.png" alt="profile-img" loading="lazy"
+                                    <img src="${pageContext.request.contextPath}/images/user/11.png" alt="profile-img" loading="lazy"
                                          class="avatar-130 img-fluid"/>
                                 </div>
                                 <div class="profile-detail">
@@ -173,7 +173,7 @@
                                                                 class="d-flex align-items-center  justify-content-between flex-wrap">
                                                             <div class="d-flex">
                                                                 <div class="user-img img-fluid flex-shrink-0">
-                                                                    <img src="images/posts/1/1.jpg" alt="story-img"
+                                                                    <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" alt="story-img"
                                                                          class="rounded-circle avatar-40"
                                                                          loading="lazy">
                                                                 </div>
@@ -208,7 +208,7 @@
                                                                 class="d-flex align-items-center  justify-content-between flex-wrap">
                                                             <div class="d-flex">
                                                                 <div class="user-img img-fluid flex-shrink-0">
-                                                                    <img src="images/posts/3/1.avif" alt="story-img"
+                                                                    <img src="${pageContext.request.contextPath}/images/posts/3/1.avif" alt="story-img"
                                                                          class="rounded-circle avatar-40"
                                                                          loading="lazy">
                                                                 </div>

@@ -20,13 +20,13 @@
                     <div class="card-body profile-page p-0">
                         <div class="profile-header">
                             <div class="position-relative">
-                                <img src="images/page-img/user-bg.avif" alt="profile-bg"
+                                <img src="${pageContext.request.contextPath}/images/page-img/user-bg.avif" alt="profile-bg"
                                      class="rounded img-fluid portrait-profile" loading="lazy">
 
                             </div>
                             <div class="user-detail text-center mb-3">
                                 <div class="profile-img">
-                                    <img src="images/user/11.png" alt="profile-img" loading="lazy"
+                                    <img src="${pageContext.request.contextPath}/images/user/11.png" alt="profile-img" loading="lazy"
                                          class="avatar-130 img-fluid"/>
                                 </div>
                                 <div class="profile-detail">
@@ -181,7 +181,7 @@
                                                                     <div class="iq-badges text-left">
                                                                         <div class="badges-icon">
                                                                             <img class="avatar-80 rounded border border-light"
-                                                                                 src="images/posts/1/1.jpg" alt=""
+                                                                                 src="${pageContext.request.contextPath}/images/posts/1/1.jpg" alt=""
                                                                                  loading="lazy">
                                                                         </div>
                                                                         <h5 class="mb-2"><strong>Chonino</strong></h5>
@@ -197,7 +197,7 @@
                                                                     <div class="iq-badges text-left">
                                                                         <div class="badges-icon">
                                                                             <img class="avatar-80 rounded border border-light"
-                                                                                 src="images/posts/4/1.jpg" alt=""
+                                                                                 src="${pageContext.request.contextPath}/images/posts/4/1.jpg" alt=""
                                                                                  loading="lazy">
                                                                         </div>
                                                                         <h5 class="mb-2"><strong>Isabella</strong></h5>
@@ -218,7 +218,7 @@
                                                                     <div class="iq-badges text-left">
                                                                         <div class="badges-icon">
                                                                             <img class="avatar-80 rounded border border-light"
-                                                                                 src="images/posts/3/1.avif" alt=""
+                                                                                 src="${pageContext.request.contextPath}/images/posts/3/1.avif" alt=""
                                                                                  loading="lazy">
                                                                         </div>
                                                                         <h5 class="mb-2"><strong>Tiny</strong></h5>

@@ -33,7 +33,7 @@
                                  <div class="profile-img ms-2">
 
 
-                                    <img class="avatar-130 img-fluid" src="images/mascota/profiles/default.webp"
+                                    <img class="avatar-130 img-fluid" src="${pageContext.request.contextPath}/images/mascota/profiles/default.webp"
                                        id="preview" alt="">
                                     <div class="material-symbols-outlined btn btn-primary btn-profile">
                                        photo_camera

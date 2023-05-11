@@ -47,7 +47,7 @@ public class ControladorAuth {
         servicioAuth.setTiempoSesion(60 * 60 * 24);
         servicioAuth.setUsuarioAutenticado(usuarioAutenticado);
 
-        return new ModelAndView("redirect:/home");
+        return new ModelAndView("redirect:/home/");
     }
 
     @RequestMapping(path = "/cerrarSesion", method = RequestMethod.POST)
@@ -91,18 +91,10 @@ public class ControladorAuth {
         return new ModelAndView("/register-success");
     }
 
-//    @RequestMapping(path = "/", method = RequestMethod.GET)
-//    public ModelAndView loginRedirect() {
-//        return new ModelAndView("redirect:/login");
-//    }
-
-    @RequestMapping(path = "/test", method = RequestMethod.GET)
-    @ResponseBody
-    public String test() {
-        Usuario usuario = servicioAuth.getUsuarioAutenticado();
-        String email = usuario.getEmail();
-        String password = usuario.getPassword();
-        boolean usuarioLoggeado = servicioAuth.usuarioLoggeado();
-        return email + password + usuarioLoggeado;
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public ModelAndView inicio() {
+        return new ModelAndView("redirect:/home/feed");
     }
+
+
 }

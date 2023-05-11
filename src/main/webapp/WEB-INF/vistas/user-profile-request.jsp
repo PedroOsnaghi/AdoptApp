@@ -20,13 +20,13 @@
                     <div class="card-body profile-page p-0">
                         <div class="profile-header">
                             <div class="position-relative">
-                                <img src="images/page-img/user-bg.avif" alt="profile-bg"
+                                <img src="${pageContext.request.contextPath}/images/page-img/user-bg.avif" alt="profile-bg"
                                      class="rounded img-fluid portrait-profile" loading="lazy">
 
                             </div>
                             <div class="user-detail text-center mb-3">
                                 <div class="profile-img">
-                                    <img src="images/user/11.png" alt="profile-img" loading="lazy"
+                                    <img src="${pageContext.request.contextPath}/images/user/11.png" alt="profile-img" loading="lazy"
                                          class="avatar-130 img-fluid"/>
                                 </div>
                                 <div class="profile-detail">
@@ -100,7 +100,7 @@
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <div class="d-flex align-items-center">
                                                             <img class="img-fluid rounded-circle avatar-40"
-                                                                 src="images/posts/4/1.jpg" alt=""
+                                                                 src="${pageContext.request.contextPath}/images/posts/4/1.jpg" alt=""
                                                                  loading="lazy">
                                                             <div class="media-body ms-3">
                                                                 <h6 class="text-dark"><strong>Ninna</strong></h6>
@@ -123,7 +123,7 @@
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <div class="d-flex align-items-center">
                                                             <img class="img-fluid rounded-circle avatar-40"
-                                                                 src="images/posts/3/1.avif" alt=""
+                                                                 src="${pageContext.request.contextPath}/images/posts/3/1.avif" alt=""
                                                                  loading="lazy">
                                                             <div class="media-body ms-3">
                                                                 <h6 class="text-dark"><strong>Chonino</strong></h6>
@@ -162,7 +162,7 @@
                                                     <li class="d-flex align-items-center  justify-content-between flex-wrap">
                                                         <a href="" class="d-flex nav-link">
                                                             <div class="user-img img-fluid flex-shrink-0">
-                                                                <img src="images/user/05.jpg" alt="story-img"
+                                                                <img src="${pageContext.request.contextPath}/images/user/05.jpg" alt="story-img"
                                                                      class="rounded-circle avatar-40" loading="lazy">
                                                             </div>
                                                             <div class="flex-grow-1 ms-3">
@@ -198,7 +198,7 @@
                                                     <li class="d-flex align-items-center  justify-content-between flex-wrap">
                                                         <a href="" class="d-flex nav-link">
                                                             <div class="user-img img-fluid flex-shrink-0">
-                                                                <img src="images/user/06.jpg" alt="story-img"
+                                                                <img src="${pageContext.request.contextPath}/images/user/06.jpg" alt="story-img"
                                                                      class="rounded-circle avatar-40" loading="lazy">
                                                             </div>
                                                             <div class="flex-grow-1 ms-3">
