@@ -1,7 +1,7 @@
 
 <!-- head -->
 
-<%@ include file="partials/head.jsp" %>
+<%@ include file="head.jsp" %>
 
    <!-- navbar superior -->
    <div class="iq-top-navbar">
@@ -28,7 +28,7 @@
                      <span class="material-symbols-outlined">search</span>
                   </a>
                   <input type="text" class="text search-input form-control bg-soft-primary  d-none d-lg-block"
-                     placeholder="¿Qué estás buscando?">
+                     placeholder="ï¿½Quï¿½ estï¿½s buscando?">
                   <a class="d-lg-none d-flex d-none d-lg-block" href="javascript:void(0);" data-bs-toggle="modal"
                      data-bs-target="#searchmodal">
                      <span class="material-symbols-outlined">search</span>
@@ -47,7 +47,7 @@
                                     <span class="material-symbols-outlined">search</span>
                                  </a>
                                  <input type="text" class="text search-input form-control bg-soft-primary"
-                                    placeholder="¿Qué estás buscando?">
+                                    placeholder="ï¿½Quï¿½ estï¿½s buscando?">
                               </form>
                               <a href="javascript:void(0);" class="material-symbols-outlined text-dark"
                                  data-bs-dismiss="modal">close</a>
@@ -74,7 +74,7 @@
                               </div>
                               <div class="d-flex align-items-center ms-auto">
                                  <a href="javascript:void(0);"
-                                    class="me-3 d-flex align-items-center"><small>Publicación</small>
+                                    class="me-3 d-flex align-items-center"><small>Publicaciï¿½n</small>
                                  </a>
                                  <a href="javascript:void(0);" class="material-symbols-outlined text-dark">close</a>
                               </div>
@@ -95,7 +95,7 @@
                                  </div>
                                  <div class="d-flex align-items-center ms-auto">
                                     <a href="javascript:void(0);"
-                                       class="me-3 d-flex align-items-center"><small>Publicación</small>
+                                       class="me-3 d-flex align-items-center"><small>Publicaciï¿½n</small>
                                     </a>
                                     <a href="javascript:void(0);" class="material-symbols-outlined text-dark">close</a>
                                  </div>
@@ -194,16 +194,17 @@
                <li class="nav-item dropdown user-dropdown">
                   <a href="javascript:void(0);" class="d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                     <img src="images/user/1.jpg" class="img-fluid rounded-circle me-3" alt="user" loading="lazy">
+                     <img src="images/user/${usuario.imagen}" class="img-fluid rounded-circle me-3" alt="user" loading="lazy">
                      <div class="caption d-none d-lg-block">
-                        <h6 class="mb-0 line-height">Juan Daniel</h6>
+                        <h6 class="mb-0 line-height">${usuario.nombre}</h6>
                      </div>
                   </a>
+                  <!-- menu usuario -->
                   <div class="sub-drop dropdown-menu caption-menu" aria-labelledby="drop-down-arrow">
                      <div class="card shadow-none m-0">
                         <div class="card-header ">
                            <div class="header-title">
-                              <h5 class="mb-0 ">Hola Juan Daniel</h5>
+                              <h5 class="mb-0 ">Hola ${usuario.nombre}</h5>
                            </div>
                         </div>
                         <div class="card-body p-0 ">
@@ -236,13 +237,15 @@
                                  login
                               </span>
                               <div class="ms-3">
-                                 <a href="sign-in.html" class="mb-0 h6">
-                                    Cerrar Sesión
-                                 </a>
+                                 <form action="cerrarSesion" method="POST">
+                                 <button class="btn border-0 mb-0 h6">
+                                    Cerrar Sesiï¿½n
+                                 </button>
+                                 </form>
                               </div>
                            </div>
                            <div class=" iq-sub-card">
-                              <h5>Configuración</h5>
+                              <h5>Configuraciï¿½n</h5>
                            </div>
                            <div class=" mb-3 iq-sub-card border-0" data-setting="radio">
                               <div class="form-check mb-0 w-100">

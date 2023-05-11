@@ -21,11 +21,11 @@
                      <div id="post-modal-data" class="card card-block card-stretch card-height">
                         <div class="card-header d-flex justify-content-start">
                            <div class="user-img me-3">
-                              <img src="images/user/1.jpg" alt="userimg" class="avatar-60 rounded-circle"
+                              <img src="images/user/${usuario.imagen}" alt="userimg" class="avatar-60 rounded-circle"
                                  loading="lazy">
                            </div>
                            <div class="header-title">
-                              <h4 class="card-title">Hola Juan Daniel</h4>
+                              <h4 class="card-title">Hola ${usuario.nombre}</h4>
                            </div>
                         </div>
                         <div class="card-body">

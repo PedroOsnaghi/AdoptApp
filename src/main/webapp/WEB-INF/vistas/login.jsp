@@ -31,31 +31,31 @@
                     </div>
                     <div class="col-md-6 bg-white pt-5 pt-5 pb-lg-0 pb-5">
                         <div class="sign-in-from">
-                            <h1 class="mb-0">Iniciar Sesión</h1>
-                            <p>Ingres&aacute; tu correo y contraseña para acceder a tu cuenta.</p>
-                            <form:form class="mt-4" action="validar-login" method="POST" modelAttribute="datosLogin">
+                            <h1 class="mb-0">Iniciar Sesiï¿½n</h1>
+                            <p>Ingres&aacute; tu correo y contraseï¿½a para acceder a tu cuenta.</p>
+                            <form class="mt-4" action="loginHandler" method="POST">
                                 <div class="form-group">
-                                    <label class="form-label" for="email">Correo electrónico</label>
-                                    <form:input path="email" id="email" class="form-control mb-0"  placeholder="Correo electrónico"/>
+                                    <label class="form-label" for="email">Correo electrï¿½nico</label>
+                                    <input name="email" id="email" class="form-control mb-0"  placeholder="Correo electrï¿½nico"/>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="password">Contraseña</label>
-                                    <a href="#" class="float-end">Olvidaste tu contraseña?</a>
-                                    <form:input path="password" type="password" class="form-control mb-0" id="password"
-                                                placeholder="Contraseña"/>
+                                    <label class="form-label" for="password">Contraseï¿½a</label>
+                                    <a href="#" class="float-end">Olvidaste tu contraseï¿½a?</a>
+                                    <input name="password" type="password" class="form-control mb-0" id="password"
+                                                placeholder="Contraseï¿½a"/>
                                 </div>
                                 <div class="d-inline-block w-100">
-                                    <div class="form-check d-inline-block mt-2 pt-1">
-                                        <input type="checkbox" class="form-check-input" id="customCheck11">
-                                        <label class="form-check-label" for="customCheck11">Recordarme</label>
-                                    </div>
+<%--                                    <div class="form-check d-inline-block mt-2 pt-1">--%>
+<%--                                        <input type="checkbox" class="form-check-input" id="customCheck11">--%>
+<%--                                        <label class="form-check-label" for="customCheck11">Recordarme</label>--%>
+<%--                                    </div>--%>
                                     <button type="submit"
                                         class="btn btn-primary float-end ">Ingresar</button>
 
                                 </div>
                                 <div class="sign-info">
-                                    <span class="dark-color d-inline-block line-height-2">Aún no tenes cuenta en
-                                        AdoptApp? <a href="register.html">Registrarme</a></span>
+                                    <span class="dark-color d-inline-block line-height-2">Aï¿½n no tenes cuenta en
+                                        AdoptApp? <a href="registrar">Registrarme</a></span>
 
                                 </div>
 
@@ -71,7 +71,7 @@
                                     </div>
                                 </div>
                                 </c:if>
-                            </form:form>
+                            </form>
                         </div>
                     </div>
                 </div>

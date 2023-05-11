@@ -28,57 +28,58 @@
                         <h4>Ahora vamos a crear tu cuenta..</h4>
                         <p>Es muy simple y rapido! complet� estos pocos datos y forma parte de nuestra comunidad.
                         </p>
-                        <form:form class="mt-4" action="" id="form" method="POST" modelAttribute="datosRegistro"
-                                   enctype="application/x-www-form-urlencoded">
+                        <form class="mt-4" action="registrarHandler" id="form" method="POST"
+                              enctype="application/x-www-form-urlencoded">
                             <div class="form-group">
                                 <label class="form-label" for="exampleInputEmail1">�C�mo te llamas?</label>
-                                <form:input path="" type="email" class="form-control mb-0" id="exampleInputEmail1"
+                                <input name="nombre" type="text" class="form-control mb-0" id="exampleInputEmail1"
                                             placeholder="Tu nombre completo"/>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="exampleInputEmail2">Correo electr�nico</label>
-                                <form:input path="" type="email" class="form-control mb-0" id="exampleInputEmail2"
+                                <input name="email" type="email" class="form-control mb-0" id="exampleInputEmail2"
                                             placeholder="Correo electr�nico"/>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="exampleInputPassword1">Contrase�a</label>
-                                <form:input path="" type="password" class="form-control mb-0" id="exampleInputPassword1"
+                                <input name="password" type="password" class="form-control mb-0" id="exampleInputPassword1"
                                             placeholder="Contrase�a"/>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="exampleInputPassword1">Rep�te la contrase�a</label>
-                                <form:input path="" type="password" class="form-control mb-0" id="exampleInputPassword2"
+                                <input name="password2" type="password" class="form-control mb-0" id="exampleInputPassword2"
                                             placeholder="Rep�te la contrase�a"/>
                             </div>
                             <div class="d-inline-block w-100 mb-1">
-                                <div class="form-check d-inline-block mt-2 pt-1">
-                                    <form:input path="" type="checkbox" class="form-check-input" id="customCheck1">
-                                    <label class="form-check-label" for="customCheck1">Acepto los <a
-                                            href="#">Terminos y condiciones</a></label>
-                                </div>
+<%--                                <div class="form-check d-inline-block mt-2 pt-1">--%>
+<%--                                    <input name="terminosAceptados" type="checkbox" class="form-check-input"--%>
+<%--                                           id="customCheck1">--%>
+<%--                                    <label class="form-check-label" for="customCheck1">Acepto los <a--%>
+<%--                                            href="#">Terminos y condiciones</a></label>--%>
+<%--                                </div>--%>
 
                                 <button type="submit"
                                         class="btn btn-primary float-end ">Registrarme
                                 </button>
 
                             </div>
-                        </form:form>
+                            </form>
 
-                        <!-- mensaje de error -->
-                        <c:if test="${not empty error}">
+                            <!-- mensaje de error -->
+                            <c:if test="${not empty error}">
                             <div class="mb-4">
                                 <div class="alert alert-solid alert-danger alert-dismissible fade show d-flex align-items-center gap-2"
                                      role="alert">
                                     <span class="d-flex"><i class="material-symbols-outlined">error</i></span>
-                                    <span> Ups! aqui va un mensaje de error</span>
+                                    <span> ${error}</span>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
                                             aria-label="Close" control-id="ControlID-9"></button>
                                 </div>
                             </div>
-                        </c:if>
-                        <hr>
-                        <span class="dark-color d-inline-block line-height-2">Ya tenes una cuenta ? <a
-                                href="login.html">Inicia sesi�n</a></span>
+                            </c:if>
+                            <hr>
+                            <span class="dark-color d-inline-block line-height-2">Ya tenes una cuenta ? <a
+                                    href="/login">Inicia sesi�n</a></span>
 
 
                     </div>
