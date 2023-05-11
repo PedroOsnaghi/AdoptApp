@@ -20,7 +20,7 @@
                      <div class="card-header d-flex justify-content-start">
                         <div class="header-title">
                            <h4 class="card-title">Nueva Mascota</h4>
-                           <p class="link-primary mb-3">Aqu� puedes registrar una nueva Mascota en tu lista.</p>
+                           <p class="link-primary mb-3">Aqu? puedes registrar una nueva Mascota en tu lista.</p>
                         </div>
                      </div>
                      <div class="card-body">
@@ -44,7 +44,7 @@
                               </div>
 
                               <div class="col-9 position-relative">
-                                 <label for="nombre" class="form-label"><strong>C�mo se llama la mascota
+                                 <label for="nombre" class="form-label"><strong>C?mo se llama la mascota
                                        ?</strong></label>
                                  <form:input path="nombre" type="text" class="form-control" id="nombre" required=""
                                     placeholder="Escribe el nombre..." control-id="ControlID-24" />
@@ -60,7 +60,7 @@
 
                            <div class="row ">
                               <div class="col-md-6 position-relative">
-                                 <label for="validationTooltip04" class="form-label"><strong>Qu� tipo de mascota
+                                 <label for="validationTooltip04" class="form-label"><strong>Qu? tipo de mascota
                                        es?</strong></label>
                                   <form:input path="tipo" type="text" class="form-control" id="tipo" required=""
                                     placeholder="Escribe el tipo..." control-id="ControlID-24" />
@@ -70,9 +70,9 @@
                               </div>
 
                                 <div class="col-md-6 position-relative">
-                                 <label for="validationTooltip04" class="form-label"><strong>G�nero</strong></label>
+                                 <label for="validationTooltip04" class="form-label"><strong>G?nero</strong></label>
                                  <select class="form-select" id="validationTooltip04" >
-                                    <option selected="" disabled="" value="">Selecciona un G�nero</option>
+                                    <option selected="" disabled="" value="">Selecciona un G?nero</option>
                                     <option>HEMBRA</option>
                                     <option>MACHO</option>
                                  </select>
@@ -97,18 +97,18 @@
                               </div>
 
                                 <div class="col-md-6 position-relative">
-                                 <label class="form-label" for="exampleInputdate"><strong>C�ando naci�?</strong> (si
-                                    no s�bes dejalo
+                                 <label class="form-label" for="exampleInputdate"><strong>C?ando naci??</strong> (si
+                                    no s?bes dejalo
                                     vacio)</label>
                                   <input path="" type="date"  class="form-control" id="nacimiento" value="Now"
                                     control-id="ControlID-15">
                               </div>
                        <div class="col-md-6 position-relative">
-                                 <label for="validationTooltip04" class="form-label"><strong>Descr�be su
+                                 <label for="validationTooltip04" class="form-label"><strong>Descr?be su
                                        personalidad</strong></label>
                                  <select class="form-select" id="validationTooltip04" >
                                     <option selected="" disabled="" value="">Selecciona una</option>
-                                    <option>Cari�oso/a</option>
+                                    <option>Cari?oso/a</option>
                                     <option>Amoroso/a</option>
                                     <option>Jugueton/a</option>
                                     <option>Travieso/a</option>
