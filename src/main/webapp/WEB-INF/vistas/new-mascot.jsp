@@ -46,7 +46,7 @@
                                 </div>
 
                                 <div class="col-9 position-relative">
-                                    <label for="nombre" class="form-label"><strong>C?mo se llama la mascota
+                                    <label for="nombre" class="form-label"><strong>Cómo se llama la mascota
                                         ?</strong></label>
                                     <form:input path="nombre" type="text" class="form-control" id="nombre" required=""
                                                 placeholder="Escribe el nombre..." control-id="ControlID-24"/>
