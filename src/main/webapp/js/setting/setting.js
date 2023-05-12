@@ -67,7 +67,7 @@
   function defaultSetting() {
     return {
       saveLocal: "sessionStorage", // sessionStorage, localStorage, null
-      storeKey: "socialV",
+      storeKey: "AdoptApp",
       setting: defaultSettingOption(),
       beforeInit: function (cb) {
         return cb;
@@ -119,7 +119,7 @@
       footer: {
         target: ".footer",
         choices: ["sticky", "default"],
-        value: "default",
+        value: "sticky",
       }
     };
   }
@@ -485,6 +485,7 @@
     const self = this;
     selectors.radio.forEach(function (item) {
       item.addEventListener("change", function (e) {
+          console.log("apretaste");
         const value = e.target.value;
         const key = e.target.getAttribute("name");
         // Update dom values based on radio button

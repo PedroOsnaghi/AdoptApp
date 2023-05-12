@@ -1,4 +1,4 @@
-package ar.edu.unlam.tallerweb1.infrastructure;
+package ar.edu.unlam.tallerweb1.domain.publicaciones;
 
 import ar.edu.unlam.tallerweb1.domain.publicaciones.Publicacion;
 

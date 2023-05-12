@@ -20,13 +20,15 @@
                     <div class="card-body profile-page p-0">
                         <div class="profile-header">
                             <div class="position-relative">
-                                <img src="${pageContext.request.contextPath}/images/page-img/user-bg.avif" alt="profile-bg"
+                                <img src="${pageContext.request.contextPath}/images/page-img/user-bg.avif"
+                                     alt="profile-bg"
                                      class="rounded img-fluid portrait-profile" loading="lazy">
 
                             </div>
                             <div class="user-detail text-center mb-3">
                                 <div class="profile-img">
-                                    <img src="${pageContext.request.contextPath}/images/user/01.jpg" alt="profile-img" loading="lazy"
+                                    <img src="${pageContext.request.contextPath}/images/user/01.jpg" alt="profile-img"
+                                         loading="lazy"
                                          class="avatar-130 img-fluid"/>
                                 </div>
                                 <div class="profile-detail">
@@ -360,7 +362,8 @@
                                     </div>
                                     <!-- LOADER -->
                                     <div class="col-sm-12 text-center">
-                                        <img src="${pageContext.request.contextPath}/images/page-img/page-load-loader.gif" alt="loader"
+                                        <img src="${pageContext.request.contextPath}/images/page-img/page-load-loader.gif"
+                                             alt="loader"
                                              style="height: 100px;"
                                              loading="lazy">
                                     </div>

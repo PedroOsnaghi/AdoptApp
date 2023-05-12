@@ -234,7 +234,7 @@
 </div>
 
 
-<script src="js/preview.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/preview.js" type="text/javascript"></script>
 
 <!-- footer -->
 

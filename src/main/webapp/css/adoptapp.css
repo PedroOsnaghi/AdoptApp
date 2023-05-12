@@ -11738,7 +11738,7 @@ fieldset:disabled .btn {
 #top-tab-list li#confirm.active a i {
     color: #2dcdb2
 }
-#form-wizard1 fieldset:not(:first-of-type) {
+#form-steep fieldset:not(:first-of-type) {
     display: none
 }
 .stepwizard-row a.btn {
@@ -11857,9 +11857,7 @@ fieldset:disabled .btn {
 #top-tabbar-vertical li.active.done a i {
     color: #2dcdb2
 }
-#form-wizard3 fieldset:not(:first-of-type) {
-    display: none
-}
+
 .custom-switch-inner {
     display: block;
     text-align: center

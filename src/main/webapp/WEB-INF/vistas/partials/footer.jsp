@@ -9,7 +9,7 @@
           </div>
        </div>
     </div>
- </footer> <!-- Live Customizer start -->
+ </footer>
 
 
 

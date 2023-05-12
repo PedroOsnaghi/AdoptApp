@@ -26,33 +26,33 @@
                     <div class="sign-in-from">
                         <h2 class="mb-3">Que gusto nos da!!!</h2>
                         <h4>Ahora vamos a crear tu cuenta..</h4>
-                        <p>Es muy simple y rapido! completï¿½ estos pocos datos y forma parte de nuestra comunidad.
+                        <p>Es muy simple y rapido! completá estos pocos datos y forma parte de nuestra comunidad.
                         </p>
                         <form:form class="mt-4" action="" id="form" method="POST" modelAttribute="datosRegistro"
                                    enctype="application/x-www-form-urlencoded">
                             <div class="form-group">
-                                <label class="form-label" for="exampleInputEmail1">ï¿½Cï¿½mo te llamas?</label>
+                                <label class="form-label" for="exampleInputEmail1">?Cómo te llamas?</label>
                                 <form:input path="" type="email" class="form-control mb-0" id="exampleInputEmail1"
                                             placeholder="Tu nombre completo"/>
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="exampleInputEmail2">Correo electrï¿½nico</label>
+                                <label class="form-label" for="exampleInputEmail2">Correo electrónico</label>
                                 <form:input path="" type="email" class="form-control mb-0" id="exampleInputEmail2"
-                                            placeholder="Correo electrï¿½nico"/>
+                                            placeholder="Correo electrónico"/>
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="exampleInputPassword1">Contraseï¿½a</label>
+                                <label class="form-label" for="exampleInputPassword1">Contraseña</label>
                                 <form:input path="" type="password" class="form-control mb-0" id="exampleInputPassword1"
-                                            placeholder="Contraseï¿½a"/>
+                                            placeholder="Contraseña"/>
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="exampleInputPassword1">Repï¿½te la contraseï¿½a</label>
+                                <label class="form-label" for="exampleInputPassword1">Repite la contraseña</label>
                                 <form:input path="" type="password" class="form-control mb-0" id="exampleInputPassword2"
-                                            placeholder="Repï¿½te la contraseï¿½a"/>
+                                            placeholder="Repite la contraseña"/>
                             </div>
                             <div class="d-inline-block w-100 mb-1">
                                 <div class="form-check d-inline-block mt-2 pt-1">
-                                    <form:input path="" type="checkbox" class="form-check-input" id="customCheck1">
+                                    <form:input path="" type="checkbox" class="form-check-input" id="customCheck1"/>
                                     <label class="form-check-label" for="customCheck1">Acepto los <a
                                             href="#">Terminos y condiciones</a></label>
                                 </div>
@@ -70,7 +70,7 @@
                                 <div class="alert alert-solid alert-danger alert-dismissible fade show d-flex align-items-center gap-2"
                                      role="alert">
                                     <span class="d-flex"><i class="material-symbols-outlined">error</i></span>
-                                    <span> Ups! aqui va un mensaje de error</span>
+                                    <span>${error}</span>
                                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
                                             aria-label="Close" control-id="ControlID-9"></button>
                                 </div>
@@ -78,7 +78,7 @@
                         </c:if>
                         <hr>
                         <span class="dark-color d-inline-block line-height-2">Ya tenes una cuenta ? <a
-                                href="login.html">Inicia sesiï¿½n</a></span>
+                                href="login.html">Inicia sesión</a></span>
 
 
                     </div>

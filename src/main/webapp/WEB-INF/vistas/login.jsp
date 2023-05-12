@@ -31,18 +31,18 @@
                     </div>
                     <div class="col-md-6 bg-white pt-5 pt-5 pb-lg-0 pb-5">
                         <div class="sign-in-from">
-                            <h1 class="mb-0">Iniciar Sesi?n</h1>
-                            <p>Ingres&aacute; tu correo y contrase?a para acceder a tu cuenta.</p>
+                            <h1 class="mb-0">Iniciar Sesión</h1>
+                            <p>Ingresá tu correo y contraseña para acceder a tu cuenta.</p>
                             <form class="mt-4" action="loginHandler" method="POST">
                                 <div class="form-group">
-                                    <label class="form-label" for="email">Correo electr?nico</label>
-                                    <input name="email" id="email" class="form-control mb-0"  placeholder="Correo electr?nico"/>
+                                    <label class="form-label" for="email">Correo electrónico</label>
+                                    <input name="email" id="email" class="form-control mb-0"  placeholder="Correo electrónico"/>
                                 </div>
                                 <div class="form-group">
-                                    <label class="form-label" for="password">Contrase?a</label>
-                                    <a href="#" class="float-end">Olvidaste tu contrase?a?</a>
+                                    <label class="form-label" for="password">Contraseña</label>
+                                    <a href="#" class="float-end">Olvidaste tu contraseña?</a>
                                     <input name="password" type="password" class="form-control mb-0" id="password"
-                                                placeholder="Contrase?a"/>
+                                                placeholder="Contraseña"/>
                                 </div>
                                 <div class="d-inline-block w-100">
 <%--                                    <div class="form-check d-inline-block mt-2 pt-1">--%>
@@ -54,7 +54,7 @@
 
                                 </div>
                                 <div class="sign-info">
-                                    <span class="dark-color d-inline-block line-height-2">A?n no tenes cuenta en
+                                    <span class="dark-color d-inline-block line-height-2">Aún no tenes cuenta en
                                         AdoptApp? <a href="registrar">Registrarme</a></span>
 
                                 </div>

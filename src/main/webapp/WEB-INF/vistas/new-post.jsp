@@ -30,7 +30,7 @@
 
                      <div class="card-body">
 
-                        <form  class="text-center mt-3" action="" id="form"  method="POST" modelAttribute="" enctype="multipart/form-data">
+                        <form  class="text-center mt-3" action="add" id="form-steep"  method="POST" modelAttribute="" enctype="multipart/form-data">
                            <ul id="top-tab-list" class="p-0 row list-inline mb-2">
                               <li class="col-lg-4 col-md-12 text-start mb-2 active" id="mascota">
                                  <a href="javascript:void(0);">
@@ -259,20 +259,18 @@
          </div>
 
 </div>
-
-
-<script src="${pageContext.request.contextPath}/vendor/dropzone/dropzone-min.js"></script>
-
-  
-<script src="${pageContext.request.contextPath}/js/form-file-upload.init.js"></script>
-
-
 <!-- footer -->
 
 <%@ include file="partials/footer.jsp" %>
 
+
 <!-- scripts -->
 
 <%@ include file="partials/script.jsp" %>
+
+<script src="${pageContext.request.contextPath}/vendor/dropzone/dropzone-min.js"></script>
+
+
+<script src="${pageContext.request.contextPath}/js/form-file-upload.init.js"></script>
 
 

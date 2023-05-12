@@ -392,6 +392,7 @@ Index Of Script
                 t = t.toFixed(), $(".progress-bar").css("width", t + "%")
             }
             i(o), $(".next").click(function() {
+                console.log("anda"),
                 e = $(this).parent(), t = $(this).parent().next(), $("#top-tab-list li").eq($("fieldset").index(t)).addClass("active"), $("#top-tab-list li").eq($("fieldset").index(e)).addClass("done"), t.show(), e.animate({
                     opacity: 0
                 }, {

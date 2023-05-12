@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
+import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.Publicacion;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;

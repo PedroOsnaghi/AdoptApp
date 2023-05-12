@@ -78,7 +78,7 @@
                         <div class="d-flex justify-content-between">
                           <div class="">
                             <h6 class="mb-0 d-inline-block">Juan Daniel</h6>
-                            <small class="mb-0 text-primary ">hace 3 dÃ­as</small>
+                            <small class="mb-0 text-primary ">hace 3 días</small>
                             <p class="text-muted mb-0" style="font-style: italic;"><small
                                     class="text-muted"><i class="material-symbols-outlined small"
                                                           style="font-size: 12px;">location_on</i> Buenos Aires, Ramos
@@ -252,7 +252,7 @@
         <div class="card">
           <div class="card-header d-flex justify-content-between">
             <div class="header-title">
-              <h4 class="card-title">Acceso RÃ¡pido</h4>
+              <h4 class="card-title">Acceso Rápido</h4>
             </div>
           </div>
           <div class="card-body">
@@ -266,8 +266,8 @@
                                  </span>
 
                   <div class="stories-data ms-3">
-                    <h5>Crea una publicaciÃ³n</h5>
-                    <p class="mb-0">PublÃ­ca tu mascota</p>
+                    <h5>Crea una publicación</h5>
+                    <p class="mb-0">Publíca tu mascota</p>
                   </div>
                 </li>
               </a>
