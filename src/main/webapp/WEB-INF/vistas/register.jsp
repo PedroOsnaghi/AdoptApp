@@ -78,7 +78,7 @@
                         </c:if>
                         <hr>
                         <span class="dark-color d-inline-block line-height-2">Ya tenes una cuenta ? <a
-                                href="/login">Inicia sesión</a></span>
+                                href="login">Inicia sesión</a></span>
 
 
                     </div>
