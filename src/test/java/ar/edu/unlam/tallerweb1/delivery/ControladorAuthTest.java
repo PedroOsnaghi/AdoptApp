@@ -49,15 +49,17 @@ public class ControladorAuthTest {
 
     @Test
     public void login_deberiaRetornarModelAndViewConVistaLoginYErrorCuandoCredencialesNoSonValidas() {
-        String email = "john@email.com";
-        String password = "password";
+        LoginDto loginDto = new LoginDto();
 
-        when(servicioAuth.validarCredenciales(email, password)).thenReturn(false);
+        loginDto.setEmail("john@email.com");
+        loginDto.setPassword("password");
+
+        when(servicioAuth.validarCredenciales(loginDto.getEmail(), loginDto.getPassword())).thenReturn(false);
 
         ModelMap modelEsperado = new ModelMap();
         modelEsperado.put("error", "Credenciales invalidas");
 
-        ModelAndView modelAndViewObtenido = controladorAuth.login(email, password, session);
+        ModelAndView modelAndViewObtenido = controladorAuth.login(loginDto, session);
 
         String vistaObtenida = modelAndViewObtenido.getViewName();
         ModelMap modelObtenido = modelAndViewObtenido.getModelMap();
@@ -73,11 +75,16 @@ public class ControladorAuthTest {
         String password = "password";
         Usuario usuario = new Usuario(nombre, email, password);
 
-        when(servicioAuth.validarCredenciales(email, password)).thenReturn(true);
+        LoginDto loginDto = new LoginDto();
+
+        loginDto.setEmail("john@email.com");
+        loginDto.setPassword("password");
+
+        when(servicioAuth.validarCredenciales(loginDto.getEmail(), loginDto.getPassword())).thenReturn(true);
         when(repositorioUsuario.buscarPorEmail(email)).thenReturn(usuario);
 
         //MockHttpSession inyecta una sesion falsa para que el metodo login no retorne null
-        ModelAndView modelAndViewObtenido = controladorAuth.login(email, password, session);
+        ModelAndView modelAndViewObtenido = controladorAuth.login(loginDto, session);
 
         String vistaObtenida = modelAndViewObtenido.getViewName();
         assertEquals("redirect:/home", vistaObtenida);

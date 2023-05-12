@@ -33,16 +33,16 @@
                         <div class="sign-in-from">
                             <h1 class="mb-0">Iniciar Sesión</h1>
                             <p>Ingresá tu correo y contraseña para acceder a tu cuenta.</p>
-                            <form class="mt-4" action="loginHandler" method="POST">
+                            <form:form class="mt-4" action="loginHandler" modelAttribute="loginDto" method="POST">
                                 <div class="form-group">
                                     <label class="form-label" for="email">Correo electrónico</label>
-                                    <input name="email" id="email" class="form-control mb-0"  placeholder="Correo electrónico"/>
+                                    <form:input path="email" name="email" id="email" class="form-control mb-0"  placeholder="Correo electrónico" required="true"/>
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="password">Contraseña</label>
                                     <a href="#" class="float-end">Olvidaste tu contraseña?</a>
-                                    <input name="password" type="password" class="form-control mb-0" id="password"
-                                                placeholder="Contraseña"/>
+                                    <form:input path="password" name="password" type="password" class="form-control mb-0" id="password"
+                                                placeholder="Contraseña" required="true"/>
                                 </div>
                                 <div class="d-inline-block w-100">
 <%--                                    <div class="form-check d-inline-block mt-2 pt-1">--%>
@@ -71,7 +71,7 @@
                                     </div>
                                 </div>
                                 </c:if>
-                            </form>
+                            </form:form>
                         </div>
                     </div>
                 </div>

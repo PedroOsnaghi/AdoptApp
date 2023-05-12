@@ -236,7 +236,7 @@
                            </c:forEach>
 
                            <c:if test="${empty publicaciones}" >
-                           <p class="text-muted">No se encontraron publicaciones</p>
+                           <p class="text-muted text-center">No se encontraron publicaciones</p>
                            </c:if>
 
 

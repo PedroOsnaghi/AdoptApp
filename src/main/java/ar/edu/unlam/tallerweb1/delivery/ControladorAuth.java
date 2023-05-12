@@ -27,14 +27,18 @@ public class ControladorAuth {
 
     @RequestMapping("/login")
     public ModelAndView renderLogin() {
-        return new ModelAndView("/login");
+        ModelMap model = new ModelMap();
+
+        model.put("loginDto", new LoginDto());
+
+        return new ModelAndView("/login", model);
     }
 
     // NOTA: por ahora solo mete un usuario en la sesion.
     @RequestMapping(path = "/loginHandler", method = RequestMethod.POST)
-    public ModelAndView login(@RequestParam String email, @RequestParam String password, HttpSession session) {
+    public ModelAndView login(@ModelAttribute("loginDto") LoginDto loginDto, HttpSession session) {
 
-        boolean credencialesValidas = servicioAuth.validarCredenciales(email, password);
+        boolean credencialesValidas = servicioAuth.validarCredenciales(loginDto.getEmail(), loginDto.getPassword());
 
         if (!credencialesValidas) {
             ModelMap model = new ModelMap();
@@ -43,7 +47,7 @@ public class ControladorAuth {
             return new ModelAndView("/login", model);
         }
 
-        Usuario usuarioAutenticado = repositorioUsuario.buscarPorEmail(email);
+        Usuario usuarioAutenticado = repositorioUsuario.buscarPorEmail(loginDto.getEmail());
         servicioAuth.setTiempoSesion(60 * 60 * 24);
         servicioAuth.setUsuarioAutenticado(usuarioAutenticado);
 
