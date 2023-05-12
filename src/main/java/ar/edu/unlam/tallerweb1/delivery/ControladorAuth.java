@@ -60,7 +60,11 @@ public class ControladorAuth {
 
     @RequestMapping("/registrar")
     public ModelAndView renderRegistrar() {
-        return new ModelAndView("register-sin-etiquetas");
+        ModelMap model = new ModelMap();
+
+        model.put("registrarDto", new RegistrarDto());
+
+        return new ModelAndView("register", model);
     }
 
     @RequestMapping(path = "/registrarHandler", method = RequestMethod.POST)
@@ -74,8 +78,8 @@ public class ControladorAuth {
 
         if (!password.equals(password2)) {
             ModelMap model = new ModelMap();
-            model.put("error", "Passwords no coinciden");
-            return new ModelAndView("/register-sin-etiquetas", model);
+            model.put("error", "Las contraseñas no coinciden");
+            return new ModelAndView("/register", model);
         }
 
         String passwordHasheada = servicioAuth.encriptarPassword(password);
@@ -85,7 +89,7 @@ public class ControladorAuth {
             ModelMap model = new ModelMap();
             model.put("error", "Error al crear usuario");
 
-            return new ModelAndView("/register-sin-etiquetas", model);
+            return new ModelAndView("/register", model);
         }
 
         return new ModelAndView("/register-success");

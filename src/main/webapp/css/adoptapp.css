@@ -21450,7 +21450,12 @@ button.bg-soft-dark:hover {
     color: #c7c7c7
 }
 .dark #loading-center {
-    background-image: url(../images/loader-dark.png)
+    background:  url(../images/brand/loader-dark.png) no-repeat scroll center center;
+    background-size: 20%;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: none!important;
 }
 .dark .nav {
     background: #0f0f0f

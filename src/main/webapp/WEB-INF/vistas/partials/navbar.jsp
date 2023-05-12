@@ -62,7 +62,7 @@
 
                            <div class="d-flex align-items-center border-bottom search-hover py-2 px-3">
                               <div class="flex-shrink-0">
-                                 <img src="${pageContext.request.contextPath}/images/page-img/19.jpg"
+                                 <img src="${pageContext.request.contextPath}/images/user/19.jpg"
                                     class="align-self-center img-fluid avatar-50 rounded-pill" alt="#">
                               </div>
                               <div class="d-flex flex-column ms-3 w-100">
@@ -71,7 +71,7 @@
                               </div>
                               <div class="d-flex align-items-center ms-auto">
                                  <a href="javascript:void(0);"
-                                    class="me-3 d-flex align-items-center"><small>Publicaci?n</small>
+                                    class="me-3 d-flex align-items-center"><small>Publicación</small>
                                  </a>
                                  <a href="javascript:void(0);" class="material-symbols-outlined text-dark">close</a>
                               </div>
@@ -83,7 +83,7 @@
 
                               <div class="d-flex align-items-center border-bottom search-hover py-2 px-3">
                                  <div class="flex-shrink-0">
-                                    <img src="${pageContext.request.contextPath}/images/page-img/19.jpg"
+                                    <img src="${pageContext.request.contextPath}/images/user/19.jpg"
                                        class="align-self-center img-fluid avatar-50 rounded-pill" alt="#">
                                  </div>
                                  <div class="d-flex flex-column ms-3 w-100">
@@ -92,7 +92,7 @@
                                  </div>
                                  <div class="d-flex align-items-center ms-auto">
                                     <a href="javascript:void(0);"
-                                       class="me-3 d-flex align-items-center"><small>Publicaci?n</small>
+                                       class="me-3 d-flex align-items-center"><small>Publicación</small>
                                     </a>
                                     <a href="javascript:void(0);" class="material-symbols-outlined text-dark">close</a>
                                  </div>
