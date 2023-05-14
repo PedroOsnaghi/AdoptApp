@@ -1,8 +1,8 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
-import ar.edu.unlam.tallerweb1.domain.publicaciones.Publicacion;
-import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
+import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,6 +39,7 @@ public class ControladorHome {
             ModelMap model = new ModelMap();
             //solicitar publicaciones
             List<Publicacion> publicaciones = servicioPublicacion.listarPublicaciones();
+
 
 
             model.addAttribute("usuario", userAuth);

@@ -1,9 +1,8 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
-import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
-import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
-import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
-import ar.edu.unlam.tallerweb1.infrastructure.RepositorioUsuario;
+import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.usuarios.IServicioUsuario;
+import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,14 +14,16 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class ControladorAuth {
 
-    @Autowired
-    ServicioAuth servicioAuth;
+    private IServicioUsuario servicioUsuario;
+    private IServicioAuth servicioAuth;
 
     @Autowired
-    ServicioUsuario servicioUsuario;
+    public ControladorAuth(IServicioAuth servicioAuth, IServicioUsuario servicioUsuario){
+      this.servicioAuth = servicioAuth;
+      this.servicioUsuario = servicioUsuario;
+  }
 
-    @Autowired
-    RepositorioUsuario repositorioUsuario;
+
 
 
     @RequestMapping("/login")
@@ -47,7 +48,7 @@ public class ControladorAuth {
             return new ModelAndView("/login", model);
         }
 
-        Usuario usuarioAutenticado = repositorioUsuario.buscarPorEmail(loginDto.getEmail());
+        Usuario usuarioAutenticado = servicioUsuario.buscarUsuarioPorEmail(loginDto.getEmail());
         servicioAuth.setTiempoSesion(60 * 60 * 24);
         servicioAuth.setUsuarioAutenticado(usuarioAutenticado);
 

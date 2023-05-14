@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.auth;
 
-import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import ar.edu.unlam.tallerweb1.model.Usuario;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioUsuario;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +30,7 @@ public class ServicioAuthTest {
         String passwordHasheada = servicioAuth.encriptarPassword("1234");
         Usuario usuario = new Usuario("John", "john@test.com", passwordHasheada);
 
-        Mockito.when(repositorioUsuario.buscarPorEmail("john@test.com")).thenReturn(usuario);
+        Mockito.when(repositorioUsuario.buscarUsuarioPorEmail("john@test.com")).thenReturn(usuario);
 
         boolean passwordConcuerda = servicioAuth.validarCredenciales("john@test.com", "1234");
 
@@ -42,7 +42,7 @@ public class ServicioAuthTest {
         String passwordHasheada = servicioAuth.encriptarPassword("1234");
         Usuario usuario = new Usuario("John", "john@test.com", passwordHasheada);
 
-        Mockito.when(repositorioUsuario.buscarPorEmail("john@test.com")).thenReturn(usuario);
+        Mockito.when(repositorioUsuario.buscarUsuarioPorEmail("john@test.com")).thenReturn(usuario);
 
         boolean passwordConcuerda = servicioAuth.validarCredenciales("john@test.com", "passmala");
 

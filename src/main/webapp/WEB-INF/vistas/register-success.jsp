@@ -31,7 +31,7 @@
                             
                             <h4>Ya eres parte de la Familia</h4>
                             <p>Ahora Inicia Sesión para comenzar</p>
-                            <a href="login.html" class="btn btn-primary">Continuar</a>
+                            <a href="login" class="btn btn-primary">Continuar</a>
                            
                         </div>
                     </div>

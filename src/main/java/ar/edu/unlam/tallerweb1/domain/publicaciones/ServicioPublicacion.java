@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.publicaciones;
 
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

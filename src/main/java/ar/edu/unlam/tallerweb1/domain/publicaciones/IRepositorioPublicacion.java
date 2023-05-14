@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.publicaciones;
 
-import ar.edu.unlam.tallerweb1.domain.publicaciones.Publicacion;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
 
 import java.util.List;
 

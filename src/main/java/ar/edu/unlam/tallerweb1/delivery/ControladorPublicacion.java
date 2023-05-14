@@ -1,9 +1,8 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
-import ar.edu.unlam.tallerweb1.domain.publicaciones.Publicacion;
-import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
-import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
+import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -12,12 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@RequestMapping("publicacion")
+@RequestMapping("/publicacion")
 public class ControladorPublicacion {
 
     private IServicioPublicacion servicioPublicacion;
@@ -38,7 +36,7 @@ public class ControladorPublicacion {
 
             publicacion.setTitulo(datosPublicacion.getTitulo());
             publicacion.setCuerpo(datosPublicacion.getCuerpo());
-            publicacion.setAutorId(usuario.getId());
+           // publicacion.setAutorId(usuario.getId());
             publicacion.setMascotaId(datosPublicacion.getMascotaId());
             publicacion.setFechaCreacion(datosPublicacion.getFechaCreacion());
 

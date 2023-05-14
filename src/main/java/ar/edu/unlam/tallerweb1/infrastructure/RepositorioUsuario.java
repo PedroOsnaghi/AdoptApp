@@ -1,30 +1,33 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
-
-import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
-import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import ar.edu.unlam.tallerweb1.domain.usuarios.IRepositorioUsuario;
+import ar.edu.unlam.tallerweb1.model.Usuario;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Base64;
 
 @Repository
-public class RepositorioUsuario {
+@Transactional
+public class RepositorioUsuario implements IRepositorioUsuario {
 
-    //TODO
-    public Usuario guardar(Usuario usuario) {
+    @Autowired
+    private SessionFactory sessionFactory;
+
+
+    @Override
+    public Usuario guardarUsuario(Usuario usuario) {
+        this.sessionFactory.getCurrentSession().save(usuario);
         return usuario;
     }
 
-    //TODO
-    public Usuario buscarPorEmail(String email) {
-        //TODO BORRAR TODO ESTO
-        String password = "1234";
-        byte[] jsonByte = password.getBytes();
-        Base64.Encoder encoder = Base64.getEncoder();
-        String mockPassword = encoder.encodeToString(jsonByte);
-
-        return new Usuario("usuario mock", email, mockPassword);
+    @Override
+    public Usuario buscarUsuarioPorEmail(String email) {
+        return (Usuario) this.sessionFactory.getCurrentSession().createCriteria(Usuario.class)
+                .add(Restrictions.eq("email", email))
+                .uniqueResult();
     }
 
-    ;
-    //void modificar(Usuario usuario){};
+
 }

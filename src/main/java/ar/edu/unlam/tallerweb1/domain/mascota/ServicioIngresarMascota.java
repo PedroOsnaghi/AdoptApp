@@ -1,5 +1,6 @@
-package ar.edu.unlam.tallerweb1.domain;
+package ar.edu.unlam.tallerweb1.domain.mascota;
 
+import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import org.springframework.stereotype.Service;
 
 import java.io.File;

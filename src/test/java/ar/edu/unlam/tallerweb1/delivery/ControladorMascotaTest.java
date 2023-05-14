@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
-import ar.edu.unlam.tallerweb1.domain.IServicioMascota;
-import ar.edu.unlam.tallerweb1.domain.ServicioIngresarMascota;
+import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
+import ar.edu.unlam.tallerweb1.domain.mascota.ServicioIngresarMascota;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;

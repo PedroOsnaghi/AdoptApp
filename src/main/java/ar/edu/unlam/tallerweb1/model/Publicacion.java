@@ -1,6 +1,7 @@
-package ar.edu.unlam.tallerweb1.domain.publicaciones;
+package ar.edu.unlam.tallerweb1.model;
 
 import ar.edu.unlam.tallerweb1.EstadoPublicacion;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ public class Publicacion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String cuerpo;
     private String titulo;
     private String ruta_imagen;

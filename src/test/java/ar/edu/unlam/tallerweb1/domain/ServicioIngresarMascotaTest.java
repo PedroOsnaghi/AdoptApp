@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain;
 
+import ar.edu.unlam.tallerweb1.domain.mascota.ServicioIngresarMascota;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

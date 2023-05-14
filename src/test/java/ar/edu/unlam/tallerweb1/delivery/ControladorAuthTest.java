@@ -2,17 +2,13 @@ package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
-import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
+import ar.edu.unlam.tallerweb1.model.Usuario;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioUsuario;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.mock.web.MockHttpSession;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -81,7 +77,7 @@ public class ControladorAuthTest {
         loginDto.setPassword("password");
 
         when(servicioAuth.validarCredenciales(loginDto.getEmail(), loginDto.getPassword())).thenReturn(true);
-        when(repositorioUsuario.buscarPorEmail(email)).thenReturn(usuario);
+        when(repositorioUsuario.buscarUsuarioPorEmail(email)).thenReturn(usuario);
 
         //MockHttpSession inyecta una sesion falsa para que el metodo login no retorne null
         ModelAndView modelAndViewObtenido = controladorAuth.login(loginDto, session);

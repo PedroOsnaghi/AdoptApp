@@ -1,7 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.auth;
 
-import ar.edu.unlam.tallerweb1.domain.usuarios.Usuario;
-import ar.edu.unlam.tallerweb1.infrastructure.RepositorioUsuario;
+import ar.edu.unlam.tallerweb1.domain.usuarios.IRepositorioUsuario;
+import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,24 +9,35 @@ import javax.servlet.http.HttpSession;
 import java.util.Base64;
 
 @Service
-public class ServicioAuth {
+public class ServicioAuth implements IServicioAuth {
+
+
+    private  HttpSession session;
+    IRepositorioUsuario repositorioUsuario;
 
     @Autowired
-    private HttpSession session;
+    public  ServicioAuth(IRepositorioUsuario repositorioUsuario, HttpSession session){
+       this.repositorioUsuario = repositorioUsuario;
+       this.session = session;
+   }
 
-    @Autowired
-    private RepositorioUsuario repositorioUsuario;
-
-    // TODO: llamar a repositorio de usuarios y usar validarPasswordHasheada
+    @Override
     public boolean validarCredenciales(String email, String password) {
 
-        Usuario usuario = repositorioUsuario.buscarPorEmail(email);
+        Usuario usuario = repositorioUsuario.buscarUsuarioPorEmail(email);
 
-        boolean passwordCorrecta = validarPasswordHasheada(password, usuario.getPassword());
+        if(usuario != null){
+            boolean passwordCorrecta = validarPasswordHasheada(password, usuario.getPassword());
 
-        return passwordCorrecta;
+            return passwordCorrecta;
+        }
+
+        return false;
+
+
     }
 
+    @Override
     public String encriptarPassword(String password) {
         byte[] jsonByte = password.getBytes();
         Base64.Encoder encoder = Base64.getEncoder();
@@ -34,6 +45,7 @@ public class ServicioAuth {
 
         return passwordHasheada;
     }
+
 
     public boolean validarPasswordHasheada(String password, String passwordHasheada) {
         String _passwordHasheada = encriptarPassword(password);
@@ -52,6 +64,7 @@ public class ServicioAuth {
         return (Usuario) session.getAttribute("usuarioAutenticado");
     }
 
+    @Override
     public void setTiempoSesion(int tiempo) {
         session.setMaxInactiveInterval(tiempo);
     }

@@ -1,16 +1,34 @@
-package ar.edu.unlam.tallerweb1.domain.usuarios;
+package ar.edu.unlam.tallerweb1.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.sql.Timestamp;
+
+@Entity
 public class Usuario {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String username;
     private String nombre;
     private String email;
     private String password;
-    private String dni;
+    private String domicilio;
     private String tel;
-    private String created_at;
+
     private String imagen;
-    private boolean activado = false;
+
+    @CreationTimestamp
+    private Timestamp created_at;
+    private boolean updated = false;
+
+
+    public Usuario() {
+    }
 
     public Usuario(String nombre, String email, String password) {
         this.nombre = nombre;
@@ -18,20 +36,13 @@ public class Usuario {
         this.password = password;
     }
 
+
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getNombre() {
@@ -58,12 +69,12 @@ public class Usuario {
         this.password = password;
     }
 
-    public String getDni() {
-        return dni;
+    public String getDomicilio() {
+        return domicilio;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setDomicilio(String dni) {
+        this.domicilio = dni;
     }
 
     public String getTel() {
@@ -74,19 +85,26 @@ public class Usuario {
         this.tel = tel;
     }
 
-    public String getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
-    }
-
     public String getImagen() {
         return imagen;
     }
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
+
+    public boolean isUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(boolean updated) {
+        this.updated = updated;
     }
 }
