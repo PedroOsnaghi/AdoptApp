@@ -10,8 +10,7 @@ import java.io.IOException;
 public class ServicioArchivo {
 
     private AppConfig config;
-    private String defaultUserImageProfile;
-    private String defaultMascotImageProfile;
+    private final String defaultImage = "default.jpg";
 
     public enum avatarType{
         USER,
@@ -21,14 +20,12 @@ public class ServicioArchivo {
     @Autowired
     public ServicioArchivo(AppConfig cfg){
         this.config = cfg;
-        this.defaultUserImageProfile = "default.jpg";
-        this.defaultMascotImageProfile = "default.webp";
    }
 
 
-    public String guardarAvatar(MultipartFile multipart, avatarType type){
+    public String subirAvatar(MultipartFile multipart, avatarType type){
 
-        String nombreArchivo = this.getNameDefault(type);
+        String nombreArchivo = this.defaultImage;
         String uploadFolder = this.getFolder(type);
 
         if(!multipart.isEmpty()) {
@@ -50,7 +47,7 @@ public class ServicioArchivo {
             }catch (IOException e) {
                 System.out.println("Error Al subir Archivo: " + e.getMessage());
                 //retornamos imagen por defecto
-                nombreArchivo = this.getNameDefault(type);
+                nombreArchivo = this.defaultImage;
             }
 
         }
@@ -63,19 +60,20 @@ public class ServicioArchivo {
 
     private String getDir(String uploadFolder) {
         File dir = new File(config.getImageFolder() + File.separator + uploadFolder);
-
+        System.out.println("Dir" + config.getImageFolder());
+        System.out.println("Directorio a guardar: " + dir.getAbsolutePath());
         if(!dir.exists()) dir.mkdirs();
+
+
 
         return dir.getAbsolutePath();
     }
 
     private String getFolder(avatarType type) {
-        return (type == avatarType.USER) ? "user" : "mascota" + File.separator + "profiles";
+        return (type == avatarType.USER) ? "user" : "mascota";
     }
 
-    private String getNameDefault(avatarType type) {
-         return  (type == avatarType.USER) ? this.defaultUserImageProfile : this.defaultMascotImageProfile;
-    }
+
 
 
 }

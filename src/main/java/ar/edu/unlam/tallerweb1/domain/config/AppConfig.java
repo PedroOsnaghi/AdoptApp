@@ -14,7 +14,6 @@ public class AppConfig {
 
     @Autowired
     public void AppConfig() {
-
         this.dirRoot = System.getProperty("catalina.home") + File.separator + "webapps" + File.separator + APP_CONTEXT;
         this.imageFolder = Paths.get(this.dirRoot + File.separator + "images").toFile().getAbsolutePath();
     }
