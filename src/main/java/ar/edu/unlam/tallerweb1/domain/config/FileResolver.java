@@ -5,7 +5,7 @@ import java.io.File;
 import java.nio.file.Paths;
 
 @Service
-public class AppConfig {
+public class FileResolver {
 
     final static String APP_CONTEXT = "proyecto_limpio_spring_war";
     private String dirRoot;

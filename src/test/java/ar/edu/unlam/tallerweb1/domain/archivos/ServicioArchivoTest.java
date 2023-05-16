@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.archivos;
 
-import ar.edu.unlam.tallerweb1.domain.config.AppConfig;
+import ar.edu.unlam.tallerweb1.domain.config.FileResolver;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
@@ -23,12 +23,12 @@ public class ServicioArchivoTest {
 
     private ServicioArchivo servicioArchivo;
 
-    private AppConfig cfg;
+    private FileResolver fr;
 
     @Before
     public void init(){
-        this.cfg = mock(AppConfig.class);
-        this.servicioArchivo = new ServicioArchivo(cfg);
+        this.fr = mock(FileResolver.class);
+        this.servicioArchivo = new ServicioArchivo(fr);
     }
 
     @Test
@@ -66,7 +66,7 @@ public class ServicioArchivoTest {
     private void dadoQueNoHayArchivosParaSerSubidoAlServidor() {
         multipartFile = new MockMultipartFile("file", "".getBytes());
         //when(cfg.getImageFolder()).thenReturn("c:\\archivossubidos");
-        when(cfg.getImageFolder()).thenReturn("/Volumes" + File.separator + "SSD 256 - Datos" + File.separator + "test-upload");
+        when(fr.getImageFolder()).thenReturn("/Volumes/Datos/test-upload");
     }
 
 
@@ -76,8 +76,8 @@ public class ServicioArchivoTest {
 
     private String alGuardarloEnelServidor(String tipo) {
         if(tipo =="USER")
-            return servicioArchivo.subirAvatar(multipartFile, ServicioArchivo.avatarType.USER);
-         return servicioArchivo.subirAvatar(multipartFile, ServicioArchivo.avatarType.MASCOT);
+            return servicioArchivo.subirAvatar(multipartFile, "user");
+         return servicioArchivo.subirAvatar(multipartFile, "mascota");
     }
 
     private void dadoQueExisteUnArchivoParaSerSubidoAlServidor() throws IOException {
@@ -92,7 +92,7 @@ public class ServicioArchivoTest {
         multipartFile = new MockMultipartFile("file", archivoASubir, "image/png", fis);
 
         //when(cfg.getImageFolder()).thenReturn("c:\\archivossubidos");
-        when(cfg.getImageFolder()).thenReturn("/test-upload");
+        when(fr.getImageFolder()).thenReturn("/volumes/Datos/test-upload");
 
     }
 }

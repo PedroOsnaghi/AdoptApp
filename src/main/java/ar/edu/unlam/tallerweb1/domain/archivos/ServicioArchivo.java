@@ -1,5 +1,5 @@
 package ar.edu.unlam.tallerweb1.domain.archivos;
-import ar.edu.unlam.tallerweb1.domain.config.AppConfig;
+import ar.edu.unlam.tallerweb1.domain.config.FileResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,24 +9,19 @@ import java.io.IOException;
 @Service
 public class ServicioArchivo {
 
-    private AppConfig config;
-    private final String defaultImage = "default.jpg";
+    private final FileResolver fileResolver;
 
-    public enum avatarType{
-        USER,
-        MASCOT
-    }
 
     @Autowired
-    public ServicioArchivo(AppConfig cfg){
-        this.config = cfg;
+    public ServicioArchivo(FileResolver fr){
+        this.fileResolver = fr;
    }
 
 
-    public String subirAvatar(MultipartFile multipart, avatarType type){
+    public String subirAvatar(MultipartFile multipart, String folder){
 
-        String nombreArchivo = this.defaultImage;
-        String uploadFolder = this.getFolder(type);
+        String defaultImage = "default.jpg";
+        String nombreArchivo = defaultImage;
 
         if(!multipart.isEmpty()) {
             //obtenemos el nombre original del archivo
@@ -34,7 +29,7 @@ public class ServicioArchivo {
 
             try {
                 //Creacion del directorio donde vamos a alojar el archivo
-                File dir = new File(this.getDir(uploadFolder));
+                File dir = new File(this.getDir(folder));
 
                 //formamos el nombre completo del archivo a guardar
                 File imageFile = new File( dir + File.separator + nombreArchivo );
@@ -43,35 +38,30 @@ public class ServicioArchivo {
                 //guardamos fisicamente
                 multipart.transferTo(imageFile);
 
+                System.out.println("El Archivo se guardo en: " + imageFile.getAbsolutePath());
 
             }catch (IOException e) {
                 System.out.println("Error Al subir Archivo: " + e.getMessage());
                 //retornamos imagen por defecto
-                nombreArchivo = this.defaultImage;
+                nombreArchivo = defaultImage;
             }
 
         }
 
         return nombreArchivo;
 
-
-
     }
 
+
+
     private String getDir(String uploadFolder) {
-        File dir = new File(config.getImageFolder() + File.separator + uploadFolder);
-        System.out.println("Dir" + config.getImageFolder());
-        System.out.println("Directorio a guardar: " + dir.getAbsolutePath());
+        File dir = new File(fileResolver.getImageFolder() + File.separator + uploadFolder);
+
         if(!dir.exists()) dir.mkdirs();
-
-
 
         return dir.getAbsolutePath();
     }
 
-    private String getFolder(avatarType type) {
-        return (type == avatarType.USER) ? "user" : "mascota";
-    }
 
 
 
