@@ -10,9 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -20,9 +18,6 @@ import static org.mockito.Mockito.when;
 
 
 public class ServicioArchivoTest {
-
-    private String archivoASubir = "loader.png";
-    private MockMultipartFile multipartFile;
 
     private ServicioArchivo servicioArchivo;
 
@@ -36,29 +31,29 @@ public class ServicioArchivoTest {
 
     @Test
     public void alSubirUnAvatarDebeRetornarElNombreDelArchivoGuardado_casoUsuario() throws IOException {
-        dadoQueExisteUnArchivoParaSerSubidoAlServidor();
-        String archivo = alGuardarloEnelServidor("USER");
+        MultipartFile multipartFile = dadoQueExisteUnArchivoParaSerSubidoAlServidor();
+        String archivo = alGuardarloEnelServidor(multipartFile,"USER");
         regresaElNombreDelArchivoGuardado(archivo);
     }
 
     @Test
     public void alSubirUnAvatarDebeRetornarElNombreDelArchivoGuardado_casoMascota() throws IOException {
-        dadoQueExisteUnArchivoParaSerSubidoAlServidor();
-        String archivo = alGuardarloEnelServidor("MASCOTA");
+        MultipartFile multipartFile = dadoQueExisteUnArchivoParaSerSubidoAlServidor();
+        String archivo = alGuardarloEnelServidor( multipartFile,"MASCOTA");
         regresaElNombreDelArchivoGuardado(archivo);
     }
 
     @Test
-    public void alNoEncontrarArchivosDeSubidaDebeRetornarElAvatarPorDefecto_casoUsuario() throws IOException {
-        dadoQueNoHayArchivosParaSerSubidoAlServidor();
-        String archivo = alGuardarloEnelServidor("USER");
+    public void alNoEncontrarArchivosDeSubidaDebeRetornarElAvatarPorDefecto_casoUsuario() {
+        MultipartFile multipartFile = dadoQueNoHayArchivosParaSerSubidoAlServidor();
+        String archivo = alGuardarloEnelServidor(   multipartFile,"USER");
         regresaElNombrePorDefecto(archivo);
     }
 
     @Test
-    public void alNoEncontrarArchivosDeSubidaDebeRetornarElAvatarPorDefecto_casoMascota() throws IOException {
-        dadoQueNoHayArchivosParaSerSubidoAlServidor();
-        String archivo = alGuardarloEnelServidor("MASCOTA");
+    public void alNoEncontrarArchivosDeSubidaDebeRetornarElAvatarPorDefecto_casoMascota() {
+        MultipartFile multipartFile = dadoQueNoHayArchivosParaSerSubidoAlServidor();
+        String archivo = alGuardarloEnelServidor(multipartFile,"MASCOTA");
         regresaElNombrePorDefecto(archivo);
     }
 
@@ -69,12 +64,100 @@ public class ServicioArchivoTest {
         podemosSaberCuantosSeSubieron(cantidad);
     }
 
+    @Test
+    public void alTenerAvatarYNoHaberImagenesDeSubidaDebeRetornarElAvatarActual_usuario(){
+        MultipartFile multipartFile = dadoQueNoHayArchivosParaSerSubidoAlServidor();
+        String archivo = alVerificarEnElServidor(multipartFile, "usuario");
+        debeObtenerElAvatarActual(archivo);
+
+    }
+
+    @Test
+    public void alTenerAvatarYNoHaberImagenesDeSubidaDebeRetornarElAvatarActual_mascota(){
+        MultipartFile multipartFile = dadoQueNoHayArchivosParaSerSubidoAlServidor();
+        String archivo = alVerificarEnElServidor(multipartFile, "mascota");
+        debeObtenerElAvatarActual(archivo);
+
+    }
+
+    @Test
+    public void alTenerAvatarYHaberImagenesDeSubidaDebeRetornarLaImagenSubida_mascota() throws IOException {
+        MultipartFile multipartFile = dadoQueExisteUnArchivoParaSerSubidoAlServidor();
+        String archivo = alVerificarEnElServidor(multipartFile, "mascota");
+        regresaElNombreDelArchivoGuardado(archivo);
+
+    }
+
+    @Test
+    public void alTenerAvatarYHaberImagenesDeSubidaDebeRetornarLaImagenSubida_usuario() throws IOException {
+        MultipartFile multipartFile = dadoQueExisteUnArchivoParaSerSubidoAlServidor();
+        String archivo = alVerificarEnElServidor(multipartFile, "usuario");
+        regresaElNombreDelArchivoGuardado(archivo);
+
+    }
+
+    @Test
+    public void alExistirUnaImagenEnElServidorDebePoderEliminarse() throws IOException {
+        String imagen = dadoQueExisteUnaImagenSubida();
+        boolean resultado = alEliminarseDelServidor(imagen);
+        obtenemosElResutadoCorrecto(resultado);
+    }
+
+    private void obtenemosElResutadoCorrecto(boolean resultado) {
+        assertThat(resultado).isEqualTo(true);
+    }
+
+    private boolean alEliminarseDelServidor(String imagen) {
+        return this.servicioArchivo.eliminarImagenPost(imagen);
+    }
+
+    private String dadoQueExisteUnaImagenSubida() throws IOException {
+        String path = System.getProperty("user.dir")
+                + File.separator +  "src"
+                + File.separator + "main"
+                + File.separator + "webapp"
+                + File.separator + "images"
+                + File.separator + "user";
+
+
+        //archivo 1
+        File archivo = new File(path + File.separator + "01.jpg");
+
+        FileInputStream fis = new FileInputStream(archivo);
+
+        MockMultipartFile mf1  = new MockMultipartFile("file1", "01.jpg", "image/jpg", fis);
+
+        //arreglo MultiPartFile
+
+        MultipartFile[] files = {mf1};
+
+        //when(cfg.getImageFolder()).thenReturn("c:\\archivossubidos");
+        when(cfg.getImageFolder()).thenReturn("/volumes/Datos/test-upload");
+
+        this.servicioArchivo.subirImagenesPost(files);
+
+        return this.servicioArchivo.getImagenesSubidas().get(0);
+
+    }
+
+    private void debeObtenerElAvatarActual(String archivo) {
+        assertThat(archivo).isEqualTo("avatar.png");
+    }
+
+    private String alVerificarEnElServidor(MultipartFile multipartFile, String tipo) {
+        String avatarActual = "avatar.png";
+        if(tipo.equals("usuario")){
+            return servicioArchivo.cambiarAvatarUsuario(multipartFile, avatarActual);
+        }
+        return servicioArchivo.cambiarAvatarMascota(multipartFile, avatarActual);
+    }
+
     private void podemosSaberCuantosSeSubieron(int cantidad) {
         assertThat(cantidad).isEqualTo(3);
     }
 
     private int alGuardarLosArchivosEnElSrvidor(MultipartFile[] files) {
-        return this.servicioArchivo.subirImagenes(files);
+        return this.servicioArchivo.subirImagenesPost(files);
     }
 
     private MultipartFile[] dadoQueHayVariosArchivosParaSubir() throws IOException {
@@ -122,36 +205,37 @@ public class ServicioArchivoTest {
         assertThat(archivo).isEqualTo("default.jpg");
     }
 
-    private void dadoQueNoHayArchivosParaSerSubidoAlServidor() {
-        multipartFile = new MockMultipartFile("file", "".getBytes());
+    private MultipartFile dadoQueNoHayArchivosParaSerSubidoAlServidor() {
+        MultipartFile multipartFile = new MockMultipartFile("file", "".getBytes());
         //when(cfg.getImageFolder()).thenReturn("c:\\archivossubidos");
         when(cfg.getImageFolder()).thenReturn("/Volumes/Datos/test-upload");
-    }
 
+        return multipartFile;
+    }
 
     private void regresaElNombreDelArchivoGuardado(String archivo) {
-        assertThat(archivo).isEqualTo(archivoASubir);
+        assertThat(archivo).isEqualTo("loader.png");
     }
 
-    private String alGuardarloEnelServidor(String tipo) {
-        if(tipo =="USER")
-            return servicioArchivo.subirAvatar(multipartFile, "user");
-         return servicioArchivo.subirAvatar(multipartFile, "mascota");
+    private String alGuardarloEnelServidor(MultipartFile multipartFile, String tipo) {
+        if(tipo.equals("USER"))
+            return servicioArchivo.subirAvatarUsuario(multipartFile);
+         return servicioArchivo.subirAvatarMascota(multipartFile);
     }
 
-    private void dadoQueExisteUnArchivoParaSerSubidoAlServidor() throws IOException {
+    private MultipartFile dadoQueExisteUnArchivoParaSerSubidoAlServidor() throws IOException {
         File archivo = new File(System.getProperty("user.dir")
                 + File.separator +  "src"
                 + File.separator + "main"
                 + File.separator + "webapp"
                 + File.separator + "images"
                 + File.separator + "brand"
-                + File.separator + archivoASubir);
+                + File.separator + "loader.png");
         FileInputStream fis = new FileInputStream(archivo);
-        multipartFile = new MockMultipartFile("file", archivoASubir, "image/png", fis);
+        MultipartFile multipartFile = new MockMultipartFile("file", "loader.png", "image/png", fis);
 
         //when(cfg.getImageFolder()).thenReturn("c:\\archivossubidos");
         when(cfg.getImageFolder()).thenReturn("/volumes/Datos/test-upload");
-
+        return multipartFile;
     }
 }

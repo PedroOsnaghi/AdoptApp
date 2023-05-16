@@ -8,12 +8,20 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ServicioArchivo {
 
     private final FileResolver fileResolver;
     private final String defaultImage = "default.jpg";
+
+    private List<String> imagenesSubidas = new ArrayList<>();
+
+    public List<String> getImagenesSubidas() {
+        return imagenesSubidas;
+    }
 
     @Autowired
     public ServicioArchivo(FileResolver fr) {
@@ -32,7 +40,7 @@ public class ServicioArchivo {
 
     }
 
-    public int subirImagenes(MultipartFile[] files) {
+    public int subirImagenesPost(MultipartFile[] files) {
 
         int subidos = 0;
 
@@ -56,6 +64,15 @@ public class ServicioArchivo {
        return this.verificarAvatar(file,oldFile,"mascota");
     }
 
+    public boolean eliminarImagenPost(String fileName){
+        if(this.eliminarArchivo(fileName, "posts")){
+            //TODO: eliminar archivo de la base de datos
+            return true;
+        }
+
+        return false;
+    }
+
     private String verificarAvatar(MultipartFile file, String oldFile, String folder){
         if(!file.isEmpty()){
             this.eliminarArchivo(oldFile,folder);
@@ -75,8 +92,6 @@ public class ServicioArchivo {
         return false;
     }
 
-  
-
     private boolean guardarArchivo(MultipartFile file, String folder) {
         boolean result = false;
 
@@ -86,13 +101,17 @@ public class ServicioArchivo {
                 File dir = new File(folder);
 
                 //formamos el nombre completo del archivo a guardar
-                File imageFile = new File(dir + File.separator + this.getPrefix() + "_" + file.getOriginalFilename());
+                String fileName = this.getPrefix() + "_" + file.getOriginalFilename();
+                File imageFile = new File(dir + File.separator + fileName);
 
 
                 //guardamos fisicamente
                 file.transferTo(imageFile);
 
                 System.out.println("El Archivo se guardo en: " + imageFile.getAbsolutePath());
+
+                this.imagenesSubidas.add(fileName);
+
 
                 result = true;
             }
