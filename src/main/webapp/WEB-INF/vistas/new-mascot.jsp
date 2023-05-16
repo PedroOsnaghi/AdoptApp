@@ -33,7 +33,7 @@
 
 
                                         <img class="avatar-130 img-fluid"
-                                             src="${pageContext.request.contextPath}/images/mascota/profiles/default.webp"
+                                             src="${pageContext.request.contextPath}/images/mascota/default.jpg"
                                              id="preview" alt="">
                                         <div class="material-symbols-outlined btn btn-primary btn-profile">
                                             photo_camera
@@ -91,7 +91,7 @@
                                 </div>
 
                                 <div class="col-md-6 position-relative">
-                                    <label class="form-label" for="peso"><strong>Cuánto pesa en
+                                    <label class="form-label" for="peso"><strong>Cu?nto pesa en
                                         Kg?</strong>
                                         (aporx.)</label>
                                     <form:input path="peso" type="number" class="form-control" id="peso"
@@ -101,8 +101,8 @@
 
                                 <div class="col-md-6 position-relative">
                                     <label class="form-label" for="nacimiento"><strong>Cuándo nació?</strong> (si
-                                        no sábes dejalo
-                                        vacío)</label>
+                                        no sabes dejalo
+                                        vac?o)</label>
                                     <input path="" type="date" class="form-control" id="nacimiento" value="Now"
                                            control-id="ControlID-15">
                                 </div>
