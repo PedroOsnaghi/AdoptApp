@@ -4,12 +4,15 @@ import ar.edu.unlam.tallerweb1.domain.config.FileResolver;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import java.io.File;
 import java.io.FileInputStream;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
@@ -23,12 +26,12 @@ public class ServicioArchivoTest {
 
     private ServicioArchivo servicioArchivo;
 
-    private FileResolver fr;
+    private FileResolver cfg;
 
     @Before
     public void init(){
-        this.fr = mock(FileResolver.class);
-        this.servicioArchivo = new ServicioArchivo(fr);
+        this.cfg = mock(FileResolver.class);
+        this.servicioArchivo = new ServicioArchivo(cfg);
     }
 
     @Test
@@ -59,6 +62,62 @@ public class ServicioArchivoTest {
         regresaElNombrePorDefecto(archivo);
     }
 
+    @Test
+    public void alSubirVariosArchivosAlServidorDebemosObtenerLaCantidadDeArchivosGuardados() throws IOException {
+        MultipartFile[] files = dadoQueHayVariosArchivosParaSubir();
+        int cantidad = alGuardarLosArchivosEnElSrvidor(files);
+        podemosSaberCuantosSeSubieron(cantidad);
+    }
+
+    private void podemosSaberCuantosSeSubieron(int cantidad) {
+        assertThat(cantidad).isEqualTo(3);
+    }
+
+    private int alGuardarLosArchivosEnElSrvidor(MultipartFile[] files) {
+        return this.servicioArchivo.subirImagenes(files);
+    }
+
+    private MultipartFile[] dadoQueHayVariosArchivosParaSubir() throws IOException {
+        String path = System.getProperty("user.dir")
+                + File.separator +  "src"
+                + File.separator + "main"
+                + File.separator + "webapp"
+                + File.separator + "images"
+                + File.separator + "user";
+
+
+        //archivo 1
+        File archivo = new File(path + File.separator + "01.jpg");
+
+        FileInputStream fis = new FileInputStream(archivo);
+
+        MockMultipartFile mf1  = new MockMultipartFile("file1", "01.jpg", "image/jpg", fis);
+
+        //archivo 2
+        archivo = new File(path + File.separator + "02.jpg");
+
+        fis = new FileInputStream(archivo);
+
+        MockMultipartFile mf2  = new MockMultipartFile("file2", "02.jpg", "image/jpg", fis);
+
+        //archivo 3
+        archivo = new File(path + File.separator + "03.jpg");
+
+        fis = new FileInputStream(archivo);
+
+        MockMultipartFile mf3  = new MockMultipartFile("file3", "03.jpg", "image/jpg", fis);
+
+        //arreglo MultiPartFile
+
+        MultipartFile[] files = {mf1, mf2, mf3};
+
+        //when(cfg.getImageFolder()).thenReturn("c:\\archivossubidos");
+        when(cfg.getImageFolder()).thenReturn("/volumes/Datos/test-upload");
+
+        return files;
+
+    }
+
     private void regresaElNombrePorDefecto(String archivo) {
         assertThat(archivo).isEqualTo("default.jpg");
     }
@@ -66,7 +125,7 @@ public class ServicioArchivoTest {
     private void dadoQueNoHayArchivosParaSerSubidoAlServidor() {
         multipartFile = new MockMultipartFile("file", "".getBytes());
         //when(cfg.getImageFolder()).thenReturn("c:\\archivossubidos");
-        when(fr.getImageFolder()).thenReturn("/Volumes/Datos/test-upload");
+        when(cfg.getImageFolder()).thenReturn("/Volumes/Datos/test-upload");
     }
 
 
@@ -92,7 +151,7 @@ public class ServicioArchivoTest {
         multipartFile = new MockMultipartFile("file", archivoASubir, "image/png", fis);
 
         //when(cfg.getImageFolder()).thenReturn("c:\\archivossubidos");
-        when(fr.getImageFolder()).thenReturn("/volumes/Datos/test-upload");
+        when(cfg.getImageFolder()).thenReturn("/volumes/Datos/test-upload");
 
     }
 }
