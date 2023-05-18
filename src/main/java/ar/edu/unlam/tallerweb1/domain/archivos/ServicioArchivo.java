@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.archivos;
 
+import ar.edu.unlam.tallerweb1.delivery.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.domain.config.FileResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ServicioArchivo {
+public class ServicioArchivo implements IServicioArchivo {
 
     private final FileResolver fileResolver;
     private final String defaultImage = "default.jpg";
+
+    private IRepositorioArchivo repositorioArchivo;
 
     private List<String> imagenesSubidas = new ArrayList<>();
 
@@ -24,10 +27,12 @@ public class ServicioArchivo {
     }
 
     @Autowired
-    public ServicioArchivo(FileResolver fr) {
+    public ServicioArchivo(IRepositorioArchivo repositorioArchivo, FileResolver fr) {
         this.fileResolver = fr;
+        this.repositorioArchivo = repositorioArchivo;
     }
 
+    @Override
     public String subirAvatarUsuario(MultipartFile multipart) {
 
         return this.guardarArchivo(multipart, this.getDir("user") )? multipart.getOriginalFilename() : defaultImage;

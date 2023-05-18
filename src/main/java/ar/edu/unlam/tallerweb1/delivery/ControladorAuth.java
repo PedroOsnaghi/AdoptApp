@@ -38,7 +38,7 @@ public class ControladorAuth {
     // NOTA: por ahora solo mete un usuario en la sesion.
     @RequestMapping(path = "/loginHandler", method = RequestMethod.POST)
     public ModelAndView login(@ModelAttribute("loginDto") LoginDto loginDto, HttpSession session) {
-
+/*
         boolean credencialesValidas = servicioAuth.validarCredenciales(loginDto.getEmail(), loginDto.getPassword());
 
         if (!credencialesValidas) {
@@ -51,7 +51,7 @@ public class ControladorAuth {
         Usuario usuarioAutenticado = servicioUsuario.buscarUsuarioPorEmail(loginDto.getEmail());
         servicioAuth.setTiempoSesion(60 * 60 * 24);
         servicioAuth.setUsuarioAutenticado(usuarioAutenticado);
-
+*/
         return new ModelAndView("redirect:/home/");
     }
 

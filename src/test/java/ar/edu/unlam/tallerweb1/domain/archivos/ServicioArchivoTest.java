@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.archivos;
 
 import ar.edu.unlam.tallerweb1.domain.config.FileResolver;
+import ar.edu.unlam.tallerweb1.infrastructure.RepositorioArchivo;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
@@ -21,12 +22,15 @@ public class ServicioArchivoTest {
 
     private ServicioArchivo servicioArchivo;
 
+    private RepositorioArchivo repositorioArchivo;
+
     private FileResolver cfg;
 
     @Before
     public void init(){
         this.cfg = mock(FileResolver.class);
-        this.servicioArchivo = new ServicioArchivo(cfg);
+        this.repositorioArchivo = mock(RepositorioArchivo.class);
+        this.servicioArchivo = new ServicioArchivo(repositorioArchivo, cfg);
     }
 
     @Test
