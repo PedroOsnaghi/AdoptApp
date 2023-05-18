@@ -51,7 +51,7 @@
                                                  aria-labelledby="v-pills-basicinfo-tab">
                                                 <div class="d-flex align-items-center justify-content-between">
                                                     <h4>Información Personal</h4>
-                                                    <a href="edit-profile.html"
+                                                    <a href="${pageContext.request.contextPath}/perfil/info/editar"
                                                        class="material-symbols-outlined btn btn-primary">
                                                         edit
                                                     </a>
@@ -70,7 +70,7 @@
                                                         <h6>Presentación:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0"></p>
+                                                        <p class="mb-0">${user.presentacion}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -78,7 +78,7 @@
                                                         <h6>Nombre y apellido:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">Juan Daniel</p>
+                                                        <p class="mb-0">${user.nombre}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -86,7 +86,7 @@
                                                         <h6>Email:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">juandaniel@gmail.com</p>
+                                                        <p class="mb-0">${user.email}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -94,7 +94,7 @@
                                                         <h6>F. Nac:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0"></p>
+                                                        <p class="mb-0">${user.f_nac}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -102,7 +102,7 @@
                                                         <h6>Domicilio:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0"></p>
+                                                        <p class="mb-0">${user.domicilio}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -110,7 +110,7 @@
                                                         <h6>Ciudad:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0"></p>
+                                                        <p class="mb-0">${user.ciudad}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -118,7 +118,7 @@
                                                         <h6>Provincia:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">(011) --</p>
+                                                        <p class="mb-0">${user.provincia}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -126,7 +126,7 @@
                                                         <h6>Teléfono:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">(011) --</p>
+                                                        <p class="mb-0">${user.tel}</p>
                                                     </div>
                                                 </div>
 
@@ -135,7 +135,7 @@
                                                         <h6>Unido el:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">13 de Enero del 2023</p>
+                                                        <p class="mb-0">${user.created_at}</p>
                                                     </div>
                                                 </div>
 

@@ -1,17 +1,10 @@
-package ar.edu.unlam.tallerweb1.model;
-
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import javax.persistence.*;
+package ar.edu.unlam.tallerweb1.delivery;
+import org.springframework.web.multipart.MultipartFile;
 import java.sql.Date;
-import java.sql.Timestamp;
 
-@Entity
-public class Usuario {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class UsuarioDto {
+
     private long id;
     private String nombre;
     private String email;
@@ -24,23 +17,16 @@ public class Usuario {
     private Long lng;
     private String tel;
     private String imagen;
-
-    @Column(length = 255)
+    private MultipartFile avatar;
     private String presentacion;
-
-    @CreationTimestamp
-    private Timestamp created_at;
-
-    @UpdateTimestamp
-    private Timestamp update_at;
 
     private boolean updated = false;
 
 
-    public Usuario() {
+    public UsuarioDto() {
     }
 
-    public Usuario(String nombre, String email, String password) {
+    public UsuarioDto(String nombre, String email, String password) {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
@@ -143,6 +129,14 @@ public class Usuario {
         this.imagen = imagen;
     }
 
+    public MultipartFile getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(MultipartFile avatar) {
+        this.avatar = avatar;
+    }
+
     public String getPresentacion() {
         return presentacion;
     }
@@ -151,21 +145,6 @@ public class Usuario {
         this.presentacion = presentacion;
     }
 
-    public Timestamp getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(Timestamp created_at) {
-        this.created_at = created_at;
-    }
-
-    public Timestamp getUpdate_at() {
-        return update_at;
-    }
-
-    public void setUpdate_at(Timestamp update_at) {
-        this.update_at = update_at;
-    }
 
     public boolean isUpdated() {
         return updated;
