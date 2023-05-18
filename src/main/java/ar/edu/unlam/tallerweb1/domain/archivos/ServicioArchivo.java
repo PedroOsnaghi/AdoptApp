@@ -1,6 +1,5 @@
 package ar.edu.unlam.tallerweb1.domain.archivos;
 
-import ar.edu.unlam.tallerweb1.delivery.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.domain.config.FileResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +44,7 @@ public class ServicioArchivo implements IServicioArchivo {
 
     }
 
+    @Override
     public int subirImagenesPost(MultipartFile[] files) {
 
         int subidos = 0;

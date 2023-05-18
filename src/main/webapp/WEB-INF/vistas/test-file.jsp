@@ -15,74 +15,102 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-sm-12">
 
-                <!-- formulario -->
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="informacion" role="tabpanel">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
                         <div class="row">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h4>Subida archivo unico</h4>
 
-                            <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade show active" id="v-pills-basicinfo-tab"
-                                                 role="tabpanel"
-                                                 aria-labelledby="v-pills-basicinfo-tab">
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <h4>Información Personal</h4>
+                            </div>
 
-                                                </div>
+                            <hr>
 
-                                                <hr>
+                            <form:form action="subir" id="form" method="POST"
+                                       modelAttribute="datosArchivo" enctype="multipart/form-data">
 
-                                                <form:form action="upload" id="form" method="POST" modelAttribute="testArchivo" enctype="multipart/form-data">
-
-                                                    <div class="row">
-                                                        <div class="col-4">
-                                                            <div class="profile-img ms-2">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="profile-img ms-2">
 
 
-                                                                <img class="avatar-130 img-fluid"
-                                                                     src="${pageContext.request.contextPath}/images/user/default.jpg"
-                                                                     id="preview" alt="">
-                                                                <div class="material-symbols-outlined btn btn-primary btn-profile">
-                                                                    photo_camera
-                                                                    <form:input path="imagen" name="archivoimagen" id="file" type="file" class="form-control opacity-0"/>
-
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-
-
-
-                                                    </div>
-
-
-                                                    <div class="row">
-
-                                                        <div class="d-flex align-items-center justify-content-end w-100 col-12">
-                                                            <button type="submit" class="btn btn-primary">subir</button>
-                                                        </div>
-
-                                                    </div>
-
-                                                </form:form>
-
+                                            <img class="avatar-130 img-fluid"
+                                                 src="${pageContext.request.contextPath}/images/user/default.jpg"
+                                                 id="preview" alt="">
+                                            <div class="material-symbols-outlined btn btn-primary btn-profile">
+                                                photo_camera
+                                                <form:input path="imagen" id="file" type="file"
+                                                            class="form-control opacity-0"/>
 
                                             </div>
                                         </div>
+
+                                    </div>
+
+
+                                </div>
+
+
+                                <div class="row">
+
+                                    <div class="d-flex align-items-center justify-content-end w-100 col-12">
+
+                                        <button type="submit" class="btn btn-primary">subir</button>
+                                    </div>
+
+                                </div>
+                            </form:form>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h4>Subida archivos multiple</h4>
+
+                            </div>
+
+                            <hr>
+                            <form:form action="subir-multiple" id="form2" method="POST"
+                                       modelAttribute="datosArchivo" enctype="multipart/form-data">
+
+
+                                <div class="col-12">
+
+
+                                    <div class="upload__box">
+                                        <div class="btn btn-primary">
+                                            <label class="upload__btn">
+                                                <p class="mb-0">Cargar Imagenes</p>
+                                                <form:input path="images" type="file" multiple="" data-max_length="3" class="upload__inputfile"/>
+                                            </label>
+                                        </div>
+                                        <div class="upload__img-wrap"></div>
                                     </div>
                                 </div>
-                            </div>
+
+                                <div class="row">
+
+                                    <div class="d-flex align-items-center justify-content-end w-100 col-12">
+
+                                        <button type="submit" class="btn btn-primary">subir</button>
+                                    </div>
+
+                                </div>
+
+                            </form:form>
+
                         </div>
+
+
+
 
                     </div>
                 </div>
-
-
             </div>
+
 
         </div>
     </div>
@@ -98,5 +126,9 @@
 <!-- scripts -->
 
 <%@ include file="partials/script.jsp" %>
+
+<script src="${pageContext.request.contextPath}/js/multifile.js" type="text/javascript"></script>
+
+
 
 
