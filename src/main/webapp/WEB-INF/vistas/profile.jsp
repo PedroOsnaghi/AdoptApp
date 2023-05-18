@@ -53,31 +53,7 @@
                         </div>
                      </div>
                   </div>
-                  <div class="card">
-                     <div class="card-body p-0">
-                        <div class="user-tabing">
-                           <ul
-                              class="nav nav-pills d-flex align-items-center justify-content-center profile-feed-items p-0 m-0 rounded">
-                              <li class="nav-item col-12 col-sm-3 p-0">
-                                 <a class="nav-link active" href="#pills-timeline-tab" data-bs-toggle="pill"
-                                    data-bs-target="#timeline" role="button">Actividad</a>
-                              </li>
-                              <li class="nav-item col-12 col-sm-3 p-0">
-                                 <a class="nav-link" href="#pills-informacion-tab" data-bs-toggle="pill"
-                                    data-bs-target="#informacion" role="button">Informacion</a>
-                              </li>
-                              <li class="nav-item col-12 col-sm-3 p-0">
-                                 <a class="nav-link" href="#pills-solicitudes-tab" data-bs-toggle="pill"
-                                    data-bs-target="#solicitudes" role="button">Solicitudes</a>
-                              </li>
-                              <li class="nav-item col-12 col-sm-3 p-0">
-                                 <a class="nav-link" href="#pills-preguntas-tab" data-bs-toggle="pill"
-                                    data-bs-target="#preguntas" role="button">Preguntas</a>
-                              </li>
-                           </ul>
-                        </div>
-                     </div>
-                  </div>
+                  <%@include file="partials/nav-profile.jsp"%>
                </div>
                <div class="col-sm-12">
                   <!-- TAB ACTIVIDAD -->

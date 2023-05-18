@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.model;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,6 +25,10 @@ public class Usuario {
 
     @CreationTimestamp
     private Timestamp created_at;
+
+    @UpdateTimestamp
+    private Timestamp update_at;
+
     private boolean updated = false;
 
 
