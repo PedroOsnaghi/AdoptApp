@@ -124,52 +124,15 @@
                                        <p class="text-muted">Agrega Imagenes a tu publicacion para que las personas puedan conocer mejor a tu mascota.</p>
                                     </div>
                                     <div class="col-12">
-
-
-                                       <div class="dropzone mb-3">
-                                          <div class="fallback">
-                                             <input path="" name="file" type="file" multiple="multiple"/>
+                                       <div class="upload__box">
+                                          <div class="btn btn-primary">
+                                             <label class="upload__btn">
+                                                <p class="mb-0">Cargar Imagenes</p>
+                                                <input  type="file" multiple="true" data-max_length="3" class="upload__inputfile"/>
+                                             </label>
                                           </div>
-                                          <div class=" dz-message needsclick">
-                                             <div class="mb-3">
-                                                <i class="fa-solid fa-cloud-arrow-up display-4 text-muted"></i>
-                                             </div>
-
-                                             <h4 class="text-muted">Arrastra las imagenes o haz Click aqui para
-                                                subirlas
-                                             </h4>
-                                          </div>
+                                          <div class="upload__img-wrap"></div>
                                        </div>
-
-                                       <ul class="list-unstyled mb-0" id="dropzone-preview">
-                                          <li class="mt-2" id="dropzone-preview-list">
-                                             <!-- This is used as the file preview template -->
-                                             <div class="border rounded">
-                                                <div class="d-flex p-2">
-                                                   <div class="flex-shrink-0 me-3">
-                                                      <div class="avatar-sm bg-light rounded">
-                                                         <img data-dz-thumbnail class="img-fluid rounded d-block"
-                                                            src="${pageContext.request.contextPath}/images/new-document.png"
-                                                            alt="Dropzone-Image" />
-                                                      </div>
-                                                   </div>
-                                                   <div class="flex-grow-1">
-                                                      <div class="pt-1">
-                                                         <h5 class="fs-14 mb-1" data-dz-name>&nbsp;</h5>
-                                                         <p class="fs-13 text-muted mb-0" data-dz-size></p>
-                                                         <strong class="error text-danger"
-                                                            data-dz-errormessage></strong>
-                                                      </div>
-                                                   </div>
-                                                   <div class="flex-shrink-0 ms-3">
-                                                      <button data-dz-remove
-                                                         class="btn btn-sm btn-danger">Eliminar</button>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </li>
-                                       </ul>
-                                       <!-- end dropzon-preview -->
                                     </div>
                                  </div>
                               </div>
@@ -268,9 +231,8 @@
 
 <%@ include file="partials/script.jsp" %>
 
-<script src="${pageContext.request.contextPath}/vendor/dropzone/dropzone-min.js"></script>
+<script src="${pageContext.request.contextPath}/js/multifile.js" type="text/javascript"></script>
 
 
-<script src="${pageContext.request.contextPath}/js/form-file-upload.init.js"></script>
 
 

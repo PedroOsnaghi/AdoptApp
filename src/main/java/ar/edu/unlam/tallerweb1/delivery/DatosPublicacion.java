@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.EstadoPublicacion;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.Date;
 
 public class DatosPublicacion {
@@ -13,6 +15,9 @@ public class DatosPublicacion {
     private Double longitud;
     private EstadoPublicacion estado;
     private Long autorId;
+
+    private MultipartFile[] images;
+
     private Long mascotaId;
 
     private Date fechaCreacion;
@@ -80,6 +85,14 @@ public class DatosPublicacion {
 
     public void setAutorId(Long autorId) {
         this.autorId = autorId;
+    }
+
+    public MultipartFile[] getImages() {
+        return images;
+    }
+
+    public void setImages(MultipartFile[] images) {
+        this.images = images;
     }
 
     public Long getMascotaId() {
