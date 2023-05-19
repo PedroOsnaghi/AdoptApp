@@ -20,7 +20,7 @@ function ImgUpload() {
                     return;
                 }
 
-                if (imgArray.length >= maxLength) {
+                if (imgArray.length > maxLength) {
                     return false
                 } else {
                     var len = 0;

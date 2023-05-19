@@ -23768,13 +23768,30 @@ button.bg-soft-dark:hover {
 .upload__img-wrap {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 -10px;
+    margin: 20px 0px;
+    height: 210px;
+    border-radius: 5px;
+    border: 1px solid #dddddd;
 }
+
+.dark .upload__img-wrap{
+    background-color: #00162a!important;
+    border: 1px solid #00a3ff!important;
+}
+
 .upload__img-box {
     width: 200px;
-    padding: 0 10px;
-    margin-bottom: 12px;
+    padding: 10px 10px;
+    margin: auto 5px;
+    border-radius: 5px;
+    background-color: #19243280;
 }
+
+.dark .upload__img-box {
+    background-color: #01488d80!important;
+    border: 1px solid #00547a!important;
+}
+
 .upload__img-close {
     width: 24px;
     height: 24px;
@@ -23800,4 +23817,5 @@ button.bg-soft-dark:hover {
     background-size: cover;
     position: relative;
     padding-bottom: 100%;
+    transition: all 0.3s ease;
 }

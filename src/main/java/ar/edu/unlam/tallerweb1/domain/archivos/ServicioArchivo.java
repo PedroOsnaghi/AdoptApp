@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.domain.archivos;
 
 import ar.edu.unlam.tallerweb1.domain.config.FileResolver;
+import ar.edu.unlam.tallerweb1.model.Imagen;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,16 +47,18 @@ public class ServicioArchivo implements IServicioArchivo {
     }
 
     @Override
-    public int subirImagenesPost(MultipartFile[] files) {
+    public int subirImagenesPost(MultipartFile[] files, Publicacion post) {
 
         int subidos = 0;
+
+        this.imagenesSubidas.clear();
 
         for (MultipartFile file : files) {
 
             if (this.guardarArchivo(file, this.getDir("posts"))) {
-                subidos++;
 
-                //TODO: guardar en Tabla Archivos
+                this.repositorioArchivo.registrarImagen(new Imagen(this.imagenesSubidas.get(subidos), post));
+                subidos++;
             }
         }
 
@@ -69,9 +73,11 @@ public class ServicioArchivo implements IServicioArchivo {
        return this.verificarAvatar(file,oldFile,"mascota");
     }
 
-    public boolean eliminarImagenPost(String fileName){
-        if(this.eliminarArchivo(fileName, "posts")){
-            //TODO: eliminar archivo de la base de datos
+    public boolean eliminarImagenPost(Long idImagen){
+        Imagen img = this.repositorioArchivo.obtenerImagen(idImagen);
+        if(this.eliminarArchivo(img.getNombre(), "posts")){
+
+            this.repositorioArchivo.eliminarImagen(img);
             return true;
         }
 

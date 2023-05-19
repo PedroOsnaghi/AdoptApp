@@ -13,6 +13,13 @@ public class Imagen {
     private Publicacion publicacion;
     private String nombre;
 
+    public Imagen(){}
+
+    public Imagen(String nombre, Publicacion post){
+        this.nombre = nombre;
+        this.publicacion = post;
+    }
+
     public Long getId() {
         return id;
     }

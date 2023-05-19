@@ -2,6 +2,8 @@ package ar.edu.unlam.tallerweb1.domain.archivos;
 
 import ar.edu.unlam.tallerweb1.domain.config.FileResolver;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioArchivo;
+import ar.edu.unlam.tallerweb1.model.Imagen;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
@@ -102,8 +104,8 @@ public class ServicioArchivoTest {
 
     @Test
     public void alExistirUnaImagenEnElServidorDebePoderEliminarse() throws IOException {
-        String imagen = dadoQueExisteUnaImagenSubida();
-        boolean resultado = alEliminarseDelServidor(imagen);
+        Long id_imagen = dadoQueExisteUnaImagenSubida();
+        boolean resultado = alEliminarseDelServidor(id_imagen);
         obtenemosElResutadoCorrecto(resultado);
     }
 
@@ -111,11 +113,11 @@ public class ServicioArchivoTest {
         assertThat(resultado).isEqualTo(true);
     }
 
-    private boolean alEliminarseDelServidor(String imagen) {
-        return this.servicioArchivo.eliminarImagenPost(imagen);
+    private boolean alEliminarseDelServidor(Long idImagen) {
+        return this.servicioArchivo.eliminarImagenPost(idImagen);
     }
 
-    private String dadoQueExisteUnaImagenSubida() throws IOException {
+    private Long dadoQueExisteUnaImagenSubida() throws IOException {
         String path = System.getProperty("user.dir")
                 + File.separator +  "src"
                 + File.separator + "main"
@@ -138,9 +140,19 @@ public class ServicioArchivoTest {
         //when(cfg.getImageFolder()).thenReturn("c:\\archivossubidos");
         when(cfg.getImageFolder()).thenReturn("/volumes/Datos/test-upload");
 
-        this.servicioArchivo.subirImagenesPost(files);
+        Publicacion post = new Publicacion();
+        post.setId(10L);
 
-        return this.servicioArchivo.getImagenesSubidas().get(0);
+        this.servicioArchivo.subirImagenesPost(files, post);
+
+        Imagen img = new Imagen();
+        img.setId(1L);
+        img.setNombre(this.servicioArchivo.getImagenesSubidas().get(0));
+
+        when(repositorioArchivo.obtenerImagen(1L)).thenReturn(img);
+
+
+        return img.getId();
 
     }
 
@@ -161,7 +173,9 @@ public class ServicioArchivoTest {
     }
 
     private int alGuardarLosArchivosEnElSrvidor(MultipartFile[] files) {
-        return this.servicioArchivo.subirImagenesPost(files);
+        Publicacion post = new Publicacion();
+        post.setId(10L);
+        return this.servicioArchivo.subirImagenesPost(files, post);
     }
 
     private MultipartFile[] dadoQueHayVariosArchivosParaSubir() throws IOException {
