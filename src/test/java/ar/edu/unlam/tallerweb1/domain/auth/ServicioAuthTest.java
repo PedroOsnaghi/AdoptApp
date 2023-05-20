@@ -1,158 +1,162 @@
 package ar.edu.unlam.tallerweb1.domain.auth;
 
+import ar.edu.unlam.tallerweb1.domain.usuarios.IRepositorioUsuario;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioUsuario;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.http.HttpSession;
 
+import java.util.Base64;
+
 import static org.junit.Assert.*;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ServicioAuthTest {
 
     @Mock
-    private HttpSession session;
+    private IRepositorioUsuario repositorioUsuario;
 
     @Mock
-    private RepositorioUsuario repositorioUsuario;
+    private IServicioSesion servicioSesion;
 
     @InjectMocks
     private ServicioAuth servicioAuth;
 
     @Test
-    public void testValidarCredencialesPasswordCorrecta() {
-        String passwordHasheada = servicioAuth.encriptarPassword("1234");
-        Usuario usuario = new Usuario("John", "john@test.com", passwordHasheada);
-
-        Mockito.when(repositorioUsuario.buscarUsuarioPorEmail("john@test.com")).thenReturn(usuario);
-
-        boolean passwordConcuerda = servicioAuth.validarCredenciales("john@test.com", "1234");
-
-        assertTrue(passwordConcuerda);
-    }
-
-    @Test
-    public void testValidarCredencialesPasswordIncorrecta() {
-        String passwordHasheada = servicioAuth.encriptarPassword("1234");
-        Usuario usuario = new Usuario("John", "john@test.com", passwordHasheada);
-
-        Mockito.when(repositorioUsuario.buscarUsuarioPorEmail("john@test.com")).thenReturn(usuario);
-
-        boolean passwordConcuerda = servicioAuth.validarCredenciales("john@test.com", "passmala");
-
-        assertFalse(passwordConcuerda);
-    }
-
-    @Test
-    public void testEncriptarPassword() {
+    public void validarCredenciales_debeDevolverFalseSiUsuarioEsNull() {
+        Usuario usuario = null;
         String password = "password";
 
-        String passwordConcuerda = servicioAuth.encriptarPassword(password);
+        boolean resultado = servicioAuth.validarCredenciales(usuario, password);
 
-        assertNotNull(passwordConcuerda);
-        assertNotEquals(password, passwordConcuerda);
+        assertFalse(resultado);
     }
 
     @Test
-    public void testValidarPasswordHasheadaPasswordCorrecta() {
+    public void validarCredenciales_debeDevolverTrueSiPasswordEsCorrecta() {
+        Usuario usuario = new Usuario();
+        String password = servicioAuth.encriptarPassword("password");
+        usuario.setPassword(password);
+
+        boolean resultado = servicioAuth.validarCredenciales(usuario, "password");
+
+        assertTrue(resultado);
+    }
+
+    @Test
+    public void validarCredenciales_debeDevolverFalseSiPasswordNoEsCorrecta() {
+        Usuario usuario = new Usuario();
+        usuario.setPassword("passwordSinHash");
+        String password = "password";
+
+        boolean resultado = servicioAuth.validarCredenciales(usuario, password);
+
+        assertFalse(resultado);
+    }
+
+    @Test
+    public void encriptarPassword_debeDevolverPasswordEnBase64() {
+        String password = "password";
+        String passwordHasheadaEsperada = Base64.getEncoder().encodeToString(password.getBytes());
+
+        String passwordHasheada = servicioAuth.encriptarPassword(password);
+
+        assertEquals(passwordHasheadaEsperada, passwordHasheada);
+    }
+
+    @Test
+    public void validarPasswordHasheada_debeDevolverTrueSiPasswordsSonIguales() {
         String password = "password";
         String passwordHasheada = servicioAuth.encriptarPassword(password);
 
-        boolean passwordConcuerda = servicioAuth.validarPasswordHasheada(password, passwordHasheada);
+        boolean resultado = servicioAuth.validarPasswordHasheada(password, passwordHasheada);
 
-        assertTrue(passwordConcuerda);
+        assertTrue(resultado);
     }
 
     @Test
-    public void testValidarPasswordHasheadaPasswordIncorrecta() {
-        String password = "password";
-        String passwordHasheada = servicioAuth.encriptarPassword(password);
+    public void validarPasswordHasheada_debeDevolverFalseSiPasswordsSonDiferentes() {
+        String password1 = "password1";
+        String password2 = "password2";
+        String passwordHasheada = servicioAuth.encriptarPassword(password1);
 
-        boolean passwordConcuerda = servicioAuth.validarPasswordHasheada("incorrecta", passwordHasheada);
+        boolean resultado = servicioAuth.validarPasswordHasheada(password2, passwordHasheada);
 
-        assertFalse(passwordConcuerda);
+        assertFalse(resultado);
     }
 
     @Test
-    public void testEliminarSesion() {
-        servicioAuth.eliminarSesion();
-        Mockito.verify(session).invalidate();
-    }
-
-    @Test
-    public void testSetUsuarioAutenticado() {
-        Usuario usuario = new Usuario("John", "john@test.com", "1234");
+    public void setUsuarioAutenticado_debeLlamarMetodoSetAtributoEnSesionConUsuarioAutenticado() {
+        Usuario usuario = new Usuario();
 
         servicioAuth.setUsuarioAutenticado(usuario);
 
-        Mockito.verify(session).setAttribute("usuarioAutenticado", usuario);
+        verify(servicioSesion).setAtributoEnSesion("usuarioAutenticado", usuario);
     }
 
     @Test
-    public void testGetUsuarioAutenticado() {
-        Usuario usuario = new Usuario("John", "john@test.com", "1234");
+    public void getUsuarioAutenticado_debeLlamarMetodoGetAtributoDeSesionConNombreCorrecto() {
+        Usuario usuario = new Usuario();
+        when(servicioSesion.getAtributoDeSesion("usuarioAutenticado")).thenReturn(usuario);
 
-        Mockito.when(session.getAttribute("usuarioAutenticado")).thenReturn(usuario);
+        Usuario resultado = servicioAuth.getUsuarioAutenticado();
 
-        Usuario usuarioEnSesion = servicioAuth.getUsuarioAutenticado();
-
-        assertEquals(usuario, usuarioEnSesion);
+        assertEquals(usuario, resultado);
     }
 
     @Test
-    public void testSetTiempoSesion() {
-        int tiempo = 60;
+    public void usuarioLoggeado_debeDevolverTrueSiUsuarioAutenticadoNoEsNull() {
+        Usuario usuario = new Usuario();
+        when(servicioSesion.getAtributoDeSesion("usuarioAutenticado")).thenReturn(usuario);
 
-        servicioAuth.setTiempoSesion(tiempo);
+        boolean resultado = servicioAuth.usuarioLoggeado();
 
-        Mockito.verify(session).setMaxInactiveInterval(tiempo);
+        assertTrue(resultado);
     }
 
     @Test
-    public void testUsuarioLoggeadoTrue() {
-        Usuario usuario = new Usuario("John", "john@test.com", "1234");
+    public void usuarioLoggeado_debeDevolverFalseSiUsuarioAutenticadoEsNull() {
+        when(servicioSesion.getAtributoDeSesion("usuarioAutenticado")).thenReturn(null);
 
-        Mockito.when(session.getAttribute("usuarioAutenticado")).thenReturn(usuario);
+        boolean resultado = servicioAuth.usuarioLoggeado();
 
-        boolean usuarioEstaLoggeado = servicioAuth.usuarioLoggeado();
-
-        assertTrue(usuarioEstaLoggeado);
+        assertFalse(resultado);
     }
 
     @Test
-    public void testUsuarioLoggeadoFalse() {
-        Mockito.when(session.getAttribute("usuarioAutenticado")).thenReturn(null);
+    public void usuarioEsRol_debeDevolverTrueSiRolEsIgualAlRolDelUsuarioAutenticado() {
+        String rol = "admin";
+        Usuario usuario = new Usuario();
+        usuario.setRol("admin");
+        when(servicioSesion.getAtributoDeSesion("usuarioAutenticado")).thenReturn(usuario);
 
-        boolean usuarioEstaLoggeado = servicioAuth.usuarioLoggeado();
+        boolean resultado = servicioAuth.usuarioEsRol(rol);
 
-        assertFalse(usuarioEstaLoggeado);
+        assertTrue(resultado);
     }
 
     @Test
-    public void guardarAtributoEnSesionTest() {
-        String clave = "clave";
-        String valor = "valor";
-        servicioAuth.guardarAtributoEnSesion(clave, valor);
+    public void usuarioEsRol_debeDevolverFalseSiRolNoEsIgualAlRolDelUsuarioAutenticado() {
+        String rol = "user";
+        Usuario usuario = new Usuario();
+        usuario.setRol("admin");
+        when(servicioSesion.getAtributoDeSesion("usuarioAutenticado")).thenReturn(usuario);
 
-        Mockito.verify(session).setAttribute(clave, valor);
+        boolean resultado = servicioAuth.usuarioEsRol(rol);
+
+        assertFalse(resultado);
     }
 
-    @Test
-    public void getAtributoDeSesionTest() {
-        String clave = "clave";
-        String valor = "valor";
 
-        Mockito.when(session.getAttribute(clave)).thenReturn(valor);
-
-        Object valorObtenido = servicioAuth.getAtributoDeSesion(clave);
-
-        assertEquals(valor, valorObtenido);
-        Mockito.verify(session).getAttribute(clave);
-    }
 }

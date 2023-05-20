@@ -21,6 +21,8 @@ public class Usuario {
     private String domicilio;
     private String tel;
 
+    private String rol;
+
     private String imagen;
 
     @CreationTimestamp
@@ -111,5 +113,13 @@ public class Usuario {
 
     public void setUpdated(boolean updated) {
         this.updated = updated;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.auth.IServicioSesion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.IServicioUsuario;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +15,16 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class ControladorAuth {
 
-    private IServicioUsuario servicioUsuario;
-    private IServicioAuth servicioAuth;
+    private final IServicioUsuario servicioUsuario;
+    private final IServicioAuth servicioAuth;
+    private final IServicioSesion servicioSesion;
 
     @Autowired
-    public ControladorAuth(IServicioAuth servicioAuth, IServicioUsuario servicioUsuario){
-      this.servicioAuth = servicioAuth;
-      this.servicioUsuario = servicioUsuario;
-  }
-
-
+    public ControladorAuth(IServicioAuth servicioAuth, IServicioUsuario servicioUsuario, IServicioSesion servicioSesion) {
+        this.servicioAuth = servicioAuth;
+        this.servicioUsuario = servicioUsuario;
+        this.servicioSesion = servicioSesion;
+    }
 
 
     @RequestMapping("/login")
@@ -35,30 +36,33 @@ public class ControladorAuth {
         return new ModelAndView("/login", model);
     }
 
-    // NOTA: por ahora solo mete un usuario en la sesion.
     @RequestMapping(path = "/loginHandler", method = RequestMethod.POST)
-    public ModelAndView login(@ModelAttribute("loginDto") LoginDto loginDto, HttpSession session) {
+    public ModelAndView login(@ModelAttribute("loginDto") LoginDto loginDto) {
 
-        boolean credencialesValidas = servicioAuth.validarCredenciales(loginDto.getEmail(), loginDto.getPassword());
+        boolean credencialesValidas = false;
+        Usuario usuarioAutenticado = servicioUsuario.buscarUsuarioPorEmail(loginDto.getEmail());
+
+        if(usuarioAutenticado != null){
+            credencialesValidas = servicioAuth.validarCredenciales(usuarioAutenticado, loginDto.getPassword());
+        }
 
         if (!credencialesValidas) {
             ModelMap model = new ModelMap();
-            model.put("error", "Credenciales invalidas");
+            model.put("error", "Usuario y/o contraseña invalido");
 
             return new ModelAndView("/login", model);
         }
 
-        Usuario usuarioAutenticado = servicioUsuario.buscarUsuarioPorEmail(loginDto.getEmail());
-        servicioAuth.setTiempoSesion(60 * 60 * 24);
+        servicioSesion.setTiempoSesion(60 * 60 * 24);
         servicioAuth.setUsuarioAutenticado(usuarioAutenticado);
 
         return new ModelAndView("redirect:/home/");
     }
 
     @RequestMapping(path = "/cerrarSesion", method = RequestMethod.POST)
-    public ModelAndView cerrarSesion(HttpSession session) {
+    public ModelAndView cerrarSesion() {
 
-        servicioAuth.eliminarSesion();
+        servicioSesion.eliminarSesion();
 
         return new ModelAndView("redirect:/login");
     }
