@@ -1,5 +1,8 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
+import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -19,10 +22,12 @@ public class ControladorHome {
 
     private Usuario userAuth;
     private IServicioPublicacion servicioPublicacion;
+    private IServicioAuth servicioAuth;
 
     @Autowired
-    public void ControladorHome(IServicioPublicacion servicioPublicacion){
+    public void ControladorHome(IServicioPublicacion servicioPublicacion, IServicioAuth servicioAuth) {
         this.servicioPublicacion = servicioPublicacion;
+        this.servicioAuth = servicioAuth;
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
@@ -30,24 +35,19 @@ public class ControladorHome {
         return new ModelAndView("redirect:/home/feed");
     }
 
-    @RequestMapping(path = "/feed",method = RequestMethod.GET)
+    @RequireAuth //! leeme e.e
+    @RequestMapping(path = "/feed", method = RequestMethod.GET)
     public ModelAndView home(HttpSession session) {
 
-        userAuth = (Usuario) session.getAttribute("usuarioAutenticado");
+        Usuario userAuth = servicioAuth.getUsuarioAutenticado(); //leemeeee
 
-        if(userAuth != null){
-            ModelMap model = new ModelMap();
-            //solicitar publicaciones
-            List<Publicacion> publicaciones = servicioPublicacion.listarPublicaciones();
+        ModelMap model = new ModelMap();
+        //solicitar publicaciones
+        List<Publicacion> publicaciones = servicioPublicacion.listarPublicaciones();
 
-
-
-            model.addAttribute("usuario", userAuth);
-            model.addAttribute("publicaciones", publicaciones);
-            return new ModelAndView("index-feed",model);
-        }
-
-        return new ModelAndView("redirect:/login");
+        model.addAttribute("usuario", userAuth);
+        model.addAttribute("publicaciones", publicaciones);
+        return new ModelAndView("index-feed", model);
 
     }
 }

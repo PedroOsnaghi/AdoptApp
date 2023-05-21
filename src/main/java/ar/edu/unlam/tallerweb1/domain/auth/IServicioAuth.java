@@ -12,4 +12,6 @@ public interface IServicioAuth {
 
     boolean usuarioEsRol(String rol);
 
+    boolean usuarioLoggeado();
+
 }
