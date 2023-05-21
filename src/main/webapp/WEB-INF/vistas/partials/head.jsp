@@ -27,7 +27,7 @@
    <!-- color customizer css -->
    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customizer.css">
    <link rel="stylesheet" href="${pageContext.request.contextPath}/vendor/fontawesome/css/all.min.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/vendor/dropzone/dropzone.css" type="text/css">
+
 </head>
 
 <body class="  ">

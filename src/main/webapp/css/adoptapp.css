@@ -23737,7 +23737,7 @@ button.bg-soft-dark:hover {
 }
 
 .upload__box {
-    padding: 40px;
+    padding: 10px 20px;
 }
 .upload__inputfile {
     width: 0.1px;
@@ -23818,4 +23818,15 @@ button.bg-soft-dark:hover {
     position: relative;
     padding-bottom: 100%;
     transition: all 0.3s ease;
+}
+
+
+.pac-container{
+    z-index: 2000!important;
+}
+
+
+input[readonly]{
+    background-color: #e9ecef!important;
+    opacity: 1;
 }

@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -25,60 +27,44 @@ public class ControladorPublicacion {
         this.servicioPublicacion = servicioPublicacion;
     }
 
-    @RequestMapping(path = "/crear-publicacion", method = RequestMethod.POST)
-    public ModelAndView guardarPublicacion(@ModelAttribute("publicacion") DatosPublicacion datosPublicacion, HttpSession session) {
-        ModelMap model = new ModelMap();
+    private ModelMap iniciarModel(HttpSession session) {
+        ModelMap m = new ModelMap();
+        m.put("usuario", (Usuario) session.getAttribute("usuarioAutenticado"));
+        return m;
+    }
+
+    @RequestMapping(path = "/crear", method = RequestMethod.GET)
+    public ModelAndView crear(HttpSession session, HttpServletRequest request) {
+
+        ModelMap model = this.iniciarModel(session);
+
+        model.put("publicacionDto", new PublicacionDto());
+
+        return new ModelAndView("new-post", model);
+    }
+
+
+    @RequestMapping(path = "/publicar", method = RequestMethod.POST)
+    public ModelAndView guardarPublicacion(@ModelAttribute("publicacionDto") PublicacionDto publicacionDto, HttpSession session, HttpServletRequest request) {
+        ModelMap model = this.iniciarModel(session);
 
         Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
 
-        try{
-            Publicacion publicacion = new Publicacion();
+        Long p_id = servicioPublicacion.guardarPublicacion(publicacionDto, usuario);
 
-            publicacion.setTitulo(datosPublicacion.getTitulo());
-            publicacion.setCuerpo(datosPublicacion.getCuerpo());
-           // publicacion.setAutorId(usuario.getId());
-            publicacion.setMascotaId(datosPublicacion.getMascotaId());
-            publicacion.setFechaCreacion(datosPublicacion.getFechaCreacion());
-
-            servicioPublicacion.guardarPublicacion(publicacion);
-        } catch (Exception e) {
-            model.put("error", "No se pudo guardar la publicacion");
+        if(p_id == null) {
+            model.put("error", this.servicioPublicacion.getErrorMessage());
+            return new ModelAndView("new-post",model);
         }
 
-        model.put("publicacion", datosPublicacion);
-        return new ModelAndView("index-feed", model);
+        return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones?pid=" + p_id);
+
+
     }
 
-    @RequestMapping(path = "/publicaciones-feed", method = RequestMethod.GET)
-    public ModelAndView verPublicacionesFeed() {
-        ModelMap model = new ModelMap();
 
-        List<Publicacion> publicaciones = servicioPublicacion.listarPublicaciones();
 
-        model.put("publicaciones", publicaciones);
 
-        return new ModelAndView("index-feed", model);
-    }
-
-    @RequestMapping(path = "/mis-publicaciones", method = RequestMethod.GET)
-    public ModelAndView verPublicacionesPorUsuarioId(@ModelAttribute("datosPublicacion") DatosPublicacion datosPublicacion) {
-        ModelMap model = new ModelMap();
-        List<Publicacion> publicaciones = null;
-
-        try {
-            publicaciones = servicioPublicacion.listarPublicacionesPorUsuarioId(datosPublicacion.getAutorId());
-        } catch (Exception e) {
-            model.put("error", "No se encontraron publicaciones");
-        }
-
-        model.put("publicaciones", publicaciones);
-        return new ModelAndView("index-misposts", model);
-    }
-    @RequestMapping(path = "/crear", method = RequestMethod.GET)
-    public ModelAndView crear(HttpSession session) {
-
-        return new ModelAndView("new-post");
-    }
 
 
 }
