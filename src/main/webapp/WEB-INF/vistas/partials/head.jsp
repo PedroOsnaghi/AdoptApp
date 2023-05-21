@@ -30,6 +30,6 @@
 
 </head>
 
-<body class="  ">
+<body class="">
 
    <!-- Wrapper Start -->

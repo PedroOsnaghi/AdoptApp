@@ -216,6 +216,22 @@
 
                                     </div>
                                 </div>
+
+                                <c:if test="${loader eq '15'}">
+                                    <div id="loader_container" class="loader-wrapper grid">
+                                        <div class="loader-pub">
+                                            <div id="pb"
+                                                 class="progress progress-bar progress-bar-striped progress-bar-animated bg-success"
+                                                 role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                                                 aria-valuemax="100" style="width: 100%"></div>
+                                        </div>
+                                        <div class="col-sm-12 text-center align-self-center mt-5 opacity-1">
+                                            <h5 class="text-white mb-0">Espera, ya casi esta lista..</h5>
+
+                                        </div>
+                                    </div>
+                                </c:if>
+
                             </div>
 
                         </div>
@@ -248,3 +264,5 @@
 <!-- scripts -->
 
 <%@ include file="partials/script.jsp" %>
+
+<script src="${pageContext.request.contextPath}/js/progress.js" type="text/javascript"></script>
