@@ -38,7 +38,7 @@ public class ControladorMascota {
         String viewName = "";
 
         if (this.iServicioMascota.sonValidos(datosIngresoMascota.getNombre(),datosIngresoMascota.getTipo(),
-                datosIngresoMascota.getRaza(), datosIngresoMascota.getPeso(), datosIngresoMascota.getNacimiento() , datosIngresoMascota.getObs() ,  datosIngresoMascota.getFoto()))
+                datosIngresoMascota.getGenero(),datosIngresoMascota.getRaza(), datosIngresoMascota.getPeso(), datosIngresoMascota.getNacimiento() ,datosIngresoMascota.getPersonalidad(), datosIngresoMascota.getObs() ,  datosIngresoMascota.getFoto()))
         {
             model.put("msg", "Mascota Ingresada");
             viewName = "profile";

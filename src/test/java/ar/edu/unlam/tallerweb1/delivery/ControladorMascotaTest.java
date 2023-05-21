@@ -61,7 +61,7 @@ public class ControladorMascotaTest {
 
 
     private void dadoQueNoExisteMascota(DatosIngresoMascota datosIngresoMascota, Boolean retorno) {
-        when(this.iServicioMascota.sonValidos(datosIngresoMascota.getNombre(),datosIngresoMascota.getTipo(), datosIngresoMascota.getRaza(), datosIngresoMascota.getPeso(),datosIngresoMascota.getNacimiento(),datosIngresoMascota.getObs(),datosIngresoMascota.getFoto())).thenReturn(retorno);
+        when(this.iServicioMascota.sonValidos(datosIngresoMascota.getNombre(),datosIngresoMascota.getTipo(), datosIngresoMascota.getGenero(),datosIngresoMascota.getRaza(), datosIngresoMascota.getPeso(),datosIngresoMascota.getNacimiento(),datosIngresoMascota.getPersonalidad(),datosIngresoMascota.getObs(),datosIngresoMascota.getFoto())).thenReturn(retorno);
 
     }
 }
