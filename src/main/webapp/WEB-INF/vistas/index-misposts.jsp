@@ -158,17 +158,17 @@
                                             </div>
                                             <div class="carousel-inner " style="height: 400px;">
                                                 <div class="carousel-item active">
-                                                    <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg"
+                                                    <img src="${pageContext.request.contextPath}/images/posts/1.jpg"
                                                          class="img-fluid w-100 image-cover"
                                                          height="100" loading="lazy" alt="image">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img src="${pageContext.request.contextPath}/images/posts/1/2.jpg"
+                                                    <img src="${pageContext.request.contextPath}/images/posts/2.jpg"
                                                          class="img-fluid w-100 image-cover"
                                                          height="100" loading="lazy" alt="image">
                                                 </div>
                                                 <div class="carousel-item">
-                                                    <img src="${pageContext.request.contextPath}/images/posts/1/3.jpg"
+                                                    <img src="${pageContext.request.contextPath}/images/posts/3.jpg"
                                                          class="img-fluid w-100 image-cover"
                                                          height="100" loading="lazy" alt="image">
                                                 </div>
@@ -217,7 +217,7 @@
                                     </div>
                                 </div>
 
-                                <c:if test="${loader eq '15'}">
+                                <c:if test="${loader eq '19'}">
                                     <div id="loader_container" class="loader-wrapper grid">
                                         <div class="loader-pub">
                                             <div id="pb"
