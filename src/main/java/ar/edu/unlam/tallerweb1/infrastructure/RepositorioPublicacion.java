@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository("repositorioPublicacion")
+@Repository
 public class RepositorioPublicacion implements IRepositorioPublicacion {
     private SessionFactory sessionFactory;
     @Autowired
@@ -22,8 +22,8 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     }
 
     @Override
-    public Publicacion guardarPublicacion(Publicacion publicacion) {
-        return (Publicacion) sessionFactory.getCurrentSession().save(publicacion);
+    public void guardarPublicacion(Publicacion publicacion) {
+         this.sessionFactory.getCurrentSession().save(publicacion);
     }
 
     @Override

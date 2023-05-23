@@ -19,36 +19,8 @@
                <div class="col-lg-8 row m-0 p-0">
                   <div class="col-sm-12">
                      <div id="post-modal-data" class="card card-block card-stretch card-height">
-                        <div class="card-header d-flex justify-content-start">
-                           <div class="user-img me-3">
-                              <img src="${pageContext.request.contextPath}/images/user/default.jpg" alt="userimg" class="avatar-60 rounded-circle"
-                                 loading="lazy">
-                           </div>
-                           <div class="header-title">
-                              <h4 class="card-title">Hola ${usuario.nombre}</h4>
-                           </div>
-                        </div>
-                        <div class="card-body">
-                           <ul class="nav nav-pills d-flex align-items-center justify-content-center profile-feed-items p-0 m-0 rounded"
-                              role="tablist">
-                              <li class="nav-item col-12 col-sm-3 p-0" role="presentation">
-                                 <a class="nav-link active" href="#pills-feed-tab" data-bs-toggle="pill"
-                                    data-bs-target="#feed" role="button" aria-selected="true">Feed</a>
-                              </li>
-                              <li class="nav-item col-12 col-sm-3 p-0" role="presentation">
-                                 <a class="nav-link" href="#pills-favoritos-tab" data-bs-toggle="pill"
-                                    data-bs-target="#favoritos" role="button" aria-selected="false"
-                                    tabindex="-1">Favoritos</a>
-                              </li>
-                              <li class="nav-item col-12 col-sm-3 p-0" role="presentation">
-                                 <a class="nav-link" href="#pills-misposts-tab" data-bs-toggle="pill"
-                                    data-bs-target="#misposts" role="button" aria-selected="false" tabindex="-1">Mis
-                                    Publicaciones</a>
-                              </li>
-                            
-                           </ul>
 
-                        </div>
+                        <%@include file="partials/nav-home.jsp"%>
 
                      </div>
                   </div>
@@ -266,41 +238,8 @@
 
                </div>
 
-
-               <!--ACCESOS RAPIDOS -->
-               <div class="col-lg-4">
-                  <div class="card">
-                     <div class="card-header d-flex justify-content-between">
-                        <div class="header-title">
-                           <h4 class="card-title">Acceso Rápido</h4>
-                        </div>
-                     </div>
-                     <div class="card-body">
-                        <ul class="media-story list-inline m-0 p-0">
-                           <a href="${pageContext.request.contextPath}/publicacion/crear">
-                              <li class="d-flex mb-3 align-items-center">
-                                 <span class="rounded-circle img-fluid bg-primary new-post font-size-12">
-                                    <i class="material-symbols-outlined">
-                                       add
-                                    </i>
-                                 </span>
-
-                                 <div class="stories-data ms-3">
-                                    <h5>Crea una publicación</h5>
-                                    <p class="mb-0">Publíca tu mascota</p>
-                                 </div>
-                              </li>
-                           </a>
-
-                         
-
-
-                        </ul>
-                        
-                     </div>
-                  </div>
-
-               </div>
+               <!-- ACCESOS RAPIDOS -->
+               <%@include file="partials/tools-home.jsp"%>
 
             </div>
 

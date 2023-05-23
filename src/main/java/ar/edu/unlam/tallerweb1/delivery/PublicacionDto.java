@@ -1,23 +1,8 @@
-package ar.edu.unlam.tallerweb1.model;
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CreationTimestamp;
-import javax.persistence.*;
-import java.sql.Timestamp;
-import java.lang.*;
+package ar.edu.unlam.tallerweb1.delivery;
 
-@Entity
-public class Publicacion {
+import org.springframework.web.multipart.MultipartFile;
 
-    public enum EstadoPublicacion {
-        DISPONIBLE,
-        RESERVADO,
-        ADOPTADO,
-
-
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PublicacionDto {
     private Long id;
     private String bio;
     private String direccion;
@@ -25,19 +10,11 @@ public class Publicacion {
     private String provincia;
     private String latitud;
     private String longitud;
-
-    @Column(length = 255)
     private String disponibilidad;
-
-    private String estado;
-    @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    private MultipartFile[] files;
+    private Long usuario_id;
     private Long mascota_id;
 
-    @CreationTimestamp
-    private Timestamp create_at;
 
     public Long getId() {
         return id;
@@ -46,6 +23,7 @@ public class Publicacion {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public String getDireccion() {
         return direccion;
@@ -87,6 +65,14 @@ public class Publicacion {
         this.longitud = longitud;
     }
 
+    public String getDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void setDisponibilidad(String disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
+
     public String getBio() {
         return bio;
     }
@@ -95,12 +81,20 @@ public class Publicacion {
         this.bio = bio;
     }
 
-    public String getDisponibilidad() {
-        return disponibilidad;
+    public MultipartFile[] getFiles() {
+        return files;
     }
 
-    public void setDisponibilidad(String disponibilidad) {
-        this.disponibilidad = disponibilidad;
+    public void setFiles(MultipartFile[] files) {
+        this.files = files;
+    }
+
+    public Long getUsuario_id() {
+        return usuario_id;
+    }
+
+    public void setUsuario_id(Long usuario_id) {
+        this.usuario_id = usuario_id;
     }
 
     public Long getMascota_id() {
@@ -111,27 +105,7 @@ public class Publicacion {
         this.mascota_id = mascota_id;
     }
 
-    public String getEstado() {
-        return estado;
-    }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario autor) {
-        this.usuario = autor;
-    }
-
-    public Timestamp getCreate_at() {
-        return create_at;
-    }
-
-    public void setCreate_at(Timestamp fechaCreacion) {
-        this.create_at = fechaCreacion;
-    }
 }
+

@@ -113,7 +113,7 @@ i.material-symbols-outlined.md-64 {
     --bs-body-font-weight: 400;
     --bs-body-line-height: 1.8;
     --bs-body-color: #555770;
-    --bs-body-bg: #f8f9fa;
+    --bs-body-bg: #efefef;
     --bs-border-width: 1px;
     --bs-border-style: solid;
     --bs-border-color: #f1f1f1;
@@ -1964,12 +1964,16 @@ progress {
 .form-control[type=file]:not(:disabled):not([readonly]) {
     cursor: pointer
 }
+
+/*noinspection CssInvalidPropertyValue*/
 .form-control:focus {
     color: #555770;
     background-color: #fff;
     border-color: #a8daff;
     outline: 0;
-    box-shadow: 0 .125rem .25 0 rgba(80, 181, 255, .15)
+    /*noinspection CssInvalidPropertyValue*/
+    box-shadow: 0 .125rem .25 0 rgba(80, 181, 255, .15);
+
 }
 .form-control::-webkit-date-and-time-value {
     height: 1.8em
@@ -10378,7 +10382,7 @@ fieldset:disabled .btn {
     padding: .313rem 2.5rem .313rem .938rem;
     border-radius: .313rem;
     border: none;
-    border: 1px solid #f1f1f1
+    border: 1px solid #2a2a2a;
 }
 .iq-navbar-logo {
     padding: 1em;
@@ -12216,7 +12220,7 @@ fieldset:disabled .btn {
 }
 
 .brand{
-    background: url(../images/brand/brand-light.png) no-repeat scroll center center;
+    background: url(../images/brand/brand-dark.png) no-repeat scroll center center;
     width: 185px;
     height: 45px;
     content: "";
@@ -20481,7 +20485,7 @@ button.bg-soft-dark:hover {
 }
 .dark {
     color: #c7c7c7;
-    background-color: #1a1a1a!important
+    background-color: #101010!important
 }
 .dark .h1,
 .dark .h2,
@@ -20525,7 +20529,7 @@ button.bg-soft-dark:hover {
     color: #dee2e6
 }
 .dark .sidebar {
-    background-color: #0f0f0f
+    background-color: #1a1a1a
 }
 .dark .sidebar .navbar-brand .logo-title {
     color: #fff
@@ -20557,6 +20561,11 @@ button.bg-soft-dark:hover {
 .dark .iq-search-bar .search-input {
     color: #c7c7c7
 }
+
+.nav .navbar-inner {
+    background-color: #1a1a1a;
+}
+
 .dark .navbar-collapse {
     background-color: #0f0f0f
 }
@@ -21083,7 +21092,7 @@ button.bg-soft-dark:hover {
 }
 
 .dark .modal-content {
-    background: #0f0f0f
+    background: #1a1a1a
 }
 .dark .modal-content .modal-header {
     border-color: #2a2a2a
@@ -21128,7 +21137,7 @@ button.bg-soft-dark:hover {
     filter: invert(1)
 }
 .dark .card {
-    background: #0f0f0f;
+    background: #1a1a1a;
 }
 .dark .card .card-footer,
 .dark .card .card-header {
@@ -21347,7 +21356,7 @@ button.bg-soft-dark:hover {
     background: linear-gradient(135deg, #50b5ff 0, #182039 100%)
 }
 .dark section.sign-in-page .bg-white {
-    background-color: #0f0f0f!important;
+    background-color: #1a1a1a!important;
     color: #c7c7c7
 }
 .dark section.sign-in-page .sign-info {
@@ -21458,7 +21467,7 @@ button.bg-soft-dark:hover {
     transition: none!important;
 }
 .dark .nav {
-    background: #0f0f0f
+    background: #222222
 }
 .dark .nav.nav-tabs .nav-item a {
     color: #c7c7c7
@@ -23737,7 +23746,7 @@ button.bg-soft-dark:hover {
 }
 
 .upload__box {
-    padding: 40px;
+    padding: 10px 20px;
 }
 .upload__inputfile {
     width: 0.1px;
@@ -23775,8 +23784,8 @@ button.bg-soft-dark:hover {
 }
 
 .dark .upload__img-wrap{
-    background-color: #00162a!important;
-    border: 1px solid #00a3ff!important;
+    background-color: #50b5ff14!important;
+    border: 1px solid #00a3ff24!important;
 }
 
 .upload__img-box {
@@ -23788,8 +23797,8 @@ button.bg-soft-dark:hover {
 }
 
 .dark .upload__img-box {
-    background-color: #01488d80!important;
-    border: 1px solid #00547a!important;
+    background-color: #ffffff!important;
+    border: 1px solid #00a3ff24!important;
 }
 
 .upload__img-close {
@@ -23818,4 +23827,58 @@ button.bg-soft-dark:hover {
     position: relative;
     padding-bottom: 100%;
     transition: all 0.3s ease;
+}
+
+
+.pac-container{
+    z-index: 2000!important;
+}
+
+
+input[readonly]{
+    background-color: #e9ecef!important;
+    opacity: 1;
+}
+
+.dark input[readonly]{
+    background-color: #e9ecef!important;
+    color: #555770;
+    opacity: 1;
+}
+
+/* PROGRESS */
+
+
+
+.loader-wrapper{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: #000;
+    border-radius: 5px;
+    opacity: .8;
+}
+
+.loader-pub {
+    --bs-progress-height: .2rem!important;
+    --bs-progress-font-size: 0.65625rem;
+    --bs-progress-bg: transparent!important;
+    --bs-progress-border-radius: 5px 5px 0px 0px!important;
+
+
+}
+
+.progress {
+    width: unset;
+    height: .5rem!important;
+    transition: width 0.8s ease;
+    opacity: 0!important;
+    transition: opacity 1s ease-out;
+}
+
+#loader_container{
+    transition: opacity 1s ease-out;
 }

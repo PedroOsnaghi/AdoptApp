@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IRepositorioPublicacion {
     Publicacion buscarPublicacionPorId(Long id);
-    Publicacion guardarPublicacion(Publicacion publicacion);
+    void guardarPublicacion(Publicacion publicacion);
     void modificarPublicacion(Publicacion publicacion);
 
     void eliminarPublicacion(Long IdPublicacion);
