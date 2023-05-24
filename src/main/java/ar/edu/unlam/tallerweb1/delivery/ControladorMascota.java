@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
+import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -9,47 +11,72 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/mascota")
 public class ControladorMascota {
+
+    private final IServicioAuth servicioAuth;
+
     @Autowired
-    private IServicioMascota iServicioMascota;
+    private IServicioMascota servicioMascota;
     @Autowired
-    public ControladorMascota(IServicioMascota iServicioMascota)
+    public ControladorMascota(IServicioMascota servicioMascota, IServicioAuth Auth)
     {
-        this.iServicioMascota = iServicioMascota;
+        this.servicioMascota = servicioMascota;
+        this.servicioAuth = Auth;
+    }
+
+    private ModelMap iniciarModel() {
+        ModelMap m = new ModelMap();
+        m.put("usuario", this.servicioAuth.getUsuarioAutenticado());
+        return m;
     }
 
     @RequestMapping("/crear")
-    public ModelAndView irANewMascot() {
+    public ModelAndView irANewMascot(@RequestParam(required = false) String target, HttpSession session) {
 
-        ModelMap modelo = new ModelMap();
+        ModelMap modelo = this.iniciarModel();
 
-        modelo.put("datosIngresoMascota",new DatosIngresoMascota());
+        session.setAttribute("target" ,target);
+
+        modelo.put("mascotaDto",new MascotaDto());
 
         return new ModelAndView("new-mascot", modelo);
     }
 
 
-    @RequestMapping(path = "/ingresar-mascota", method=RequestMethod.POST)
-    public ModelAndView ingresarMascota(@ModelAttribute DatosIngresoMascota datosIngresoMascota) {
-        ModelMap model = new ModelMap();
+    @RequestMapping(path = "/guardar", method=RequestMethod.POST)
+    public ModelAndView ingresarMascota(@ModelAttribute MascotaDto mascotaDto, HttpSession session, HttpServletRequest request) {
 
-        String viewName = "";
+        ModelMap model = this.iniciarModel();
 
-        if (this.iServicioMascota.sonValidos(datosIngresoMascota.getNombre(),datosIngresoMascota.getTipo(),
-                datosIngresoMascota.getGenero(),datosIngresoMascota.getRaza(), datosIngresoMascota.getPeso(), datosIngresoMascota.getNacimiento() ,datosIngresoMascota.getPersonalidad(), datosIngresoMascota.getObs() ,  datosIngresoMascota.getFoto()))
-        {
-            model.put("msg", "Mascota Ingresada");
-            viewName = "profile";
+        Usuario usuario = this.servicioAuth.getUsuarioAutenticado();
 
-        } else {
-            model.put("msg", "No se Pudo Ingresar La mascota, ingrese los campos mínimos");
-            model.put("datosIngresoMascota",new DatosIngresoMascota());
-            viewName = "new-mascot";
+        Long p_id = this.servicioMascota.guardar(mascotaDto, usuario);
+
+        if(p_id == null) {
+            model.put("error", this.servicioMascota.getErrorMessage());
+            return new ModelAndView("new-mascot",model);
+        }
+
+        String target = (String) session.getAttribute("target");
+
+        switch (target){
+            case "publicacion":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/crear");
+
+            case  "perfil":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/actividad/mascotas");
+
+            default:
+                return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed");
 
         }
-        return new ModelAndView(viewName, model);
+
+
     }
 
 

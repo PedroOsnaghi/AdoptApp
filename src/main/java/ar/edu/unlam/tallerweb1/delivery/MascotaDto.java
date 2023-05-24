@@ -1,46 +1,32 @@
-package ar.edu.unlam.tallerweb1.model;
+package ar.edu.unlam.tallerweb1.delivery;
 
-import org.hibernate.annotations.Cascade;
+import ar.edu.unlam.tallerweb1.Genero;
+import ar.edu.unlam.tallerweb1.Personalidad;
+import ar.edu.unlam.tallerweb1.Tipo;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import java.util.Date;
 
-@Entity
-public class Mascota {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class MascotaDto {
 
-    @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
     private String nombre;
     private String tipo;
     private String genero;
     private String raza;
     private Float peso;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date nacimiento;
     private String personalidad;
     private String salud;
     private String foto;
 
+    private MultipartFile imagen;
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
 
     public String getNombre() {
         return nombre;
@@ -114,4 +100,11 @@ public class Mascota {
         this.foto = foto;
     }
 
+    public MultipartFile getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(MultipartFile imagen) {
+        this.imagen = imagen;
+    }
 }

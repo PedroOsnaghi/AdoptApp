@@ -108,7 +108,7 @@
                                              </label>
                                           </div>
                                           <div class="col-4">
-                                             <a href="${pageContext.request.contextPath}/mascota/crear" class="btn btn-primary">Agregar nueva..</a>
+                                             <a href="${pageContext.request.contextPath}/mascota/crear?target=publicacion" class="btn btn-primary">Agregar nueva..</a>
                                           </div>
                                        </div>
                                        <h6 class="">Biografía</h6>

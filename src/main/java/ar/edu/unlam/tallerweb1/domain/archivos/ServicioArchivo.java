@@ -35,14 +35,16 @@ public class ServicioArchivo implements IServicioArchivo {
 
     @Override
     public String subirAvatarUsuario(MultipartFile multipart) {
-
-        return this.guardarArchivo(multipart, this.getDir("user") )? multipart.getOriginalFilename() : defaultImage;
+        this.imagenesSubidas.clear();
+        return this.guardarArchivo(multipart, this.getDir("user") )? this.imagenesSubidas.get(0) : defaultImage;
 
     }
 
+    @Override
     public String subirAvatarMascota(MultipartFile multipart) {
 
-        return this.guardarArchivo(multipart, this.getDir("mascota") )? multipart.getOriginalFilename() : defaultImage;
+        this.imagenesSubidas.clear();
+        return this.guardarArchivo(multipart, this.getDir("mascota") )? this.imagenesSubidas.get(0) : defaultImage;
 
     }
 

@@ -14357,7 +14357,8 @@ fieldset:disabled .btn {
 .profile-img img {
     border-radius: 50rem;
     border: 1px solid rgba(0, 0, 0, .1);
-    height: auto
+    height: auto;
+    object-fit: cover;
 }
 ul.header-nav {
     position: absolute;
@@ -18458,22 +18459,22 @@ button.bg-soft-dark:hover {
     line-height: 110px
 }
 .avatar-115 {
-    height: 115px;
+    height: 115px!important;
     width: 115px;
     line-height: 115px
 }
 .avatar-120 {
-    height: 120px;
+    height: 120px!important;
     width: 120px;
     line-height: 120px
 }
 .avatar-125 {
-    height: 125px;
+    height: 125px!important;
     width: 125px;
     line-height: 125px
 }
 .avatar-130 {
-    height: 130px;
+    height: 130px !important;
     width: 130px;
     line-height: 130px
 }
