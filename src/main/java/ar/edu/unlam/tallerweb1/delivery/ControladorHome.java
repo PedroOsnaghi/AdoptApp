@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -20,10 +21,12 @@ public class ControladorHome {
 
     private Usuario userAuth;
     private IServicioPublicacion servicioPublicacion;
+    private IServicioAuth servicioAuth;
 
     @Autowired
-    public void ControladorHome(IServicioPublicacion servicioPublicacion){
+    public void ControladorHome(IServicioPublicacion servicioPublicacion, IServicioAuth servicioAuth){
         this.servicioPublicacion = servicioPublicacion;
+        this.servicioAuth = servicioAuth;
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
@@ -34,7 +37,7 @@ public class ControladorHome {
     @RequestMapping(path = "/feed",method = RequestMethod.GET)
     public ModelAndView feed(HttpSession session) {
 
-        userAuth = (Usuario) session.getAttribute("usuarioAutenticado");
+        userAuth = this.servicioAuth.getUsuarioAutenticado();
 
         if(userAuth != null){
             ModelMap model = new ModelMap();
@@ -55,7 +58,7 @@ public class ControladorHome {
     @RequestMapping(path = "/favoritos",method = RequestMethod.GET)
     public ModelAndView favoritos(HttpSession session) {
 
-        userAuth = (Usuario) session.getAttribute("usuarioAutenticado");
+        userAuth = this.servicioAuth.getUsuarioAutenticado();
 
         if(userAuth != null){
             ModelMap model = new ModelMap();
@@ -76,12 +79,12 @@ public class ControladorHome {
     @RequestMapping(path = "/mispublicaciones",method = RequestMethod.GET)
     public ModelAndView misPublicaciones(@RequestParam(required = false) String pid, HttpSession session) {
 
-        userAuth = (Usuario) session.getAttribute("usuarioAutenticado");
+        userAuth = this.servicioAuth.getUsuarioAutenticado();
 
         if(userAuth != null){
             ModelMap model = new ModelMap();
             //solicitar publicaciones
-            List<Publicacion> publicaciones = servicioPublicacion.listarPublicaciones();
+            List<Publicacion> publicaciones = servicioPublicacion.listarPublicacionesPorUsuarioId(userAuth.getId());
 
             model.put("loader", pid);
             model.put("target","mispublicaciones");

@@ -3,6 +3,8 @@ package ar.edu.unlam.tallerweb1.infrastructure;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -42,6 +44,11 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
 
     @Override
     public List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario) {
-        return null;
+        return (List<Publicacion>) this.sessionFactory.getCurrentSession()
+                .createCriteria(Publicacion.class)
+                .createAlias("usuario", "user")
+                .add(Restrictions.eq("user.id", idUsuario))
+                .addOrder(Order.desc("id"))
+                .list();
     }
 }
