@@ -24,8 +24,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form:form class="row" action="ingresar-mascota" method="POST"
-                                   modelAttribute="datosIngresoMascota">
+                        <form:form class="row" action="guardar" method="POST"
+                                   modelAttribute="mascotaDto" enctype="multipart/form-data">
 
                             <div class="row align-items-center mb-3">
                                 <div class="col-3 ">
@@ -37,8 +37,8 @@
                                              id="preview" alt="">
                                         <div class="material-symbols-outlined btn btn-primary btn-profile">
                                             photo_camera
-                                            <input path="" name="archivoImagen" id="file" type="file"
-                                                   class="form-control opacity-0">
+                                            <form:input path="imagen" name="archivoImagen" id="file" type="file"
+                                                   class="form-control opacity-0"/>
 
                                         </div>
                                     </div>
@@ -64,20 +64,20 @@
                                 <div class="col-md-6 position-relative">
                                     <label for="tipo" class="form-label"><strong>Qué tipo de mascota
                                         es?</strong></label>
-                                    <form:input path="tipo" type="text" class="form-control" id="tipo" required=""
-                                                placeholder="Escribe el tipo..." control-id="ControlID-24"/>
-                                    <div class="invalid-tooltip">
-                                        Selecciona un tipo.
-                                    </div>
+                                    <form:select path="tipo" class="form-select" id="tipo" required="true">
+                                        <option selected="" disabled="" value="null">Selecciona un Tipo</option>
+                                        <option value="perro">PERRO</option>
+                                        <option value="gato">GATO</option>
+                                    </form:select>
                                 </div>
 
                                 <div class="col-md-6 position-relative">
                                     <label for="genero" class="form-label"><strong>Género</strong></label>
-                                    <select class="form-select" id="genero">
+                                    <form:select path="genero" class="form-select" id="genero">
                                         <option selected="" disabled="" value="">Selecciona un Género</option>
-                                        <option>HEMBRA</option>
-                                        <option>MACHO</option>
-                                    </select>
+                                        <option value="hembra">HEMBRA</option>
+                                        <option value="macho">MACHO</option>
+                                    </form:select>
 
                                 </div>
 
@@ -91,7 +91,7 @@
                                 </div>
 
                                 <div class="col-md-6 position-relative">
-                                    <label class="form-label" for="peso"><strong>Cu?nto pesa en
+                                    <label class="form-label" for="peso"><strong>Cuánto pesa en
                                         Kg?</strong>
                                         (aporx.)</label>
                                     <form:input path="peso" type="number" class="form-control" id="peso"
@@ -100,43 +100,44 @@
                                 </div>
 
                                 <div class="col-md-6 position-relative">
-                                    <label class="form-label" for="nacimiento"><strong>Cuándo nació?</strong> (si
+                                    <label class="form-label" for=""><strong>Cuándo nació?</strong> (si
                                         no sabes dejalo
-                                        vac?o)</label>
-                                    <input path="" type="date" class="form-control" id="nacimiento" value="Now"
-                                           control-id="ControlID-15">
+                                        vacio)</label>
+                                <form:input path="nacimiento" type="date" class="form-control" id="nacimiento"
+                                           control-id="ControlID-15"/>
                                 </div>
                                 <div class="col-md-6 position-relative">
                                     <label for="pers" class="form-label"><strong>Describe su
                                         personalidad</strong></label>
-                                    <select class="form-select" id="pers">
+                                    <form:select path="personalidad" class="form-select" id="pers">
                                         <option selected="" disabled="" value="">Selecciona una</option>
-                                        <option>Cariñoso/a</option>
-                                        <option>Amoroso/a</option>
-                                        <option>Jugueton/a</option>
-                                        <option>Travieso/a</option>
-                                        <option>Dormilon/a</option>
-                                        <option>Momoso/a</option>
-                                    </select>
+                                        <option value="Cariñoso/a">Cariñoso/a</option>
+                                        <option value="Amoroso/a">Amoroso/a</option>
+                                        <option value="Travieso/a">Travieso/a</option>
+                                        <option value="Dormilon/a">Dormilon/a</option>
+                                        <option value="Jugueton/a">Jugueton/a</option>
+                                        <option value="Momoso/a">Momoso/a</option>
+                                    </form:select>
 
                                 </div>
                                 <div class="col-md-12 position-relative">
                                     <label for="obs" class="form-label"><strong>Cuál es su estado de
                                         salud?</strong> (50 caracteres)</label>
-                                    <form:input path="obs" type="text" class="form-control" id="obs" required=""
+                                    <form:input path="salud" type="text" class="form-control" id="obs" required=""
                                                 maxlength="50" control-id="ControlID-27"/>
                                     <div class="invalid-tooltip">
                                         Debes completar su estado de salud.
                                     </div>
                                 </div>
                             </div>
-                            <c:if test="${not empty msg}">
+
+                            <c:if test="${not empty error}">
 
                                 <div class=" col-md-12 position-relative mt-2 mb-2">
                                     <div class="alert alert-solid alert-danger alert-dismissible fade show d-flex align-items-center gap-2"
                                          role="alert">
                                         <span class="d-flex"><i class="material-symbols-outlined">error</i></span>
-                                        <span>${msg}</span>
+                                        <span>${error}</span>
                                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
                                                 aria-label="Close" control-id="ControlID-9"></button>
                                     </div>
