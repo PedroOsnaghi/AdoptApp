@@ -76,8 +76,6 @@ public class ServicioMascota implements IServicioMascota {
     public String getErrorMessage(){
         return this.errorMessage;
     }
-
-
-
+    
 
 }
