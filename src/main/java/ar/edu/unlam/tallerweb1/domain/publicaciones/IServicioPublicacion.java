@@ -16,7 +16,7 @@ public interface IServicioPublicacion {
 
     void eliminarPublicacion(Long IdPublicacion);//TODO return bool o int
 
-    List<Publicacion> listarPublicaciones();
+    List<Publicacion> listarPublicacionesDisponibles();
 
     List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario);
 

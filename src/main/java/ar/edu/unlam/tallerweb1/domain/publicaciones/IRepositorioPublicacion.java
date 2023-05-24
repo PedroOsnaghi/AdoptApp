@@ -11,7 +11,7 @@ public interface IRepositorioPublicacion {
 
     void eliminarPublicacion(Long IdPublicacion);
 
-    List<Publicacion> listarPublicaciones();
+    List<Publicacion> listarPublicaciones(String state);
 
     List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario);
 }

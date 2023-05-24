@@ -38,8 +38,14 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     }
 
     @Override
-    public List<Publicacion> listarPublicaciones() {
-        return null;
+    public List<Publicacion> listarPublicaciones(String state) {
+
+        return (List<Publicacion>) this.sessionFactory.getCurrentSession()
+                .createCriteria(Publicacion.class)
+                .add(Restrictions.eq("estado", state))
+                .addOrder(Order.desc("id"))
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 
     @Override

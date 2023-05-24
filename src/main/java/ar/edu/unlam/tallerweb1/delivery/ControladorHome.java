@@ -36,14 +36,14 @@ public class ControladorHome {
     }
 
     @RequestMapping(path = "/feed",method = RequestMethod.GET)
-    public ModelAndView feed(HttpSession session) {
+    public ModelAndView feed() {
 
         userAuth = this.servicioAuth.getUsuarioAutenticado();
 
         if(userAuth != null){
             ModelMap model = new ModelMap();
             //solicitar publicaciones
-            List<Publicacion> publicaciones = servicioPublicacion.listarPublicaciones();
+            List<Publicacion> publicaciones = servicioPublicacion.listarPublicacionesDisponibles();
 
 
             model.put("target","feed");
@@ -64,7 +64,7 @@ public class ControladorHome {
         if(userAuth != null){
             ModelMap model = new ModelMap();
             //solicitar publicaciones
-            List<Publicacion> publicaciones = servicioPublicacion.listarPublicaciones();
+            List<Publicacion> publicaciones = servicioPublicacion.listarPublicacionesDisponibles();
 
 
             model.put("target","favoritos");

@@ -63,7 +63,7 @@ public class ControladorPublicacionTest {
 
     private void dadoQueExistenPublicaciones() {
 
-        when(servicioPublicacion.listarPublicaciones()).thenReturn(new ArrayList<Publicacion>());
+        when(servicioPublicacion.listarPublicacionesDisponibles()).thenReturn(new ArrayList<Publicacion>());
 
     }
 

@@ -96,8 +96,8 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
-    public List<Publicacion> listarPublicaciones() {
-        return repositorioPublicacion.listarPublicaciones();
+    public List<Publicacion> listarPublicacionesDisponibles() {
+        return repositorioPublicacion.listarPublicaciones("disponible");
     }
 
     @Override
