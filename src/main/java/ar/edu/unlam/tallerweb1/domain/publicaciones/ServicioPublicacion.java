@@ -73,7 +73,7 @@ public class ServicioPublicacion implements IServicioPublicacion{
         p.setLongitud(publicacionDto.getLongitud());
         p.setDireccion(publicacionDto.getDireccion());
         p.setProvincia(publicacionDto.getProvincia());
-        p.setCiudad(publicacionDto.getProvincia());
+        p.setCiudad(publicacionDto.getCiudad());
 
         p.setEstado("disponible");
 
