@@ -132,8 +132,9 @@
                                                 <h4><strong>${publicacion.mascota.nombre}</strong></h4>
                                                 <div class="text-muted">
                                                     <span class="mx-1"><i class="fa-solid fa-mars"></i></span>${publicacion.mascota.genero}
-                                                    <c:if test="${not publicacion.mascota.nacimiento eq null}">
-                                                        <span class="mx-1"><i class="fa-solid fa-clock"></i></span>45d
+
+                                                    <c:if test="${not empty publicacion.mascota.nacimiento}">
+                                                        <span class="mx-1"><i class="fa-solid fa-clock"></i></span><script>getBorn("${publicacion.mascota.nacimiento}");</script>
                                                     </c:if>
 
                                                     <span class="mx-1"><i class="fa-solid fa-weight-scale"></i></span>${publicacion.mascota.peso}kg
@@ -181,8 +182,8 @@
                                         <div class="comment-area mt-3">
                                             <div class="d-flex justify-content-between align-items-center flex-wrap">
                                                 <div class="like-block position-relative d-flex align-items-center w-100">
-                                                    <div class="d-flex justify-content-between w-100 align-items-center">
-
+                                                    <div class="d-flex justify-content-end w-100 align-items-center">
+                                                        <%--
                                                         <button type="button"
                                                                 class="btn d-inline-flex btn-soft-link mb-3 me-1"
                                                                 control-id="ControlID-93"><i
@@ -190,7 +191,7 @@
                                                             a
                                                             Favoritos
                                                         </button>
-
+                                                        --%>
                                                         <button type="button"
                                                                 class="btn d-inline-flex mb-3 me-1 btn-primary visually-hidden"
                                                                 control-id="ControlID-52"><i
