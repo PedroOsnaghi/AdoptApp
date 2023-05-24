@@ -3,11 +3,11 @@ package ar.edu.unlam.tallerweb1.infrastructure;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.*;
 import java.util.List;
 
 @Repository
@@ -20,7 +20,7 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
 
     @Override
     public Publicacion buscarPublicacionPorId(Long id) {
-        return null;
+        return (Publicacion) this.sessionFactory.getCurrentSession().find(Publicacion.class, id);
     }
 
     @Override
@@ -46,9 +46,10 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     public List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario) {
         return (List<Publicacion>) this.sessionFactory.getCurrentSession()
                 .createCriteria(Publicacion.class)
-                .createAlias("usuario", "user")
-                .add(Restrictions.eq("user.id", idUsuario))
+                .createAlias("mascota", "m")
+                .add(Restrictions.eq("m.usuario.id", idUsuario))
                 .addOrder(Order.desc("id"))
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 }

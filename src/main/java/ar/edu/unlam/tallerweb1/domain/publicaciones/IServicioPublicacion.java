@@ -11,7 +11,7 @@ public interface IServicioPublicacion {
     String getErrorMessage();
     //
     Publicacion findPublicacion(Long id);
-    Long guardarPublicacion(PublicacionDto publicacionDto, Usuario usuario);
+    Long guardarPublicacion(PublicacionDto publicacionDto);
     void modificarPublicacion(Publicacion publicacion); //TODO return Publcacion
 
     void eliminarPublicacion(Long IdPublicacion);//TODO return bool o int

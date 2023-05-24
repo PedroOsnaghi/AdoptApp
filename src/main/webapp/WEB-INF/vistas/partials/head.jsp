@@ -27,6 +27,9 @@
    <!-- color customizer css -->
    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customizer.css">
    <link rel="stylesheet" href="${pageContext.request.contextPath}/vendor/fontawesome/css/all.min.css">
+   <!--moment.js-->
+   <script src="${pageContext.request.contextPath}/js/moment.min.js" type="text/javascript"></script>
+   <script src="${pageContext.request.contextPath}/js/fechas.js" type="text/javascript"></script>
 
 </head>
 

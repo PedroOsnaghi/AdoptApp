@@ -43,7 +43,7 @@
                                                 <a href="">
                                                     <div class="me-3">
                                                         <img class="rounded-circle img-fluid"
-                                                             src="${pageContext.request.contextPath}/images/user/${publicacion.usuario.imagen}"
+                                                             src="${pageContext.request.contextPath}/images/user/${publicacion.mascota.usuario.imagen}"
                                                              style="max-width: 40px;" alt="" loading="lazy">
                                                     </div>
                                                 </a>
@@ -52,7 +52,7 @@
                                                     <div class="d-flex justify-content-between">
                                                         <div class="">
                                                             <h6 class="mb-0 d-inline-block"><strong>Tú</strong></h6>
-                                                            <small class="mb-0 text-primary ">Justo Ahora</small>
+                                                            <small class="mb-0 text-primary "><script>getTime("${publicacion.create_at}");</script></small>
                                                             <p class="text-muted mb-0" style="font-style: italic;">
                                                                 <small
                                                                         class="text-muted"><i
@@ -129,63 +129,47 @@
                                         <hr class="mt-0">
                                         <div class="mt-3">
                                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <h4><strong>${}</strong></h4>
+                                                <h4><strong>${publicacion.mascota.nombre}</strong></h4>
                                                 <div class="text-muted">
-                                                    <span class="mx-1"><i class="fa-solid fa-mars"></i></span>Macho
-                                                    <span class="mx-1"><i class="fa-solid fa-clock"></i></span>45d
-                                                    <span class="mx-1"><i class="fa-solid fa-weight-scale"></i></span>0,500kg
+                                                    <span class="mx-1"><i class="fa-solid fa-mars"></i></span>${publicacion.mascota.genero}
+                                                    <c:if test="${not publicacion.mascota.nacimiento eq null}">
+                                                        <span class="mx-1"><i class="fa-solid fa-clock"></i></span>45d
+                                                    </c:if>
+
+                                                    <span class="mx-1"><i class="fa-solid fa-weight-scale"></i></span>${publicacion.mascota.peso}kg
                                                 </div>
                                             </div>
 
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nulla
-                                                dolor,
-                                                ornare at
-                                                commodo non, feugiat non nisi. Phasellus faucibus mollis pharetra. Proin
-                                                blandit
-                                                ac
-                                                massa sed rhoncus</p>
+                                            <p>${publicacion.bio}</p>
                                         </div>
                                         <div class="user-post">
-                                            <div id="carouselExampleIndicators" class="carousel slide"
+                                            <div id="carousel" class="carousel slide"
                                                  data-bs-ride="carousel">
                                                 <div class="carousel-indicators">
-                                                    <button type="button" data-bs-target="#carouselExampleIndicators"
-                                                            data-bs-slide-to="0" class="" aria-label="Slide 1"
-                                                            control-id="ControlID-4"></button>
-                                                    <button type="button" data-bs-target="#carouselExampleIndicators"
-                                                            data-bs-slide-to="1" aria-label="Slide 2"
-                                                            control-id="ControlID-5"
-                                                            class=""></button>
-                                                    <button type="button" data-bs-target="#carouselExampleIndicators"
-                                                            data-bs-slide-to="2" aria-label="Slide 3"
-                                                            control-id="ControlID-6"
-                                                            class="active" aria-current="true"></button>
+                                                 <c:forEach items="${publicacion.imagenes}" begin="0" end="${publicacion.imagenes.size() - 1}" varStatus="index" >
+                                                    <button type="button" data-bs-target="#carousel"
+                                                            data-bs-slide-to="${index.count - 1}" class="active" aria-current="true" ></button>
+                                                 </c:forEach>
+
                                                 </div>
                                                 <div class="carousel-inner " style="height: 400px;">
-                                                    <div class="carousel-item active">
-                                                        <img src="${pageContext.request.contextPath}/images/posts/1.jpg"
+                                                <c:forEach items="${publicacion.imagenes}" varStatus="index" var="imagen">
+                                                    <div class="carousel-item <c:if test="${index.count - 1 eq 0}">active</c:if>">
+                                                        <img src="${pageContext.request.contextPath}/images/posts/${imagen.nombre}"
                                                              class="img-fluid w-100 image-cover"
                                                              height="100" loading="lazy" alt="image">
                                                     </div>
-                                                    <div class="carousel-item">
-                                                        <img src="${pageContext.request.contextPath}/images/posts/2.jpg"
-                                                             class="img-fluid w-100 image-cover"
-                                                             height="100" loading="lazy" alt="image">
-                                                    </div>
-                                                    <div class="carousel-item">
-                                                        <img src="${pageContext.request.contextPath}/images/posts/3.jpg"
-                                                             class="img-fluid w-100 image-cover"
-                                                             height="100" loading="lazy" alt="image">
-                                                    </div>
+                                                </c:forEach>
+
                                                 </div>
                                                 <button class="carousel-control-prev" type="button"
-                                                        data-bs-target="#carouselExampleIndicators" data-bs-slide="prev"
+                                                        data-bs-target="#carousel" data-bs-slide="prev"
                                                         control-id="ControlID-7">
                                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                     <span class="visually-hidden">Previous</span>
                                                 </button>
                                                 <button class="carousel-control-next" type="button"
-                                                        data-bs-target="#carouselExampleIndicators" data-bs-slide="next"
+                                                        data-bs-target="#carousel" data-bs-slide="next"
                                                         control-id="ControlID-8">
                                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                     <span class="visually-hidden">Next</span>
@@ -224,7 +208,7 @@
                                         </div>
                                     </div>
 
-                                    <c:if test="${loader eq '19'}">
+                                    <c:if test="${loader eq publicacion.id}">
                                         <div id="loader_container" class="loader-wrapper grid">
                                             <div class="loader-pub">
                                                 <div id="pb"
@@ -277,4 +261,8 @@
 
 <%@ include file="partials/script.jsp" %>
 
+
+
+<c:if test="${not empty loader}">
 <script src="${pageContext.request.contextPath}/js/progress.js" type="text/javascript"></script>
+</c:if>

@@ -50,7 +50,7 @@ public class ControladorPublicacion {
 
         Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
 
-        Long p_id = servicioPublicacion.guardarPublicacion(publicacionDto, usuario);
+        Long p_id = servicioPublicacion.guardarPublicacion(publicacionDto);
 
         if(p_id == null) {
             model.put("error", this.servicioPublicacion.getErrorMessage());

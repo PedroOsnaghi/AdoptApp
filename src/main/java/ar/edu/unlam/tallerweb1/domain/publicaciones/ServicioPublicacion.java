@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.domain.publicaciones;
 import ar.edu.unlam.tallerweb1.delivery.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,11 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
-    public Long  guardarPublicacion(PublicacionDto publicacionDto, Usuario usuario) {
+    public Long  guardarPublicacion(PublicacionDto publicacionDto) {
 
         if (!this.validarDatos(publicacionDto))
             return null;
-        return this.publicar(publicacionDto,usuario);
+        return this.publicar(publicacionDto);
     }
 
     private boolean validarDatos(PublicacionDto pd) {
@@ -51,8 +52,8 @@ public class ServicioPublicacion implements IServicioPublicacion{
         return true;
     }
 
-    private Long publicar(PublicacionDto publicacionDto, Usuario usuario) {
-        Publicacion pub = this.setearPublicacion(publicacionDto, usuario);
+    private Long publicar(PublicacionDto publicacionDto) {
+        Publicacion pub = this.setearPublicacion(publicacionDto);
 
         repositorioPublicacion.guardarPublicacion(pub);
 
@@ -62,17 +63,19 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
     }
 
-    private Publicacion setearPublicacion(PublicacionDto publicacionDto, Usuario user) {
+    private Publicacion setearPublicacion(PublicacionDto publicacionDto) {
         Publicacion p = new Publicacion();
         p.setBio(publicacionDto.getBio());
-        p.setMascota_id(publicacionDto.getMascota_id());
+        p.setMascota(new Mascota(publicacionDto.getMascota_id()));
         p.setDireccion(publicacionDto.getDireccion());
         p.setDisponibilidad(publicacionDto.getDisponibilidad());
         p.setLatitud(publicacionDto.getLatitud());
         p.setLongitud(publicacionDto.getLongitud());
         p.setDireccion(publicacionDto.getDireccion());
+        p.setProvincia(publicacionDto.getProvincia());
+        p.setCiudad(publicacionDto.getProvincia());
+
         p.setEstado("disponible");
-        p.setUsuario(user);
 
         return p;
     }
