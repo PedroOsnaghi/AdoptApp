@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Imagen;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
+import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,7 @@ public class ControladorHome {
     }
 
     @RequestMapping(path = "/feed",method = RequestMethod.GET)
-    public ModelAndView feed() {
+    public ModelAndView feed(@RequestParam(required = false) String rf) {
 
         userAuth = this.servicioAuth.getUsuarioAutenticado();
 
@@ -45,7 +46,7 @@ public class ControladorHome {
             //solicitar publicaciones
             List<Publicacion> publicaciones = servicioPublicacion.listarPublicacionesDisponibles();
 
-
+            model.put("response_f", rf);
             model.put("target","feed");
             model.put("usuario", userAuth);
             model.put("publicaciones", publicaciones);
@@ -64,12 +65,12 @@ public class ControladorHome {
         if(userAuth != null){
             ModelMap model = new ModelMap();
             //solicitar publicaciones
-            List<Publicacion> publicaciones = servicioPublicacion.listarPublicacionesDisponibles();
+            List<Publicacion_favorito> favoritos = servicioPublicacion.listarFavoritosDeUsuario(userAuth.getId());
 
 
             model.put("target","favoritos");
             model.put("usuario", userAuth);
-            model.put("publicaciones", publicaciones);
+            model.put("publicaciones", favoritos);
             return new ModelAndView("index-favorites",model);
         }
 

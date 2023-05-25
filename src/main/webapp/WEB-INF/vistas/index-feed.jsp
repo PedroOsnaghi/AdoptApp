@@ -131,22 +131,13 @@
                                     <div class="comment-area mt-3">
                                        <div class="d-flex justify-content-between align-items-center flex-wrap">
                                           <div class="like-block position-relative d-flex align-items-center w-100">
+
+                                             <!-- BOTONES DE ACCION -->
                                              <div class="d-flex justify-content-between w-100 align-items-center">
 
-                                                   <button type="button"
-                                                           class="btn d-inline-flex btn-soft-link mb-3 me-1"
-                                                           control-id="ControlID-93"><i
-                                                           class="material-symbols-outlined me-1">favorite</i>Agregar
-                                                       a
-                                                       Favoritos
-                                                   </button>
+                                                <a class="btn d-inline-flex mb-3 me-1 btn-light" href="${pageContext.request.contextPath}/publicacion/agregarfavorito?pid=${publicacion.id}" ><i class="material-symbols-outlined me-1">star</i>Añadir en Favoritos</a>
 
-                                                <button type="button"
-                                                        class="btn d-inline-flex mb-3 me-1 btn-primary visually-hidden"
-                                                        control-id="ControlID-52"><i
-                                                        class="material-symbols-outlined me-1">subject</i>Ver
-                                                   mas..
-                                                </button>
+
                                                 <a href="post-details.html"
                                                    class="btn d-inline-flex mb-3 me-1 btn-primary">Ver mas..</a>
                                              </div>
@@ -157,7 +148,7 @@
 
                                     </div>
                                  </div>
-                                 
+
 
                               </div>
 
@@ -206,6 +197,18 @@
 
 <%@ include file="partials/footer.jsp" %>
 
+<c:if test="${not empty response_f}">
+
+   <c:if test="${response_f eq 'exist'}">
+      <script>showNotification("La publicación ya se encuentra en tu lista de Favoritos", "error");</script>
+   </c:if>
+   <c:if test="${response_f eq 'success'}">
+      <script>showNotification("Se agregó a tu lista de Favoritos", "success");</script>
+   </c:if>
+
+</c:if>
+
 <!-- scripts -->
   
- <%@ include file="partials/script.jsp" %>
+<%@ include file="partials/script.jsp" %>
+

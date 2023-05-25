@@ -5,7 +5,9 @@ import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
+import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
 import ar.edu.unlam.tallerweb1.model.Usuario;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,6 +98,24 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
+    public List<Publicacion_favorito> listarFavoritosDeUsuario(Long idUsuario) {
+        return this.repositorioPublicacion.ListarFavoritosDeUsuario(idUsuario);
+    }
+
+    @Override
+    public void AgregarAFavoritos(Long idPublicacion, Usuario usuario) {
+
+        Publicacion p = new Publicacion();
+
+        p.setId(idPublicacion);
+
+        Publicacion_favorito pf = new Publicacion_favorito(usuario, p);
+
+        this.repositorioPublicacion.AgregarFavorito(pf);
+
+    }
+
+    @Override
     public List<Publicacion> listarPublicacionesDisponibles() {
         return repositorioPublicacion.listarPublicaciones("disponible");
     }
@@ -104,4 +124,6 @@ public class ServicioPublicacion implements IServicioPublicacion{
     public String getErrorMessage(){
         return this.errorMessage;
     }
+
+
 }

@@ -3,15 +3,18 @@ package ar.edu.unlam.tallerweb1.delivery;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -61,6 +64,26 @@ public class ControladorPublicacion {
 
 
     }
+
+    @RequestMapping(path = "/agregarfavorito")
+    public ModelAndView guardarFavorito(@RequestParam Long pid, HttpSession session, HttpServletRequest request) {
+
+            Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+
+            try{
+
+                this.servicioPublicacion.AgregarAFavoritos(pid, usuario);
+
+            }catch (PersistenceException err){
+                System.out.println(err.getMessage());
+                return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed?rf=exist");
+
+            }
+
+            return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed?rf=success");
+
+    }
+
 
 
 

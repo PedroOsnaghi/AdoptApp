@@ -13,6 +13,7 @@
  <script src="${pageContext.request.contextPath}/js/slider.js" type="text/javascript"></script>
 
 
+
  <!-- app JavaScript -->
 
  <script src="${pageContext.request.contextPath}/js/app.js" type="text/javascript"></script>
