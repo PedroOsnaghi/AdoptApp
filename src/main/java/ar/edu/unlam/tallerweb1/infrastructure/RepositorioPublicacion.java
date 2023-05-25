@@ -63,10 +63,17 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     }
 
     @Override
-    public void AgregarFavorito(Publicacion_favorito favorito){
+    public void agregarFavorito(Publicacion_favorito favorito){
 
             this.sessionFactory.getCurrentSession().save(favorito);
 
+
+    }
+
+    @Override
+    public void eliminarFavorito(Publicacion_favorito favorito) {
+
+        this.sessionFactory.getCurrentSession().remove(favorito);
 
     }
 

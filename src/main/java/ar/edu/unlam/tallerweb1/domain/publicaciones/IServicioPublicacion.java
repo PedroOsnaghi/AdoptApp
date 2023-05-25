@@ -17,13 +17,16 @@ public interface IServicioPublicacion {
 
     void eliminarPublicacion(Long IdPublicacion);//TODO return bool o int
 
-    void AgregarAFavoritos(Long idPublicacion, Usuario usuario);
+    void agregarFavorito(Long idPublicacion, Usuario usuario);
+
+    void eliminarFavorito(Long idPublicacion, Usuario usuario);
 
     List<Publicacion> listarPublicacionesDisponibles();
 
     List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario);
 
     List<Publicacion_favorito> listarFavoritosDeUsuario(Long idUsuario);
+
 
 
 }

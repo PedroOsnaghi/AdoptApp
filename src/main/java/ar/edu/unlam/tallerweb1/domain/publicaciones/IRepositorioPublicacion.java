@@ -17,7 +17,11 @@ public interface IRepositorioPublicacion {
 
     List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario);
 
-    void AgregarFavorito(Publicacion_favorito favorito);
+    void agregarFavorito(Publicacion_favorito favorito);
+
+    void eliminarFavorito(Publicacion_favorito favorito);
 
     List<Publicacion_favorito> ListarFavoritosDeUsuario(Long idUsuario);
+
+
 }

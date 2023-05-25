@@ -58,7 +58,7 @@ public class ControladorHome {
     }
 
     @RequestMapping(path = "/favoritos",method = RequestMethod.GET)
-    public ModelAndView favoritos(HttpSession session) {
+    public ModelAndView favoritos(@RequestParam(required = false)String rf, HttpSession session) {
 
         userAuth = this.servicioAuth.getUsuarioAutenticado();
 
@@ -67,7 +67,7 @@ public class ControladorHome {
             //solicitar publicaciones
             List<Publicacion_favorito> favoritos = servicioPublicacion.listarFavoritosDeUsuario(userAuth.getId());
 
-
+            model.put("response_f", rf);
             model.put("target","favoritos");
             model.put("usuario", userAuth);
             model.put("publicaciones", favoritos);

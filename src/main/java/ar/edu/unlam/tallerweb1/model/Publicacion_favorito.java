@@ -9,12 +9,12 @@ import java.util.Objects;
 public class Publicacion_favorito implements Serializable {
 
 
-    @ManyToOne(cascade = {CascadeType.REMOVE})
+    @ManyToOne()
     @JoinColumn(name = "usuario_id")
     @Id
     private Usuario usuario;
 
-    @ManyToOne(cascade = {CascadeType.REMOVE})
+    @ManyToOne()
     @JoinColumn(name = "publicacion_id")
     @Id
     private Publicacion publicacion;

@@ -62,11 +62,8 @@
                                                         <div class="confirm-click-btn">
                                                             <a href="#"
                                                                class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
-                                                            <a href="../app/profile.html"
-                                                               class="me-3 btn btn-primary rounded request-btn"
-                                                               style="display: none;">View All</a>
                                                         </div>
-                                                        <a href="#" class="btn btn-secondary rounded"><i
+                                                        <a href="${pageContext.request.contextPath}/publicacion/eliminarfavorito?pid=${favorito.publicacion.id}" class="btn btn-secondary rounded"><i
                                                                 class="fa-solid fa-trash-can"></i></a>
                                                     </div>
                                                 </li>
@@ -104,6 +101,14 @@
 <!-- footer -->
 
 <%@ include file="partials/footer.jsp" %>
+
+<c:if test="${not empty response_f}">
+
+    <c:if test="${response_f eq 'removed'}">
+        <script>showNotification("Se eliminó de tu lista de favoritos", "success");</script>
+    </c:if>
+
+</c:if>
 
 <!-- scripts -->
 
