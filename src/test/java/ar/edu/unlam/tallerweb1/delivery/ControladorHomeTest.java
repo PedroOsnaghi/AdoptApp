@@ -57,7 +57,7 @@ public class ControladorHomeTest {
     }
 
     private ModelAndView alAccederAlHome() {
-        return controladorHome.home(session);
+        return controladorHome.feed(null);
     }
 
     private void dadoQueNoHayUsuarioAutenticado() {

@@ -6,5 +6,9 @@ public interface IRepositorioArchivo {
 
     Long registrarImagen(Imagen img);
 
-    Long eliminarImagen(String nombreImagen);
+    void eliminarImagen(Imagen img);
+
+    Imagen obtenerImagen(Long idImagen);
+
+
 }

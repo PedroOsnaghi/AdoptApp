@@ -8,10 +8,17 @@ public class Imagen {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publicacion_id")
     private Publicacion publicacion;
     private String nombre;
+
+    public Imagen(){}
+
+    public Imagen(String nombre, Publicacion post){
+        this.nombre = nombre;
+        this.publicacion = post;
+    }
 
     public Long getId() {
         return id;

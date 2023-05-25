@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.domain.archivos;
 
 import ar.edu.unlam.tallerweb1.domain.config.FileResolver;
+import ar.edu.unlam.tallerweb1.model.Imagen;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,28 +35,32 @@ public class ServicioArchivo implements IServicioArchivo {
 
     @Override
     public String subirAvatarUsuario(MultipartFile multipart) {
-
-        return this.guardarArchivo(multipart, this.getDir("user") )? multipart.getOriginalFilename() : defaultImage;
-
-    }
-
-    public String subirAvatarMascota(MultipartFile multipart) {
-
-        return this.guardarArchivo(multipart, this.getDir("mascota") )? multipart.getOriginalFilename() : defaultImage;
+        this.imagenesSubidas.clear();
+        return this.guardarArchivo(multipart, this.getDir("user") )? this.imagenesSubidas.get(0) : defaultImage;
 
     }
 
     @Override
-    public int subirImagenesPost(MultipartFile[] files) {
+    public String subirAvatarMascota(MultipartFile multipart) {
+
+        this.imagenesSubidas.clear();
+        return this.guardarArchivo(multipart, this.getDir("mascota") )? this.imagenesSubidas.get(0) : defaultImage;
+
+    }
+
+    @Override
+    public int subirImagenesPost(MultipartFile[] files, Publicacion post) {
 
         int subidos = 0;
+
+        this.imagenesSubidas.clear();
 
         for (MultipartFile file : files) {
 
             if (this.guardarArchivo(file, this.getDir("posts"))) {
-                subidos++;
 
-                //TODO: guardar en Tabla Archivos
+                this.repositorioArchivo.registrarImagen(new Imagen(this.imagenesSubidas.get(subidos), post));
+                subidos++;
             }
         }
 
@@ -69,9 +75,11 @@ public class ServicioArchivo implements IServicioArchivo {
        return this.verificarAvatar(file,oldFile,"mascota");
     }
 
-    public boolean eliminarImagenPost(String fileName){
-        if(this.eliminarArchivo(fileName, "posts")){
-            //TODO: eliminar archivo de la base de datos
+    public boolean eliminarImagenPost(Long idImagen){
+        Imagen img = this.repositorioArchivo.obtenerImagen(idImagen);
+        if(this.eliminarArchivo(img.getNombre(), "posts")){
+
+            this.repositorioArchivo.eliminarImagen(img);
             return true;
         }
 

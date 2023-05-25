@@ -1,32 +1,64 @@
 package ar.edu.unlam.tallerweb1.model;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CreationTimestamp;
 
-import ar.edu.unlam.tallerweb1.EstadoPublicacion;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.lang.*;
+import java.time.Instant;
+import java.util.*;
 
 @Entity
 public class Publicacion {
 
+    public enum EstadoPublicacion {
+        DISPONIBLE,
+        RESERVADO,
+        ADOPTADO,
+
+
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String cuerpo;
-    private String titulo;
-    private String ruta_imagen;
+    private String bio;
     private String direccion;
-    private Double latitud;
-    private Double longitud;
-    private EstadoPublicacion estado;
-    private Long autorId;
-    private Long mascotaId;
+    private String ciudad;
+    private String provincia;
+    private String latitud;
+    private String longitud;
 
-    private Date fechaCreacion;
+    @Column(length = 255)
+    private String disponibilidad;
+
+    private String estado;
+
+
+    @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
+    @JoinColumn(name = "mascota_id")
+    private Mascota mascota;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "publicacion")
+    private List<Imagen> imagenes = new ArrayList<>();
+
+
+
+    @CreationTimestamp
+    private Timestamp create_at;
+
+
+    public Publicacion(){
+
+    }
+
+    @PrePersist
+    public void prePersist() {
+        Timestamp ts = Timestamp.from(Instant.now());
+        this.setCreate_at(ts);
+
+    }
 
     public Long getId() {
         return id;
@@ -34,30 +66,6 @@ public class Publicacion {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getCuerpo() {
-        return cuerpo;
-    }
-
-    public void setCuerpo(String cuerpo) {
-        this.cuerpo = cuerpo;
-    }
-
-    public String getTitulo() {
-        return titulo;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getRuta_imagen() {
-        return ruta_imagen;
-    }
-
-    public void setRuta_imagen(String ruta_imagen) {
-        this.ruta_imagen = ruta_imagen;
     }
 
     public String getDireccion() {
@@ -68,51 +76,86 @@ public class Publicacion {
         this.direccion = direccion;
     }
 
-    public Double getLatitud() {
+    public String getCiudad() {
+        return ciudad;
+    }
+
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
+    }
+
+    public String getProvincia() {
+        return provincia;
+    }
+
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
+
+    public String getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(Double latitud) {
+    public void setLatitud(String latitud) {
         this.latitud = latitud;
     }
 
-    public Double getLongitud() {
+    public String getLongitud() {
         return longitud;
     }
 
-    public void setLongitud(Double longitud) {
+    public void setLongitud(String longitud) {
         this.longitud = longitud;
     }
 
-    public EstadoPublicacion getEstado() {
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void setDisponibilidad(String disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
+
+    public Mascota getMascota() {
+        return mascota;
+    }
+
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
+    }
+
+    public String getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoPublicacion estado) {
+    public void setEstado(String estado) {
         this.estado = estado;
     }
 
-    public Long getAutorId() {
-        return autorId;
+
+    public Timestamp getCreate_at() {
+        return create_at;
     }
 
-    public void setAutorId(Long autorId) {
-        this.autorId = autorId;
+    public void setCreate_at(Timestamp fechaCreacion) {
+        this.create_at = fechaCreacion;
     }
 
-    public Long getMascotaId() {
-        return mascotaId;
+    public List<Imagen> getImagenes() {
+        return imagenes;
     }
 
-    public void setMascotaId(Long mascotaId) {
-        this.mascotaId = mascotaId;
+    public void setImagenes(List<Imagen> imagenes) {
+        this.imagenes = imagenes;
     }
 
-    public Date getFechaCreacion() {
-        return fechaCreacion;
-    }
 
-    public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
 }

@@ -84,7 +84,7 @@
                                         <div class="btn btn-primary">
                                             <label class="upload__btn">
                                                 <p class="mb-0">Cargar Imagenes</p>
-                                                <form:input path="images" type="file" multiple="" data-max_length="3" class="upload__inputfile"/>
+                                                <form:input path="images" type="file" multiple="true" data-max_length="3" class="upload__inputfile"/>
                                             </label>
                                         </div>
                                         <div class="upload__img-wrap"></div>
