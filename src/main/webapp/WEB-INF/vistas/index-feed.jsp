@@ -135,7 +135,7 @@
                                              <!-- BOTONES DE ACCION -->
                                              <div class="d-flex justify-content-between w-100 align-items-center">
 
-                                                <a class="btn d-inline-flex mb-3 me-1 btn-light" href="${pageContext.request.contextPath}/publicacion/agregarfavorito?pid=${publicacion.id}" ><i class="material-symbols-outlined me-1">star</i>Añadir en Favoritos</a>
+                                                <a class="btn d-inline-flex mb-3 me-1 btn-light" href="${pageContext.request.contextPath}/home/favoritos/agregar?pid=${publicacion.id}" ><i class="material-symbols-outlined me-1">star</i>Añadir en Favoritos</a>
 
 
                                                 <a href="post-details.html"

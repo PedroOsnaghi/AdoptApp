@@ -63,7 +63,7 @@
                                                             <a href="#"
                                                                class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
                                                         </div>
-                                                        <a href="${pageContext.request.contextPath}/publicacion/eliminarfavorito?pid=${favorito.publicacion.id}" class="btn btn-secondary rounded"><i
+                                                        <a href="${pageContext.request.contextPath}/home/favoritos/eliminar?pid=${favorito.publicacion.id}" class="btn btn-secondary rounded"><i
                                                                 class="fa-solid fa-trash-can"></i></a>
                                                     </div>
                                                 </li>

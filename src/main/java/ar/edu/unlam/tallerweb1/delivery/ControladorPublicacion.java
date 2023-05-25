@@ -61,36 +61,6 @@ public class ControladorPublicacion {
 
     }
 
-    @RequestMapping(path = "/agregarfavorito")
-    public ModelAndView agregarFavorito(@RequestParam Long pid, HttpSession session, HttpServletRequest request) {
-
-            Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
-
-            try{
-
-                this.servicioPublicacion.agregarFavorito(pid, usuario);
-
-            }catch (PersistenceException err){
-                System.out.println(err.getMessage());
-                return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed?rf=exist");
-
-            }
-
-            return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed?rf=success");
-
-    }
-
-    @RequestMapping(path = "/eliminarfavorito")
-    public ModelAndView eliminarFavorito(@RequestParam Long pid, HttpSession session, HttpServletRequest request) {
-
-        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
-
-            this.servicioPublicacion.eliminarFavorito(pid, usuario);
-
-            return new ModelAndView("redirect: " + request.getContextPath() + "/home/favoritos?rf=removed");
-
-    }
-
 
 
 
