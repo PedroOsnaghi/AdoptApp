@@ -1,0 +1,37 @@
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "Dev" ]
+    
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+    - name: Compilar con Maven
+      run: mvn clean install --batch-mode --no-transfer-progress
+    - name: Correr tests
+      run: mvn test --batch-mode --no-transfer-progress
+    - name: Ver status de los tests
+      run: |
+        TEST_EXIT_CODE=$?
+        if [ $TEST_EXIT_CODE -ne 0 ]; then
+          echo "Algun test fallo, cancelando push"
+          exit 1
+        else
+          echo "Tests ok, pusheando cambios"
+        fi
+    - name: Pushear cambios
+      uses: ad-m/github-push-action@v0.6.0
+      with: 
+        github_token: $\{{ secrets.GITHUB_TOKEN }}
+        branch: Dev
