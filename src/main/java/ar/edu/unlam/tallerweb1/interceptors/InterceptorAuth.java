@@ -50,6 +50,5 @@ public class InterceptorAuth extends HandlerInterceptorAdapter {
         }
         return true;
     }
-
 }
 
