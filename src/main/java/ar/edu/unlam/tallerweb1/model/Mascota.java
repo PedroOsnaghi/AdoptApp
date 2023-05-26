@@ -25,6 +25,8 @@ public class Mascota {
     private String personalidad;
     private String salud;
     private String foto;
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "mascota")
+    private Publicacion publicacion;
 
     public Mascota(){}
 
@@ -121,4 +123,11 @@ public class Mascota {
         this.foto = foto;
     }
 
+    public Publicacion getPublicacion() {
+        return publicacion;
+    }
+
+    public void setPublicacion(Publicacion publicacion) {
+        this.publicacion = publicacion;
+    }
 }

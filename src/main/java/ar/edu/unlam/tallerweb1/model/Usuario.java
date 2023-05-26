@@ -6,6 +6,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Usuario {
@@ -35,6 +37,9 @@ public class Usuario {
     private Timestamp update_at;
 
     private boolean updated = false;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
+    List<Mascota> mascotas = new ArrayList<>();
 
 
     public Usuario() {
@@ -173,5 +178,13 @@ public class Usuario {
 
     public void setUpdated(boolean updated) {
         this.updated = updated;
+    }
+
+    public List<Mascota> getMascotas() {
+        return mascotas;
+    }
+
+    public void setMascotas(List<Mascota> mascotas) {
+        this.mascotas = mascotas;
     }
 }

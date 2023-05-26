@@ -43,6 +43,7 @@ public class ControladorMascota {
         session.setAttribute("target" ,target);
 
         modelo.put("mascotaDto",new MascotaDto());
+        modelo.put("target",target);
 
         return new ModelAndView("new-mascot", modelo);
     }

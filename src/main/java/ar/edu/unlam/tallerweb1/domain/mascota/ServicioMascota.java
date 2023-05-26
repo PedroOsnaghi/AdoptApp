@@ -6,6 +6,8 @@ import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class ServicioMascota implements IServicioMascota {
@@ -27,6 +29,12 @@ public class ServicioMascota implements IServicioMascota {
             return null;
         return this.registrarMascota(mascotaDto,usuario);
     }
+
+    @Override
+    public List<Mascota> listarMascotasAPublicar(Usuario usuario) {
+        return this.repositorioMascota.listarMascotasaPublicar(usuario);
+    }
+
 
     private boolean validarDatos(MascotaDto mascotaDto) {
         if (mascotaDto.getNombre() == null || mascotaDto.getNombre().length() == 0){

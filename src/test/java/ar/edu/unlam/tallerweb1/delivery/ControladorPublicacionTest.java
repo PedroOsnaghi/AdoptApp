@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
-import ar.edu.unlam.tallerweb1.model.Publicacion;
+
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.junit.Test;
@@ -58,12 +58,12 @@ public class ControladorPublicacionTest {
     }
     private ModelAndView cuandoQuieroGuardarPublicacion(PublicacionDto publicacionDto) {
 
-        return controladorPublicacion.guardarPublicacion(publicacionDto, session, request );
+        return controladorPublicacion.guardarPublicacion(publicacionDto, request );
     }
 
     private void dadoQueExistenPublicaciones() {
 
-        when(servicioPublicacion.listarPublicacionesDisponibles()).thenReturn(new ArrayList<Publicacion>());
+        when(servicioPublicacion.listarPublicacionesDisponibles()).thenReturn(new ArrayList<>());
 
     }
 
