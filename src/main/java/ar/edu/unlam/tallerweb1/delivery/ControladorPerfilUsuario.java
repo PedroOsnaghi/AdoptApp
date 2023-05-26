@@ -1,4 +1,5 @@
 package ar.edu.unlam.tallerweb1.delivery;
+import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.usuarios.IServicioUsuario;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,24 +10,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/perfil")
 public class ControladorPerfilUsuario {
 
 
-    private IServicioUsuario servicioUsuario;
+    private final IServicioAuth servicioAuth;
+    private final IServicioUsuario servicioUsuario;
 
     @Autowired
-    public ControladorPerfilUsuario(IServicioUsuario servicioUsuario){
+    public ControladorPerfilUsuario(IServicioUsuario servicioUsuario, IServicioAuth servicioAuth){
         this.servicioUsuario = servicioUsuario;
+        this.servicioAuth = servicioAuth;
+    }
+
+    private ModelMap iniciarModel(String  target){
+        ModelMap model = new ModelMap();
+
+        model.put("usuario", this.servicioAuth.getUsuarioAutenticado());
+
+        model.put("target", target);
+
+        return model;
     }
 
     @RequestMapping("/actividad/posts")
     public ModelAndView misPublicaciones(){
-        ModelMap model = new ModelMap();
-
-        model.put("target", "actividad");
+        ModelMap model = this.iniciarModel("actividad");
 
         model.put("seccion", "posts");
 
@@ -39,9 +51,7 @@ public class ControladorPerfilUsuario {
 
     @RequestMapping("/actividad/favoritos")
     public ModelAndView misFavoritos(){
-        ModelMap model = new ModelMap();
-
-        model.put("target", "actividad");
+        ModelMap model = this.iniciarModel("actividad");
 
         model.put("seccion", "favoritos");
 
@@ -54,9 +64,7 @@ public class ControladorPerfilUsuario {
 
     @RequestMapping("/actividad/solicitudes")
     public ModelAndView misSolicitudes(){
-        ModelMap model = new ModelMap();
-
-        model.put("target", "actividad");
+        ModelMap model = this.iniciarModel("actividad");
 
         model.put("seccion", "solicitudes");
 
@@ -69,9 +77,8 @@ public class ControladorPerfilUsuario {
 
     @RequestMapping("/actividad/mismascotas")
     public ModelAndView misMascotas(){
-        ModelMap model = new ModelMap();
+        ModelMap model = this.iniciarModel("actividad");
 
-        model.put("target", "actividad");
 
         model.put("seccion", "mascotas");
 
@@ -83,15 +90,8 @@ public class ControladorPerfilUsuario {
     }
 
     @RequestMapping("/info")
-    public ModelAndView infoUsuario(HttpSession session){
-        ModelMap model = new ModelMap();
-
-        model.put("target", "info");
-
-        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
-
-        model.put("user", usuario);
-
+    public ModelAndView infoUsuario(){
+        ModelMap model = this.iniciarModel("info");
 
         //TODO enviar datos del usuario a la vista
 
@@ -100,9 +100,7 @@ public class ControladorPerfilUsuario {
 
     @RequestMapping("/solicitud")
     public ModelAndView solicitudesUsuario(){
-        ModelMap model = new ModelMap();
-
-        model.put("target", "solicitud");
+        ModelMap model = this.iniciarModel("solicitud");
 
         //TODO mostrar solicitudes de adopcion
 
@@ -111,9 +109,7 @@ public class ControladorPerfilUsuario {
 
     @RequestMapping("/mensajes")
     public ModelAndView verMensajes(){
-        ModelMap model = new ModelMap();
-
-        model.put("target", "mensajes");
+        ModelMap model = this.iniciarModel("mensajes");
 
         //TODO implementar Servicio de Mensajeria
 
@@ -124,15 +120,9 @@ public class ControladorPerfilUsuario {
 
     @RequestMapping("/info/editar")
     public ModelAndView irAEditarDatos(HttpSession session) {
-        ModelMap model = new ModelMap();
+        ModelMap model = this.iniciarModel("info");
 
-        model.put("target", "info");
-
-        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
-
-        model.put("user", usuario);
-
-        UsuarioDto usuarioDto = this.setearDatos(usuario);
+        UsuarioDto usuarioDto = this.setearDatos(this.servicioAuth.getUsuarioAutenticado());
 
         model.put("usuarioDto", usuarioDto);
 
@@ -142,7 +132,7 @@ public class ControladorPerfilUsuario {
 
     @RequestMapping(value = "/info/actualizar", method = RequestMethod.POST)
     public ModelAndView guardarDatos() {
-        ModelMap modelo = new ModelMap();
+        ModelMap modelo = this.iniciarModel();
       //  modelo.put("datos-usuario", new DatosLogin());
 
       //  this.usuarioServicio.guardarDatos();
@@ -155,7 +145,7 @@ public class ControladorPerfilUsuario {
         udto.setNombre(usuario.getNombre());
         udto.setF_nac(usuario.getF_nac());
         udto.setImagen(usuario.getImagen());
-        udto.setPresentacion("Holaaa");
+        udto.setPresentacion(usuario.getPresentacion());
         udto.setDomicilio(usuario.getDomicilio());
         udto.setCiudad(usuario.getCiudad());
         udto.setProvincia(usuario.getProvincia());
