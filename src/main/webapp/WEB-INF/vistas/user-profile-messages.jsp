@@ -111,7 +111,7 @@
                                                 <div class="">
                                                     <div class="card-header d-flex justify-content-between px-0">
                                                         <div class="header-title">
-                                                            <h4 class="card-title">Preguntas sin responder (1)</h4>
+                                                            <h5 class="card-title">Preguntas sin responder (1)</h5>
                                                         </div>
                                                     </div>
                                                     <div class="card-body p-0 pt-3">
@@ -161,7 +161,7 @@
                                                 <div class="">
                                                     <div class="card-header d-flex justify-content-between px-0">
                                                         <div class="header-title">
-                                                            <h4 class="card-title">Preguntas que respondiste</h4>
+                                                            <h5 class="card-title">Preguntas que respondiste</h5>
                                                         </div>
                                                     </div>
                                                     <div class="card-body p-0 pt-3">
