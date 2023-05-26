@@ -19,19 +19,5 @@ jobs:
           cache: maven
       - name: Compilar con Maven
         run: mvn clean install --batch-mode --no-transfer-progress
-      - name: Correr tests
-        run: mvn test --batch-mode --no-transfer-progress
-      - name: Ver status de los tests
-        run: |
-          TEST_EXIT_CODE=$?
-          if [ $TEST_EXIT_CODE -ne 0 ]; then
-            echo "Algun test fallo, cancelando push"
-            exit 1
-          else
-            echo "Tests ok, pusheando cambios"
-          fi
-      - name: Pushear cambios
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: $\{{ secrets.GITHUB_TOKEN }}
-          branch: Dev
+      - name: Funcionó todo!
+        run: echo "Felicitaciones a quien hayá pusheado esto!"
