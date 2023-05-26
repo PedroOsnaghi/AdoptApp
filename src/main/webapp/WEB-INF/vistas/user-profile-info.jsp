@@ -70,7 +70,7 @@
                                                         <h6>Presentación:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">${user.presentacion}</p>
+                                                        <p class="mb-0">${usuario.presentacion}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -78,7 +78,7 @@
                                                         <h6>Nombre y apellido:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">${user.nombre}</p>
+                                                        <p class="mb-0">${usuario.nombre}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -86,7 +86,7 @@
                                                         <h6>Email:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">${user.email}</p>
+                                                        <p class="mb-0">${usuario.email}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -94,7 +94,7 @@
                                                         <h6>F. Nac:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">${user.f_nac}</p>
+                                                        <p class="mb-0">${usuario.f_nac}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -102,7 +102,7 @@
                                                         <h6>Domicilio:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">${user.domicilio}</p>
+                                                        <p class="mb-0">${usuario.domicilio}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -110,7 +110,7 @@
                                                         <h6>Ciudad:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">${user.ciudad}</p>
+                                                        <p class="mb-0">${usuario.ciudad}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -118,7 +118,7 @@
                                                         <h6>Provincia:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">${user.provincia}</p>
+                                                        <p class="mb-0">${usuario.provincia}</p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -126,7 +126,7 @@
                                                         <h6>Teléfono:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">${user.tel}</p>
+                                                        <p class="mb-0">${usuario.tel}</p>
                                                     </div>
                                                 </div>
 
@@ -135,7 +135,7 @@
                                                         <h6>Unido el:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">${user.created_at}</p>
+                                                        <p class="mb-0">${usuario.created_at}</p>
                                                     </div>
                                                 </div>
 
