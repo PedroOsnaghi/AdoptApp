@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.Mensajes;
 
+import ar.edu.unlam.tallerweb1.delivery.MensajeDto;
 import ar.edu.unlam.tallerweb1.domain.mascota.IRepositorioMascota;
 import ar.edu.unlam.tallerweb1.model.Mensaje;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +20,17 @@ public class ServicioMensajes implements IServicioMensajes{
     }
 
     @Override
-    public Long enviarMensaje(Mensaje msj) {
+    public Long enviarMensaje(MensajeDto msjDto) {
         return null;
     }
 
     @Override
-    public void responderMensaje(Mensaje msj) {
+    public void responderMensaje(MensajeDto msjDto) {
 
     }
 
     @Override
-    public void eliminarRespuesta(Mensaje msj) {
+    public void eliminarRespuesta(Long idMensaje) {
 
     }
 
