@@ -1,19 +1,25 @@
 package ar.edu.unlam.tallerweb1.domain.mascota;
+
 import ar.edu.unlam.tallerweb1.delivery.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
+@Transactional
 public class ServicioMascota implements IServicioMascota {
 
 
     private final IServicioArchivo servicioArchivo;
     private final IRepositorioMascota repositorioMascota;
     private String errorMessage;
+
 
     @Autowired
     public ServicioMascota(IRepositorioMascota repositorioMascota, IServicioArchivo servicioArchivo){
@@ -28,13 +34,13 @@ public class ServicioMascota implements IServicioMascota {
         return this.registrarMascota(mascotaDto,usuario);
     }
 
-    private boolean validarDatos(MascotaDto mascotaDto) {
+    public boolean validarDatos(MascotaDto mascotaDto) {
         if (mascotaDto.getNombre() == null || mascotaDto.getNombre().length() == 0){
             this.errorMessage = "Debe especificar un nombre";
             return false;
         }
         if (mascotaDto.getGenero() == null){
-            this.errorMessage = "Debe especificar el g�nero de la mascota";
+            this.errorMessage = "Debe especificar el g�nero de la mascota";
             return false;
         }
         if(mascotaDto.getTipo() == null){
@@ -76,6 +82,9 @@ public class ServicioMascota implements IServicioMascota {
     public String getErrorMessage(){
         return this.errorMessage;
     }
-    
+
+    public List<Mascota> buscarMascotaPorIdDueño(Usuario usuario) {
+        return repositorioMascota.buscarMascotaPorIdDueño(usuario);
+    }
 
 }

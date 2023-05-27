@@ -1,8 +1,5 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
-import ar.edu.unlam.tallerweb1.Genero;
-import ar.edu.unlam.tallerweb1.Personalidad;
-import ar.edu.unlam.tallerweb1.Tipo;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +8,7 @@ import javax.persistence.TemporalType;
 import java.util.Date;
 
 public class MascotaDto {
+
 
     private String nombre;
     private String tipo;
@@ -25,7 +23,6 @@ public class MascotaDto {
     private String foto;
 
     private MultipartFile imagen;
-
 
 
     public String getNombre() {

@@ -29,16 +29,16 @@ public class ControladorMascota {
         this.servicioAuth = Auth;
     }
 
-    private ModelMap iniciarModel() {
+    private ModelMap iniciarModel(HttpSession session) {
         ModelMap m = new ModelMap();
-        m.put("usuario", this.servicioAuth.getUsuarioAutenticado());
+        m.put("usuario", (Usuario) session.getAttribute("usuarioAutenticado"));
         return m;
     }
 
     @RequestMapping("/crear")
     public ModelAndView irANewMascot(@RequestParam(required = false) String target, HttpSession session) {
 
-        ModelMap modelo = this.iniciarModel();
+        ModelMap modelo = this.iniciarModel(session);
 
         session.setAttribute("target" ,target);
 
@@ -51,9 +51,9 @@ public class ControladorMascota {
     @RequestMapping(path = "/guardar", method=RequestMethod.POST)
     public ModelAndView ingresarMascota(@ModelAttribute MascotaDto mascotaDto, HttpSession session, HttpServletRequest request) {
 
-        ModelMap model = this.iniciarModel();
+        ModelMap model = this.iniciarModel(session);
 
-        Usuario usuario = this.servicioAuth.getUsuarioAutenticado();
+        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
 
         Long p_id = this.servicioMascota.guardar(mascotaDto, usuario);
 
@@ -62,19 +62,19 @@ public class ControladorMascota {
             return new ModelAndView("new-mascot",model);
         }
 
-        String target = (String) session.getAttribute("target");
+            String target = (String) session.getAttribute("target");
 
-        switch (target){
-            case "publicacion":
-                return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/crear");
+            switch (target) {
+                case "publicacion":
+                    return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/crear");
 
-            case  "perfil":
-                return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/actividad/mascotas");
+                case "perfil":
+                    return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/actividad/mascotas");
 
-            default:
-                return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed");
+                default:
+                    return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed");
 
-        }
+            }
 
 
     }
