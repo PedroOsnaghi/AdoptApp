@@ -30,7 +30,7 @@
 
                      <div class="card-body">
 
-                        <form  class="text-center mt-3" action="add" id="form-steep"  method="POST" modelAttribute="" enctype="multipart/form-data">
+                        <form:form  class="text-center mt-3" action="publicar" id="form-steep"  method="POST" modelAttribute="publicacionDto" enctype="multipart/form-data">
                            <ul id="top-tab-list" class="p-0 row list-inline mb-2">
                               <li class="col-lg-4 col-md-12 text-start mb-2 active" id="mascota">
                                  <a href="javascript:void(0);">
@@ -56,7 +56,7 @@
 
                            </ul>
                            <!-- fieldsets -->
-                           <fieldset control-id="ControlID-2" >
+                           <fieldset  >
                               <div class="form-card text-start">
                                  <div class="row">
                                     <div class="col-12">
@@ -67,48 +67,47 @@
                                     <div class="card-body">
                                        <h6 class="">Tus mascotas</h6>
                                        <hr class="mt-0">
-                                       <div class="row">
+                                       <div class="row mb-2">
                                           <div class="col-8">
-                                             <input path="" type="radio" class="btn-check" name="mascota" id="m-1" checked/>
-                                             <label for="m-1" class="btn-radio-mascota mb-1 p-1 ps-2">
-                                                <div class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                   <div class="user-img img-fluid flex-shrink-0">
-                                                      <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
-                                                   </div>
-                                                   <div class="flex-grow-1 ms-3">
-                                                      <h6><strong>Tobby </strong></h6>
-                                                      <p class="mb-0">PERRO</p>
-                                                   </div>
-                                                   <div>
-                                                      <i class="material-symbols-outlined shadow">
-                                                         check_circle
-                                                      </i>
-                                                   </div>
 
-                                                </div>
-                                             </label>
-                                             <input path="" type="radio" class="btn-check" name="mascota" id="m-2"/>
-                                             <label for="m-2" class="btn-radio-mascota mb-1 p-1 ps-2">
-                                                <div class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                   <div class="user-img img-fluid flex-shrink-0">
-                                                      <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
-                                                   </div>
-                                                   <div class="flex-grow-1 ms-3">
-                                                      <h6><strong>Tobby </strong></h6>
-                                                      <p class="mb-0">PERRO</p>
-                                                   </div>
-                                                   <div>
-                                                      <i class="material-symbols-outlined shadow">
-                                                         check_circle
-                                                      </i>
-                                                   </div>
+                                             <c:forEach items="${mascotas}" var="mascota"  varStatus="i">
 
-                                                </div>
-                                             </label>
+                                                   <form:radiobutton path="mascota_id"  class="btn-check"  id="m-${mascota.id}"  value="${mascota.id}" />
+                                                   <label for="m-${mascota.id}" class="btn-radio-mascota mb-1 p-1 ps-2">
+                                                      <div class="d-flex align-items-center  justify-content-between flex-wrap">
+                                                         <div class="user-img img-fluid flex-shrink-0">
+                                                            <img src="${pageContext.request.contextPath}/images/mascota/${mascota.foto}" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
+                                                         </div>
+                                                         <div class="flex-grow-1 ms-3">
+                                                            <h6><strong>${mascota.nombre}</strong></h6>
+                                                            <p class="mb-0">${mascota.tipo}</p>
+                                                         </div>
+                                                         <div>
+                                                            <i class="material-symbols-outlined shadow">
+                                                               check_circle
+                                                            </i>
+                                                         </div>
+
+                                                      </div>
+                                                   </label>
+
+
+                                             </c:forEach>
+                                             <c:if test="${empty mascotas}">
+                                                <p class="text-muted mt-2">No tienes mascotas registradas. Puedes crear una nueva.</p>
+                                             </c:if>
+
+
                                           </div>
                                           <div class="col-4">
-                                             <a href="${pageContext.request.contextPath}/mascota/crear" class="btn btn-primary">Agregar nueva..</a>
+                                             <a href="${pageContext.request.contextPath}/mascota/crear?target=publicacion" class="btn btn-primary">Agregar nueva..</a>
                                           </div>
+                                       </div>
+                                       <h6 class="">Biografía</h6>
+                                       <hr class="mt-0">
+                                       <div class="row">
+                                        <p class="text-muted">Escribe una breve bio acerca de tu mascota para que otros usuarios puedan saber un poco mas..</p>
+                                        <form:textarea path="bio" rows="3" maxlength="255" class="form-control"></form:textarea>
                                        </div>
                                     </div>
 
@@ -124,52 +123,15 @@
                                        <p class="text-muted">Agrega Imagenes a tu publicacion para que las personas puedan conocer mejor a tu mascota.</p>
                                     </div>
                                     <div class="col-12">
-
-
-                                       <div class="dropzone mb-3">
-                                          <div class="fallback">
-                                             <input path="" name="file" type="file" multiple="multiple"/>
+                                       <div class="upload__box">
+                                          <div class="btn btn-primary">
+                                             <label class="upload__btn">
+                                                <p class="mb-0">Cargar Imagenes</p>
+                                                <form:input path="files"  type="file" multiple="true" data-max_length="3" class="upload__inputfile"/>
+                                             </label>
                                           </div>
-                                          <div class=" dz-message needsclick">
-                                             <div class="mb-3">
-                                                <i class="fa-solid fa-cloud-arrow-up display-4 text-muted"></i>
-                                             </div>
-
-                                             <h4 class="text-muted">Arrastra las imagenes o haz Click aqui para
-                                                subirlas
-                                             </h4>
-                                          </div>
+                                          <div class="upload__img-wrap"></div>
                                        </div>
-
-                                       <ul class="list-unstyled mb-0" id="dropzone-preview">
-                                          <li class="mt-2" id="dropzone-preview-list">
-                                             <!-- This is used as the file preview template -->
-                                             <div class="border rounded">
-                                                <div class="d-flex p-2">
-                                                   <div class="flex-shrink-0 me-3">
-                                                      <div class="avatar-sm bg-light rounded">
-                                                         <img data-dz-thumbnail class="img-fluid rounded d-block"
-                                                            src="${pageContext.request.contextPath}/images/new-document.png"
-                                                            alt="Dropzone-Image" />
-                                                      </div>
-                                                   </div>
-                                                   <div class="flex-grow-1">
-                                                      <div class="pt-1">
-                                                         <h5 class="fs-14 mb-1" data-dz-name>&nbsp;</h5>
-                                                         <p class="fs-13 text-muted mb-0" data-dz-size></p>
-                                                         <strong class="error text-danger"
-                                                            data-dz-errormessage></strong>
-                                                      </div>
-                                                   </div>
-                                                   <div class="flex-shrink-0 ms-3">
-                                                      <button data-dz-remove
-                                                         class="btn btn-sm btn-danger">Eliminar</button>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </li>
-                                       </ul>
-                                       <!-- end dropzon-preview -->
                                     </div>
                                  </div>
                               </div>
@@ -195,20 +157,33 @@
 
                                        <div class=" col-6">
                                           <div class="card">
-                                             <div class="card-header">
+                                             <div class="card-header d-flex justify-content-between align-items-center">
                                                 <p class="card-title mb-0">
                                                    <strong>Dónde se realizará la
                                                       entrega?</strong>
                                                 </p>
+                                                <button type="button" class="btn btn-primary"
+                                                        data-bs-toggle="modal" data-bs-target="#agregar-direccion"
+                                                        control-id="ControlID-4">
+                                                   Agregar Dirección
+                                                </button>
                                              </div>
                                              <div class="card-body">
-                                                <input path="" type="text" class="form-control" id="exampleInputText1"
-                                                   placeholder="Escribe tu dirección..." control-id="ControlID-9"/>
 
-                                                <div>
-                                                   <img src="${pageContext.request.contextPath}/images/page-img/mapa.avif"
-                                                      class="w-100 d-block img-fluid mt-2" alt="">
+                                                <div class="form-group">
+                                                   <label class="form-label" for="dir">Dirección localizada</label>
+                                                <form:input path="direccion" class="form-control" type="text" readonly="true" id="dir"/>
                                                 </div>
+                                                <div class="form-group">
+                                                   <label class="form-label" for="ciudad">Ciudad</label>
+                                                <form:input path="ciudad"  class="form-control"  type="text" readonly="true" id="ciudad"/>
+                                                </div>
+                                                <div class="form-group">
+                                                   <label class="form-label" for="prov">Provincia</label>
+                                                <form:input path="provincia"  class="form-control"  type="text" readonly="true" id="prov"/>
+                                                </div>
+                                                <form:input path="latitud" type="hidden" id="lat"/>
+                                                <form:input path="longitud" type="hidden" id="lng" />
                                              </div>
 
                                           </div>
@@ -223,11 +198,11 @@
                                              </div>
                                              <div class="card-body">
 
-                                                <textarea path=""
+                                                <form:textarea path="disponibilidad"
                                                                class="form-control"
-                                                               name=""
                                                                rows="5"
-                                                               placeholder="Escribe aqui los dias y horarios para que el Adoptante pueda encontrarse contigo y retirar la mascota"></textarea>
+                                                               maxlength="255"
+                                                               placeholder="Escribe aqui los dias y horarios para que el Adoptante pueda encontrarse contigo y retirar la mascota"></form:textarea>
 
                                              </div>
 
@@ -237,16 +212,27 @@
                                  </div>
                               </div>
 
-                              <button type="submit" name="next" class="btn btn-primary next action-button float-end"
-                                 value="Submit" control-id="ControlID-8">Publicar</button>
+                              <button type="submit" name="submit" class="btn btn-primary float-end"
+                                 value="Submit" >Publicar</button>
                               <button type="button" name="previous"
                                  class="btn btn-dark previous action-button-previous float-end me-3" value="Previous"
-                                 control-id="ControlID-9">Atrás</button>
+                                 >Atrás</button>
                            </fieldset>
 
-                        </form>
+                        </form:form>
 
-
+                        <!-- error -->
+                        <c:if test="${not empty error}">
+                           <div class="mt-2">
+                              <div class="alert alert-solid alert-danger alert-dismissible fade show d-flex align-items-center gap-2"
+                                   role="alert">
+                                 <span class="d-flex"><i class="material-symbols-outlined">error</i></span>
+                                 <span>${error}</span>
+                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                         aria-label="Close" control-id="ControlID-9"></button>
+                              </div>
+                           </div>
+                        </c:if>
 
 
 
@@ -259,18 +245,60 @@
          </div>
 
 </div>
+
+
+
+<!-- Modal GOOGLE MAPS-->
+<div class="modal fade" id="agregar-direccion" tabindex="-1" role="dialog" aria-labelledby="Agregar-direccion"
+     aria-hidden="true">
+   <div class="modal-dialog modal-dialog-scrollable" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+
+            </button>
+            <h4 class="modal-title" id="exampleModalScrollableTitle">Agrega una dirección</h4>
+            <p>Escribe la dirección que deseas agregar.</p>
+
+         </div>
+         <div class="modal-body">
+            <input  type="text" class="form-control"  id="pac-input"
+                    placeholder="Escribe tu dirección..." />
+
+            <div class="w-100 d-block mt-2" style="height: 200px;" id="map">
+
+            </div>
+               <div class="d-flex justify-content-end mt-2">
+                  <button type="button" class="btn btn-secondary me-2" id="close_modal"  data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-primary" disabled id="add_dir">Agregar</button>
+              </div>
+
+
+         </div>
+
+
+
+
+
+      </div>
+   </div>
+</div>
+
 <!-- footer -->
 
 <%@ include file="partials/footer.jsp" %>
-
 
 <!-- scripts -->
 
 <%@ include file="partials/script.jsp" %>
 
-<script src="${pageContext.request.contextPath}/vendor/dropzone/dropzone-min.js"></script>
 
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeluO_jCvIS_iT6Y3Thw8A6YJW5gyzh0M&callback=initAutocomplete&libraries=places&v=weekly"
+        defer>
+</script>
+<script src="${pageContext.request.contextPath}/js/multifile.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/google.maps.js" type="text/javascript"></script>
 
-<script src="${pageContext.request.contextPath}/js/form-file-upload.init.js"></script>
 
 

@@ -23,13 +23,21 @@
    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700&amp;display=swap" rel="stylesheet">
    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&amp;display=swap" rel="stylesheet">
 
+   <!-- toastify css -->
+   <link rel="stylesheet" href="${pageContext.request.contextPath}/css/toastify.css">
 
    <!-- color customizer css -->
    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/customizer.css">
    <link rel="stylesheet" href="${pageContext.request.contextPath}/vendor/fontawesome/css/all.min.css">
-   <link rel="stylesheet" href="${pageContext.request.contextPath}/vendor/dropzone/dropzone.css" type="text/css">
+   <!--moment.js-->
+   <script src="${pageContext.request.contextPath}/js/moment.min.js" type="text/javascript"></script>
+   <script src="${pageContext.request.contextPath}/js/fechas.js" type="text/javascript"></script>
+
+   <!-- toast notificaciones -->
+   <script src="${pageContext.request.contextPath}/js/toastify.js" type="text/javascript"></script>
+   <script src="${pageContext.request.contextPath}/js/notificaciones.js" type="text/javascript"></script>
 </head>
 
-<body class="  ">
+<body class="">
 
    <!-- Wrapper Start -->

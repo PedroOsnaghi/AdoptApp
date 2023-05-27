@@ -1,10 +1,16 @@
 package ar.edu.unlam.tallerweb1.domain.mascota;
-
-import java.io.File;
-import java.util.Date;
+import ar.edu.unlam.tallerweb1.delivery.MascotaDto;
+import ar.edu.unlam.tallerweb1.model.Mascota;
+import ar.edu.unlam.tallerweb1.model.Usuario;
+import java.util.List;
 
 public interface IServicioMascota {
 
+    Long guardar(MascotaDto mascotaDto, Usuario usuario);
 
-    boolean sonValidos(String nombre, String tipo, String Raza, Float peso, Date nacimiento , String obs , File foto);
+    List<Mascota> listarMascotaPorUsuario(Usuario usuario);
+
+    List<Mascota> listarMascotasAPublicar(Usuario usuario);
+
+    String getErrorMessage();
 }

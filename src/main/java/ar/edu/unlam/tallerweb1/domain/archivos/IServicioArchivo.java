@@ -7,6 +7,8 @@ import org.springframework.web.multipart.MultipartFile;
 public interface IServicioArchivo {
     String subirAvatarUsuario(MultipartFile multipart);
 
+    String subirAvatarMascota(MultipartFile multipart);
+
     int subirImagenesPost(MultipartFile[] files, Publicacion post);
 
     boolean eliminarImagenPost(Long idImagen);
