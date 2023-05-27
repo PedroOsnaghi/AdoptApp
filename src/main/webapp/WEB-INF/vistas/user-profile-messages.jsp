@@ -162,8 +162,9 @@
                                                                 <div class="accordion-body">
                                                                     <div class="card-footer px-2 py-2 mt-2 border-top rounded-0">
                                                                         <form:form class="d-flex align-items-center"
-                                                                              action="${pageContext.request.contextPath}/mensaje/responder?idm=${mensaje.id}&pid=${mensaje.publicacion.id}" modelAttribute="mensajeDto">
-
+                                                                              action="${pageContext.request.contextPath}/mensaje/responder" modelAttribute="mensajeDto">
+                                                                            <form:input path="id" type="hidden" value="${mensaje.id}"/>
+                                                                            <form:input path="publicacion.id" type="hidden" value="${mensaje.publicacion.id}"/>
                                                                             <form:input path="respuesta" type="text" class="form-control me-3"
                                                                                    placeholder="Escribe tu respuesta" required="true"/>
                                                                             <button type="submit"

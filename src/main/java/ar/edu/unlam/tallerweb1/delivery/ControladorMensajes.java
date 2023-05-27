@@ -42,19 +42,17 @@ public class ControladorMensajes {
     }
 
     @RequestMapping(path = "/responder",method = RequestMethod.POST)
-    public ModelAndView responderMensaje(@ModelAttribute MensajeDto mensajeDto,@RequestParam Long idm, Long pid, HttpServletRequest request){
-
-        mensajeDto.setId(idm);
+    public ModelAndView responderMensaje(@ModelAttribute MensajeDto mensajeDto, HttpServletRequest request){
 
         try{
 
             this.servicioMensajes.responderMensaje(mensajeDto);
 
         }catch (PersistenceException err){
-            return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/mensajes?pid=" + pid +"&response=error");
+            return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/mensajes?pid=" + mensajeDto.getPublicacion().getId() +"&response=error");
         }
 
-        return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/mensajes?pid=" + pid + "&response=success");
+        return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/mensajes?pid=" + mensajeDto.getPublicacion().getId() + "&response=success");
     }
 
     @RequestMapping(path = "/eliminar",method = RequestMethod.GET)
