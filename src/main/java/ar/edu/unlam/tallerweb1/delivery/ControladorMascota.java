@@ -36,7 +36,7 @@ public class ControladorMascota {
     }
 
     @RequestMapping("/crear")
-    public ModelAndView irANewMascot(@RequestParam(required = false) String target, HttpSession session) {
+    public ModelAndView crearMascota(@RequestParam(required = false) String target, HttpSession session) {
 
         ModelMap modelo = this.iniciarModel(session);
 
@@ -50,7 +50,7 @@ public class ControladorMascota {
 
 
     @RequestMapping(path = "/guardar", method=RequestMethod.POST)
-    public ModelAndView ingresarMascota(@ModelAttribute MascotaDto mascotaDto, HttpSession session, HttpServletRequest request) {
+    public ModelAndView guardarMascota(@ModelAttribute MascotaDto mascotaDto, HttpSession session, HttpServletRequest request) {
 
         ModelMap model = this.iniciarModel(session);
 
