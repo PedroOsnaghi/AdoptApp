@@ -2,19 +2,15 @@ package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.domain.mascota.IRepositorioMascota;
 import ar.edu.unlam.tallerweb1.model.Mascota;
-import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.hibernate.SessionFactory;
 
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
 import java.util.List;
 
 @Repository
@@ -43,5 +39,12 @@ public class RepositorioMascota implements IRepositorioMascota {
                 .getResultList();
 
         return mascota;
+    }
+
+    @Override
+    public List<Mascota> listarMascotaPorUsuario(Usuario usuario)
+    {
+        return (List<Mascota>) this.sessionFactory.getCurrentSession().createCriteria(Mascota.class)
+                .add(Restrictions.eq("usuario", usuario)).list();
     }
 }

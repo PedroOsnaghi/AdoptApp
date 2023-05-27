@@ -31,7 +31,7 @@ public class ControladorMascota {
 
     private ModelMap iniciarModel(HttpSession session) {
         ModelMap m = new ModelMap();
-        m.put("usuario", (Usuario) session.getAttribute("usuarioAutenticado"));
+        m.put("usuario", this.servicioAuth.getUsuarioAutenticado());
         return m;
     }
 
@@ -54,7 +54,7 @@ public class ControladorMascota {
 
         ModelMap model = this.iniciarModel(session);
 
-        Usuario usuario = (Usuario) session.getAttribute("usuarioAutenticado");
+        Usuario usuario = this.servicioAuth.getUsuarioAutenticado();
 
         Long p_id = this.servicioMascota.guardar(mascotaDto, usuario);
 

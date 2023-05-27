@@ -35,6 +35,12 @@ public class ServicioMascota implements IServicioMascota {
         return this.repositorioMascota.listarMascotasaPublicar(usuario);
     }
 
+    @Override
+    public List<Mascota> listarMascotaPorUsuario(Usuario usuario) {
+        return repositorioMascota.listarMascotaPorUsuario(usuario);
+    }
+
+
 
     private boolean validarDatos(MascotaDto mascotaDto) {
         if (mascotaDto.getNombre() == null || mascotaDto.getNombre().length() == 0){

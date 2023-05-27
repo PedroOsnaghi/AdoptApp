@@ -8,7 +8,6 @@ import java.util.List;
 public interface IRepositorioMascota {
 
     void guardar(Mascota mascota);
-    List<Mascota> buscarMascotaPorIdDueño(Usuario usuario);
-
+    List<Mascota> listarMascotaPorUsuario(Usuario usuario);
     List<Mascota> listarMascotasaPublicar(Usuario usuario);
 }
