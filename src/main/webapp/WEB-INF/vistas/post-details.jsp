@@ -77,7 +77,7 @@
                                        <span class="material-symbols-outlined md-18">
                                           bookmark_border
                                        </span>
-                                       <span class="ms-2">NaciÃ³ el <a href="#" class="link-primary h6">3 de Abril del
+                                       <span class="ms-2">Nació el <a href="#" class="link-primary h6">3 de Abril del
                                              2023</a></span>
                                     </div>
                                     <div class="d-flex align-items-center mb-1">
@@ -131,17 +131,17 @@
                   </div>
                   <div class="card-body">
                      <div class="d-flex flex-column justify-content-between">
-                        <p>Tobby, es un cachorrito muy tierno y juguetÃ³n que esta buscando una familia que le de
+                        <p>Tobby, es un cachorrito muy tierno y juguetón que esta buscando una familia que le de
                            mucho amor. Necesita un hogar con patio ya que le gusta correr por todos lados.</p>
                      </div>
 
 
                      <!-- informacion de mascota -->
                      <div class="row">
-                        <h4 class="mt-3">InformaciÃ³n BÃ¡sica</h4>
+                        <h4 class="mt-3">Información Básica</h4>
                         <hr>
                         <div class="col-4">
-                           <h6>GÃ©nero</h6>
+                           <h6>Género</h6>
                         </div>
                         <div class="col-8">
                            <p class="mb-0">Macho</p>
@@ -162,13 +162,13 @@
                            <h6>Salud</h6>
                         </div>
                         <div class="col-8">
-                           <p class="mb-0">Todas las vacÃºnas</p>
+                           <p class="mb-0">Todas las vacúnas</p>
                         </div>
                         <div class="col-4">
                            <h6>Edad</h6>
                         </div>
                         <div class="col-8">
-                           <p class="mb-0">45 dÃ­as</p>
+                           <p class="mb-0">45 días</p>
                         </div>
                      </div>
 
@@ -179,7 +179,7 @@
                         <div class="d-flex flex-wrap me-3">
                            <span class="badge badge-pill bg-light text-dark mt-2 me-2">
                               <i class="fa-solid fa-circle"></i>
-                              JuguetÃ³n</span>
+                              Juguetón</span>
                            <span class="badge badge-pill bg-light text-dark mt-2 me-2">
                               <i class="fa-solid fa-circle"></i>
                               Amoroso</span>
@@ -227,62 +227,72 @@
                         <h5 class="card-tit">Preguntale a <strong>Maria Gutierrez</strong> por mi</h5>
                      </div>
                      <div>
-                        <form action="">
-                           <textarea class="form-control mt-2" id="exampleFormControlTextarea1" rows="3"
-                              control-id="ControlID-20" placeholder="EscribÃ­ tu pregunta..."></textarea>
-                           <button type="submit" class="btn btn-primary float-end mt-2">Preguntar</button>
-                        </form>
+                        <form:form action="${pageContext.request.contextPath}/mensaje/enviar" modelAttribute="mensajeDto">
+                           <form:textarea path="pregunta" class="form-control mt-2"  rows="3" placeholder="Escribí tu pregunta..."></form:textarea>
+                           <form:input path="publicacion.id" value="${publicacion.id}" type="hidden"/>
+                           <div class="d-flex justify-content-end">
+                              <button type="submit" class="btn btn-primary mt-2"> <i class="fa-regular fa-paper-plane" style="font-size: 18px;"></i> Enviar</button>
+
+                           </div>
+                        </form:form>
+                        <c:if test="${msj_response eq 'error'}" >
+                           <div class="alert alert-solid alert-danger d-flex align-items-center mt-2 py-1 mx-2" role="alert">
+                              <div>
+                                 No pudimos enviar tu mensaje debido a un error.
+                              </div>
+                           </div>
+                        </c:if>
+                        <c:if test="${msj_response eq 'success'}" >
+                           <div class="alert alert-solid alert-success d-flex align-items-center mt-2 py-1 mx-2" role="alert">
+                              <div>
+                                 Enviamos tu mensaje a ${publicacion.mascota.usuario.nombre}.
+                              </div>
+                           </div>
+                        </c:if>
                      </div>
+
                   </div>
+
                </div>
 
                <div class="card">
                   <div class="card-header d-flex justify-content-between">
                      <div class="header-title">
-                        <h4 class="card-title">Ãšltimas realizadas</h4>
+                        <h4 class="card-title">Últimas realizadas</h4>
                      </div>
                   </div>
                   <div class="card-body">
 
+                     <c:forEach items="${mensajes}" var="mensaje">
+                        <div class="post-comments p-2 m-0 card rounded bg-light mb-2">
 
-                     <div class="post-comments p-2 m-0 card rounded bg-light mb-2">
-
-                        <!-- PREGUNTA -->
-                        <p class="mb-0"><strong>Tu pregunta -</strong> Lorem Ipsum is simply dummy text of the
-                           printing and
-                           typesetting
-                           industry. Lorem Ipsum has been the industry's standard dummy text
-                           ever since the 1500s<span class="link-primary"> - 10/04/2023</span></p>
-                        <!--RESPUESTA OCULTA-->
-                        <details>
-                           <summary class="comments-view  link-primary">Ver respuesta</summary>
-                           <p class="text-muted comments-response">Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Ex, vel. Nam recusandae debitis consectetur fugiat nisi, perspiciatis,
-                              odit molestiae reiciendis blanditiis porro sed eligendi dolor adipisci repellendus,
-                              sint dicta temporibus?<span class="link-primary"> - 10/04/2023</span></p>
-                        </details>
-
-
-                     </div>
+                           <!-- PREGUNTA -->
+                           <p class="mb-0"><strong>Tu pregunta -</strong> Lorem Ipsum is simply dummy text of the
+                              printing and
+                              typesetting
+                              industry. Lorem Ipsum has been the industry's standard dummy text
+                              ever since the 1500s<span class="link-primary"> - 10/04/2023</span></p>
+                           <!--RESPUESTA OCULTA-->
+                           <details>
+                              <summary class="comments-view  link-primary">Ver respuesta</summary>
+                              <p class="text-muted comments-response">Lorem ipsum dolor sit amet consectetur adipisicing
+                                 elit. Ex, vel. Nam recusandae debitis consectetur fugiat nisi, perspiciatis,
+                                 odit molestiae reiciendis blanditiis porro sed eligendi dolor adipisci repellendus,
+                                 sint dicta temporibus?<span class="link-primary"> - 10/04/2023</span></p>
+                           </details>
 
 
-                     <div class="post-comments p-2 m-0 card rounded bg-light mb-2">
+                        </div>
+                     </c:forEach>
 
-                        <!-- PREGUNTA -->
-                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting
-                           industry. Lorem Ipsum has been the industry's standard dummy text
-                           ever since the 1500s<span class="link-primary"> - 10/04/2023</span></p>
-                        <!--RESPUESTA OCULTA-->
-                        <details>
-                           <summary class="comments-view  link-primary">Ver respuesta</summary>
-                           <p class="text-muted comments-response">Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Ex, vel. Nam recusandae debitis consectetur fugiat nisi, perspiciatis,
-                              odit molestiae reiciendis blanditiis porro sed eligendi dolor adipisci repellendus,
-                              sint dicta temporibus?<span class="link-primary"> - 10/04/2023</span></p>
-                        </details>
+                     <c:if test="${empty mensajes}">
+                        <p class="text-muted mt-3">Aún nadie ha realizado preguntas.</p>
+                     </c:if>
 
 
-                     </div>
+
+
+
 
 
 
@@ -313,28 +323,28 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 
             </button>
-            <h4 class="modal-title" id="exampleModalScrollableTitle">Que grÃ¡n desiciÃ³n!</h4>
+            <h4 class="modal-title" id="exampleModalScrollableTitle">Que grán desición!</h4>
             <p>Enviaremos tu solicitud al publicante y te avisaremos si acepta tu solicitud.</p>
 
          </div>
          <div class="modal-body">
-            <p class="text-muted" style="font-style: italic;"><strong>Lee atentamente -</strong> Si estÃ¡s pensando sumar
+            <p class="text-muted" style="font-style: italic;"><strong>Lee atentamente -</strong> Si estás pensando sumar
                un amigo peludo
-               tenÃ©s que saber el compromiso que esto implica. No sÃ³lo serÃ¡ tu compaÃ±Ã­a sino un integrante mÃ¡s de la
-               familia. Por lo que te recomendamos planifiques bien su llegada, asegÃºrate que todos estÃ©n de acuerdo
-               y que en tu edificio o casa se permitan mascotas. TenÃ© en cuenta los gastos mensuales relacionados,
-               cuidados generales que necesitarÃ¡ para que se encuentre saludable y cÃ³modo y con quiÃ©n dejarlo en caso
+               tenés que saber el compromiso que esto implica. No sólo será tu compañía sino un integrante más de la
+               familia. Por lo que te recomendamos planifiques bien su llegada, asegúrate que todos estén de acuerdo
+               y que en tu edificio o casa se permitan mascotas. Tené en cuenta los gastos mensuales relacionados,
+               cuidados generales que necesitará para que se encuentre saludable y cómodo y con quién dejarlo en caso
                de salir de vacaciones.</p>
             <hr>
             <form action="">
 
                <div class="form-group">
-                  <label class="form-label" for="exampleFormControlTextarea1">Mensaje a MarÃ­a Guttierrez</label>
+                  <label class="form-label" for="exampleFormControlTextarea1">Mensaje a María Guttierrez</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" control-id="ControlID-20"
-                     placeholder="Dile por quÃ© deberÃ­a aceptarte como Adoptante de Tobby"></textarea>
+                     placeholder="Dile por qué debería aceptarte como Adoptante de Tobby"></textarea>
                </div>
                <div class="d-flex justify-content-end">
-                  <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Lo pensarÃ©</button>
+                  <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Lo pensaré</button>
                   <button type="button" class="btn btn-primary">Estoy seguro</button>
                </div>
 

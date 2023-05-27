@@ -21,7 +21,13 @@ public class ServicioMensajes implements IServicioMensajes{
 
     @Override
     public Long enviarMensaje(MensajeDto msjDto) {
-        return null;
+
+        Mensaje msj = new Mensaje(msjDto.getPublicacion(), msjDto.getEmisor(), msjDto.getPregunta());
+
+        this.repositorioMensajes.guardarMensaje(msj);
+
+        return msj.getId();
+
     }
 
     @Override

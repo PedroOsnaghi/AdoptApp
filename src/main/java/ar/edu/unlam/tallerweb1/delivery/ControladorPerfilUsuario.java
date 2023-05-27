@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/perfil")
@@ -26,7 +26,8 @@ public class ControladorPerfilUsuario {
         this.servicioAuth = servicioAuth;
     }
 
-    private ModelMap iniciarModel(String  target){
+
+    private ModelMap iniciarModel(String target){
         ModelMap model = new ModelMap();
 
         model.put("usuario", this.servicioAuth.getUsuarioAutenticado());
@@ -117,7 +118,6 @@ public class ControladorPerfilUsuario {
     }
 
 
-
     @RequestMapping("/info/editar")
     public ModelAndView irAEditarDatos(HttpSession session) {
         ModelMap model = this.iniciarModel("info");
@@ -132,7 +132,7 @@ public class ControladorPerfilUsuario {
 
     @RequestMapping(value = "/info/actualizar", method = RequestMethod.POST)
     public ModelAndView guardarDatos() {
-        ModelMap modelo = this.iniciarModel();
+        ModelMap modelo = this.iniciarModel(null);
       //  modelo.put("datos-usuario", new DatosLogin());
 
       //  this.usuarioServicio.guardarDatos();

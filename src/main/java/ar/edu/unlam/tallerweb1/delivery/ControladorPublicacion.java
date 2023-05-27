@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 
@@ -27,14 +29,16 @@ public class ControladorPublicacion {
     private final IServicioAuth servicioAuth;
     private final IServicioPublicacion servicioPublicacion;
     private final IServicioMascota servicioMascota;
+    private final IServicioMensajes servicioMesnaje;
 
     private Usuario userAuth;
 
     @Autowired
-    public ControladorPublicacion(IServicioPublicacion servicioPublicacion, IServicioMascota servicioMascota, IServicioAuth servicioAuth) {
+    public ControladorPublicacion(IServicioPublicacion servicioPublicacion, IServicioMascota servicioMascota, IServicioMensajes servicioMensaje, IServicioAuth servicioAuth) {
         this.servicioPublicacion = servicioPublicacion;
         this.servicioAuth = servicioAuth;
         this.servicioMascota = servicioMascota;
+        this.servicioMesnaje = servicioMensaje;
     }
 
     private ModelMap iniciarModel() {
@@ -48,8 +52,7 @@ public class ControladorPublicacion {
     public ModelAndView crear() {
 
         ModelMap model = this.iniciarModel();
-
-
+        
         model.put("publicacionDto", new PublicacionDto());
         model.put("mascotas", this.servicioMascota.listarMascotasAPublicar(this.userAuth));
 
@@ -73,6 +76,20 @@ public class ControladorPublicacion {
 
     }
 
+    @RequestMapping(path = "/ver", method = RequestMethod.GET)
+    public ModelAndView verPublicacion(@RequestParam Long pid, @RequestParam(required = false) String msj_response){
+        ModelMap model = iniciarModel();
+
+        model.put("publicacion", this.servicioPublicacion.findPublicacion(pid));
+
+        model.put("mensajes", this.servicioMesnaje.listarMensajesPublicacion(pid));
+
+        model.put("mensajeDto", new MensajeDto());
+
+        model.put("msj_response", msj_response);
+
+        return new ModelAndView("post-details", model);
+    }
 
 
 

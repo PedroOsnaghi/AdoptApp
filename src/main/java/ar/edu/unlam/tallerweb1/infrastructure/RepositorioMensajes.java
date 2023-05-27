@@ -22,7 +22,9 @@ public class RepositorioMensajes implements IRepositorioMensajes {
 
     @Override
     public Long guardarMensaje(Mensaje msj) {
-        return null;
+        this.sessionFactory.getCurrentSession().save(msj);
+
+        return msj.getId();
     }
 
     @Override

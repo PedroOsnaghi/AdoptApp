@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +28,16 @@ public class ControladorMensajes {
     @RequestMapping(path = "/enviar",method = RequestMethod.POST)
     public ModelAndView enviarMensaje(@ModelAttribute MensajeDto mensajeDto, HttpServletRequest request){
 
-        return new ModelAndView("redirect:"  + request.getContextPath() + "/publicacion/ver?idp=" + mensajeDto.getPublicacion().getId() + "&response=success");
+       mensajeDto.setEmisor(this.servicioAuth.getUsuarioAutenticado());
+
+       Long mid = this.servicioMensajes.enviarMensaje(mensajeDto);
+
+       if (mid == null){
+           return new ModelAndView("redirect: "  + request.getContextPath() + "/publicacion/ver?pid=" + mensajeDto.getPublicacion().getId() + "&msj_response=error");
+       }
+
+        return new ModelAndView("redirect: "  + request.getContextPath() + "/publicacion/ver?pid=" + mensajeDto.getPublicacion().getId() + "&msj_response=success");
+
     }
 
     @RequestMapping(path = "/responder",method = RequestMethod.POST)
