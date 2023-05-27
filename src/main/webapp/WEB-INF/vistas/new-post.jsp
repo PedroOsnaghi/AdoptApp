@@ -271,7 +271,7 @@
                <div class="d-flex justify-content-end mt-2">
                   <button type="button" class="btn btn-secondary me-2" id="close_modal"  data-bs-dismiss="modal">Cancelar</button>
                   <button type="button" class="btn btn-primary" disabled id="add_dir">Agregar</button>
-               </div>
+              </div>
 
 
          </div>
@@ -293,11 +293,9 @@
 <%@ include file="partials/script.jsp" %>
 
 
-
 <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeluO_jCvIS_iT6Y3Thw8A6YJW5gyzh0M&callback=initAutocomplete&libraries=places&v=weekly"
         defer>
-
 </script>
 <script src="${pageContext.request.contextPath}/js/multifile.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/google.maps.js" type="text/javascript"></script>

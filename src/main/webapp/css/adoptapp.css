@@ -14852,7 +14852,8 @@ ul.iq-edit-profile li:last-child a {
 }
 .profile-image {
     height: 150px;
-    width: 150px
+    width: 150px;
+    object-fit: cover;
 }
 .item-img {
     height: 30px;

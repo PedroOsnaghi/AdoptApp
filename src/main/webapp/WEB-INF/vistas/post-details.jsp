@@ -30,21 +30,21 @@
                      <div class="row">
                         <div class="col-lg-2">
                            <div class="item1 ms-1">
-                              <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" class="img-fluid rounded profile-image"
+                              <img src="${pageContext.request.contextPath}/images/mascota/${publicacion.mascota.foto}" class="img-fluid rounded profile-image"
                                  alt="profile-image" loading="lazy">
                            </div>
                         </div>
                         <div class="col-lg-10">
                            <div class="d-flex justify-content-between">
                               <div class="item2 ">
-                                 <h4 class=""><strong>Tobby</strong></h4>
+                                 <h4 class=""><strong>${publicacion.mascota.nombre}</strong></h4>
                                  <span>6 Interesados</span>
                               </div>
                               <div class="item4 ms-1">
                                  <div class="d-flex justify-content-between">
                                     <a href="">
                                        <div class="me-3">
-                                          <img class="rounded-circle img-fluid" src="${pageContext.request.contextPath}/images/user/01.jpg"
+                                          <img class="rounded-circle img-fluid" src="${pageContext.request.contextPath}/images/user/${publicacion.mascota.usuario.imagen}"
                                              style="max-width: 40px;" alt="" loading="lazy">
                                        </div>
                                     </a>
@@ -52,8 +52,8 @@
                                     <div class="w-100">
                                        <div class="d-flex justify-content-between">
                                           <div class="">
-                                             <h6 class="mb-0 d-inline-block">Maria Gutierrez</h6>
-                                             <p class="mb-0 text-primary ">hace 30 minutos</p>
+                                             <h6 class="mb-0 d-inline-block">${publicacion.mascota.usuario.nombre}</h6>
+                                             <p class="mb-0 text-primary "><script>getTime("${publicacion.create_at}")</script>  </p>
 
                                           </div>
 
@@ -70,22 +70,22 @@
                                        <span class="material-symbols-outlined  md-18">
                                           location_on
                                        </span>
-                                       <a href="#" class="link-primary h6 ms-2">Buenos Aires, Ramos mejia</a>
+                                       <a href="#" class="link-primary h6 ms-2">${publicacion.provincia}, ${publicacion.ciudad}</a>
                                     </div>
-
+                                    <c:if test="${not empty publicacion.mascota.nacimiento}">
                                     <div class="d-flex align-items-center mb-1">
                                        <span class="material-symbols-outlined md-18">
                                           bookmark_border
                                        </span>
-                                       <span class="ms-2">Nació el <a href="#" class="link-primary h6">3 de Abril del
-                                             2023</a></span>
+                                       <span class="ms-2">Nació el <a href="#" class="link-primary h6">${publicacion.mascota.nacimiento}</a></span>
                                     </div>
+                                    </c:if>
                                     <div class="d-flex align-items-center mb-1">
                                        <span class="material-symbols-outlined md-18">
                                           sell
                                        </span>
                                        <span class="ms-2">Categoria: <a href="#"
-                                             class="link-primary h6">PERROS</a></span>
+                                             class="link-primary h6">${publicacion.mascota.tipo}</a></span>
                                     </div>
                                  </div>
                               </div>
@@ -93,7 +93,7 @@
                                  <div class="item6 border-light border-start">
                                     <div class="d-grid ms-2">
 
-                                       <h6 class="mb-4">No lo dudes!, <strong>Tobby</strong> te necesita</h6>
+                                       <h6 class="mb-4">No lo dudes!, <strong>${publicacion.mascota.nombre}</strong> te necesita</h6>
                                        <div class="d-grid">
                                           <button type="button" class="btn btn-primary d-block mt-3"
                                              data-bs-toggle="modal" data-bs-target="#confirma-adopcion"
@@ -105,7 +105,6 @@
                                              control-id="ControlID-4">
                                              Cancelar Solicitud
                                           </button>
-
                                        </div>
                                     </div>
 
@@ -131,8 +130,7 @@
                   </div>
                   <div class="card-body">
                      <div class="d-flex flex-column justify-content-between">
-                        <p>Tobby, es un cachorrito muy tierno y juguetón que esta buscando una familia que le de
-                           mucho amor. Necesita un hogar con patio ya que le gusta correr por todos lados.</p>
+                        <p>${publicacion.bio}</p>
                      </div>
 
 
@@ -144,31 +142,39 @@
                            <h6>Género</h6>
                         </div>
                         <div class="col-8">
-                           <p class="mb-0">Macho</p>
+                           <p class="mb-0">${publicacion.mascota.genero}</p>
                         </div>
                         <div class="col-4">
                            <h6>Raza</h6>
                         </div>
                         <div class="col-8">
-                           <p class="mb-0">No aporta</p>
+                           <p class="mb-0">
+                              <c:if test="${empty publicacion.mascota.raza}">No apota</c:if>
+                              <c:if test="${not empty publicacion.mascota.raza}">${publicacion.mascota.raza}</c:if>
+                           </p>
                         </div>
                         <div class="col-4">
                            <h6>Peso</h6>
                         </div>
                         <div class="col-8">
-                           <p class="mb-0">0,500 Kg</p>
+                           <p class="mb-0">${publicacion.mascota.peso} Kg</p>
                         </div>
                         <div class="col-4">
                            <h6>Salud</h6>
                         </div>
                         <div class="col-8">
-                           <p class="mb-0">Todas las vacúnas</p>
+                           <p class="mb-0">
+                              <c:if test="${empty publicacion.mascota.salud}">No apota</c:if>
+                              <c:if test="${not empty publicacion.mascota.salud}">${publicacion.mascota.salud}</c:if>
+                           </p>
                         </div>
                         <div class="col-4">
                            <h6>Edad</h6>
                         </div>
                         <div class="col-8">
-                           <p class="mb-0">45 días</p>
+                           <p class="mb-0">
+                              <script>getBorn("${publicacion.mascota.nacimiento}")</script>
+                           </p>
                         </div>
                      </div>
 
@@ -179,10 +185,9 @@
                         <div class="d-flex flex-wrap me-3">
                            <span class="badge badge-pill bg-light text-dark mt-2 me-2">
                               <i class="fa-solid fa-circle"></i>
-                              Juguetón</span>
-                           <span class="badge badge-pill bg-light text-dark mt-2 me-2">
-                              <i class="fa-solid fa-circle"></i>
-                              Amoroso</span>
+                              ${publicacion.mascota.personalidad}
+                           </span>
+
                         </div>
 
 
@@ -201,19 +206,15 @@
                      </div>
                   </div>
                   <div class="card-body">
+
                      <div class="d-grid gap-2 grid-cols-3">
-                        <a data-fslightbox="gallery" href="images/posts/1/1.jpg">
-                           <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" class="img-fluid bg-soft-info img-size fit-cover"
-                              alt="photo-profile" loading="lazy">
-                        </a>
-                        <a data-fslightbox="gallery" href="images/posts/1/2.jpg">
-                           <img src="${pageContext.request.contextPath}/images/posts/1/2.jpg" class="img-fluid bg-soft-info img-size fit-cover"
-                              alt="photo-profile" loading="lazy">
-                        </a>
-                        <a data-fslightbox="gallery" href="images/posts/1/3.jpg">
-                           <img src="${pageContext.request.contextPath}/images/posts/1/3.jpg" class="img-fluid bg-soft-info img-size fit-cover"
-                              alt="photo-profile" loading="lazy">
-                        </a>
+                        <c:forEach items="${publicacion.imagenes}" var="imagen"  varStatus="index">
+                           <a data-fslightbox="gallery" href="${pageContext.request.contextPath}/images/posts/${imagen.nombre}">
+                              <img src="${pageContext.request.contextPath}/images/posts/${imagen.nombre}" class="img-fluid bg-soft-info img-size fit-cover"
+                                   alt="photo-profile" loading="lazy">
+                           </a>
+                        </c:forEach>
+
 
                      </div>
                   </div>
@@ -224,7 +225,7 @@
                <div class="card">
                   <div class="card-header">
                      <div class="header-title">
-                        <h5 class="card-tit">Preguntale a <strong>Maria Gutierrez</strong> por mi</h5>
+                        <h5 class="card-tit">Preguntale a <strong>${publicacion.mascota.usuario.nombre}</strong> por mi</h5>
                      </div>
                      <div>
                         <form:form action="${pageContext.request.contextPath}/mensaje/enviar" modelAttribute="mensajeDto">

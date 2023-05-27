@@ -5,7 +5,7 @@ var input_city = document.getElementById("ciudad");
 var input_prov = document.getElementById("prov");
 var input_lat = document.getElementById("lat");
 var input_lng = document.getElementById("lng");
-var sb = document.getElementById("pac-input");
+
 
 var btn_add = document.getElementById("add_dir");
 var btn_close = document.getElementById("close_modal");
@@ -84,6 +84,7 @@ function setMap(){
         markers.forEach(function (marker) {
             marker.setMap(null);
         });
+
         btn_add.setAttribute("disabled", true);
         markers = [];
         // For each place, get the icon, name and location.
@@ -121,6 +122,7 @@ function setMap(){
             else {
                 bounds.extend(place.geometry.location);
             }
+
             lat = place.geometry.location.lat();
             lng = place.geometry.location.lng();
             btn_add.removeAttribute("disabled");
