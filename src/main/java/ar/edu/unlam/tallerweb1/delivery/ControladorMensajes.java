@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.persistence.PersistenceException;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
@@ -41,8 +42,32 @@ public class ControladorMensajes {
     }
 
     @RequestMapping(path = "/responder",method = RequestMethod.POST)
-    public ModelAndView responderMensaje(@ModelAttribute MensajeDto mensajeDto, HttpServletRequest request){
+    public ModelAndView responderMensaje(@ModelAttribute MensajeDto mensajeDto,@RequestParam Long idm, Long pid, HttpServletRequest request){
 
-        return new ModelAndView("redirect:"  + request.getContextPath() + "/perfil/mensajes?response=success");
+        mensajeDto.setId(idm);
+
+        try{
+
+            this.servicioMensajes.responderMensaje(mensajeDto);
+
+        }catch (PersistenceException err){
+            return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/mensajes?pid=" + pid +"&response=error");
+        }
+
+        return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/mensajes?pid=" + pid + "&response=success");
+    }
+
+    @RequestMapping(path = "/eliminar",method = RequestMethod.GET)
+    public ModelAndView responderMensaje(@RequestParam Long idm, Long pid, HttpServletRequest request){
+
+        try{
+
+            this.servicioMensajes.eliminarRespuesta(idm);
+
+        }catch (PersistenceException err){
+            return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/mensajes?pid=" + pid +"&response=error");
+        }
+
+        return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/mensajes?pid=" + pid + "&response=deleted");
     }
 }

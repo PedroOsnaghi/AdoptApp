@@ -6,13 +6,15 @@ import java.util.List;
 
 public interface IRepositorioMensajes {
 
+    Mensaje obtenerMensaje(Long id);
+
     Long guardarMensaje(Mensaje msj);
 
     void actualizarMensaje(Mensaje msj);
 
     List<Mensaje> listarMensajesPublicacion(Long idPublicacion);
 
-    List<Mensaje> listarMensajesSinResponder(Long idUsuario);
+    List<Mensaje> listarMensajesSinResponder(Long idPublicacion);
 
-    List<Mensaje> listarMensajesRespondidos(Long idUsuario);
+    List<Mensaje> listarMensajesRespondidos(Long idPublicacion);
 }

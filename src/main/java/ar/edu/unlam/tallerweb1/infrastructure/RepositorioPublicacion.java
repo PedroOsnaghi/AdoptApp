@@ -1,7 +1,9 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
+import ar.edu.unlam.tallerweb1.model.PublicacionMensajes;
 import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ConstantException;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
@@ -60,6 +63,17 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
                 .addOrder(Order.desc("id"))
                 .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .list();
+    }
+
+    @Override
+    public List<PublicacionMensajes> listarPublicacionesConMensajesPorUsuarioId(Long idUsuario) {
+        EntityManager entityManager = this.sessionFactory.createEntityManager();
+
+        List<PublicacionMensajes> mascota = entityManager.createQuery("select new ar.edu.unlam.tallerweb1.model.PublicacionMensajes(p, COUNT(m.id)) from Publicacion p left join Mensaje m on m.publicacion = p where  p.mascota.usuario.id = :iduser group by p.id order by p.id desc ", PublicacionMensajes.class)
+                .setParameter("iduser", idUsuario)
+                .getResultList();
+
+        return mascota;
     }
 
     @Override

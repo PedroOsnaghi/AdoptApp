@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.publicaciones;
 
 import ar.edu.unlam.tallerweb1.model.Publicacion;
+import ar.edu.unlam.tallerweb1.model.PublicacionMensajes;
 import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
 
 import java.util.List;
@@ -16,6 +17,8 @@ public interface IRepositorioPublicacion {
     List<Publicacion> listarPublicaciones(String state);
 
     List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario);
+
+    List<PublicacionMensajes> listarPublicacionesConMensajesPorUsuarioId(Long idUsuario);
 
     void agregarFavorito(Publicacion_favorito favorito);
 

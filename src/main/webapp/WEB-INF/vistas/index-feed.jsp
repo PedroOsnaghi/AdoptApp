@@ -108,8 +108,8 @@
                                                                var="imagen">
                                                         <div class="carousel-item <c:if test="${index.count - 1 eq 0}">active</c:if>">
                                                             <img src="${pageContext.request.contextPath}/images/posts/${imagen.nombre}"
-                                                                 class="img-fluid w-100 image-cover"
-                                                                 height="100" loading="lazy" alt="image">
+                                                                 class=" w-100 image-cover"
+                                                                 height="100%" loading="lazy" alt="image">
                                                         </div>
                                                     </c:forEach>
 

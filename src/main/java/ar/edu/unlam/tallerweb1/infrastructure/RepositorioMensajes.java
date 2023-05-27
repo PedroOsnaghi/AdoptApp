@@ -1,11 +1,13 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IRepositorioMensajes;
+import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Mensaje;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
@@ -21,6 +23,10 @@ public class RepositorioMensajes implements IRepositorioMensajes {
     }
 
     @Override
+    public Mensaje obtenerMensaje(Long id){
+        return this.sessionFactory.getCurrentSession().get(Mensaje.class, id);
+    }
+    @Override
     public Long guardarMensaje(Mensaje msj) {
         this.sessionFactory.getCurrentSession().save(msj);
 
@@ -29,21 +35,40 @@ public class RepositorioMensajes implements IRepositorioMensajes {
 
     @Override
     public void actualizarMensaje(Mensaje msj) {
+        this.sessionFactory.getCurrentSession().update(msj);
 
     }
 
     @Override
     public List<Mensaje> listarMensajesPublicacion(Long idPublicacion) {
-        return null;
+        EntityManager entityManager = this.sessionFactory.createEntityManager();
+
+        List<Mensaje> mensajes = entityManager.createQuery("select m from Mensaje m where  m.publicacion.id = :idp order by m.id desc ", Mensaje.class)
+                .setParameter("idp",idPublicacion)
+                .getResultList();
+
+        return mensajes;
     }
 
     @Override
-    public List<Mensaje> listarMensajesSinResponder(Long idUsuario) {
-        return null;
+    public List<Mensaje> listarMensajesSinResponder(Long idPublicacion) {
+        EntityManager entityManager = this.sessionFactory.createEntityManager();
+
+        List<Mensaje> mensajes = entityManager.createQuery("select m from Mensaje m where m.respuesta = null and  m.publicacion.id = :idp order by m.id desc ", Mensaje.class)
+                .setParameter("idp",idPublicacion)
+                .getResultList();
+
+        return mensajes;
     }
 
     @Override
-    public List<Mensaje> listarMensajesRespondidos(Long idUsuario) {
-        return null;
+    public List<Mensaje> listarMensajesRespondidos(Long idPublicacion) {
+        EntityManager entityManager = this.sessionFactory.createEntityManager();
+
+        List<Mensaje> mensajes = entityManager.createQuery("select m from Mensaje m where m.respuesta != null and m.publicacion.id = :idp order by m.id desc ", Mensaje.class)
+                .setParameter("idp",idPublicacion)
+                .getResultList();
+
+        return mensajes;
     }
 }

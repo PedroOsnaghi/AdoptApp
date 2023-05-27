@@ -180,23 +180,9 @@
                                             <div class="d-flex justify-content-between align-items-center flex-wrap">
                                                 <div class="like-block position-relative d-flex align-items-center w-100">
                                                     <div class="d-flex justify-content-end w-100 align-items-center">
-                                                            <%--
-                                                            <button type="button"
-                                                                    class="btn d-inline-flex btn-soft-link mb-3 me-1"
-                                                                    control-id="ControlID-93"><i
-                                                                    class="material-symbols-outlined me-1">favorite</i>Agregar
-                                                                a
-                                                                Favoritos
-                                                            </button>
-                                                            --%>
-                                                        <button type="button"
-                                                                class="btn d-inline-flex mb-3 me-1 btn-primary visually-hidden"
-                                                                control-id="ControlID-52"><i
-                                                                class="material-symbols-outlined me-1">subject</i>Ver
-                                                            mas..
-                                                        </button>
-                                                        <a href="post-details.html"
-                                                           class="btn d-inline-flex mb-3 me-1 btn-primary">Ver mas..</a>
+
+                                                        <a href="${pageContext.request.contextPath}/publicacion/ver?pid=${publicacion.id}"
+                                                           class="btn d-inline-flex mb-3 me-1 btn-primary">Ver perfil público</a>
                                                     </div>
 
                                                 </div>

@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.delivery;
+import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.IServicioUsuario;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -19,11 +22,15 @@ public class ControladorPerfilUsuario {
 
     private final IServicioAuth servicioAuth;
     private final IServicioUsuario servicioUsuario;
+    private final IServicioPublicacion servicioPublicacion;
+    private final IServicioMensajes servicioMensajes;
 
     @Autowired
-    public ControladorPerfilUsuario(IServicioUsuario servicioUsuario, IServicioAuth servicioAuth){
+    public ControladorPerfilUsuario(IServicioUsuario servicioUsuario, IServicioPublicacion servicioPublicacion, IServicioMensajes servicioMensajes, IServicioAuth servicioAuth) {
         this.servicioUsuario = servicioUsuario;
         this.servicioAuth = servicioAuth;
+        this.servicioPublicacion = servicioPublicacion;
+        this.servicioMensajes = servicioMensajes;
     }
 
 
@@ -109,10 +116,20 @@ public class ControladorPerfilUsuario {
     }
 
     @RequestMapping("/mensajes")
-    public ModelAndView verMensajes(){
+    public ModelAndView verMensajes(@RequestParam(required = false) Long pid, String response){
         ModelMap model = this.iniciarModel("mensajes");
 
-        //TODO implementar Servicio de Mensajeria
+
+        model.put("publicaciones", this.servicioPublicacion.listarPublicacionesMensajesPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
+        model.put("mensajes_nuevos", this.servicioMensajes.listarMensajesSinResponder(pid));
+        model.put("mensajes_respondidos", this.servicioMensajes.listarMensajesRespondidos(pid));
+        model.put("selected_pub", pid);
+        model.put("mensajeDto", new MensajeDto());
+        model.put("response", response);
+
+
+
+
 
         return new ModelAndView("user-profile-messages", model);
     }

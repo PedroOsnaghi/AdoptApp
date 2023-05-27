@@ -1966,6 +1966,11 @@ progress {
 }
 
 /*noinspection CssInvalidPropertyValue*/
+
+.search-input .form-control:focus{
+    color:#b3b4c1!important;
+}
+
 .form-control:focus {
     color: #555770;
     background-color: #fff;
@@ -10382,7 +10387,7 @@ fieldset:disabled .btn {
     padding: .313rem 2.5rem .313rem .938rem;
     border-radius: .313rem;
     border: none;
-    border: 1px solid #2a2a2a;
+    border: 1px solid #686868;
 }
 .iq-navbar-logo {
     padding: 1em;

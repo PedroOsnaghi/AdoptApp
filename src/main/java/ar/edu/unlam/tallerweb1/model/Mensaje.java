@@ -2,6 +2,8 @@ package ar.edu.unlam.tallerweb1.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -63,8 +65,8 @@ public class Mensaje {
         this.emisor = emisor;
     }
 
-    public Timestamp getFechaEmision() {
-        return fechaEmision;
+    public String getFechaEmision() {
+        return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fechaEmision);
     }
 
     public void setFechaEmision(Timestamp fechaEmision) {
@@ -87,8 +89,8 @@ public class Mensaje {
         this.respuesta = respuesta;
     }
 
-    public Timestamp getFechaRespuesta() {
-        return fechaRespuesta;
+    public String getFechaRespuesta() {
+        return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fechaRespuesta);
     }
 
     public void setFechaRespuesta(Timestamp fechaRespuesta) {

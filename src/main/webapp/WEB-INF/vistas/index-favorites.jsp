@@ -60,7 +60,7 @@
                                                     </div>
                                                     <div class="d-flex align-items-center mt-2 mt-md-0">
                                                         <div class="confirm-click-btn">
-                                                            <a href="#"
+                                                            <a href="${pageContext.request.contextPath}/publicacion/ver?pid=${favorito.publicacion.id}"
                                                                class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
                                                         </div>
                                                         <a href="${pageContext.request.contextPath}/home/favoritos/eliminar?pid=${favorito.publicacion.id}" class="btn btn-secondary rounded"><i

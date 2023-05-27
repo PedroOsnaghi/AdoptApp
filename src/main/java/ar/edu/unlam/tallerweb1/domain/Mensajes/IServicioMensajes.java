@@ -15,8 +15,8 @@ public interface IServicioMensajes {
 
     List<Mensaje> listarMensajesPublicacion(Long idPublicacion);
 
-    List<Mensaje> listarMensajesSinResponder(Long idUsuario);
+    List<Mensaje> listarMensajesSinResponder(Long idPublicacion);
 
-    List<Mensaje> listarMensajesRespondidos(Long idUsuario);
+    List<Mensaje> listarMensajesRespondidos(Long idPublicacion);
 
 }

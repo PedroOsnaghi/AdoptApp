@@ -228,7 +228,7 @@
                      </div>
                      <div>
                         <form:form action="${pageContext.request.contextPath}/mensaje/enviar" modelAttribute="mensajeDto">
-                           <form:textarea path="pregunta" class="form-control mt-2"  rows="3" placeholder="Escribí tu pregunta..."></form:textarea>
+                           <form:textarea path="pregunta" class="form-control mt-2"  rows="3" placeholder="Escribí tu pregunta..." required="true"></form:textarea>
                            <form:input path="publicacion.id" value="${publicacion.id}" type="hidden"/>
                            <div class="d-flex justify-content-end">
                               <button type="submit" class="btn btn-primary mt-2"> <i class="fa-regular fa-paper-plane" style="font-size: 18px;"></i> Enviar</button>
@@ -236,14 +236,14 @@
                            </div>
                         </form:form>
                         <c:if test="${msj_response eq 'error'}" >
-                           <div class="alert alert-solid alert-danger d-flex align-items-center mt-2 py-1 mx-2" role="alert">
+                           <div class="alert alert-solid alert-danger d-flex align-items-center mt-2 py-1 " role="alert">
                               <div>
                                  No pudimos enviar tu mensaje debido a un error.
                               </div>
                            </div>
                         </c:if>
                         <c:if test="${msj_response eq 'success'}" >
-                           <div class="alert alert-solid alert-success d-flex align-items-center mt-2 py-1 mx-2" role="alert">
+                           <div class="alert alert-solid alert-success d-flex align-items-center mt-2 py-1 " role="alert">
                               <div>
                                  Enviamos tu mensaje a ${publicacion.mascota.usuario.nombre}.
                               </div>
@@ -267,19 +267,26 @@
                         <div class="post-comments p-2 m-0 card rounded bg-light mb-2">
 
                            <!-- PREGUNTA -->
-                           <p class="mb-0"><strong>Tu pregunta -</strong> Lorem Ipsum is simply dummy text of the
-                              printing and
-                              typesetting
-                              industry. Lorem Ipsum has been the industry's standard dummy text
-                              ever since the 1500s<span class="link-primary"> - 10/04/2023</span></p>
+                           <p class="mb-0">
+                              <c:if test="${mensaje.emisor.id eq usuario.id}">
+                                 <strong>Tu pregunta -</strong>
+                              </c:if>
+
+                              ${mensaje.pregunta}
+
+                              <small class="link-primary"> - ${mensaje.fechaEmision}</small>
+
+                           </p>
                            <!--RESPUESTA OCULTA-->
-                           <details>
-                              <summary class="comments-view  link-primary">Ver respuesta</summary>
-                              <p class="text-muted comments-response">Lorem ipsum dolor sit amet consectetur adipisicing
-                                 elit. Ex, vel. Nam recusandae debitis consectetur fugiat nisi, perspiciatis,
-                                 odit molestiae reiciendis blanditiis porro sed eligendi dolor adipisci repellendus,
-                                 sint dicta temporibus?<span class="link-primary"> - 10/04/2023</span></p>
-                           </details>
+                           <c:if test="${not empty mensaje.respuesta}">
+                              <details>
+                                 <summary class="comments-view  link-primary">Ver respuesta</summary>
+                                 <p class="text-muted comments-response">
+                                    ${mensaje.respuesta}
+                                    <small class="link-primary"> - ${mensaje.fechaRespuesta}</small></p>
+                              </details>
+                           </c:if>
+
 
 
                         </div>
