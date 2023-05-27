@@ -10,4 +10,5 @@ public interface IRepositorioMascota {
     void guardar(Mascota mascota);
     List<Mascota> buscarMascotaPorIdDueño(Usuario usuario);
 
+    List<Mascota> listarMascotasaPublicar(Usuario usuario);
 }

@@ -147,7 +147,13 @@
 
 
                             <div class="col-12 text-center mt-3">
-                                <a href="new-post.html" class="btn btn-secondary">Cancelar</a>
+                                <c:if test="${target eq 'publicacion'}">
+                                    <a href="${pageContext.request.contextPath}/publicacion/crear" class="btn btn-secondary">Cancelar</a>
+                                </c:if>
+                                <c:if test="${target eq 'perfil'}">
+                                    <a href="${pageContext.request.contextPath}/perfil/actividad/mismascotas" class="btn btn-secondary">Cancelar</a>
+                                </c:if>
+
                                 <button class="btn btn-primary" type="submit" control-id="ControlID-30">Guardar</button>
                             </div>
                         </form:form>

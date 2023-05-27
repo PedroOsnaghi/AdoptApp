@@ -3,8 +3,7 @@ package ar.edu.unlam.tallerweb1.domain.publicaciones;
 import ar.edu.unlam.tallerweb1.delivery.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioPublicacion;
-import ar.edu.unlam.tallerweb1.model.Publicacion;
-import ar.edu.unlam.tallerweb1.model.Usuario;
+import ar.edu.unlam.tallerweb1.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,11 +30,11 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
-    public Long  guardarPublicacion(PublicacionDto publicacionDto, Usuario usuario) {
+    public Long  guardarPublicacion(PublicacionDto publicacionDto) {
 
         if (!this.validarDatos(publicacionDto))
             return null;
-        return this.publicar(publicacionDto,usuario);
+        return this.publicar(publicacionDto);
     }
 
     private boolean validarDatos(PublicacionDto pd) {
@@ -51,8 +50,8 @@ public class ServicioPublicacion implements IServicioPublicacion{
         return true;
     }
 
-    private Long publicar(PublicacionDto publicacionDto, Usuario usuario) {
-        Publicacion pub = this.setearPublicacion(publicacionDto, usuario);
+    private Long publicar(PublicacionDto publicacionDto) {
+        Publicacion pub = this.setearPublicacion(publicacionDto);
 
         repositorioPublicacion.guardarPublicacion(pub);
 
@@ -62,17 +61,19 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
     }
 
-    private Publicacion setearPublicacion(PublicacionDto publicacionDto, Usuario user) {
+    private Publicacion setearPublicacion(PublicacionDto publicacionDto) {
         Publicacion p = new Publicacion();
         p.setBio(publicacionDto.getBio());
-        p.setMascota_id(publicacionDto.getMascota_id());
+        p.setMascota(new Mascota(publicacionDto.getMascota_id()));
         p.setDireccion(publicacionDto.getDireccion());
         p.setDisponibilidad(publicacionDto.getDisponibilidad());
         p.setLatitud(publicacionDto.getLatitud());
         p.setLongitud(publicacionDto.getLongitud());
         p.setDireccion(publicacionDto.getDireccion());
+        p.setProvincia(publicacionDto.getProvincia());
+        p.setCiudad(publicacionDto.getCiudad());
+
         p.setEstado("disponible");
-        p.setUsuario(user);
 
         return p;
     }
@@ -89,16 +90,52 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
     @Override
     public List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario) {
-        return repositorioPublicacion.listarPublicacionesPorUsuarioId(idUsuario);
+        return this.repositorioPublicacion.listarPublicacionesPorUsuarioId(idUsuario);
     }
 
     @Override
-    public List<Publicacion> listarPublicaciones() {
-        return repositorioPublicacion.listarPublicaciones();
+    public List<PublicacionMensajes> listarPublicacionesMensajesPorUsuarioId(Long idUsuario) {
+        return this.repositorioPublicacion.listarPublicacionesConMensajesPorUsuarioId(idUsuario);
+    }
+
+    @Override
+    public List<Publicacion_favorito> listarFavoritosDeUsuario(Long idUsuario) {
+        return this.repositorioPublicacion.ListarFavoritosDeUsuario(idUsuario);
+    }
+
+    @Override
+    public void agregarFavorito(Long idPublicacion, Usuario usuario) {
+
+        Publicacion p = new Publicacion();
+
+        p.setId(idPublicacion);
+
+        Publicacion_favorito pf = new Publicacion_favorito(usuario, p);
+
+        this.repositorioPublicacion.agregarFavorito(pf);
+
+    }
+
+    @Override
+    public void eliminarFavorito(Long idPublicacion, Usuario usuario) {
+        Publicacion p = new Publicacion();
+
+        p.setId(idPublicacion);
+
+        Publicacion_favorito pf = new Publicacion_favorito(usuario, p);
+
+        this.repositorioPublicacion.eliminarFavorito(pf);
+    }
+
+    @Override
+    public List<Publicacion> listarPublicacionesDisponibles() {
+        return repositorioPublicacion.listarPublicaciones("disponible");
     }
 
     @Override
     public String getErrorMessage(){
         return this.errorMessage;
     }
+
+
 }

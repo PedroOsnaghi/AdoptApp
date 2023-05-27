@@ -188,12 +188,14 @@
                      </div>
                   </div>
                </li>
+
+
                <li class="nav-item dropdown user-dropdown">
                   <a href="javascript:void(0);" class="d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
                      data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                      <img src="${pageContext.request.contextPath}/images/user/default.jpg" class="img-fluid rounded-circle me-3" alt="user" loading="lazy">
                      <div class="caption d-none d-lg-block">
-                        <h6 class="mb-0 line-height">${usuario.nombre}</h6>
+                        <h6 class="mb-0 line-height text-light">${usuario.nombre}</h6>
                      </div>
                   </a>
                   <!-- menu usuario -->

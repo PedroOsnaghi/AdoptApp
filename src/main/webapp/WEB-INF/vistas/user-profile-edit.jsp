@@ -56,7 +56,7 @@
 
                                                 <hr>
 
-                                                <form:form action="" id="" method="POST" modelAttribute=""
+                                                <form:form action="info/actualizar" id="" method="POST" modelAttribute="usuarioDto"
                                                            enctype="multipart/form-data">
 
                                                     <div class="row">
@@ -65,11 +65,11 @@
 
 
                                                                 <img class="avatar-130 img-fluid"
-                                                                     src="${pageContext.request.contextPath}/images/user/1.jpg"
+                                                                     src="${pageContext.request.contextPath}/images/user/${usuarioDto.imagen}"
                                                                      id="preview" alt="">
                                                                 <div class="material-symbols-outlined btn btn-primary btn-profile">
                                                                     photo_camera
-                                                                    <form:input path="imagen" name="archivoImagen"
+                                                                    <form:input path="avatar"
                                                                            id="file"
                                                                            type="file"
                                                                            class="form-control opacity-0"/>
@@ -82,9 +82,10 @@
                                                         <div class="form-group col-8">
                                                             <label class="form-label" for="fname">Tu
                                                                 presentacíon</label>
-                                                            <textarea class="form-control " name=""
+
+                                                            <form:textarea class="form-control " path="presentacion" value="${usuarioDto.presentacion}"
                                                                       placeholder="Escribí un texto de presentación que será visible en tu perfil por otros usuarios"
-                                                                      id="" rows="3"></textarea>
+                                                                      id="" rows="3"></form:textarea>
                                                         </div>
 
                                                     </div>
@@ -94,17 +95,17 @@
                                                         <div class="form-group col-6">
                                                             <label class="form-label" for="fname">Nombre y Apellido
                                                                 *</label>
-                                                            <form:input path="--" type="text" class="form-control" id="fname"
+                                                            <form:input path="nombre" type="text" class="form-control" id="fname"
                                                                    name="fname"
                                                                    placeholder="Escribí tu nombre completo"
-                                                                   value="Juan Daniel"
+                                                                   value="${usuarioDto.nombre}"
                                                                    required="required" control-id="ControlID-3"/>
                                                         </div>
                                                         <div class="form-group col-6">
                                                             <label class="form-label" for="dob">Fecha de nacimiento:
                                                                 *</label>
-                                                            <form:input path="--" type="date" class="form-control" id="dob"
-                                                                   name="dob"
+                                                            <form:input path="f_nac" type="date" class="form-control" id="dob"
+                                                                   value="${usuarioDto.f_nac}"
                                                                    control-id="ControlID-7"/>
                                                         </div>
                                                         <div class="col-12">
@@ -114,7 +115,7 @@
                                                         <div class="form-group col-6">
                                                             <label class="form-label" for="fname">Cuál es tu
                                                                 dirección?</label>
-                                                            <form:input path="--" type="text" class="form-control" id="fname"
+                                                            <input type="text" class="form-control" id="fname"
                                                                    name="fname"
                                                                    placeholder="Buscá tu domicilio aquí.."
                                                                    required="required"
@@ -127,21 +128,21 @@
 
                                                         <div class="col-6">
                                                             <label class="form-label" for="fname">Dirección</label>
-                                                            <form:input path="--" type="text" class="form-control" id="fname"
-                                                                   name="fname"
-                                                                   placeholder="Suipacha 110" readonly
+                                                            <form:input path="domicilio" type="text" class="form-control" id="fname"
+                                                                    value="${usuarioDto.domicilio}"
+                                                                   placeholder="Direccion.." readonly="true"
                                                                    required="required"
                                                                    control-id="ControlID-3"/>
                                                             <label class="form-label" for="fname">Ciudad</label>
-                                                            <form:input path="--" type="text" class="form-control" id="fname"
-                                                                   name="fname"
-                                                                   placeholder="Ramos Mejia" readonly
+                                                            <form:input path="ciudad" type="text" class="form-control" id="fname"
+                                                                        value="${usuarioDto.ciudad}"
+                                                                   placeholder="Ciudad.." readonly="true"
                                                                    required="required"
                                                                    control-id="ControlID-3"/>
                                                             <label class="form-label" for="fname">Provincia</label>
-                                                            <form:input path="--" type="text" class="form-control" id="fname"
-                                                                   name="fname"
-                                                                   placeholder="Buenos Aires" readonly
+                                                            <form:input path="provincia" type="text" class="form-control" id="fname"
+                                                                        value="${usuarioDto.provincia}"
+                                                                   placeholder="Provincia.." readonly="true"
                                                                    required="required"
                                                                    control-id="ControlID-3"/>
 

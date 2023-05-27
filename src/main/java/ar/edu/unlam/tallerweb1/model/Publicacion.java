@@ -1,9 +1,12 @@
 package ar.edu.unlam.tallerweb1.model;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.lang.*;
+import java.time.Instant;
+import java.util.*;
 
 @Entity
 public class Publicacion {
@@ -25,19 +28,28 @@ public class Publicacion {
     private String provincia;
     private String latitud;
     private String longitud;
-
     @Column(length = 255)
     private String disponibilidad;
-
     private String estado;
-    @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
-    private Long mascota_id;
-
+    @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
+    @JoinColumn(name = "mascota_id")
+    private Mascota mascota;
     @CreationTimestamp
     private Timestamp create_at;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "publicacion")
+    private List<Imagen> imagenes = new ArrayList<>();
+
+
+
+
+    public Publicacion(){}
+
+    @PrePersist
+    public void prePersist() {
+        Timestamp ts = Timestamp.from(Instant.now());
+        this.setCreate_at(ts);
+    }
 
     public Long getId() {
         return id;
@@ -103,12 +115,12 @@ public class Publicacion {
         this.disponibilidad = disponibilidad;
     }
 
-    public Long getMascota_id() {
-        return mascota_id;
+    public Mascota getMascota() {
+        return mascota;
     }
 
-    public void setMascota_id(Long mascota_id) {
-        this.mascota_id = mascota_id;
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
     }
 
     public String getEstado() {
@@ -119,14 +131,6 @@ public class Publicacion {
         this.estado = estado;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario autor) {
-        this.usuario = autor;
-    }
-
     public Timestamp getCreate_at() {
         return create_at;
     }
@@ -134,4 +138,14 @@ public class Publicacion {
     public void setCreate_at(Timestamp fechaCreacion) {
         this.create_at = fechaCreacion;
     }
+
+    public List<Imagen> getImagenes() {
+        return imagenes;
+    }
+
+    public void setImagenes(List<Imagen> imagenes) {
+        this.imagenes = imagenes;
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.model;
 
 import org.hibernate.annotations.Cascade;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,7 +13,7 @@ public class Mascota {
     private Long id;
 
     @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     private String nombre;
@@ -24,6 +25,14 @@ public class Mascota {
     private String personalidad;
     private String salud;
     private String foto;
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "mascota")
+    private Publicacion publicacion;
+
+    public Mascota(){}
+
+    public Mascota(Long id){
+        this.id = id;
+    }
 
 
     public Long getId() {
@@ -43,7 +52,7 @@ public class Mascota {
     }
 
     public String getNombre() {
-        return nombre;
+        return StringUtils.capitalize(nombre);
     }
 
     public void setNombre(String nombre) {
@@ -114,4 +123,11 @@ public class Mascota {
         this.foto = foto;
     }
 
+    public Publicacion getPublicacion() {
+        return publicacion;
+    }
+
+    public void setPublicacion(Publicacion publicacion) {
+        this.publicacion = publicacion;
+    }
 }
