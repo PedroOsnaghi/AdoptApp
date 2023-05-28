@@ -6,4 +6,6 @@ public interface IRepositorioUsuario {
 
     Usuario guardarUsuario(Usuario usuario);
     Usuario buscarUsuarioPorEmail(String email);
+
+    void actualizarDatos(Usuario usuario);
 }

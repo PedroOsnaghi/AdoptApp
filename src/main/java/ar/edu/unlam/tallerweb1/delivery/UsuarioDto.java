@@ -1,6 +1,10 @@
 package ar.edu.unlam.tallerweb1.delivery;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
-import java.sql.Date;
+
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 
 
 public class UsuarioDto {
@@ -9,18 +13,20 @@ public class UsuarioDto {
     private String nombre;
     private String email;
     private String password;
+    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date f_nac;
     private String domicilio;
     private String ciudad;
     private String provincia;
-    private Long lat;
-    private Long lng;
-    private String tel;
+    private String lat;
+    private String lng;
+
     private String imagen;
     private MultipartFile avatar;
     private String presentacion;
 
-    private boolean updated = false;
+
 
 
     public UsuarioDto() {
@@ -97,29 +103,22 @@ public class UsuarioDto {
         this.provincia = provincia;
     }
 
-    public Long getLat() {
+    public String getLat() {
         return lat;
     }
 
-    public void setLat(Long lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
 
-    public Long getLng() {
+    public String getLng() {
         return lng;
     }
 
-    public void setLng(Long lng) {
+    public void setLng(String lng) {
         this.lng = lng;
     }
 
-    public String getTel() {
-        return tel;
-    }
-
-    public void setTel(String tel) {
-        this.tel = tel;
-    }
 
     public String getImagen() {
         return imagen;
@@ -146,11 +145,5 @@ public class UsuarioDto {
     }
 
 
-    public boolean isUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(boolean updated) {
-        this.updated = updated;
-    }
 }

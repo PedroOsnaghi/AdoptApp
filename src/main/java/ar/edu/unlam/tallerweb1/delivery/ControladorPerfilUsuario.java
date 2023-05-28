@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -148,12 +149,15 @@ public class ControladorPerfilUsuario {
 
 
     @RequestMapping(value = "/info/actualizar", method = RequestMethod.POST)
-    public ModelAndView guardarDatos() {
-        ModelMap modelo = this.iniciarModel(null);
-      //  modelo.put("datos-usuario", new DatosLogin());
+    public ModelAndView guardarDatos(@ModelAttribute UsuarioDto usuarioDto) {
 
-      //  this.usuarioServicio.guardarDatos();
-        return new ModelAndView("editar-datos", modelo);
+        Usuario usuarioActualizado = this.servicioUsuario.actualizarDatos(usuarioDto, this.servicioAuth.getUsuarioAutenticado());
+
+        this.servicioAuth.setUsuarioAutenticado(usuarioActualizado);
+
+        ModelMap modelo = this.iniciarModel(null);
+
+        return new ModelAndView("user-profile-info", modelo);
     }
 
     private UsuarioDto setearDatos(Usuario usuario) {
