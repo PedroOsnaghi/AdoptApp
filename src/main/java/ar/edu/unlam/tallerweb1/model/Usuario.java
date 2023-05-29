@@ -27,6 +27,8 @@ public class Usuario {
     private String tel;
     private String imagen;
 
+    private String rol;
+
     @Column(length = 255)
     private String presentacion;
 
@@ -178,6 +180,14 @@ public class Usuario {
 
     public void setUpdated(boolean updated) {
         this.updated = updated;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     public List<Mascota> getMascotas() {
