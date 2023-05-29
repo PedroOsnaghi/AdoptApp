@@ -23,11 +23,11 @@
                             class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
                         <li class="text-center ps-3">
                             <h6>Publicados</h6>
-                            <p class="mb-0">${}</p>
+                            <p class="mb-0">0</p>
                         </li>
                         <li class="text-center ps-3">
                             <h6>Adoptados</h6>
-                            <p class="mb-0">2</p>
+                            <p class="mb-0">0</p>
                         </li>
 
                     </ul>
