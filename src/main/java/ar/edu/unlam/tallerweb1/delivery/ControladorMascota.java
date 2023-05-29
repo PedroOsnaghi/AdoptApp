@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.auth.IServicioSesion;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,28 +20,30 @@ import javax.servlet.http.HttpSession;
 public class ControladorMascota {
 
     private final IServicioAuth servicioAuth;
+    private final IServicioSesion servicioSesion;
 
     @Autowired
     private IServicioMascota servicioMascota;
     @Autowired
-    public ControladorMascota(IServicioMascota servicioMascota, IServicioAuth Auth)
+    public ControladorMascota(IServicioMascota servicioMascota, IServicioAuth Auth, IServicioSesion servicioSesion)
     {
         this.servicioMascota = servicioMascota;
         this.servicioAuth = Auth;
+        this.servicioSesion = servicioSesion;
     }
 
-    private ModelMap iniciarModel(HttpSession session) {
+    private ModelMap iniciarModel() {
         ModelMap m = new ModelMap();
         m.put("usuario", this.servicioAuth.getUsuarioAutenticado());
         return m;
     }
 
     @RequestMapping("/crear")
-    public ModelAndView crearMascota(@RequestParam(required = false) String target, HttpSession session) {
+    public ModelAndView crearMascota(@RequestParam(required = false) String target) {
 
-        ModelMap modelo = this.iniciarModel(session);
+        ModelMap modelo = this.iniciarModel();
 
-        session.setAttribute("target" ,target);
+        this.servicioSesion.setAtributoEnSesion("target" ,target);
 
         modelo.put("mascotaDto",new MascotaDto());
         modelo.put("target",target);
@@ -52,7 +55,9 @@ public class ControladorMascota {
     @RequestMapping(path = "/guardar", method=RequestMethod.POST)
     public ModelAndView guardarMascota(@ModelAttribute MascotaDto mascotaDto, HttpSession session, HttpServletRequest request) {
 
-        ModelMap model = this.iniciarModel(session);
+        String target = "";
+
+        ModelMap model = this.iniciarModel();
 
         Usuario usuario = this.servicioAuth.getUsuarioAutenticado();
 
@@ -63,7 +68,8 @@ public class ControladorMascota {
             return new ModelAndView("new-mascot",model);
         }
 
-            String target = (String) session.getAttribute("target");
+            if(this.servicioSesion.getAtributoDeSesion("target") != null ) target = (String) this.servicioSesion.getAtributoDeSesion("target");
+
 
             switch (target) {
                 case "publicacion":

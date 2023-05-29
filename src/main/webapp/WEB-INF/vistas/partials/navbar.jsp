@@ -212,7 +212,7 @@
                                  line_style
                               </span>
                               <div class="ms-3">
-                                 <a href="https://templates.iqonic.design/socialv/bs5/html/dist/app/profile.html"
+                                 <a href="${pageContext.request.contextPath}/perfil/actividad/posts"
                                     class="mb-0 h6">
                                     Mi Perfil
                                  </a>
@@ -224,7 +224,7 @@
                                  manage_accounts
                               </span>
                               <div class="ms-3">
-                                 <a href="https://templates.iqonic.design/socialv/bs5/html/dist/app/account-setting.html"
+                                 <a href="#"
                                     class="mb-0 h6">
                                     Configuracion de cuenta
                                  </a>
