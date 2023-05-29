@@ -50,7 +50,7 @@
                                                     <table class="table forum-table mb-0 rounded">
                                                         <thead class="bg-primary text-white">
                                                         <tr>
-                                                            <th>Publicac�on</th>
+                                                            <th>Publicacíon</th>
                                                             <th>Solicitudes</th>
                                                             <th>Preguntas</th>
                                                             <th>Estado</th>
