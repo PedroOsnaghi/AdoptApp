@@ -1,4 +1,5 @@
 package ar.edu.unlam.tallerweb1.delivery;
+import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
@@ -45,106 +46,150 @@ public class ControladorPerfilUsuario {
         return model;
     }
 
+
     @RequestMapping("/actividad/posts")
     public ModelAndView misPublicaciones(){
-        ModelMap model = this.iniciarModel("actividad");
 
-        model.put("seccion", "posts");
+        if(this.servicioAuth.getUsuarioAutenticado() != null) {
 
-        //TODO Implementar sevicio de Calificaciones
+            ModelMap model = this.iniciarModel("actividad");
 
-        //TODO implementar Listado de publicaciones del usuario
+            model.put("seccion", "posts");
 
-        return new ModelAndView("user-profile-activity-posts", model);
+            //TODO Implementar sevicio de Calificaciones
+
+            //TODO implementar Listado de publicaciones del usuario
+
+            return new ModelAndView("user-profile-activity-posts", model);
+        }else{
+            return new ModelAndView("redirect: /login");
+        }
     }
 
     @RequestMapping("/actividad/favoritos")
     public ModelAndView misFavoritos(){
-        ModelMap model = this.iniciarModel("actividad");
 
-        model.put("seccion", "favoritos");
+        if(this.servicioAuth.getUsuarioAutenticado() != null) {
 
-        //TODO Implementar sevicio de Calificaciones
+            ModelMap model = this.iniciarModel("actividad");
 
-        //TODO implementar Listado de favoritos de usuario
+            model.put("seccion", "favoritos");
 
-        return new ModelAndView("user-profile-activity-favorites", model);
+            //TODO Implementar sevicio de Calificaciones
+
+            //TODO implementar Listado de favoritos de usuario
+
+            return new ModelAndView("user-profile-activity-favorites", model);
+        }else{
+            return new ModelAndView("redirect: /login");
+        }
+
+
     }
 
     @RequestMapping("/actividad/solicitudes")
     public ModelAndView misSolicitudes(){
-        ModelMap model = this.iniciarModel("actividad");
+        if(this.servicioAuth.getUsuarioAutenticado() != null) {
 
-        model.put("seccion", "solicitudes");
+            ModelMap model = this.iniciarModel("actividad");
 
-        //TODO Implementar sevicio de Calificaciones
+            model.put("seccion", "solicitudes");
 
-        //TODO implementar Listado de mis solicitudes de adopcion
+            //TODO Implementar sevicio de Calificaciones
 
-        return new ModelAndView("user-profile-activity-solicitudes", model);
+            //TODO implementar Listado de mis solicitudes de adopcion
+
+            return new ModelAndView("user-profile-activity-solicitudes", model);
+        }else{
+            return new ModelAndView("redirect: /login");
+        }
+
     }
 
     @RequestMapping("/actividad/mismascotas")
     public ModelAndView misMascotas(){
-        ModelMap model = this.iniciarModel("actividad");
+        if(this.servicioAuth.getUsuarioAutenticado() != null) {
+
+            ModelMap model = this.iniciarModel("actividad");
 
 
-        model.put("seccion", "mascotas");
+            model.put("seccion", "mascotas");
 
-        //TODO Implementar sevicio de Calificaciones
+            //TODO Implementar sevicio de Calificaciones
 
-        //TODO implementar Listado de mis mascotas
+            //TODO implementar Listado de mis mascotas
 
-        return new ModelAndView("user-profile-activity-mascot", model);
+            return new ModelAndView("user-profile-activity-mascot", model);
+        }else{
+            return new ModelAndView("redirect: /login");
+        }
+
     }
 
     @RequestMapping("/info")
     public ModelAndView infoUsuario(){
-        ModelMap model = this.iniciarModel("info");
+        if(this.servicioAuth.getUsuarioAutenticado() != null) {
 
-        //TODO enviar datos del usuario a la vista
+            ModelMap model = this.iniciarModel("info");
 
-        return new ModelAndView("user-profile-info", model);
+            //TODO enviar datos del usuario a la vista
+
+            return new ModelAndView("user-profile-info", model);
+        }else{
+            return new ModelAndView("redirect: /login");
+        }
+
     }
 
     @RequestMapping("/solicitud")
     public ModelAndView solicitudesUsuario(){
-        ModelMap model = this.iniciarModel("solicitud");
+        if(this.servicioAuth.getUsuarioAutenticado() != null) {
+            ModelMap model = this.iniciarModel("solicitud");
 
-        //TODO mostrar solicitudes de adopcion
+            //TODO mostrar solicitudes de adopcion
 
-        return new ModelAndView("user-profile-request", model);
+            return new ModelAndView("user-profile-request", model);
+
+        }else{
+            return new ModelAndView("redirect: /login");
+        }
+
     }
 
     @RequestMapping("/mensajes")
     public ModelAndView verMensajes(@RequestParam(required = false) Long pid, String response){
-        ModelMap model = this.iniciarModel("mensajes");
+        if(this.servicioAuth.getUsuarioAutenticado() != null) {
 
+            ModelMap model = this.iniciarModel("mensajes");
+            model.put("publicaciones", this.servicioPublicacion.listarPublicacionesMensajesPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
+            model.put("mensajes_nuevos", this.servicioMensajes.listarMensajesSinResponder(pid));
+            model.put("mensajes_respondidos", this.servicioMensajes.listarMensajesRespondidos(pid));
+            model.put("selected_pub", pid);
+            model.put("mensajeDto", new MensajeDto());
+            model.put("response", response);
+            return new ModelAndView("user-profile-messages", model);
+        }else{
+            return new ModelAndView("redirect: /login");
+        }
 
-        model.put("publicaciones", this.servicioPublicacion.listarPublicacionesMensajesPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
-        model.put("mensajes_nuevos", this.servicioMensajes.listarMensajesSinResponder(pid));
-        model.put("mensajes_respondidos", this.servicioMensajes.listarMensajesRespondidos(pid));
-        model.put("selected_pub", pid);
-        model.put("mensajeDto", new MensajeDto());
-        model.put("response", response);
-
-
-
-
-
-        return new ModelAndView("user-profile-messages", model);
     }
 
 
     @RequestMapping("/info/editar")
     public ModelAndView irAEditarDatos(HttpSession session) {
-        ModelMap model = this.iniciarModel("info");
+        if(this.servicioAuth.getUsuarioAutenticado() != null) {
 
-        UsuarioDto usuarioDto = this.setearDatos(this.servicioAuth.getUsuarioAutenticado());
+            ModelMap model = this.iniciarModel("info");
 
-        model.put("usuarioDto", usuarioDto);
+            UsuarioDto usuarioDto = this.setearDatos(this.servicioAuth.getUsuarioAutenticado());
 
-        return new ModelAndView("user-profile-edit", model);
+            model.put("usuarioDto", usuarioDto);
+
+            return new ModelAndView("user-profile-edit", model);
+        }else{
+            return new ModelAndView("redirect: /login");
+        }
+
     }
 
 

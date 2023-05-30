@@ -21,18 +21,13 @@ public class ServicioUsuario implements IServicioUsuario {
 
     @Override
     public Usuario buscarUsuarioPorEmail(String email){
-
         return this.repositorioUsuario.buscarUsuarioPorEmail(email);
-
     }
 
     @Override
     public Usuario crearUsuario(String nombre, String email, String password) {
-
         Usuario usuario = new Usuario(nombre, email, password);
-
         return repositorioUsuario.guardarUsuario(usuario);
-
     }
 
     @Override
@@ -50,10 +45,9 @@ public class ServicioUsuario implements IServicioUsuario {
         user.setProvincia(uDto.getProvincia());
         user.setLat(uDto.getLat());
         user.setLng(uDto.getLng());
-        String nombreArchivo = this.servicioArchivo.subirAvatarUsuario(uDto.getAvatar());
+        String nombreArchivo = this.servicioArchivo.cambiarAvatarUsuario(uDto.getAvatar(), user.getImagen());
         user.setImagen(nombreArchivo);
         user.setPresentacion(uDto.getPresentacion());
-
         return user;
 
     }

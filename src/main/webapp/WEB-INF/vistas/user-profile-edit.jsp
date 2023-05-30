@@ -104,7 +104,7 @@
                                                             <label class="form-label" for="dob">Fecha de nacimiento:
                                                                 *</label>
                                                             <form:input path="f_nac" type="date" class="form-control" id="dob"
-                                                                   value="${usuarioDto.f_nac}"/>
+                                                                   value="${usuarioDto.f_nac}" />
                                                         </div>
                                                         <div class="col-12">
                                                             <h5>Domicilio</h5>
