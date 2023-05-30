@@ -27,9 +27,9 @@ public class RepositorioArchivo implements IRepositorioArchivo {
     }
 
     @Override
-    public Imagen obtenerImagen(Long idImagen){
+    public Imagen obtenerImagen(String fileName){
         return (Imagen) this.sessionFactory.getCurrentSession().createCriteria(Imagen.class)
-                .add(Restrictions.eq("id", idImagen)).uniqueResult();
+                .add(Restrictions.eq("nombre", fileName)).uniqueResult();
     }
 
 

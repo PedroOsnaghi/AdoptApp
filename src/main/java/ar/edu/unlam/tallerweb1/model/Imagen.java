@@ -1,17 +1,22 @@
 package ar.edu.unlam.tallerweb1.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Imagen {
+@IdClass(Imagen.class)
+public class Imagen implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    @Id
+    private String nombre;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publicacion_id")
     private Publicacion publicacion;
-    private String nombre;
+
 
     public Imagen(){}
 

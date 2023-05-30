@@ -76,8 +76,8 @@ public class ServicioArchivo implements IServicioArchivo {
        return this.verificarAvatar(file,oldFile,"mascota");
     }
 
-    public boolean eliminarImagenPost(Long idImagen){
-        Imagen img = this.repositorioArchivo.obtenerImagen(idImagen);
+    public boolean eliminarImagenPost(String imagen){
+        Imagen img = this.repositorioArchivo.obtenerImagen(imagen);
         if(this.eliminarArchivo(img.getNombre(), "posts")){
 
             this.repositorioArchivo.eliminarImagen(img);

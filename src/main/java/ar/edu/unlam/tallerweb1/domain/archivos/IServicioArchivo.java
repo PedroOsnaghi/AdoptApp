@@ -13,5 +13,5 @@ public interface IServicioArchivo {
 
     int subirImagenesPost(MultipartFile[] files, Publicacion post);
 
-    boolean eliminarImagenPost(Long idImagen);
+    boolean eliminarImagenPost(String fileName);
 }

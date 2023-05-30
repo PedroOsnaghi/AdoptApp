@@ -55,10 +55,10 @@ public class ControladorArchivo {
         return new ModelAndView("test-file", model);
     }
 
-    @RequestMapping(path = "/eliminar/fileid/{id}", method = RequestMethod.GET)
-    public ModelAndView eliminar(@PathVariable Long id){
+    @RequestMapping(path = "/eliminar", method = RequestMethod.GET)
+    public ModelAndView eliminar(@RequestParam String fileName){
 
-        this.servicioArchivo.eliminarImagenPost(id);
+        this.servicioArchivo.eliminarImagenPost(fileName);
         return new ModelAndView("redirect: /archivo/test");
     }
 
