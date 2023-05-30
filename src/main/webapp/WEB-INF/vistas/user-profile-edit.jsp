@@ -33,7 +33,7 @@
                                             <li>
                                                 <a class="nav-link active" href="#v-pills-basicinfo-tab"
                                                    data-bs-toggle="pill"
-                                                   data-bs-target="#v-pills-basicinfo-tab" role="button">Información
+                                                   data-bs-target="#v-pills-basicinfo-tab" role="button">Informaci?n
                                                     Personal
                                                 </a>
                                             </li>
@@ -50,7 +50,7 @@
                                                  role="tabpanel"
                                                  aria-labelledby="v-pills-basicinfo-tab">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <h4>Información Personal</h4>
+                                                    <h4>Informaci?n Personal</h4>
 
                                                 </div>
 
@@ -60,7 +60,7 @@
                                                            enctype="multipart/form-data">
 
                                                     <div class="row">
-                                                        <div class="col-4">
+                                                        <div class="col-4 col-sm-5">
                                                             <div class="profile-img ms-2">
 
 
@@ -79,12 +79,12 @@
 
                                                         </div>
 
-                                                        <div class="form-group col-8">
+                                                        <div class="form-group col-8 col-sm-7">
                                                             <label class="form-label" for="fname">Tu
-                                                                presentacíon</label>
+                                                                presentac?on</label>
 
                                                             <form:textarea class="form-control " path="presentacion" value="${usuarioDto.presentacion}"
-                                                                      placeholder="Escribí un texto de presentación que será visible en tu perfil por otros usuarios"
+                                                                      placeholder="Escribí un texto de presentaci?n que ser? visible en tu perfil por otros usuarios"
                                                                       id="" rows="3"></form:textarea>
                                                         </div>
 
@@ -96,7 +96,7 @@
                                                             <label class="form-label" for="fname">Nombre y Apellido
                                                                 *</label>
                                                             <form:input path="nombre" type="text" class="form-control" id="fname"
-                                                                   placeholder="Escribí tu nombre completo"
+                                                                   placeholder="Escrib? tu nombre completo"
                                                                    value="${usuarioDto.nombre}"
                                                                    required="required" control-id="ControlID-3"/>
                                                         </div>
@@ -140,7 +140,7 @@
                                                             <button type="button" class="btn btn-primary"
                                                                     data-bs-toggle="modal" data-bs-target="#agregar-direccion"
                                                                     control-id="ControlID-4">
-                                                                Agregar Dirección
+                                                                Agregar Direcci?n
                                                             </button>
                                                         </div>
                                                         <div class="d-flex align-items-center justify-content-end w-100 col-12">
@@ -180,13 +180,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 
                 </button>
-                <h4 class="modal-title" id="exampleModalScrollableTitle">Agrega una dirección</h4>
+                <h4 class="modal-title" id="exampleModalScrollableTitle">Agrega una direcci?n</h4>
                 <p>Escribe la dirección que deseas agregar.</p>
 
             </div>
             <div class="modal-body">
                 <input  type="text" class="form-control"  id="pac-input"
-                        placeholder="Escribe tu dirección..." />
+                        placeholder="Escribe tu direcci?n..." />
 
                 <div class="w-100 d-block mt-2" style="height: 200px;" id="map">
 
