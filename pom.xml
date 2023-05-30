@@ -5,11 +5,7 @@
 	<artifactId>proyecto-limpio-spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-
-
 	<build>
-
-
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -27,19 +23,12 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.5.1</version>
-
 				<configuration>
 					<source>11</source>
 					<target>11</target>
-
 				</configuration>
-
-
 			</plugin>
-
 		</plugins>
-
-
 	</build>
 	<properties>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
@@ -53,10 +42,17 @@
 		</dependency>
 		<dependency>
 			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>2.23.4</version>
+			<scope>test</scope>
+		</dependency>
+		<!--
+		<dependency>
+			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>1.10.19</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>-->
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
