@@ -5,7 +5,10 @@
 	<artifactId>proyecto-limpio-spring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
+
 	<build>
+
+
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -31,12 +34,16 @@
 				</configuration>
 
 
+				<sourceEncoding>ISO-8895-1</sourceEncoding>
 			</plugin>
 
 		</plugins>
 
-	</build>
 
+	</build>
+	<properties>
+		<project.reporting.outputEncoding>ISO-8895-1</project.reporting.outputEncoding>
+	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
@@ -207,8 +214,5 @@
 		</dependency>
 
 	</dependencies>
-	<properties>
-		<project.build.sourceEncoding>ISO-8895-1</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>ISO-8895-1</project.reporting.outputEncoding>
-	</properties>
+
 </project>
