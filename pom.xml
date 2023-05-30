@@ -6,6 +6,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
+
 	<build>
 
 
@@ -34,7 +35,6 @@
 				</configuration>
 
 
-				<sourceEncoding>ISO-8895-1</sourceEncoding>
 			</plugin>
 
 		</plugins>
@@ -42,7 +42,7 @@
 
 	</build>
 	<properties>
-		<project.reporting.outputEncoding>ISO-8895-1</project.reporting.outputEncoding>
+		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
 		<dependency>
