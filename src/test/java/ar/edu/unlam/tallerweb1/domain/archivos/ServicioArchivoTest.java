@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.domain.config.FileResolver;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioArchivo;
 import ar.edu.unlam.tallerweb1.model.Imagen;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
+import org.apache.commons.io.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockMultipartFile;
@@ -51,6 +52,7 @@ public class ServicioArchivoTest {
         MultipartFile multipartFile = dadoQueExisteUnArchivoParaSerSubidoAlServidor();
         String archivo = alGuardarloEnelServidor(multipartFile,"user");
         podemosAccederlaPorSuNombre(archivo, "user");
+        this.fileRollBack("user");
     }
 
     @Test
@@ -58,6 +60,7 @@ public class ServicioArchivoTest {
         MultipartFile multipartFile = dadoQueExisteUnArchivoParaSerSubidoAlServidor();
         String archivo = alGuardarloEnelServidor( multipartFile,"mascota");
         podemosAccederlaPorSuNombre(archivo, "mascota");
+        this.fileRollBack("mascota");
     }
 
     @Test
@@ -79,6 +82,7 @@ public class ServicioArchivoTest {
         MultipartFile[] files = dadoQueHayVariosArchivosParaSubir();
         int cantidad = alGuardarLosArchivosEnElSrvidor(files);
         podemosSaberCuantosSeSubieron(cantidad);
+        this.fileRollBack("posts");
     }
 
     @Test
@@ -110,7 +114,7 @@ public class ServicioArchivoTest {
         MultipartFile multipartFile = dadoQueExisteUnArchivoParaSerSubidoAlServidor();
         String archivo = alVerificarEnElServidor(multipartFile, "mascota");
         podemosAccederlaPorSuNombre(archivo, "mascota");
-
+        this.fileRollBack("mascota");
     }
 
     @Test
@@ -118,7 +122,7 @@ public class ServicioArchivoTest {
         MultipartFile multipartFile = dadoQueExisteUnArchivoParaSerSubidoAlServidor();
         String archivo = alVerificarEnElServidor(multipartFile, "user");
         podemosAccederlaPorSuNombre(archivo, "user");
-
+        this.fileRollBack("user");
     }
 
 
@@ -240,4 +244,10 @@ public class ServicioArchivoTest {
         when(cfg.getImageFolder()).thenReturn(path_upload);
         return multipartFile;
     }
+
+    private void fileRollBack(String folder) throws IOException {
+        File directory = new File(path_upload + File.separator + folder);
+        FileUtils.cleanDirectory(directory);
+    }
+
 }
