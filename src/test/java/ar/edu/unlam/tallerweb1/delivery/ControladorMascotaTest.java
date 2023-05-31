@@ -65,10 +65,7 @@ public class ControladorMascotaTest {
 
 
         String target = "publicacion";
-        when(session.getAttribute("target")).thenReturn(target);
         when(servicioMascota.guardar(mascotadto,this.userAuth)).thenReturn(null);
-
-
 
         return mascotadto;
     }
@@ -79,12 +76,9 @@ public class ControladorMascotaTest {
         MascotaDto mascotadto = new MascotaDto();
 
         String target = "perfil";
-        when(session.getAttribute("target")).thenReturn(target);
-
-
+        when(request.getAttribute("target")).thenReturn(target);
 
         return mascotadto;
-
     }
 
     private ModelAndView cuandoIngresoLaMascota(MascotaDto mascotadto) {

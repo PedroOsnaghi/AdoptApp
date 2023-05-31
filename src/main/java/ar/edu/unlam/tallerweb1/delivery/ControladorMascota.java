@@ -24,9 +24,9 @@ public class ControladorMascota {
 
     @Autowired
     private IServicioMascota servicioMascota;
+
     @Autowired
-    public ControladorMascota(IServicioMascota servicioMascota, IServicioAuth Auth, IServicioSesion servicioSesion)
-    {
+    public ControladorMascota(IServicioMascota servicioMascota, IServicioAuth Auth, IServicioSesion servicioSesion) {
         this.servicioMascota = servicioMascota;
         this.servicioAuth = Auth;
         this.servicioSesion = servicioSesion;
@@ -43,16 +43,16 @@ public class ControladorMascota {
 
         ModelMap modelo = this.iniciarModel();
 
-        this.servicioSesion.setAtributoEnSesion("target" ,target);
+        this.servicioSesion.setAtributoEnSesion("target", target);
 
-        modelo.put("mascotaDto",new MascotaDto());
-        modelo.put("target",target);
+        modelo.put("mascotaDto", new MascotaDto());
+        modelo.put("target", target);
 
         return new ModelAndView("new-mascot", modelo);
     }
 
 
-    @RequestMapping(path = "/guardar", method=RequestMethod.POST)
+    @RequestMapping(path = "/guardar", method = RequestMethod.POST)
     public ModelAndView guardarMascota(@ModelAttribute MascotaDto mascotaDto, HttpSession session, HttpServletRequest request) {
 
         String target = "";
@@ -63,25 +63,25 @@ public class ControladorMascota {
 
         Long p_id = this.servicioMascota.guardar(mascotaDto, usuario);
 
-        if(p_id == null) {
+        if (p_id == null) {
             model.put("error", this.servicioMascota.getErrorMessage());
-            return new ModelAndView("new-mascot",model);
+            return new ModelAndView("new-mascot", model);
         }
 
-            if(this.servicioSesion.getAtributoDeSesion("target") != null ) target = (String) this.servicioSesion.getAtributoDeSesion("target");
+        if (request.getAttribute("target") != null)
+            target = (String) request.getAttribute("target");
 
+        switch (target) {
+            case "publicacion":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/crear");
 
-            switch (target) {
-                case "publicacion":
-                    return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/crear");
+            case "perfil":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/actividad/mascotas");
 
-                case "perfil":
-                    return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/actividad/mascotas");
+            default:
+                return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed");
 
-                default:
-                    return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed");
-
-            }
+        }
 
 
     }
