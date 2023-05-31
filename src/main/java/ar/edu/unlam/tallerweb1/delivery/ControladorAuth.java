@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.delivery.dto.LoginDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.RegistrarDto;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioSesion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.IServicioUsuario;
@@ -9,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 public class ControladorAuth {

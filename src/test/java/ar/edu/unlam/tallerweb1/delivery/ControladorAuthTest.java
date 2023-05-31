@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.delivery.dto.LoginDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.RegistrarDto;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioSesion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
@@ -16,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -60,7 +61,7 @@ public class ControladorAuthTest {
         //when(servicioAuth.validarCredenciales(usuario, loginDto.getPassword())).thenReturn(false);
 
         ModelMap modelEsperado = new ModelMap();
-        modelEsperado.put("error", "Usuario y/o contraseña invalido");
+        modelEsperado.put("error", "Usuario y/o contraseï¿½a invalido");
 
         ModelAndView modelAndViewObtenido = controladorAuth.login(loginDto);
 
@@ -112,7 +113,7 @@ public class ControladorAuthTest {
         registrarDto.setPassword2("password2");
 
         ModelMap modelEsperado = new ModelMap();
-        modelEsperado.put("error", "Las contraseñas no coinciden");
+        modelEsperado.put("error", "Las contraseï¿½as no coinciden");
 
         ModelAndView modelAndViewObtenido = controladorAuth.registrar(registrarDto);
         String vistaObtenida = modelAndViewObtenido.getViewName();

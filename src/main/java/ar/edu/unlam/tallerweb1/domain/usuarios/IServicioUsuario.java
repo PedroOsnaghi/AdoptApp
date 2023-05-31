@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.usuarios;
 
-import ar.edu.unlam.tallerweb1.delivery.UsuarioDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.UsuarioDto;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 
 public interface IServicioUsuario {
