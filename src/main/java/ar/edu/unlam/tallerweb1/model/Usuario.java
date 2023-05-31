@@ -4,7 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +22,12 @@ public class Usuario {
     private String domicilio;
     private String ciudad;
     private String provincia;
-    private Long lat;
-    private Long lng;
+    private String lat;
+    private String lng;
     private String tel;
     private String imagen;
+
+    private String rol;
 
     @Column(length = 255)
     private String presentacion;
@@ -116,19 +118,19 @@ public class Usuario {
         this.provincia = provincia;
     }
 
-    public Long getLat() {
+    public String getLat() {
         return lat;
     }
 
-    public void setLat(Long lat) {
+    public void setLat(String lat) {
         this.lat = lat;
     }
 
-    public Long getLng() {
+    public String getLng() {
         return lng;
     }
 
-    public void setLng(Long lng) {
+    public void setLng(String lng) {
         this.lng = lng;
     }
 
@@ -178,6 +180,14 @@ public class Usuario {
 
     public void setUpdated(boolean updated) {
         this.updated = updated;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     public List<Mascota> getMascotas() {

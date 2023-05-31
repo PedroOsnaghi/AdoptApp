@@ -1,4 +1,4 @@
-package ar.edu.unlam.tallerweb1.delivery;
+package ar.edu.unlam.tallerweb1.delivery.dto;
 
 public class RegistrarDto {
     String nombre;

@@ -29,5 +29,10 @@ public class RepositorioUsuario implements IRepositorioUsuario {
                 .uniqueResult();
     }
 
+    @Override
+    public void actualizarDatos(Usuario usuario) {
+        this.sessionFactory.getCurrentSession().update(usuario);
+    }
+
 
 }

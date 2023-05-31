@@ -26,8 +26,12 @@
 	<context:component-scan base-package="ar.edu.unlam.tallerweb1.delivery" />
 	<context:component-scan base-package="ar.edu.unlam.tallerweb1.infrastructure" />
 	<context:component-scan base-package="ar.edu.unlam.tallerweb1.domain" />
+	<context:component-scan base-package="ar.edu.unlam.tallerweb1.interceptors" />
+	<context:component-scan base-package="ar.edu.unlam.tallerweb1.annotations" />
 
-	
+	<mvc:interceptors>
+		<bean class="ar.edu.unlam.tallerweb1.interceptors.InterceptorAuth"/>
+	</mvc:interceptors>
 
 </beans>
 

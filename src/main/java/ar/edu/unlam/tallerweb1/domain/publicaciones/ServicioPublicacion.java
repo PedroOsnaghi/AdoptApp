@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.publicaciones;
 
-import ar.edu.unlam.tallerweb1.delivery.PublicacionDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.model.*;

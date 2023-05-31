@@ -1,5 +1,5 @@
 package ar.edu.unlam.tallerweb1.domain.mascota;
-import ar.edu.unlam.tallerweb1.delivery.MascotaDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;

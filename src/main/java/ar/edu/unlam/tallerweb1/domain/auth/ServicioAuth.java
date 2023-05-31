@@ -10,31 +10,23 @@ import java.util.Base64;
 
 @Service
 public class ServicioAuth implements IServicioAuth {
-
-
-    private  HttpSession session;
+    private final IServicioSesion servicioSesion;
     IRepositorioUsuario repositorioUsuario;
 
     @Autowired
-    public  ServicioAuth(IRepositorioUsuario repositorioUsuario, HttpSession session){
-       this.repositorioUsuario = repositorioUsuario;
-       this.session = session;
-   }
+    public ServicioAuth(IRepositorioUsuario repositorioUsuario, IServicioSesion servicioSesion) {
+        this.repositorioUsuario = repositorioUsuario;
+        this.servicioSesion = servicioSesion;
+    }
 
     @Override
-    public boolean validarCredenciales(String email, String password) {
+    public boolean validarCredenciales(Usuario usuario, String password) {
 
-        Usuario usuario = repositorioUsuario.buscarUsuarioPorEmail(email);
-
-        if(usuario != null){
+        if (usuario != null) {
             boolean passwordCorrecta = validarPasswordHasheada(password, usuario.getPassword());
-
             return passwordCorrecta;
         }
-
         return false;
-
-
     }
 
     @Override
@@ -52,33 +44,21 @@ public class ServicioAuth implements IServicioAuth {
         return _passwordHasheada.equals(passwordHasheada);
     }
 
-    public void eliminarSesion() {
-        session.invalidate();
-    }
-
     public void setUsuarioAutenticado(Usuario usuario) {
-        session.setAttribute("usuarioAutenticado", usuario);
+        servicioSesion.setAtributoEnSesion("usuarioAutenticado", usuario);
     }
 
     public Usuario getUsuarioAutenticado() {
-        return (Usuario) session.getAttribute("usuarioAutenticado");
-    }
-
-    @Override
-    public void setTiempoSesion(int tiempo) {
-        session.setMaxInactiveInterval(tiempo);
+        return (Usuario) servicioSesion.getAtributoDeSesion("usuarioAutenticado");
     }
 
     public boolean usuarioLoggeado() {
-        return session.getAttribute("usuarioAutenticado") != null;
+        return servicioSesion.getAtributoDeSesion("usuarioAutenticado") != null;
     }
 
-    public void guardarAtributoEnSesion(String clave, Object valor) {
-        session.setAttribute(clave, valor);
-    }
-
-    public Object getAtributoDeSesion(String clave) {
-        return session.getAttribute(clave);
+    public boolean usuarioEsRol(String rol) {
+    	Usuario usuario = getUsuarioAutenticado();
+    	return usuario.getRol().equals(rol);
     }
 
 

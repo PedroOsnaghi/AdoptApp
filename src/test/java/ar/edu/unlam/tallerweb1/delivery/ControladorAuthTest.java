@@ -1,6 +1,9 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.delivery.dto.LoginDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.RegistrarDto;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.auth.ServicioSesion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioUsuario;
@@ -15,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -25,12 +28,14 @@ public class ControladorAuthTest {
     private HttpSession session;
     @Mock
     ServicioAuth servicioAuth;
-
     @Mock
     ServicioUsuario servicioUsuario;
 
     @Mock
     RepositorioUsuario repositorioUsuario;
+
+    @Mock
+    ServicioSesion servicioSesion;
 
     @InjectMocks
     ControladorAuth controladorAuth;
@@ -50,12 +55,15 @@ public class ControladorAuthTest {
         loginDto.setEmail("john@email.com");
         loginDto.setPassword("password");
 
-        when(servicioAuth.validarCredenciales(loginDto.getEmail(), loginDto.getPassword())).thenReturn(false);
+        Usuario usuario = new Usuario();
+        usuario.setEmail("emailMalo");
+
+        //when(servicioAuth.validarCredenciales(usuario, loginDto.getPassword())).thenReturn(false);
 
         ModelMap modelEsperado = new ModelMap();
-        modelEsperado.put("error", "Credenciales invalidas");
+        modelEsperado.put("error", "Usuario y/o contraseña invalido");
 
-        ModelAndView modelAndViewObtenido = controladorAuth.login(loginDto, session);
+        ModelAndView modelAndViewObtenido = controladorAuth.login(loginDto);
 
         String vistaObtenida = modelAndViewObtenido.getViewName();
         ModelMap modelObtenido = modelAndViewObtenido.getModelMap();
@@ -66,29 +74,25 @@ public class ControladorAuthTest {
 
     @Test
     public void login_deberiaRetornarModelAndViewConRedirectAHomeCuandoCredencialesSonValidas() {
-        String nombre = "john doe";
-        String email = "john@email.com";
-        String password = "password";
-        Usuario usuario = new Usuario(nombre, email, password);
-
+        Usuario usuario = new Usuario();
         LoginDto loginDto = new LoginDto();
 
-        loginDto.setEmail("john@email.com");
+        loginDto.setEmail("email");
         loginDto.setPassword("password");
 
-        when(servicioAuth.validarCredenciales(loginDto.getEmail(), loginDto.getPassword())).thenReturn(true);
-        when(repositorioUsuario.buscarUsuarioPorEmail(email)).thenReturn(usuario);
+        when(servicioUsuario.buscarUsuarioPorEmail(loginDto.getEmail())).thenReturn(usuario);
+        when(servicioAuth.validarCredenciales(eq(usuario), eq(loginDto.getPassword()))).thenReturn(true);
 
-        //MockHttpSession inyecta una sesion falsa para que el metodo login no retorne null
-        ModelAndView modelAndViewObtenido = controladorAuth.login(loginDto, session);
+        ModelAndView modelAndViewObtenido = controladorAuth.login(loginDto);
 
         String vistaObtenida = modelAndViewObtenido.getViewName();
-        assertEquals("redirect:/home", vistaObtenida);
+        assertEquals("redirect:/home/", vistaObtenida);
     }
+
 
     @Test
     public void cerrarSesion_deberiaRetornarModelAndViewConRedirectALogin() {
-        ModelAndView modelAndViewObtenido = controladorAuth.cerrarSesion(session);
+        ModelAndView modelAndViewObtenido = controladorAuth.cerrarSesion();
 
         assertEquals("redirect:/login", modelAndViewObtenido.getViewName());
     }
@@ -97,7 +101,7 @@ public class ControladorAuthTest {
     public void renderRegistrar_deberiaRetornarModelAndViewConVistaRegister() {
         ModelAndView modelAndViewObtenido = controladorAuth.renderRegistrar();
 
-        assertEquals("register-sin-etiquetas", modelAndViewObtenido.getViewName());
+        assertEquals("register", modelAndViewObtenido.getViewName());
     }
 
     @Test
@@ -109,13 +113,13 @@ public class ControladorAuthTest {
         registrarDto.setPassword2("password2");
 
         ModelMap modelEsperado = new ModelMap();
-        modelEsperado.put("error", "Passwords no coinciden");
+        modelEsperado.put("error", "Las contraseñas no coinciden");
 
         ModelAndView modelAndViewObtenido = controladorAuth.registrar(registrarDto);
         String vistaObtenida = modelAndViewObtenido.getViewName();
         ModelMap modelObtenido = modelAndViewObtenido.getModelMap();
 
-        assertEquals("/register-sin-etiquetas", vistaObtenida);
+        assertEquals("/register", vistaObtenida);
         assertEquals(modelEsperado, modelObtenido);
     }
 
@@ -127,7 +131,7 @@ public class ControladorAuthTest {
         registrarDto.setPassword("password");
         registrarDto.setPassword2("password");
 
-        when(servicioUsuario.crearUsuario(anyString(), anyString(), anyString())).thenReturn(null);
+        //when(servicioUsuario.crearUsuario(anyString(), anyString(), anyString())).thenReturn(null);
 
         ModelMap modelEsperado = new ModelMap();
         modelEsperado.put("error", "Error al crear usuario");
@@ -136,7 +140,7 @@ public class ControladorAuthTest {
         String vistaObtenida = modelAndViewObtenido.getViewName();
         ModelMap modelObtenido = modelAndViewObtenido.getModelMap();
 
-        assertEquals("/register-sin-etiquetas", vistaObtenida);
+        assertEquals("/register", vistaObtenida);
         assertEquals(modelEsperado, modelObtenido);
     }
 }

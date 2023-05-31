@@ -1,8 +1,11 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
 
+import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
+import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
+import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
-import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,18 +23,25 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ControladorPublicacionTest {
     @Mock
-    private ServicioPublicacion servicioPublicacion;
+     ServicioPublicacion servicioPublicacion;
 
     @Mock
-    HttpSession session;
+     IServicioAuth servicioAuth;
 
     @Mock
-    HttpServletRequest request;
+     IServicioMascota servicioMascota;
+
+    @Mock
+     IServicioMensajes servicioMensaje;
+
+    @Mock
+     HttpSession session;
+
+    @Mock
+     HttpServletRequest request;
 
     @InjectMocks
     ControladorPublicacion controladorPublicacion;
-
-
 
     @Test
     public void testAlGuardarPublicacion() {
@@ -47,14 +57,7 @@ public class ControladorPublicacionTest {
 
         publicacionDto.setBio("Esto es un Test de publicacion");
 
-        Usuario usuario = new Usuario("juani","juani@aa","1234");
-
-
-
-        when(session.getAttribute("usuarioAutenticado")).thenReturn(usuario);
-
-
-        return publicacionDto;
+       return publicacionDto;
     }
     private ModelAndView cuandoQuieroGuardarPublicacion(PublicacionDto publicacionDto) {
 
@@ -68,7 +71,8 @@ public class ControladorPublicacionTest {
     }
 
 
-    private static void entoncesMeDevuelveLaVistaCorrecta(ModelAndView vista) {
-        assertThat(vista.getViewName()).isEqualTo("index-feed");
+    private void entoncesMeDevuelveLaVistaCorrecta(ModelAndView vista) {
+        String vistaEsperada = "redirect: " + this.request.getContextPath() + "/home/mispublicaciones?pid=0" ;
+        assertThat(vista.getViewName()).isEqualTo(vistaEsperada);
     }
 }

@@ -3,15 +3,17 @@ package ar.edu.unlam.tallerweb1.model;
 import javax.persistence.*;
 
 @Entity
-public class Imagen {
+public class Imagen  {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
+    private String nombre;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publicacion_id")
     private Publicacion publicacion;
-    private String nombre;
+
 
     public Imagen(){}
 

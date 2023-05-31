@@ -8,7 +8,7 @@ public interface IRepositorioArchivo {
 
     void eliminarImagen(Imagen img);
 
-    Imagen obtenerImagen(Long idImagen);
+    Imagen obtenerImagen(String fileName);
 
 
 }

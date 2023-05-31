@@ -1,6 +1,9 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
+import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.auth.IServicioSesion;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,63 +22,70 @@ import javax.servlet.http.HttpSession;
 public class ControladorMascota {
 
     private final IServicioAuth servicioAuth;
+    private final IServicioSesion servicioSesion;
 
     @Autowired
     private IServicioMascota servicioMascota;
+
     @Autowired
-    public ControladorMascota(IServicioMascota servicioMascota, IServicioAuth Auth)
-    {
+    public ControladorMascota(IServicioMascota servicioMascota, IServicioAuth Auth, IServicioSesion servicioSesion) {
         this.servicioMascota = servicioMascota;
         this.servicioAuth = Auth;
+        this.servicioSesion = servicioSesion;
     }
 
-    private ModelMap iniciarModel(HttpSession session) {
+    private ModelMap iniciarModel() {
         ModelMap m = new ModelMap();
         m.put("usuario", this.servicioAuth.getUsuarioAutenticado());
         return m;
     }
 
+    @RequireAuth
     @RequestMapping("/crear")
-    public ModelAndView crearMascota(@RequestParam(required = false) String target, HttpSession session) {
+    public ModelAndView crearMascota(@RequestParam(required = false) String target) {
 
-        ModelMap modelo = this.iniciarModel(session);
+        ModelMap modelo = this.iniciarModel();
 
-        session.setAttribute("target" ,target);
+        this.servicioSesion.setAtributoEnSesion("target", target);
 
-        modelo.put("mascotaDto",new MascotaDto());
-        modelo.put("target",target);
+        modelo.put("mascotaDto", new MascotaDto());
+        modelo.put("target", target);
 
         return new ModelAndView("new-mascot", modelo);
     }
 
 
-    @RequestMapping(path = "/guardar", method=RequestMethod.POST)
+    @RequireAuth
+    @RequestMapping(path = "/guardar", method = RequestMethod.POST)
     public ModelAndView guardarMascota(@ModelAttribute MascotaDto mascotaDto, HttpSession session, HttpServletRequest request) {
 
-        ModelMap model = this.iniciarModel(session);
+        String target = "";
+
+        ModelMap model = this.iniciarModel();
 
         Usuario usuario = this.servicioAuth.getUsuarioAutenticado();
 
         Long p_id = this.servicioMascota.guardar(mascotaDto, usuario);
 
-        if(p_id == null) {
+        if (p_id == null) {
             model.put("error", this.servicioMascota.getErrorMessage());
-            return new ModelAndView("new-mascot",model);
+            return new ModelAndView("new-mascot", model);
         }
 
-            String target = (String) session.getAttribute("target");
+        if (request.getAttribute("target") != null)
+            target = (String) request.getAttribute("target");
 
-            switch (target) {
-                case "publicacion":
-                    return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/crear");
+        switch (target) {
+            case "publicacion":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/crear");
 
-                case "perfil":
-                    return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/actividad/mascotas");
+            case "perfil":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/actividad/mascotas");
 
-                default:
-                    return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed");
+            default:
+                return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed");
 
-            }
+        }
 
 
     }

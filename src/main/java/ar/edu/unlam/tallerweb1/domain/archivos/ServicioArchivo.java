@@ -67,6 +67,7 @@ public class ServicioArchivo implements IServicioArchivo {
         return subidos;
     }
 
+    @Override
     public String cambiarAvatarUsuario(MultipartFile file, String oldFile){
         return this.verificarAvatar(file,oldFile,"user");
     }
@@ -75,8 +76,8 @@ public class ServicioArchivo implements IServicioArchivo {
        return this.verificarAvatar(file,oldFile,"mascota");
     }
 
-    public boolean eliminarImagenPost(Long idImagen){
-        Imagen img = this.repositorioArchivo.obtenerImagen(idImagen);
+    public boolean eliminarImagenPost(String imagen){
+        Imagen img = this.repositorioArchivo.obtenerImagen(imagen);
         if(this.eliminarArchivo(img.getNombre(), "posts")){
 
             this.repositorioArchivo.eliminarImagen(img);
@@ -89,7 +90,7 @@ public class ServicioArchivo implements IServicioArchivo {
     private String verificarAvatar(MultipartFile file, String oldFile, String folder){
         if(!file.isEmpty()){
             this.eliminarArchivo(oldFile,folder);
-            return this.guardarArchivo(file, this.getDir(folder) )? file.getOriginalFilename() : oldFile;
+            return this.guardarArchivo(file, this.getDir(folder) )? file.getOriginalFilename() : defaultImage;
         }
         return oldFile;
     }
