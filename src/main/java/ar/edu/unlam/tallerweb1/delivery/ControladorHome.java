@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Imagen;
@@ -30,7 +31,7 @@ public class ControladorHome {
 
 
     @Autowired
-    public void ControladorHome(IServicioPublicacion servicioPublicacion, IServicioAuth servicioAuth){
+    public ControladorHome(IServicioPublicacion servicioPublicacion, IServicioAuth servicioAuth){
 
         this.servicioPublicacion = servicioPublicacion;
 
@@ -48,70 +49,62 @@ public class ControladorHome {
         return m;
     }
 
+
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public ModelAndView inicio() {
         return new ModelAndView("redirect:/home/feed");
     }
 
+    @RequireAuth
     @RequestMapping(path = "/feed",method = RequestMethod.GET)
     public ModelAndView feed(@RequestParam(required = false) String response ) {
 
         ModelMap model = iniciarModel();
 
-        if(userAuth != null){
+        //solicitar publicaciones
+        List<Publicacion> publicaciones = servicioPublicacion.listarPublicacionesDisponibles();
 
-            //solicitar publicaciones
-            List<Publicacion> publicaciones = servicioPublicacion.listarPublicacionesDisponibles();
+        model.put("target","feed");
+        model.put("publicaciones", publicaciones);
+        model.put("response_f", response);
 
-            model.put("target","feed");
-            model.put("publicaciones", publicaciones);
-            model.put("response_f", response);
+        return new ModelAndView("index-feed",model);
 
-            return new ModelAndView("index-feed",model);
-        }
-
-        return new ModelAndView("redirect:/login");
 
     }
 
+    @RequireAuth
     @RequestMapping(path = "/favoritos",method = RequestMethod.GET)
     public ModelAndView favoritos(@RequestParam(required = false)String response) {
 
         ModelMap model = iniciarModel();
 
-        if(userAuth != null){
+        //solicitar publicaciones
+        List<Publicacion_favorito> favoritos = servicioPublicacion.listarFavoritosDeUsuario(userAuth.getId());
 
-            //solicitar publicaciones
-            List<Publicacion_favorito> favoritos = servicioPublicacion.listarFavoritosDeUsuario(userAuth.getId());
+        model.put("target","favoritos");
+        model.put("publicaciones", favoritos);
+        model.put("response_f", response);
+        return new ModelAndView("index-favorites",model);
 
-            model.put("target","favoritos");
-            model.put("publicaciones", favoritos);
-            model.put("response_f", response);
-            return new ModelAndView("index-favorites",model);
-        }
-
-        return new ModelAndView("redirect:/login");
 
     }
 
+    @RequireAuth
     @RequestMapping(path = "/mispublicaciones",method = RequestMethod.GET)
-    public ModelAndView misPublicaciones(@RequestParam(required = false) String pid, HttpSession session) {
+    public ModelAndView misPublicaciones(@RequestParam(required = false) String pid) {
 
         ModelMap model = iniciarModel();
 
-        if(userAuth != null){
+        //solicitar publicaciones
+        List<Publicacion> publicaciones = servicioPublicacion.listarPublicacionesPorUsuarioId(userAuth.getId());
 
-            //solicitar publicaciones
-            List<Publicacion> publicaciones = servicioPublicacion.listarPublicacionesPorUsuarioId(userAuth.getId());
+        model.put("loader", pid);
+        model.put("target","mispublicaciones");
+        model.put("publicaciones", publicaciones);
 
-            model.put("loader", pid);
-            model.put("target","mispublicaciones");
-            model.put("publicaciones", publicaciones);
+        return new ModelAndView("index-misposts",model);
 
-            return new ModelAndView("index-misposts",model);
-        }
-
-        return new ModelAndView("redirect:/login");
 
     }
 
@@ -122,7 +115,7 @@ public class ControladorHome {
 
         try{
 
-            this.servicioPublicacion.agregarFavorito(pid, this.userAuth);
+            this.servicioPublicacion.agregarFavorito(pid, this.servicioAuth.getUsuarioAutenticado());
             response = "success";
 
         }catch (PersistenceException err){
@@ -138,7 +131,7 @@ public class ControladorHome {
     @RequestMapping(path = "/favoritos/eliminar")
     public ModelAndView eliminarFavorito(@RequestParam Long pid) {
 
-        this.servicioPublicacion.eliminarFavorito(pid, this.userAuth);
+        this.servicioPublicacion.eliminarFavorito(pid, this.servicioAuth.getUsuarioAutenticado());
 
         String response = "removed";
 
