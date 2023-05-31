@@ -61,7 +61,7 @@ public class ControladorAuthTest {
         //when(servicioAuth.validarCredenciales(usuario, loginDto.getPassword())).thenReturn(false);
 
         ModelMap modelEsperado = new ModelMap();
-        modelEsperado.put("error", "Usuario y/o contraseï¿½a invalido");
+        modelEsperado.put("error", "Usuario y/o contraseña invalido");
 
         ModelAndView modelAndViewObtenido = controladorAuth.login(loginDto);
 
@@ -113,7 +113,7 @@ public class ControladorAuthTest {
         registrarDto.setPassword2("password2");
 
         ModelMap modelEsperado = new ModelMap();
-        modelEsperado.put("error", "Las contraseï¿½as no coinciden");
+        modelEsperado.put("error", "Las contraseñas no coinciden");
 
         ModelAndView modelAndViewObtenido = controladorAuth.registrar(registrarDto);
         String vistaObtenida = modelAndViewObtenido.getViewName();
