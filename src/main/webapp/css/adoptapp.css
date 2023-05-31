@@ -1966,6 +1966,11 @@ progress {
 }
 
 /*noinspection CssInvalidPropertyValue*/
+
+.search-input .form-control:focus{
+    color:#b3b4c1!important;
+}
+
 .form-control:focus {
     color: #555770;
     background-color: #fff;
@@ -10382,7 +10387,7 @@ fieldset:disabled .btn {
     padding: .313rem 2.5rem .313rem .938rem;
     border-radius: .313rem;
     border: none;
-    border: 1px solid #2a2a2a;
+    border: 1px solid #686868;
 }
 .iq-navbar-logo {
     padding: 1em;
@@ -14847,7 +14852,8 @@ ul.iq-edit-profile li:last-child a {
 }
 .profile-image {
     height: 150px;
-    width: 150px
+    width: 150px;
+    object-fit: cover;
 }
 .item-img {
     height: 30px;
@@ -21382,11 +21388,10 @@ button.bg-soft-dark:hover {
     background: #0f0f0f
 }
 .dark .accordion-item .accordion-button {
-    background: #0f0f0f;
-    color: #c7c7c7
+    color: #1e1e1e
 }
 .dark .accordion-item .accordion-body p {
-    color: #c7c7c7
+    color: #fafafa
 }
 .dark .accordion .accordion-item .accordion-header .accordion-button {
     background-color: #0f0f0f
@@ -21471,7 +21476,7 @@ button.bg-soft-dark:hover {
     background: #222222
 }
 .dark .nav.nav-tabs .nav-item a {
-    color: #c7c7c7
+    color: #fff
 }
 .dark .iq-burger-menu {
     color: #fff
@@ -23883,3 +23888,5 @@ input[readonly]{
 #loader_container{
     transition: opacity 1s ease-out;
 }
+
+

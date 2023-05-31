@@ -52,7 +52,9 @@
                                                     <div class="d-flex justify-content-between">
                                                         <div class="">
                                                             <h6 class="mb-0 d-inline-block"><strong>Tú</strong></h6>
-                                                            <small class="mb-0 text-primary "><script>getTime("${publicacion.create_at}");</script></small>
+                                                            <small class="mb-0 text-primary ">
+                                                                <script>getTime("${publicacion.create_at}");</script>
+                                                            </small>
                                                             <p class="text-muted mb-0" style="font-style: italic;">
                                                                 <small
                                                                         class="text-muted"><i
@@ -61,64 +63,52 @@
                                                                 </small></p>
                                                         </div>
 
+                                                        <!-- MENU EMERGENTE DE PUBLICACION -->
                                                         <div class="card-post-toolbar">
                                                             <div class="dropdown">
-                                                   <span class="dropdown-toggle material-symbols-outlined"
-                                                         data-bs-toggle="dropdown" aria-haspopup="true"
-                                                         aria-expanded="false" role="button">
-                                                      more_horiz
-                                                   </span>
+                                                               <span class="dropdown-toggle material-symbols-outlined"
+                                                                     data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                     aria-expanded="false" role="button">
+                                                                  more_horiz
+                                                               </span>
                                                                 <div class="dropdown-menu m-0 p-0">
                                                                     <a class="dropdown-item p-3" href="#">
                                                                         <div class="d-flex align-items-top">
-                                                            <span class="material-symbols-outlined">
-                                                               save
-                                                            </span>
+                                                                            <span class="material-symbols-outlined">
+                                                                               edit
+                                                                            </span>
+                                                                                <div class="data ms-2">
+                                                                                    <h6>Editar Publicación</h6>
+                                                                                    <p class="mb-0">Modifica la información
+                                                                                        publicada</p>
+                                                                                </div>
+                                                                        </div>
+                                                                    </a>
+                                                                    <a class="dropdown-item p-3" href="#">
+                                                                        <div class="d-flex align-items-top">
+                                                                            <span class="material-symbols-outlined">
+                                                                               pause
+                                                                            </span>
                                                                             <div class="data ms-2">
-                                                                                <h6>Save Post</h6>
-                                                                                <p class="mb-0">Add this to your saved
-                                                                                    items</p>
+                                                                                <h6>Pausar Publicación</h6>
+                                                                                <p class="mb-0">Cambia el estado de tu
+                                                                                    publicación</p>
                                                                             </div>
                                                                         </div>
                                                                     </a>
                                                                     <a class="dropdown-item p-3" href="#">
                                                                         <div class="d-flex align-items-top">
-                                                            <span class="material-symbols-outlined">
-                                                               cancel
-                                                            </span>
+                                                                            <span class="material-symbols-outlined">
+                                                                               delete
+                                                                            </span>
                                                                             <div class="data ms-2">
-                                                                                <h6>Hide Post</h6>
-                                                                                <p class="mb-0">See fewer posts like
-                                                                                    this.</p>
+                                                                                <h6>Eliminar Publicación</h6>
+                                                                                <p class="mb-0">Elimina de forma
+                                                                                    permanente</p>
                                                                             </div>
                                                                         </div>
                                                                     </a>
-                                                                    <a class="dropdown-item p-3" href="#">
-                                                                        <div class="d-flex align-items-top">
-                                                            <span class="material-symbols-outlined">
-                                                               person_remove
-                                                            </span>
-                                                                            <div class="data ms-2">
-                                                                                <h6>Unfollow User</h6>
-                                                                                <p class="mb-0">Stop seeing posts but
-                                                                                    stay
-                                                                                    friends.</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </a>
-                                                                    <a class="dropdown-item p-3" href="#">
-                                                                        <div class="d-flex align-items-top">
-                                                            <span class="material-symbols-outlined">
-                                                               notifications
-                                                            </span>
-                                                                            <div class="data ms-2">
-                                                                                <h6>Notifications</h6>
-                                                                                <p class="mb-0">Turn on notifications
-                                                                                    for
-                                                                                    this post</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </a>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -131,13 +121,16 @@
                                             <div class="d-flex justify-content-between align-items-center mb-2">
                                                 <h4><strong>${publicacion.mascota.nombre}</strong></h4>
                                                 <div class="text-muted">
-                                                    <span class="mx-1"><i class="fa-solid fa-mars"></i></span>${publicacion.mascota.genero}
+                                                    <span class="mx-1"><i
+                                                            class="fa-solid fa-mars"></i></span>${publicacion.mascota.genero}
 
                                                     <c:if test="${not empty publicacion.mascota.nacimiento}">
-                                                        <span class="mx-1"><i class="fa-solid fa-clock"></i></span><script>getBorn("${publicacion.mascota.nacimiento}");</script>
+                                                        <span class="mx-1"><i class="fa-solid fa-clock"></i></span>
+                                                        <script>getBorn("${publicacion.mascota.nacimiento}");</script>
                                                     </c:if>
 
-                                                    <span class="mx-1"><i class="fa-solid fa-weight-scale"></i></span>${publicacion.mascota.peso}kg
+                                                    <span class="mx-1"><i
+                                                            class="fa-solid fa-weight-scale"></i></span>${publicacion.mascota.peso}kg
                                                 </div>
                                             </div>
 
@@ -147,20 +140,24 @@
                                             <div id="carousel" class="carousel slide"
                                                  data-bs-ride="carousel">
                                                 <div class="carousel-indicators">
-                                                 <c:forEach items="${publicacion.imagenes}" begin="0" end="${publicacion.imagenes.size() - 1}" varStatus="index" >
-                                                    <button type="button" data-bs-target="#carousel"
-                                                            data-bs-slide-to="${index.count - 1}" class="active" aria-current="true" ></button>
-                                                 </c:forEach>
+                                                    <c:forEach items="${publicacion.imagenes}" begin="0"
+                                                               end="${publicacion.imagenes.size() - 1}"
+                                                               varStatus="index">
+                                                        <button type="button" data-bs-target="#carousel"
+                                                                data-bs-slide-to="${index.count - 1}" class="active"
+                                                                aria-current="true"></button>
+                                                    </c:forEach>
 
                                                 </div>
                                                 <div class="carousel-inner " style="height: 400px;">
-                                                <c:forEach items="${publicacion.imagenes}" varStatus="index" var="imagen">
-                                                    <div class="carousel-item <c:if test="${index.count - 1 eq 0}">active</c:if>">
-                                                        <img src="${pageContext.request.contextPath}/images/posts/${imagen.nombre}"
-                                                             class="img-fluid w-100 image-cover"
-                                                             height="100" loading="lazy" alt="image">
-                                                    </div>
-                                                </c:forEach>
+                                                    <c:forEach items="${publicacion.imagenes}" varStatus="index"
+                                                               var="imagen">
+                                                        <div class="carousel-item <c:if test="${index.count - 1 eq 0}">active</c:if>">
+                                                            <img src="${pageContext.request.contextPath}/images/posts/${imagen.nombre}"
+                                                                 class="img-fluid w-100 image-cover"
+                                                                 height="100" loading="lazy" alt="image">
+                                                        </div>
+                                                    </c:forEach>
 
                                                 </div>
                                                 <button class="carousel-control-prev" type="button"
@@ -183,23 +180,9 @@
                                             <div class="d-flex justify-content-between align-items-center flex-wrap">
                                                 <div class="like-block position-relative d-flex align-items-center w-100">
                                                     <div class="d-flex justify-content-end w-100 align-items-center">
-                                                        <%--
-                                                        <button type="button"
-                                                                class="btn d-inline-flex btn-soft-link mb-3 me-1"
-                                                                control-id="ControlID-93"><i
-                                                                class="material-symbols-outlined me-1">favorite</i>Agregar
-                                                            a
-                                                            Favoritos
-                                                        </button>
-                                                        --%>
-                                                        <button type="button"
-                                                                class="btn d-inline-flex mb-3 me-1 btn-primary visually-hidden"
-                                                                control-id="ControlID-52"><i
-                                                                class="material-symbols-outlined me-1">subject</i>Ver
-                                                            mas..
-                                                        </button>
-                                                        <a href="post-details.html"
-                                                           class="btn d-inline-flex mb-3 me-1 btn-primary">Ver mas..</a>
+
+                                                        <a href="${pageContext.request.contextPath}/publicacion/ver?pid=${publicacion.id}"
+                                                           class="btn d-inline-flex mb-3 me-1 btn-primary">Ver perfil público</a>
                                                     </div>
 
                                                 </div>
@@ -263,7 +246,6 @@
 <%@ include file="partials/script.jsp" %>
 
 
-
 <c:if test="${not empty loader}">
-<script src="${pageContext.request.contextPath}/js/progress.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/js/progress.js" type="text/javascript"></script>
 </c:if>

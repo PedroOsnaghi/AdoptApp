@@ -8,10 +8,10 @@
                 <a class="nav-link <c:if test="${seccion eq 'favoritos'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/actividad/favoritos">Favoritos</a>
             </li>
             <li>
-                <a class="nav-link <c:if test="${seccion eq 'poradoptar'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/actividad/poradoptar">Por Adoptar</a>
+                <a class="nav-link <c:if test="${seccion eq 'solicitudes'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/actividad/solicitudes">Mis Solicitudes</a>
             </li>
             <li>
-                <a class="nav-link <c:if test="${seccion eq 'mismascotas'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/actividad/mismascotas">Mis mascotas</a>
+                <a class="nav-link <c:if test="${seccion eq 'mascotas'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/actividad/mismascotas">Mis mascotas</a>
             </li>
 
         </ul>

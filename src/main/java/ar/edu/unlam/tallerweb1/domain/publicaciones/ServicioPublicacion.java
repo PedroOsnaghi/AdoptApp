@@ -1,11 +1,9 @@
 package ar.edu.unlam.tallerweb1.domain.publicaciones;
 
-import ar.edu.unlam.tallerweb1.delivery.PublicacionDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioPublicacion;
-import ar.edu.unlam.tallerweb1.model.Mascota;
-import ar.edu.unlam.tallerweb1.model.Publicacion;
-import ar.edu.unlam.tallerweb1.model.Usuario;
+import ar.edu.unlam.tallerweb1.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -92,16 +90,52 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
     @Override
     public List<Publicacion> listarPublicacionesPorUsuarioId(Long idUsuario) {
-        return repositorioPublicacion.listarPublicacionesPorUsuarioId(idUsuario);
+        return this.repositorioPublicacion.listarPublicacionesPorUsuarioId(idUsuario);
     }
 
     @Override
-    public List<Publicacion> listarPublicaciones() {
-        return repositorioPublicacion.listarPublicaciones();
+    public List<PublicacionMensajes> listarPublicacionesMensajesPorUsuarioId(Long idUsuario) {
+        return this.repositorioPublicacion.listarPublicacionesConMensajesPorUsuarioId(idUsuario);
+    }
+
+    @Override
+    public List<Publicacion_favorito> listarFavoritosDeUsuario(Long idUsuario) {
+        return this.repositorioPublicacion.ListarFavoritosDeUsuario(idUsuario);
+    }
+
+    @Override
+    public void agregarFavorito(Long idPublicacion, Usuario usuario) {
+
+        Publicacion p = new Publicacion();
+
+        p.setId(idPublicacion);
+
+        Publicacion_favorito pf = new Publicacion_favorito(usuario, p);
+
+        this.repositorioPublicacion.agregarFavorito(pf);
+
+    }
+
+    @Override
+    public void eliminarFavorito(Long idPublicacion, Usuario usuario) {
+        Publicacion p = new Publicacion();
+
+        p.setId(idPublicacion);
+
+        Publicacion_favorito pf = new Publicacion_favorito(usuario, p);
+
+        this.repositorioPublicacion.eliminarFavorito(pf);
+    }
+
+    @Override
+    public List<Publicacion> listarPublicacionesDisponibles() {
+        return repositorioPublicacion.listarPublicaciones("disponible");
     }
 
     @Override
     public String getErrorMessage(){
         return this.errorMessage;
     }
+
+
 }

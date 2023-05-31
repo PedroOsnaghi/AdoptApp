@@ -8,11 +8,11 @@
             </div>
             <div class="user-detail text-center mb-3">
                 <div class="profile-img">
-                    <img src="${pageContext.request.contextPath}/images/user/11.png" alt="profile-img" loading="lazy"
+                    <img src="${pageContext.request.contextPath}/images/user/${usuario.imagen}" alt="profile-img" loading="lazy"
                          class="avatar-130 img-fluid"/>
                 </div>
                 <div class="profile-detail">
-                    <h3 class="">Juan Daniel</h3>
+                    <h3 class="">${usuario.nombre}</h3>
                 </div>
             </div>
             <div
@@ -23,11 +23,11 @@
                             class="social-data-block d-flex align-items-center justify-content-between list-inline p-0 m-0">
                         <li class="text-center ps-3">
                             <h6>Publicados</h6>
-                            <p class="mb-0">4</p>
+                            <p class="mb-0">0</p>
                         </li>
                         <li class="text-center ps-3">
                             <h6>Adoptados</h6>
-                            <p class="mb-0">2</p>
+                            <p class="mb-0">0</p>
                         </li>
 
                     </ul>

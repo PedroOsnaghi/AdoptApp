@@ -1,69 +1,107 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
-import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
+import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
+import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.mascota.ServicioMascota;
+import ar.edu.unlam.tallerweb1.model.Mascota;
+import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.ModelAndView;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+@RunWith(MockitoJUnitRunner.class)
 public class ControladorMascotaTest {
 
-/*
-    private IServicioMascota iServicioMascota;
+    @Mock
+    private ServicioMascota servicioMascota;
+    @Mock
+    private ServicioAuth servicioAuth;
+    @Mock
+    HttpSession session;
+    @Mock
+    HttpServletRequest request;
+    @InjectMocks
     private ControladorMascota controladorMascota;
 
-    private MascotaDto mascotaDto;
-
+    private Usuario userAuth;
 
     @Before
-    public void init()
-    {
-
-        this.mascotaDto = new MascotaDto();
-        this.iServicioMascota = mock(ServicioMascota.class);
-        this.controladorMascota = new ControladorMascota(this.iServicioMascota);
+    public void init(){
+        this.userAuth = new Usuario("Ariel", "ariel@ariel", "12345");
     }
 
 
     @Test
-    public void alIngresarDatosMinimosRequeridosDeMascotaElIngresoEsExitosoYMeLlevaAMiPerfil()
-    {
-        dadoQueNoExisteMascota(this.mascotaDto, true);
-        ModelAndView mav = cuandoIngresoLaMascota(this.mascotaDto);
+    public void alIngresarMascotaDesdeMiPefilAlfinalizarElIngresoMellevaNuevamenteAMiPerfil() {
+        MascotaDto mascota = dadoQueExisteMascota();
+        ModelAndView mav = cuandoIngresoLaMascota(mascota);
         entoncesElIngresoEsExitoso(mav);
     }
 
     @Test
-    public void alNoIngresarDatosMinimosDeMascotaNoSePuedeIgresarLaMisma()
+    public void alNoIngresarLosDatosRequeridosDeLaMascotaNoSePuedeGuardarLaMisma()
     {
-
-        dadoQueNoExisteMascota(this.mascotaDto, false);
-        ModelAndView mav = cuandoIngresoLaMascota(this.mascotaDto);
+        MascotaDto mascota = dadoQueTengoUnaMascotaIncompleta();
+        ModelAndView mav = cuandoIngresoLaMascota(mascota);
         entoncesElIngresoNoEsExitoso(mav);
-    }
 
-    private void entoncesElIngresoEsExitoso(ModelAndView mav) {
-        assertThat(mav.getViewName()).isEqualTo("profile");
-        assertThat(mav.getModel().get("msg")).isEqualTo("Mascota Ingresada");
     }
 
     private void entoncesElIngresoNoEsExitoso(ModelAndView mav) {
-        assertThat(mav.getViewName()).isEqualTo("new-mascot");
-        assertThat(mav.getModel().get("msg")).isEqualTo("No se Pudo Ingresar La mascota, ingrese los campos mínimos");
+        assertThat(mav.getViewName()).isEqualTo( "new-mascot");
     }
 
-    private ModelAndView cuandoIngresoLaMascota(MascotaDto mascotaDto) {
-        return controladorMascota.ingresarMascota(mascotaDto);
+    private MascotaDto dadoQueTengoUnaMascotaIncompleta() {
+
+        MascotaDto mascotadto = new MascotaDto();
+
+
+
+        String target = "publicacion";
+        when(servicioMascota.guardar(mascotadto,this.userAuth)).thenReturn(null);
+
+        return mascotadto;
+    }
+
+    private MascotaDto dadoQueExisteMascota() {
+
+
+        MascotaDto mascotadto = new MascotaDto();
+
+        String target = "perfil";
+        when(request.getAttribute("target")).thenReturn(target);
+
+        return mascotadto;
+    }
+
+    private ModelAndView cuandoIngresoLaMascota(MascotaDto mascotadto) {
+
+        when(servicioAuth.getUsuarioAutenticado()).thenReturn(userAuth);
+        return controladorMascota.guardarMascota(mascotadto, session, request);
+
+    }
+
+    private void entoncesElIngresoEsExitoso(ModelAndView mav) {
+        assertThat(mav.getViewName()).isEqualTo( "redirect: " + request.getContextPath() + "/perfil/actividad/mascotas");
+
     }
 
 
-    private void dadoQueNoExisteMascota(MascotaDto mascotaDto, Boolean retorno) {
-        when(this.iServicioMascota.sonValidos(mascotaDto.getNombre(), mascotaDto.getTipo(), mascotaDto.getGenero(), mascotaDto.getRaza(), mascotaDto.getPeso(), mascotaDto.getNacimiento(), mascotaDto.getPersonalidad(), mascotaDto.getObs(), mascotaDto.getFoto())).thenReturn(retorno);
+    private void dadoQueExisteMascotas(Usuario usuario) {
+
+        when(servicioMascota.listarMascotaPorUsuario(usuario)).thenReturn(new ArrayList<Mascota>());
 
     }
-    */
+
+
+
 
 }

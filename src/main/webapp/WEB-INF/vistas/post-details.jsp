@@ -30,21 +30,21 @@
                      <div class="row">
                         <div class="col-lg-2">
                            <div class="item1 ms-1">
-                              <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" class="img-fluid rounded profile-image"
+                              <img src="${pageContext.request.contextPath}/images/mascota/${publicacion.mascota.foto}" class="img-fluid rounded profile-image"
                                  alt="profile-image" loading="lazy">
                            </div>
                         </div>
                         <div class="col-lg-10">
                            <div class="d-flex justify-content-between">
                               <div class="item2 ">
-                                 <h4 class=""><strong>Tobby</strong></h4>
+                                 <h4 class=""><strong>${publicacion.mascota.nombre}</strong></h4>
                                  <span>6 Interesados</span>
                               </div>
                               <div class="item4 ms-1">
                                  <div class="d-flex justify-content-between">
                                     <a href="">
                                        <div class="me-3">
-                                          <img class="rounded-circle img-fluid" src="${pageContext.request.contextPath}/images/user/01.jpg"
+                                          <img class="rounded-circle img-fluid" src="${pageContext.request.contextPath}/images/user/${publicacion.mascota.usuario.imagen}"
                                              style="max-width: 40px;" alt="" loading="lazy">
                                        </div>
                                     </a>
@@ -52,8 +52,8 @@
                                     <div class="w-100">
                                        <div class="d-flex justify-content-between">
                                           <div class="">
-                                             <h6 class="mb-0 d-inline-block">Maria Gutierrez</h6>
-                                             <p class="mb-0 text-primary ">hace 30 minutos</p>
+                                             <h6 class="mb-0 d-inline-block">${publicacion.mascota.usuario.nombre}</h6>
+                                             <p class="mb-0 text-primary "><script>getTime("${publicacion.create_at}")</script>  </p>
 
                                           </div>
 
@@ -70,22 +70,22 @@
                                        <span class="material-symbols-outlined  md-18">
                                           location_on
                                        </span>
-                                       <a href="#" class="link-primary h6 ms-2">Buenos Aires, Ramos mejia</a>
+                                       <a href="#" class="link-primary h6 ms-2">${publicacion.provincia}, ${publicacion.ciudad}</a>
                                     </div>
-
+                                    <c:if test="${not empty publicacion.mascota.nacimiento}">
                                     <div class="d-flex align-items-center mb-1">
                                        <span class="material-symbols-outlined md-18">
                                           bookmark_border
                                        </span>
-                                       <span class="ms-2">Naci√≥ el <a href="#" class="link-primary h6">3 de Abril del
-                                             2023</a></span>
+                                       <span class="ms-2">NaciÛ el <a href="#" class="link-primary h6">${publicacion.mascota.nacimiento}</a></span>
                                     </div>
+                                    </c:if>
                                     <div class="d-flex align-items-center mb-1">
                                        <span class="material-symbols-outlined md-18">
                                           sell
                                        </span>
                                        <span class="ms-2">Categoria: <a href="#"
-                                             class="link-primary h6">PERROS</a></span>
+                                             class="link-primary h6">${publicacion.mascota.tipo}</a></span>
                                     </div>
                                  </div>
                               </div>
@@ -93,7 +93,7 @@
                                  <div class="item6 border-light border-start">
                                     <div class="d-grid ms-2">
 
-                                       <h6 class="mb-4">No lo dudes!, <strong>Tobby</strong> te necesita</h6>
+                                       <h6 class="mb-4">No lo dudes!, <strong>${publicacion.mascota.nombre}</strong> te necesita</h6>
                                        <div class="d-grid">
                                           <button type="button" class="btn btn-primary d-block mt-3"
                                              data-bs-toggle="modal" data-bs-target="#confirma-adopcion"
@@ -105,7 +105,6 @@
                                              control-id="ControlID-4">
                                              Cancelar Solicitud
                                           </button>
-
                                        </div>
                                     </div>
 
@@ -131,44 +130,51 @@
                   </div>
                   <div class="card-body">
                      <div class="d-flex flex-column justify-content-between">
-                        <p>Tobby, es un cachorrito muy tierno y juguet√≥n que esta buscando una familia que le de
-                           mucho amor. Necesita un hogar con patio ya que le gusta correr por todos lados.</p>
+                        <p>${publicacion.bio}</p>
                      </div>
 
 
                      <!-- informacion de mascota -->
                      <div class="row">
-                        <h4 class="mt-3">Informaci√≥n B√°sica</h4>
+                        <h4 class="mt-3">InformaciÛn B·sica</h4>
                         <hr>
                         <div class="col-4">
-                           <h6>G√©nero</h6>
+                           <h6>GÈnero</h6>
                         </div>
                         <div class="col-8">
-                           <p class="mb-0">Macho</p>
+                           <p class="mb-0">${publicacion.mascota.genero}</p>
                         </div>
                         <div class="col-4">
                            <h6>Raza</h6>
                         </div>
                         <div class="col-8">
-                           <p class="mb-0">No aporta</p>
+                           <p class="mb-0">
+                              <c:if test="${empty publicacion.mascota.raza}">No apota</c:if>
+                              <c:if test="${not empty publicacion.mascota.raza}">${publicacion.mascota.raza}</c:if>
+                           </p>
                         </div>
                         <div class="col-4">
                            <h6>Peso</h6>
                         </div>
                         <div class="col-8">
-                           <p class="mb-0">0,500 Kg</p>
+                           <p class="mb-0">${publicacion.mascota.peso} Kg</p>
                         </div>
                         <div class="col-4">
                            <h6>Salud</h6>
                         </div>
                         <div class="col-8">
-                           <p class="mb-0">Todas las vac√∫nas</p>
+                           <p class="mb-0">
+                              <c:if test="${empty publicacion.mascota.salud}">No apota</c:if>
+                              <c:if test="${not empty publicacion.mascota.salud}">${publicacion.mascota.salud}</c:if>
+                           </p>
                         </div>
                         <div class="col-4">
                            <h6>Edad</h6>
                         </div>
                         <div class="col-8">
-                           <p class="mb-0">45 d√≠as</p>
+                           <p class="mb-0">
+                              <script>getBorn("${publicacion.mascota.nacimiento}")</script>
+                           </p>
                         </div>
                      </div>
 
@@ -179,10 +185,9 @@
                         <div class="d-flex flex-wrap me-3">
                            <span class="badge badge-pill bg-light text-dark mt-2 me-2">
                               <i class="fa-solid fa-circle"></i>
-                              Juguet√≥n</span>
-                           <span class="badge badge-pill bg-light text-dark mt-2 me-2">
-                              <i class="fa-solid fa-circle"></i>
-                              Amoroso</span>
+                              ${publicacion.mascota.personalidad}
+                           </span>
+
                         </div>
 
 
@@ -201,19 +206,15 @@
                      </div>
                   </div>
                   <div class="card-body">
+
                      <div class="d-grid gap-2 grid-cols-3">
-                        <a data-fslightbox="gallery" href="images/posts/1/1.jpg">
-                           <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" class="img-fluid bg-soft-info img-size fit-cover"
-                              alt="photo-profile" loading="lazy">
-                        </a>
-                        <a data-fslightbox="gallery" href="images/posts/1/2.jpg">
-                           <img src="${pageContext.request.contextPath}/images/posts/1/2.jpg" class="img-fluid bg-soft-info img-size fit-cover"
-                              alt="photo-profile" loading="lazy">
-                        </a>
-                        <a data-fslightbox="gallery" href="images/posts/1/3.jpg">
-                           <img src="${pageContext.request.contextPath}/images/posts/1/3.jpg" class="img-fluid bg-soft-info img-size fit-cover"
-                              alt="photo-profile" loading="lazy">
-                        </a>
+                        <c:forEach items="${publicacion.imagenes}" var="imagen"  varStatus="index">
+                           <a data-fslightbox="gallery" href="${pageContext.request.contextPath}/images/posts/${imagen.nombre}">
+                              <img src="${pageContext.request.contextPath}/images/posts/${imagen.nombre}" class="img-fluid bg-soft-info img-size fit-cover"
+                                   alt="photo-profile" loading="lazy">
+                           </a>
+                        </c:forEach>
+
 
                      </div>
                   </div>
@@ -224,65 +225,82 @@
                <div class="card">
                   <div class="card-header">
                      <div class="header-title">
-                        <h5 class="card-tit">Preguntale a <strong>Maria Gutierrez</strong> por mi</h5>
+                        <h5 class="card-tit">Preguntale a <strong>${publicacion.mascota.usuario.nombre}</strong> por mi</h5>
                      </div>
                      <div>
-                        <form action="">
-                           <textarea class="form-control mt-2" id="exampleFormControlTextarea1" rows="3"
-                              control-id="ControlID-20" placeholder="Escrib√≠ tu pregunta..."></textarea>
-                           <button type="submit" class="btn btn-primary float-end mt-2">Preguntar</button>
-                        </form>
+                        <form:form action="${pageContext.request.contextPath}/mensaje/enviar" modelAttribute="mensajeDto">
+                           <form:textarea path="pregunta" class="form-control mt-2"  rows="3" placeholder="EscribÌ tu pregunta..." required="true"></form:textarea>
+                           <form:input path="publicacion.id" value="${publicacion.id}" type="hidden"/>
+                           <div class="d-flex justify-content-end">
+                              <button type="submit" class="btn btn-primary mt-2"> <i class="fa-regular fa-paper-plane" style="font-size: 18px;"></i> Enviar</button>
+
+                           </div>
+                        </form:form>
+                        <c:if test="${msj_response eq 'error'}" >
+                           <div class="alert alert-solid alert-danger d-flex align-items-center mt-2 py-1 " role="alert">
+                              <div>
+                                 No pudimos enviar tu mensaje debido a un error.
+                              </div>
+                           </div>
+                        </c:if>
+                        <c:if test="${msj_response eq 'success'}" >
+                           <div class="alert alert-solid alert-success d-flex align-items-center mt-2 py-1 " role="alert">
+                              <div>
+                                 Enviamos tu mensaje a ${publicacion.mascota.usuario.nombre}.
+                              </div>
+                           </div>
+                        </c:if>
                      </div>
+
                   </div>
+
                </div>
 
                <div class="card">
                   <div class="card-header d-flex justify-content-between">
                      <div class="header-title">
-                        <h4 class="card-title">√öltimas realizadas</h4>
+                        <h4 class="card-title">⁄ltimas realizadas</h4>
                      </div>
                   </div>
                   <div class="card-body">
 
+                     <c:forEach items="${mensajes}" var="mensaje">
+                        <div class="post-comments p-2 m-0 card rounded bg-light mb-2">
 
-                     <div class="post-comments p-2 m-0 card rounded bg-light mb-2">
+                           <!-- PREGUNTA -->
+                           <p class="mb-0">
+                              <c:if test="${mensaje.emisor.id eq usuario.id}">
+                                 <strong>Tu pregunta -</strong>
+                              </c:if>
 
-                        <!-- PREGUNTA -->
-                        <p class="mb-0"><strong>Tu pregunta -</strong> Lorem Ipsum is simply dummy text of the
-                           printing and
-                           typesetting
-                           industry. Lorem Ipsum has been the industry's standard dummy text
-                           ever since the 1500s<span class="link-primary"> - 10/04/2023</span></p>
-                        <!--RESPUESTA OCULTA-->
-                        <details>
-                           <summary class="comments-view  link-primary">Ver respuesta</summary>
-                           <p class="text-muted comments-response">Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Ex, vel. Nam recusandae debitis consectetur fugiat nisi, perspiciatis,
-                              odit molestiae reiciendis blanditiis porro sed eligendi dolor adipisci repellendus,
-                              sint dicta temporibus?<span class="link-primary"> - 10/04/2023</span></p>
-                        </details>
+                              ${mensaje.pregunta}
 
+                              <small class="link-primary"> - ${mensaje.fechaEmision}</small>
 
-                     </div>
-
-
-                     <div class="post-comments p-2 m-0 card rounded bg-light mb-2">
-
-                        <!-- PREGUNTA -->
-                        <p class="mb-0">Lorem Ipsum is simply dummy text of the printing and typesetting
-                           industry. Lorem Ipsum has been the industry's standard dummy text
-                           ever since the 1500s<span class="link-primary"> - 10/04/2023</span></p>
-                        <!--RESPUESTA OCULTA-->
-                        <details>
-                           <summary class="comments-view  link-primary">Ver respuesta</summary>
-                           <p class="text-muted comments-response">Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Ex, vel. Nam recusandae debitis consectetur fugiat nisi, perspiciatis,
-                              odit molestiae reiciendis blanditiis porro sed eligendi dolor adipisci repellendus,
-                              sint dicta temporibus?<span class="link-primary"> - 10/04/2023</span></p>
-                        </details>
+                           </p>
+                           <!--RESPUESTA OCULTA-->
+                           <c:if test="${not empty mensaje.respuesta}">
+                              <details>
+                                 <summary class="comments-view  link-primary">Ver respuesta</summary>
+                                 <p class="text-muted comments-response">
+                                    ${mensaje.respuesta}
+                                    <small class="link-primary"> - ${mensaje.fechaRespuesta}</small></p>
+                              </details>
+                           </c:if>
 
 
-                     </div>
+
+                        </div>
+                     </c:forEach>
+
+                     <c:if test="${empty mensajes}">
+                        <p class="text-muted mt-3">A˙n nadie ha realizado preguntas.</p>
+                     </c:if>
+
+
+
+
+
 
 
 
@@ -313,28 +331,28 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 
             </button>
-            <h4 class="modal-title" id="exampleModalScrollableTitle">Que gr√°n desici√≥n!</h4>
+            <h4 class="modal-title" id="exampleModalScrollableTitle">Que gr·n desiciÛn!</h4>
             <p>Enviaremos tu solicitud al publicante y te avisaremos si acepta tu solicitud.</p>
 
          </div>
          <div class="modal-body">
-            <p class="text-muted" style="font-style: italic;"><strong>Lee atentamente -</strong> Si est√°s pensando sumar
+            <p class="text-muted" style="font-style: italic;"><strong>Lee atentamente -</strong> Si est·s pensando sumar
                un amigo peludo
-               ten√©s que saber el compromiso que esto implica. No s√≥lo ser√° tu compa√±√≠a sino un integrante m√°s de la
-               familia. Por lo que te recomendamos planifiques bien su llegada, aseg√∫rate que todos est√©n de acuerdo
-               y que en tu edificio o casa se permitan mascotas. Ten√© en cuenta los gastos mensuales relacionados,
-               cuidados generales que necesitar√° para que se encuentre saludable y c√≥modo y con qui√©n dejarlo en caso
+               tenÈs que saber el compromiso que esto implica. No sÛlo ser· tu compaÒÌa sino un integrante m·s de la
+               familia. Por lo que te recomendamos planifiques bien su llegada, aseg˙rate que todos estÈn de acuerdo
+               y que en tu edificio o casa se permitan mascotas. TenÈ en cuenta los gastos mensuales relacionados,
+               cuidados generales que necesitar· para que se encuentre saludable y cÛmodo y con quiÈn dejarlo en caso
                de salir de vacaciones.</p>
             <hr>
             <form action="">
 
                <div class="form-group">
-                  <label class="form-label" for="exampleFormControlTextarea1">Mensaje a Mar√≠a Guttierrez</label>
+                  <label class="form-label" for="exampleFormControlTextarea1">Mensaje a MarÌa Guttierrez</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" rows="4" control-id="ControlID-20"
-                     placeholder="Dile por qu√© deber√≠a aceptarte como Adoptante de Tobby"></textarea>
+                     placeholder="Dile por quÈ deberÌa aceptarte como Adoptante de Tobby"></textarea>
                </div>
                <div class="d-flex justify-content-end">
-                  <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Lo pensar√©</button>
+                  <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Lo pensarÈ</button>
                   <button type="button" class="btn btn-primary">Estoy seguro</button>
                </div>
 

@@ -5,7 +5,7 @@
       <ul
               class="nav nav-pills d-flex align-items-center justify-content-center profile-feed-items p-0 m-0 rounded">
         <li class="nav-item col-12 col-sm-3 p-0">
-          <a class="nav-link <c:if test="${target eq 'actividad'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/actividad" >Actividad</a>
+          <a class="nav-link <c:if test="${target eq 'actividad'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/actividad/posts" >Actividad</a>
         </li>
         <li class="nav-item col-12 col-sm-3 p-0">
           <a class="nav-link <c:if test="${target eq 'info'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/info">Informacion</a>
@@ -14,7 +14,7 @@
           <a class="nav-link <c:if test="${target eq 'solicitud'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/solicitud">Solicitudes</a>
         </li>
         <li class="nav-item col-12 col-sm-3 p-0">
-          <a class="nav-link <c:if test="${target eq 'preguntas'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/preguntas">Preguntas</a>
+          <a class="nav-link <c:if test="${target eq 'mensajes'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/mensajes">Preguntas</a>
         </li>
       </ul>
     </div>

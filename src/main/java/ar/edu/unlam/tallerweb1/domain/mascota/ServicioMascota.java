@@ -1,10 +1,12 @@
 package ar.edu.unlam.tallerweb1.domain.mascota;
-import ar.edu.unlam.tallerweb1.delivery.MascotaDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -27,6 +29,18 @@ public class ServicioMascota implements IServicioMascota {
             return null;
         return this.registrarMascota(mascotaDto,usuario);
     }
+
+    @Override
+    public List<Mascota> listarMascotasAPublicar(Usuario usuario) {
+        return this.repositorioMascota.listarMascotasaPublicar(usuario);
+    }
+
+    @Override
+    public List<Mascota> listarMascotaPorUsuario(Usuario usuario) {
+        return repositorioMascota.listarMascotaPorUsuario(usuario);
+    }
+
+
 
     private boolean validarDatos(MascotaDto mascotaDto) {
         if (mascotaDto.getNombre() == null || mascotaDto.getNombre().length() == 0){

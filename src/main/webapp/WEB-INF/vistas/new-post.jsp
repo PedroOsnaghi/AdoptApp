@@ -70,42 +70,34 @@
                                        <div class="row mb-2">
                                           <div class="col-8">
 
-                                             <form:radiobutton path="mascota_id"  class="btn-check"  id="m-1" checked="true" value="1" />
-                                             <label for="m-1" class="btn-radio-mascota mb-1 p-1 ps-2">
-                                                <div class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                   <div class="user-img img-fluid flex-shrink-0">
-                                                      <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
-                                                   </div>
-                                                   <div class="flex-grow-1 ms-3">
-                                                      <h6><strong>Tobby </strong></h6>
-                                                      <p class="mb-0">PERRO</p>
-                                                   </div>
-                                                   <div>
-                                                      <i class="material-symbols-outlined shadow">
-                                                         check_circle
-                                                      </i>
-                                                   </div>
+                                             <c:forEach items="${mascotas}" var="mascota"  varStatus="i">
 
-                                                </div>
-                                             </label>
-                                             <form:radiobutton path="mascota_id"  class="btn-check"  id="m-2" value="2" />
-                                             <label for="m-2" class="btn-radio-mascota mb-1 p-1 ps-2">
-                                                <div class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                   <div class="user-img img-fluid flex-shrink-0">
-                                                      <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
-                                                   </div>
-                                                   <div class="flex-grow-1 ms-3">
-                                                      <h6><strong>Tobby </strong></h6>
-                                                      <p class="mb-0">PERRO</p>
-                                                   </div>
-                                                   <div>
-                                                      <i class="material-symbols-outlined shadow">
-                                                         check_circle
-                                                      </i>
-                                                   </div>
+                                                   <form:radiobutton path="mascota_id"  class="btn-check"  id="m-${mascota.id}"  value="${mascota.id}" />
+                                                   <label for="m-${mascota.id}" class="btn-radio-mascota mb-1 p-1 ps-2">
+                                                      <div class="d-flex align-items-center  justify-content-between flex-wrap">
+                                                         <div class="user-img img-fluid flex-shrink-0">
+                                                            <img src="${pageContext.request.contextPath}/images/mascota/${mascota.foto}" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
+                                                         </div>
+                                                         <div class="flex-grow-1 ms-3">
+                                                            <h6><strong>${mascota.nombre}</strong></h6>
+                                                            <p class="mb-0">${mascota.tipo}</p>
+                                                         </div>
+                                                         <div>
+                                                            <i class="material-symbols-outlined shadow">
+                                                               check_circle
+                                                            </i>
+                                                         </div>
 
-                                                </div>
-                                             </label>
+                                                      </div>
+                                                   </label>
+
+
+                                             </c:forEach>
+                                             <c:if test="${empty mascotas}">
+                                                <p class="text-muted mt-2">No tienes mascotas registradas. Puedes crear una nueva.</p>
+                                             </c:if>
+
+
                                           </div>
                                           <div class="col-4">
                                              <a href="${pageContext.request.contextPath}/mascota/crear?target=publicacion" class="btn btn-primary">Agregar nueva..</a>
@@ -279,7 +271,7 @@
                <div class="d-flex justify-content-end mt-2">
                   <button type="button" class="btn btn-secondary me-2" id="close_modal"  data-bs-dismiss="modal">Cancelar</button>
                   <button type="button" class="btn btn-primary" disabled id="add_dir">Agregar</button>
-               </div>
+              </div>
 
 
          </div>
@@ -301,11 +293,9 @@
 <%@ include file="partials/script.jsp" %>
 
 
-
 <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeluO_jCvIS_iT6Y3Thw8A6YJW5gyzh0M&callback=initAutocomplete&libraries=places&v=weekly"
         defer>
-
 </script>
 <script src="${pageContext.request.contextPath}/js/multifile.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/google.maps.js" type="text/javascript"></script>
