@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
 import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioSesion;
@@ -39,6 +40,7 @@ public class ControladorMascota {
         return m;
     }
 
+    @RequireAuth
     @RequestMapping("/crear")
     public ModelAndView crearMascota(@RequestParam(required = false) String target) {
 
@@ -53,6 +55,7 @@ public class ControladorMascota {
     }
 
 
+    @RequireAuth
     @RequestMapping(path = "/guardar", method = RequestMethod.POST)
     public ModelAndView guardarMascota(@ModelAttribute MascotaDto mascotaDto, HttpSession session, HttpServletRequest request) {
 

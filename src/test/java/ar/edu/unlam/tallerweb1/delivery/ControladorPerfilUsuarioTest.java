@@ -46,12 +46,6 @@ public class ControladorPerfilUsuarioTest  {
         debeObtenerLaVistaCorrecta(vista, "user-profile-activity-posts");
     }
 
-    @Test
-    public void cuandoUnUsuarioNoAutenticadoQuiereAccederALaActividadDeSuPerfil(){
-        Usuario usuarioLogueado = dadoQueNoExisteUnUsuarioAutenticado();
-        ModelAndView vista = alAccederALaActividadDeSuPerfil(usuarioLogueado);
-        debeEnviarloAlLogin(vista);
-    }
 
     @Test
     public void cuandoUnUsuarioAutenticadoQuiereAccederASusMensajes(){
@@ -60,16 +54,9 @@ public class ControladorPerfilUsuarioTest  {
         debeObtenerLaVistaCorrecta(vista, "user-profile-messages");
     }
 
-    @Test
-    public void cuandoUnUsuarioNoAutenticadoQuiereAccederASusMensajes(){
-        Usuario usuario = dadoQueNoExisteUnUsuarioAutenticado();
-        ModelAndView vista = alAccederALosMensajes(usuario);
-        debeObtenerLaVistaCorrecta(vista, "redirect: /login");
-    }
 
-    private void debeEnviarloAlLogin(ModelAndView vista) {
-        assertThat(vista.getViewName()).isEqualTo("redirect: /login");
-    }
+
+
 
     private void debeObtenerLaVistaCorrecta(ModelAndView vista, String nombre_vista) {
         assertThat(vista.getViewName()).isEqualTo(nombre_vista);
@@ -86,9 +73,7 @@ public class ControladorPerfilUsuarioTest  {
         return new Usuario("Usuario Test", "test@test", "1234");
     }
 
-    private Usuario dadoQueNoExisteUnUsuarioAutenticado() {
-        return null;
-    }
+
 
     private ModelAndView alAccederALosMensajes(Usuario usuarioLogueado) {
 

@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
 import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
@@ -27,6 +28,7 @@ public class ControladorMensajes {
         this.servicioAuth = servicioAuth;
     }
 
+    @RequireAuth
     @RequestMapping(path = "/enviar",method = RequestMethod.POST)
     public ModelAndView enviarMensaje(@ModelAttribute MensajeDto mensajeDto, HttpServletRequest request){
 
@@ -42,6 +44,7 @@ public class ControladorMensajes {
 
     }
 
+    @RequireAuth
     @RequestMapping(path = "/responder",method = RequestMethod.POST)
     public ModelAndView responderMensaje(@ModelAttribute MensajeDto mensajeDto, HttpServletRequest request){
 
@@ -56,6 +59,7 @@ public class ControladorMensajes {
         return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/mensajes?pid=" + mensajeDto.getPublicacion().getId() + "&response=success");
     }
 
+    @RequireAuth
     @RequestMapping(path = "/eliminar",method = RequestMethod.GET)
     public ModelAndView responderMensaje(@RequestParam Long idm, Long pid, HttpServletRequest request){
 
