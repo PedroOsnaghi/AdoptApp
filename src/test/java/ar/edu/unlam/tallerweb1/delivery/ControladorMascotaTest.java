@@ -39,49 +39,43 @@ public class ControladorMascotaTest {
 
 
     @Test
-    public void alIngresarMascotaDesdeMiPefilAlfinalizarElIngresoMellevaNuevamenteAMiPerfil() {
-        MascotaDto mascota = dadoQueExisteMascota();
+    public void alIngresarMascotaDesdeMiPefilAlfinalizarCorrectamenteElIngresoMellevaNuevamenteAMiPerfil() {
+        MascotaDto mascota = dadoQueExisteMascotaEnPerfil();
         ModelAndView mav = cuandoIngresoLaMascota(mascota);
-        entoncesElIngresoEsExitoso(mav);
+        entoncesElIngresoEsExitosoYMeLlevaAlPerfil(mav);
+    }
+    @Test
+    public void alIngresarMascotaDesdePublicacionAlfinalizarCorrectamenteElIngresoMellevaNuevamenteAPublicacion() {
+        MascotaDto mascota = dadoQueExisteMascotaEnPublicacion();
+        ModelAndView mav = cuandoIngresoLaMascota(mascota);
+        entoncesElIngresoEsExitosoYMeLlevaAPublicacion(mav);
     }
 
+
     @Test
-    public void alNoIngresarLosDatosRequeridosDeLaMascotaNoSePuedeGuardarLaMisma()
+    public void alNoIngresarLosDatosRequeridosDeLaMascotaNoSePuedeGuardarLaMismaYMeVuelveAlFormularioParaIngresarMascota()
     {
-        MascotaDto mascota = dadoQueTengoUnaMascotaIncompleta();
+        MascotaDto mascota = dadoQueExisteUnaMascotaIncompleta();
         ModelAndView mav = cuandoIngresoLaMascota(mascota);
         entoncesElIngresoNoEsExitoso(mav);
 
     }
 
-    private void entoncesElIngresoNoEsExitoso(ModelAndView mav) {
-        assertThat(mav.getViewName()).isEqualTo( "new-mascot");
-    }
-
-    private MascotaDto dadoQueTengoUnaMascotaIncompleta() {
+    private MascotaDto dadoQueExisteMascotaEnPerfil() {
 
         MascotaDto mascotadto = new MascotaDto();
-
-
-
-        String target = "publicacion";
-        when(session.getAttribute("target")).thenReturn(target);
-        when(servicioMascota.guardar(mascotadto,this.userAuth)).thenReturn(null);
-
-
-
-        return mascotadto;
-    }
-
-    private MascotaDto dadoQueExisteMascota() {
-
-
-        MascotaDto mascotadto = new MascotaDto();
-
         String target = "perfil";
         when(session.getAttribute("target")).thenReturn(target);
 
+        return mascotadto;
 
+    }
+
+    private MascotaDto dadoQueExisteMascotaEnPublicacion() {
+
+        MascotaDto mascotadto = new MascotaDto();
+        String target = "publicacion";
+        when(session.getAttribute("target")).thenReturn(target);
 
         return mascotadto;
 
@@ -94,9 +88,31 @@ public class ControladorMascotaTest {
 
     }
 
-    private void entoncesElIngresoEsExitoso(ModelAndView mav) {
+    private void entoncesElIngresoEsExitosoYMeLlevaAlPerfil(ModelAndView mav) {
         assertThat(mav.getViewName()).isEqualTo( "redirect: " + request.getContextPath() + "/perfil/actividad/mascotas");
 
+    }
+
+    private void entoncesElIngresoEsExitosoYMeLlevaAPublicacion(ModelAndView mav) {
+        assertThat(mav.getViewName()).isEqualTo( "redirect: " + request.getContextPath() + "/publicacion/crear");
+
+    }
+
+    private MascotaDto dadoQueExisteUnaMascotaIncompleta() {
+
+        MascotaDto mascotadto = new MascotaDto();
+
+        String target = "publicacion";
+        when(session.getAttribute("target")).thenReturn(target);
+        when(servicioMascota.guardar(mascotadto,this.userAuth)).thenReturn(null);
+
+        return mascotadto;
+    }
+
+
+
+    private void entoncesElIngresoNoEsExitoso(ModelAndView mav) {
+        assertThat(mav.getViewName()).isEqualTo( "new-mascot");
     }
 
 
