@@ -27,7 +27,7 @@ public class ServicioMascotaTest {
     public void alNoIngresarNombreDeLaMascotaDevuelveFalse()
     {
         MascotaDto mascota = dadoQueIngresoLaMascotaSinNombre();
-        Boolean resultado = cuandoIntentoGuardarLaMascotaSinNombre(mascota);
+        Boolean resultado = cuandoIntentoGuardarLaMascota(mascota);
         entoncesDevuelveFalse(resultado);
     }
 
@@ -36,14 +36,14 @@ public class ServicioMascotaTest {
     public void alNoIngresarElTipoDeMascotaMeDevuelveFalse()
     {
         MascotaDto mascota = dadoQueIngresoLaMascotaSinTipo();
-        Boolean resultado = cuandoIntentoGuardarLaMascotaSinTpo(mascota);
+        Boolean resultado = cuandoIntentoGuardarLaMascota(mascota);
         entoncesDevuelveFalse(resultado);
     }
     @Test
     public void alNoIngresarElGeneroDeMascotaMeDevuelveFalse()
     {
         MascotaDto mascota = dadoQueIngresoLaMascotaSinGenero();
-        Boolean resultado = cuandoIntentoGuardarLaMascotaSinGenero(mascota);
+        Boolean resultado = cuandoIntentoGuardarLaMascota(mascota);
         entoncesDevuelveFalse(resultado);
     }
 
@@ -57,6 +57,8 @@ public class ServicioMascotaTest {
 
 
 
+
+
     private MascotaDto dadoQueIngresoLaMascotaSinNombre() {
         MascotaDto mascotaDto = new MascotaDto();
         mascotaDto.setNombre("");
@@ -66,10 +68,7 @@ public class ServicioMascotaTest {
         return mascotaDto;
     }
 
-    private boolean cuandoIntentoGuardarLaMascotaSinNombre(MascotaDto mascota) {
 
-        return servicioMascota.validarDatos(mascota);
-    }
 
     private void entoncesDevuelveFalse(Boolean resultado) {
         assertThat(resultado).isFalse();
@@ -93,13 +92,6 @@ public class ServicioMascotaTest {
         return mascotaDto;
     }
 
-    private Boolean cuandoIntentoGuardarLaMascotaSinGenero(MascotaDto mascota) {
-        return servicioMascota.validarDatos(mascota);
-    }
-
-    private Boolean cuandoIntentoGuardarLaMascotaSinTpo(MascotaDto mascota) {
-        return servicioMascota.validarDatos(mascota);
-    }
 
     private MascotaDto dadoQueIngresoLaMascota() {
         MascotaDto mascotaDto = new MascotaDto();
