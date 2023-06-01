@@ -21,7 +21,6 @@ public class ServicioUsuario implements IServicioUsuario {
 
     @Override
     public Usuario buscarUsuarioPorEmail(String email){
-
         return this.repositorioUsuario.buscarUsuarioPorEmail(email);
     }
 

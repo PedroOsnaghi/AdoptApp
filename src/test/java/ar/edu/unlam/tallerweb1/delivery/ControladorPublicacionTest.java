@@ -44,24 +44,37 @@ public class ControladorPublicacionTest {
     ControladorPublicacion controladorPublicacion;
 
     @Test
-    public void testAlGuardarPublicacion() {
+    public void testAlGuardarPublicacionExitosa() {
         PublicacionDto publicacion = dadoQueTengoDatosDePublicacionDeUnUsuario();
-        ModelAndView vista = cuandoQuieroGuardarPublicacion(publicacion);
-        entoncesMeDevuelveLaVistaCorrecta(vista);
+        ModelAndView vista = cuandoQuieroCrearPublicacion(publicacion);
+        entoncesMeDevuelveLaVistaCorrecta(vista,  "redirect: adoptapp/home/mispublicaciones?pid=10");
     }
 
+    @Test
+    public void testAlGuardarPublicacionConError() {
+        PublicacionDto publicacion = dadoQueTengoDatosDePublicacionDeUnUsuario();
+        ModelAndView vista = cuandoQuieroCrearPublicacionConError(publicacion);
+        entoncesMeDevuelveLaVistaCorrecta(vista,  "new-post");
+    }
+
+    private ModelAndView cuandoQuieroCrearPublicacionConError(PublicacionDto publicacionDto) {
+        when(this.servicioPublicacion.guardarPublicacion(publicacionDto)).thenReturn(null);
+
+        return controladorPublicacion.guardarPublicacion(publicacionDto, this.request );
+    }
 
 
     private PublicacionDto dadoQueTengoDatosDePublicacionDeUnUsuario() {
         PublicacionDto publicacionDto = new PublicacionDto();
-
         publicacionDto.setBio("Esto es un Test de publicacion");
-
-       return publicacionDto;
+        return publicacionDto;
     }
-    private ModelAndView cuandoQuieroGuardarPublicacion(PublicacionDto publicacionDto) {
+    private ModelAndView cuandoQuieroCrearPublicacion(PublicacionDto publicacionDto) {
 
-        return controladorPublicacion.guardarPublicacion(publicacionDto, request );
+        when(this.request.getContextPath()).thenReturn("adoptapp");
+        when(this.servicioPublicacion.guardarPublicacion(publicacionDto)).thenReturn(10L);
+
+        return controladorPublicacion.guardarPublicacion(publicacionDto, this.request );
     }
 
     private void dadoQueExistenPublicaciones() {
@@ -71,8 +84,7 @@ public class ControladorPublicacionTest {
     }
 
 
-    private void entoncesMeDevuelveLaVistaCorrecta(ModelAndView vista) {
-        String vistaEsperada = "redirect: " + this.request.getContextPath() + "/home/mispublicaciones?pid=0" ;
+    private void entoncesMeDevuelveLaVistaCorrecta(ModelAndView vista, String vistaEsperada) {
         assertThat(vista.getViewName()).isEqualTo(vistaEsperada);
     }
 }
