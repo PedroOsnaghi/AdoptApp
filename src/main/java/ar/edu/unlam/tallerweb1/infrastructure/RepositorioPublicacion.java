@@ -8,11 +8,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
+@Transactional
 public class RepositorioPublicacion implements IRepositorioPublicacion {
     private SessionFactory sessionFactory;
     @Autowired

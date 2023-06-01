@@ -13,10 +13,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RepositorioUsuarioTest extends SpringTest {
 
+    @Autowired
+    private RepositorioUsuario repositorioUsuario;
 
     @Test
-    @Transactional
-    @Rollback
+    @Transactional @Rollback
     public void alCrearUnUsuarioPodemosObtenerSuId(){
         Usuario usuario = new Usuario("test", "test@test", "1234");
         session().save(usuario);
