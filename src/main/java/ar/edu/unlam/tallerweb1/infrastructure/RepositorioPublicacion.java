@@ -34,11 +34,12 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
 
     @Override
     public void modificarPublicacion(Publicacion publicacion) {
+        //TODO: Implementar
     }
 
     @Override
     public void eliminarPublicacion(Long IdPublicacion) {
-
+    //TODO: Implementar
     }
 
     @Override
@@ -73,21 +74,6 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
 
         return mascota;
     }
-
-    @Override
-    public Publicacion_favorito agregarFavorito(Publicacion_favorito favorito){
-
-         return (Publicacion_favorito) this.sessionFactory.getCurrentSession().save(favorito);
-
-    }
-
-    @Override
-    public void eliminarFavorito(Publicacion_favorito favorito) {
-
-        this.sessionFactory.getCurrentSession().remove(favorito);
-
-    }
-
     @Override
     public List<Publicacion_favorito> ListarFavoritosDeUsuario(Long idUsuario) {
         return (List<Publicacion_favorito>) this.sessionFactory.getCurrentSession()
@@ -97,5 +83,19 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
                 .addOrder(Order.desc("id"))
                 .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .list();
+    }
+
+    @Override
+    public Publicacion_favorito agregarFavorito(Publicacion_favorito favorito){
+
+        return (Publicacion_favorito) this.sessionFactory.getCurrentSession().save(favorito);
+
+    }
+
+    @Override
+    public void eliminarFavorito(Publicacion_favorito favorito) {
+
+        this.sessionFactory.getCurrentSession().remove(favorito);
+
     }
 }

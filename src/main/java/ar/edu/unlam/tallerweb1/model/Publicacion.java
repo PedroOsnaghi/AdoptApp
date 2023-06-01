@@ -31,7 +31,7 @@ public class Publicacion {
     private String estado;
     @OneToOne
     @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
-    @JoinColumn(name = "mascota_id")
+    @JoinColumn(name = "mascota_id", nullable = false)
     private Mascota mascota;
     @CreationTimestamp
     private Timestamp create_at;
