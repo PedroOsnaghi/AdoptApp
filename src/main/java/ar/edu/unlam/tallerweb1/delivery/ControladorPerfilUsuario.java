@@ -1,4 +1,7 @@
 package ar.edu.unlam.tallerweb1.delivery;
+import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
+import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.UsuarioDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
@@ -45,8 +48,11 @@ public class ControladorPerfilUsuario {
         return model;
     }
 
+
+    @RequireAuth
     @RequestMapping("/actividad/posts")
     public ModelAndView misPublicaciones(){
+
         ModelMap model = this.iniciarModel("actividad");
 
         model.put("seccion", "posts");
@@ -56,10 +62,13 @@ public class ControladorPerfilUsuario {
         //TODO implementar Listado de publicaciones del usuario
 
         return new ModelAndView("user-profile-activity-posts", model);
+
     }
 
+    @RequireAuth
     @RequestMapping("/actividad/favoritos")
     public ModelAndView misFavoritos(){
+
         ModelMap model = this.iniciarModel("actividad");
 
         model.put("seccion", "favoritos");
@@ -69,10 +78,14 @@ public class ControladorPerfilUsuario {
         //TODO implementar Listado de favoritos de usuario
 
         return new ModelAndView("user-profile-activity-favorites", model);
+
+
     }
 
+    @RequireAuth
     @RequestMapping("/actividad/solicitudes")
     public ModelAndView misSolicitudes(){
+
         ModelMap model = this.iniciarModel("actividad");
 
         model.put("seccion", "solicitudes");
@@ -82,12 +95,14 @@ public class ControladorPerfilUsuario {
         //TODO implementar Listado de mis solicitudes de adopcion
 
         return new ModelAndView("user-profile-activity-solicitudes", model);
+
     }
 
+    @RequireAuth
     @RequestMapping("/actividad/mismascotas")
     public ModelAndView misMascotas(){
-        ModelMap model = this.iniciarModel("actividad");
 
+        ModelMap model = this.iniciarModel("actividad");
 
         model.put("seccion", "mascotas");
 
@@ -96,48 +111,52 @@ public class ControladorPerfilUsuario {
         //TODO implementar Listado de mis mascotas
 
         return new ModelAndView("user-profile-activity-mascot", model);
+
     }
 
+    @RequireAuth
     @RequestMapping("/info")
     public ModelAndView infoUsuario(){
+
         ModelMap model = this.iniciarModel("info");
 
-        //TODO enviar datos del usuario a la vista
-
         return new ModelAndView("user-profile-info", model);
+
     }
 
+    @RequireAuth
     @RequestMapping("/solicitud")
     public ModelAndView solicitudesUsuario(){
+
         ModelMap model = this.iniciarModel("solicitud");
 
         //TODO mostrar solicitudes de adopcion
 
         return new ModelAndView("user-profile-request", model);
+
+
     }
 
+    @RequireAuth
     @RequestMapping("/mensajes")
     public ModelAndView verMensajes(@RequestParam(required = false) Long pid, String response){
+
         ModelMap model = this.iniciarModel("mensajes");
-
-
         model.put("publicaciones", this.servicioPublicacion.listarPublicacionesMensajesPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
         model.put("mensajes_nuevos", this.servicioMensajes.listarMensajesSinResponder(pid));
         model.put("mensajes_respondidos", this.servicioMensajes.listarMensajesRespondidos(pid));
         model.put("selected_pub", pid);
         model.put("mensajeDto", new MensajeDto());
         model.put("response", response);
-
-
-
-
-
         return new ModelAndView("user-profile-messages", model);
+
     }
 
 
+    @RequireAuth
     @RequestMapping("/info/editar")
-    public ModelAndView irAEditarDatos(HttpSession session) {
+    public ModelAndView irAEditarDatos() {
+
         ModelMap model = this.iniciarModel("info");
 
         UsuarioDto usuarioDto = this.setearDatos(this.servicioAuth.getUsuarioAutenticado());
@@ -145,9 +164,12 @@ public class ControladorPerfilUsuario {
         model.put("usuarioDto", usuarioDto);
 
         return new ModelAndView("user-profile-edit", model);
+
+
     }
 
 
+    @RequireAuth
     @RequestMapping(value = "/info/actualizar", method = RequestMethod.POST)
     public ModelAndView guardarDatos(@ModelAttribute UsuarioDto usuarioDto) {
 

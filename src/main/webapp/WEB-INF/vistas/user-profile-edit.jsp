@@ -60,7 +60,7 @@
                                                            enctype="multipart/form-data">
 
                                                     <div class="row">
-                                                        <div class="col-4">
+                                                        <div class="col-4 col-sm-5">
                                                             <div class="profile-img ms-2">
 
 
@@ -79,9 +79,9 @@
 
                                                         </div>
 
-                                                        <div class="form-group col-8">
+                                                        <div class="form-group col-8 col-sm-7">
                                                             <label class="form-label" for="fname">Tu
-                                                                presentacíon</label>
+                                                                presentación</label>
 
                                                             <form:textarea class="form-control " path="presentacion" value="${usuarioDto.presentacion}"
                                                                       placeholder="Escribí un texto de presentación que será visible en tu perfil por otros usuarios"
@@ -96,7 +96,7 @@
                                                             <label class="form-label" for="fname">Nombre y Apellido
                                                                 *</label>
                                                             <form:input path="nombre" type="text" class="form-control" id="fname"
-                                                                   placeholder="Escribí tu nombre completo"
+                                                                   placeholder="Escrib? tu nombre completo"
                                                                    value="${usuarioDto.nombre}"
                                                                    required="required" control-id="ControlID-3"/>
                                                         </div>
@@ -104,7 +104,7 @@
                                                             <label class="form-label" for="dob">Fecha de nacimiento:
                                                                 *</label>
                                                             <form:input path="f_nac" type="date" class="form-control" id="dob"
-                                                                   value="${usuarioDto.f_nac}"/>
+                                                                   value="${usuarioDto.f_nac}" />
                                                         </div>
                                                         <div class="col-12">
                                                             <h5>Domicilio</h5>
@@ -140,7 +140,7 @@
                                                             <button type="button" class="btn btn-primary"
                                                                     data-bs-toggle="modal" data-bs-target="#agregar-direccion"
                                                                     control-id="ControlID-4">
-                                                                Agregar Dirección
+                                                                Agregar Direcci?n
                                                             </button>
                                                         </div>
                                                         <div class="d-flex align-items-center justify-content-end w-100 col-12">
@@ -180,13 +180,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 
                 </button>
-                <h4 class="modal-title" id="exampleModalScrollableTitle">Agrega una dirección</h4>
+                <h4 class="modal-title" id="exampleModalScrollableTitle">Agrega una direcci?n</h4>
                 <p>Escribe la dirección que deseas agregar.</p>
 
             </div>
             <div class="modal-body">
                 <input  type="text" class="form-control"  id="pac-input"
-                        placeholder="Escribe tu dirección..." />
+                        placeholder="Escribe tu direcci?n..." />
 
                 <div class="w-100 d-block mt-2" style="height: 200px;" id="map">
 

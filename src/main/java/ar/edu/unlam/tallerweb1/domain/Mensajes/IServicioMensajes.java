@@ -1,6 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.Mensajes;
 
-import ar.edu.unlam.tallerweb1.delivery.MensajeDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.model.Mensaje;
 
 import java.util.List;

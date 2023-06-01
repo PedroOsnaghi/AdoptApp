@@ -1,7 +1,6 @@
 package ar.edu.unlam.tallerweb1.domain.Mensajes;
 
-import ar.edu.unlam.tallerweb1.delivery.MensajeDto;
-import ar.edu.unlam.tallerweb1.domain.mascota.IRepositorioMascota;
+import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.model.Mensaje;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

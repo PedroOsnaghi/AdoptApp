@@ -1,4 +1,4 @@
-package ar.edu.unlam.tallerweb1.delivery;
+package ar.edu.unlam.tallerweb1.delivery.dto;
 
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;

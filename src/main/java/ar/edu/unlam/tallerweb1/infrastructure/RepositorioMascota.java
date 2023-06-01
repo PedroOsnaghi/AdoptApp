@@ -33,7 +33,7 @@ public class RepositorioMascota implements IRepositorioMascota {
 
         EntityManager entityManager = this.sessionFactory.createEntityManager();
 
-        List<Mascota> mascota = entityManager.createQuery("select p from Mascota  p where p.id not IN ( select pc.mascota.id from Publicacion pc) AND p.usuario = :user order by p.id desc ", Mascota.class)
+        List<Mascota> mascota = entityManager.createQuery("select p from Mascota p where p.id not IN ( select pc.mascota.id from Publicacion pc) AND p.usuario = :user order by p.id desc ", Mascota.class)
                 .setParameter("user",usuario)
                 .getResultList();
 

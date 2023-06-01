@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.delivery.dto.LoginDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.RegistrarDto;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioSesion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
@@ -16,7 +18,6 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpSession;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
@@ -57,7 +58,7 @@ public class ControladorAuthTest {
         Usuario usuario = new Usuario();
         usuario.setEmail("emailMalo");
 
-        when(servicioAuth.validarCredenciales(usuario, loginDto.getPassword())).thenReturn(false);
+       // when(servicioAuth.validarCredenciales(usuario, loginDto.getPassword())).thenReturn(false);
 
         ModelMap modelEsperado = new ModelMap();
         modelEsperado.put("error", "Usuario y/o contraseña invalido");
@@ -76,8 +77,11 @@ public class ControladorAuthTest {
         Usuario usuario = new Usuario();
         LoginDto loginDto = new LoginDto();
 
-        when(servicioAuth.validarCredenciales(eq(usuario), anyString())).thenReturn(true);
-        when(servicioUsuario.buscarUsuarioPorEmail(anyString())).thenReturn(usuario);
+        loginDto.setEmail("email");
+        loginDto.setPassword("password");
+
+        when(servicioUsuario.buscarUsuarioPorEmail(loginDto.getEmail())).thenReturn(usuario);
+        when(servicioAuth.validarCredenciales(eq(usuario), eq(loginDto.getPassword()))).thenReturn(true);
 
         ModelAndView modelAndViewObtenido = controladorAuth.login(loginDto);
 
@@ -127,7 +131,7 @@ public class ControladorAuthTest {
         registrarDto.setPassword("password");
         registrarDto.setPassword2("password");
 
-        when(servicioUsuario.crearUsuario(anyString(), anyString(), anyString())).thenReturn(null);
+        //when(servicioUsuario.crearUsuario(anyString(), anyString(), anyString())).thenReturn(null);
 
         ModelMap modelEsperado = new ModelMap();
         modelEsperado.put("error", "Error al crear usuario");

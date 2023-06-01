@@ -1,5 +1,5 @@
 package ar.edu.unlam.tallerweb1.domain.mascota;
-import ar.edu.unlam.tallerweb1.delivery.MascotaDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -42,13 +42,13 @@ public class ServicioMascota implements IServicioMascota {
 
 
 
-    private boolean validarDatos(MascotaDto mascotaDto) {
+    public boolean validarDatos(MascotaDto mascotaDto) {
         if (mascotaDto.getNombre() == null || mascotaDto.getNombre().length() == 0){
             this.errorMessage = "Debe especificar un nombre";
             return false;
         }
         if (mascotaDto.getGenero() == null){
-            this.errorMessage = "Debe especificar el género de la mascota";
+            this.errorMessage = "Debe especificar el gï¿½nero de la mascota";
             return false;
         }
         if(mascotaDto.getTipo() == null){

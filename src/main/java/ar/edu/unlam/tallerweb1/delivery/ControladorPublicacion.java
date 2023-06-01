@@ -1,10 +1,12 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
+import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
-import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,8 +20,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Controller
@@ -48,6 +48,7 @@ public class ControladorPublicacion {
         return m;
     }
 
+    @RequireAuth
     @RequestMapping(path = "/crear", method = RequestMethod.GET)
     public ModelAndView crear() {
 
@@ -60,6 +61,7 @@ public class ControladorPublicacion {
     }
 
 
+    @RequireAuth
     @RequestMapping(path = "/publicar", method = RequestMethod.POST)
     public ModelAndView guardarPublicacion(@ModelAttribute("publicacionDto") PublicacionDto publicacionDto, HttpServletRequest request) {
         ModelMap model = this.iniciarModel();
@@ -76,6 +78,7 @@ public class ControladorPublicacion {
 
     }
 
+    @RequireAuth
     @RequestMapping(path = "/ver", method = RequestMethod.GET)
     public ModelAndView verPublicacion(@RequestParam Long pid, @RequestParam(required = false) String msj_response){
         ModelMap model = iniciarModel();

@@ -12,8 +12,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RepositorioUsuario implements IRepositorioUsuario {
 
-    @Autowired
+
     private SessionFactory sessionFactory;
+
+    @Autowired
+    public RepositorioUsuario(SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+    }
 
 
     @Override
