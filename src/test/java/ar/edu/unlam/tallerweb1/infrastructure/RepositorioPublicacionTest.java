@@ -18,7 +18,7 @@ public class RepositorioPublicacionTest extends SpringTest {
     @Test
     @Transactional
     @Rollback
-    public void alBuscarUnaPublicacionExistentePuedoObtenerSuBio(){
+    public void alCrearUnaPublicacionPuedoBuscarlaPorIdYObtenerSuBio(){
         Publicacion publicacionExistente =  dadoQueExisteUnaPublicacionCreada();
         Publicacion publicacionEncontrada = alBuscarPorSuId(publicacionExistente.getId());
         assertThat(publicacionEncontrada.getBio()).isNotNull();
