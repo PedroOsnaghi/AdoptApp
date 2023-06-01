@@ -23,7 +23,7 @@
 
           <!-- MI PERFIL -->
           <li class="nav-item">
-             <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/perfil/actividad/posts">
+             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/perfil/actividad/posts">
                 <i class="icon material-symbols-outlined">
                    person
                 </i>

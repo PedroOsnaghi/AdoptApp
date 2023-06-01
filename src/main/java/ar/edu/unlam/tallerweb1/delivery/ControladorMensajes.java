@@ -32,6 +32,7 @@ public class ControladorMensajes {
     @RequestMapping(path = "/enviar",method = RequestMethod.POST)
     public ModelAndView enviarMensaje(@ModelAttribute MensajeDto mensajeDto, HttpServletRequest request){
 
+
        mensajeDto.setEmisor(this.servicioAuth.getUsuarioAutenticado());
 
        Long mid = this.servicioMensajes.enviarMensaje(mensajeDto);
