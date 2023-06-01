@@ -35,55 +35,14 @@ public class ServicioPublicacion implements IServicioPublicacion{
         return this.publicar(publicacionDto);
     }
 
-    private boolean validarDatos(PublicacionDto pd) {
-        if(pd.getMascota_id() == null){
-            this.errorMessage = "Debe seleccionar una mascota";
-            return false;
-        }
-        if(pd.getDireccion() == null){
-            this.errorMessage = "Debe especificar una dirección de entrega";
-            return false;
-        }
-
-        return true;
-    }
-
-    private Long publicar(PublicacionDto publicacionDto) {
-        Publicacion pub = this.setearPublicacion(publicacionDto);
-
-        repositorioPublicacion.guardarPublicacion(pub);
-
-        this.servicioArchivo.subirImagenesPost(publicacionDto.getFiles(), pub);
-
-        return pub.getId();
-
-    }
-
-    private Publicacion setearPublicacion(PublicacionDto publicacionDto) {
-        Publicacion p = new Publicacion();
-        p.setBio(publicacionDto.getBio());
-        p.setMascota(new Mascota(publicacionDto.getMascota_id()));
-        p.setDireccion(publicacionDto.getDireccion());
-        p.setDisponibilidad(publicacionDto.getDisponibilidad());
-        p.setLatitud(publicacionDto.getLatitud());
-        p.setLongitud(publicacionDto.getLongitud());
-        p.setDireccion(publicacionDto.getDireccion());
-        p.setProvincia(publicacionDto.getProvincia());
-        p.setCiudad(publicacionDto.getCiudad());
-
-        p.setEstado("disponible");
-
-        return p;
-    }
-
     @Override
     public void modificarPublicacion(Publicacion publicacion) {
-
+        //TODO Implementar modificar Publicacion
     }
 
     @Override
     public void eliminarPublicacion(Long IdPublicacion) {
-
+        //TODO Implementar Eliminar Publicacion
     }
 
     @Override
@@ -102,7 +61,7 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
-    public void agregarFavorito(Long idPublicacion, Usuario usuario) {
+    public Publicacion_favorito agregarFavorito(Long idPublicacion, Usuario usuario) {
 
         Publicacion p = new Publicacion();
 
@@ -110,7 +69,7 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
         Publicacion_favorito pf = new Publicacion_favorito(usuario, p);
 
-        this.repositorioPublicacion.agregarFavorito(pf);
+        return this.repositorioPublicacion.agregarFavorito(pf);
 
     }
 
@@ -134,6 +93,59 @@ public class ServicioPublicacion implements IServicioPublicacion{
     public String getErrorMessage(){
         return this.errorMessage;
     }
+
+
+    private boolean validarDatos(PublicacionDto pd) {
+        if(pd.getMascota_id() == null){
+            this.errorMessage = "Debe seleccionar una mascota";
+            return false;
+        }
+        if(pd.getDireccion() == null){
+            this.errorMessage = "Debe especificar una dirección de entrega";
+            return false;
+        }
+        if(pd.getDisponibilidad() == null){
+            this.errorMessage = "Debe especificar su disponibilidad horaria";
+            return false;
+        }
+
+        return true;
+    }
+
+    private Long publicar(PublicacionDto publicacionDto) {
+        Publicacion pub = this.setearPublicacion(publicacionDto);
+
+        Long pid = repositorioPublicacion.guardarPublicacion(pub);
+
+        if(pid != null){
+
+            this.servicioArchivo.subirImagenesPost(publicacionDto.getFiles(), pub);
+            return pid;
+
+        }
+
+        this.errorMessage = "No se pudo guardar la publicacion debido a un error";
+        return null;
+
+    }
+
+    private Publicacion setearPublicacion(PublicacionDto publicacionDto) {
+        Publicacion p = new Publicacion();
+        p.setBio(publicacionDto.getBio());
+        p.setMascota(new Mascota(publicacionDto.getMascota_id()));
+        p.setDireccion(publicacionDto.getDireccion());
+        p.setDisponibilidad(publicacionDto.getDisponibilidad());
+        p.setLatitud(publicacionDto.getLatitud());
+        p.setLongitud(publicacionDto.getLongitud());
+        p.setDireccion(publicacionDto.getDireccion());
+        p.setProvincia(publicacionDto.getProvincia());
+        p.setCiudad(publicacionDto.getCiudad());
+
+        p.setEstado("disponible");
+
+        return p;
+    }
+
 
 
 }

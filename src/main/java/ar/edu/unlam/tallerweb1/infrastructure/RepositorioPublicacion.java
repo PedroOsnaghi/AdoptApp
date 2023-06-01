@@ -28,8 +28,8 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     }
 
     @Override
-    public void guardarPublicacion(Publicacion publicacion) {
-         this.sessionFactory.getCurrentSession().save(publicacion);
+    public Long guardarPublicacion(Publicacion publicacion) {
+       return (Long) this.sessionFactory.getCurrentSession().save(publicacion);
     }
 
     @Override
@@ -75,10 +75,9 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     }
 
     @Override
-    public void agregarFavorito(Publicacion_favorito favorito){
+    public Publicacion_favorito agregarFavorito(Publicacion_favorito favorito){
 
-            this.sessionFactory.getCurrentSession().save(favorito);
-
+         return (Publicacion_favorito) this.sessionFactory.getCurrentSession().save(favorito);
 
     }
 

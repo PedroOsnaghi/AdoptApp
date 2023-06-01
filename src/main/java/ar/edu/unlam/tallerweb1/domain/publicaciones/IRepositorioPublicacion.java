@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IRepositorioPublicacion {
     Publicacion buscarPublicacionPorId(Long id);
-    void guardarPublicacion(Publicacion publicacion);
+    Long guardarPublicacion(Publicacion publicacion);
 
     void modificarPublicacion(Publicacion publicacion);
 
@@ -20,7 +20,7 @@ public interface IRepositorioPublicacion {
 
     List<PublicacionMensajes> listarPublicacionesConMensajesPorUsuarioId(Long idUsuario);
 
-    void agregarFavorito(Publicacion_favorito favorito);
+    Publicacion_favorito agregarFavorito(Publicacion_favorito favorito);
 
     void eliminarFavorito(Publicacion_favorito favorito);
 

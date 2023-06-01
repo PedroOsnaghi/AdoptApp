@@ -1,15 +1,23 @@
 package ar.edu.unlam.tallerweb1.domain.publicaciones;
 
+import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
+import ar.edu.unlam.tallerweb1.infrastructure.RepositorioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
+import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
+import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.anyOf;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -39,17 +47,107 @@ public class ServicioPublicacionTest {
         List<Publicacion> publicaciones = dadoQueTengoUnaListaDePublicaciones();
         List<Publicacion> resultado = alListarPublicaciones(idUsuario, publicaciones);
         assertThat(resultado).isEqualTo(publicaciones);
+        assertThat(resultado).hasSize(2);
+    }
+
+    @Test
+    public void alGuardarUnaPublicacionCorrectaRetornaElId(){
+        PublicacionDto publicacion = dadoQueTengoDatosCorrectos();
+        Long result = alGuardar(publicacion);
+        debeRetornarElIdDeLAPublicacionGuardada(result);
+    }
+
+    @Test
+    public void alQuererGuardarUnaPublicacionConDatosIncompletosRetornaNull(){
+        PublicacionDto publicacion = dadoQueTengoDatosIncorrectos();
+        Long result = alGuardar(publicacion);
+        debeRetornarNull(result);
+    }
+
+    @Test
+    public void alQuererGuardarUnaPublicacionYProducirseUnErrorenElGuardadoDebeRetornarNull(){
+        PublicacionDto publicacion = dadoQueTengoDatosCorrectos();
+        Long result = alGuardarConError(publicacion);
+        debeRetornarNull(result);
+    }
+
+    @Test
+    public void alAgregarUnFavoritoDebemosObtenerUnObjeto(){
+        Long idPublicacion = 2L;
+        Usuario user = new Usuario();
+        user.setId(1L);
+
+        Publicacion_favorito pf = alGuardarFavorito(idPublicacion,user);
+        obtengoUnObjetoNoNulo(pf);
+
+    }
+
+    private void obtengoUnObjetoNoNulo(Publicacion_favorito pf) {
+        assertThat(pf).isNotNull();
+    }
+
+    private Publicacion_favorito alGuardarFavorito(Long idPublicacion, Usuario user) {
+        Publicacion post = new Publicacion();
+        post.setId(idPublicacion);
+        Publicacion_favorito pf = new Publicacion_favorito(user, post);
+
+        when(this.repositorioPublicacion.agregarFavorito(anyObject())).thenReturn(pf);
+        return this.servicioPublicacion.agregarFavorito(idPublicacion, user);
+    }
+
+    private Long alGuardarConError(PublicacionDto publicacion) {
+        when(this.servicioArchivo.subirImagenesPost(anyObject(),anyObject())).thenReturn(0);
+        when(this.repositorioPublicacion.guardarPublicacion(anyObject())).thenReturn(null);
+        return this.servicioPublicacion.guardarPublicacion(publicacion);
+    }
+
+    private void debeRetornarElIdDeLAPublicacionGuardada(Long result) {
+        System.out.println(this.servicioPublicacion.getErrorMessage());
+        assertThat(result).isNotNull();
+    }
+
+    private void debeRetornarNull(Long result) {
+        System.out.println("Error obtenido: " + this.servicioPublicacion.getErrorMessage());
+        assertThat(result).isNull();
+    }
+
+    private Long alGuardar(PublicacionDto publicacion) {
+        when(this.servicioArchivo.subirImagenesPost(anyObject(),anyObject())).thenReturn(0);
+        when(this.repositorioPublicacion.guardarPublicacion(anyObject())).thenReturn(20L);
+        return this.servicioPublicacion.guardarPublicacion(publicacion);
+    }
+
+    private PublicacionDto dadoQueTengoDatosCorrectos() {
+        PublicacionDto p = new PublicacionDto();
+        p.setMascota_id(5L);
+        p.setDireccion("Calle falsa 123");
+        p.setDisponibilidad("todo el dia");
+
+        return p;
+
+
+    }
+
+    private PublicacionDto dadoQueTengoDatosIncorrectos() {
+        PublicacionDto p = new PublicacionDto();
+       // p.setMascota_id(5L);
+        p.setDireccion("Calle falsa 123");
+        p.setDisponibilidad("todo el dia");
+
+        return p;
+
+
     }
 
     private List<Publicacion> alListarPublicaciones(Long idUsuario, List<Publicacion> publicaciones) {
-        when(repositorioPublicacion.listarPublicacionesPorUsuarioId(idUsuario)).thenReturn(publicaciones);
+        when(repositorioPublicacion.listarPublicacionesPorUsuarioId(anyLong())).thenReturn(publicaciones);
         return servicioPublicacion.listarPublicacionesPorUsuarioId(idUsuario);
     }
 
     public Publicacion AlBuscarPorId(Long id)
     {
         Publicacion publicacion = dadoQueExisteUnaPublicacion();
-        when(this.repositorioPublicacion.buscarPublicacionPorId(id)).thenReturn(publicacion);
+        when(this.repositorioPublicacion.buscarPublicacionPorId(anyLong())).thenReturn(publicacion);
         return this.servicioPublicacion.findPublicacion(id);
     }
 

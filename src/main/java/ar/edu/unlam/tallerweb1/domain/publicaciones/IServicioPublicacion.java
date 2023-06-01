@@ -18,7 +18,7 @@ public interface IServicioPublicacion {
 
     void eliminarPublicacion(Long IdPublicacion);//TODO return bool o int
 
-    void agregarFavorito(Long idPublicacion, Usuario usuario);
+    Publicacion_favorito agregarFavorito(Long idPublicacion, Usuario usuario);
 
     void eliminarFavorito(Long idPublicacion, Usuario usuario);
 
