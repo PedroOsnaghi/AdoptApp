@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
+import ar.edu.unlam.tallerweb1.domain.mascota.IRepositorioMascota;
+import ar.edu.unlam.tallerweb1.domain.usuarios.IRepositorioUsuario;
 import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.junit.Test;
@@ -16,10 +18,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class RepositorioMascotaTest extends SpringTest {
 
     @Autowired
-    private RepositorioMascota repositorioMascota;
+    private IRepositorioMascota repositorioMascota;
 
     @Autowired
-    private RepositorioUsuario repositorioUsuario;
+    private IRepositorioUsuario repositorioUsuario;
 
 
     @Test

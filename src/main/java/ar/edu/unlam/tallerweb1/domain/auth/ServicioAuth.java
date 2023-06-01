@@ -11,11 +11,10 @@ import java.util.Base64;
 @Service
 public class ServicioAuth implements IServicioAuth {
     private final IServicioSesion servicioSesion;
-    IRepositorioUsuario repositorioUsuario;
+
 
     @Autowired
-    public ServicioAuth(IRepositorioUsuario repositorioUsuario, IServicioSesion servicioSesion) {
-        this.repositorioUsuario = repositorioUsuario;
+    public ServicioAuth(IServicioSesion servicioSesion) {
         this.servicioSesion = servicioSesion;
     }
 
