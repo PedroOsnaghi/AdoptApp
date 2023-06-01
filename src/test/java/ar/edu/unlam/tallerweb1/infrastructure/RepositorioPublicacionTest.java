@@ -30,8 +30,8 @@ public class RepositorioPublicacionTest extends SpringTest {
 
     private Publicacion dadoQueExisteUnaPublicacionCreada() {
         Publicacion publicacion = new Publicacion();
-        publicacion.setId(2L);
         publicacion.setBio("Bio de prueba");
+        this.repositorioPublicacion.guardarPublicacion(publicacion);
         return publicacion;
     }
 }
