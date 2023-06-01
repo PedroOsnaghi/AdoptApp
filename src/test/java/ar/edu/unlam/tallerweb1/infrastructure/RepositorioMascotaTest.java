@@ -2,7 +2,6 @@ package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.domain.mascota.IRepositorioMascota;
-import ar.edu.unlam.tallerweb1.domain.usuarios.IRepositorioUsuario;
 import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.junit.Test;
@@ -20,8 +19,7 @@ public class RepositorioMascotaTest extends SpringTest {
     @Autowired
     private IRepositorioMascota repositorioMascota;
 
-    @Autowired
-    private IRepositorioUsuario repositorioUsuario;
+
 
 
     @Test
@@ -52,7 +50,9 @@ public class RepositorioMascotaTest extends SpringTest {
     }
 
     private Mascota dadoQueExisteUnaMascotaAGuardar() {
-        Usuario user = this.repositorioUsuario.guardarUsuario(new Usuario("test", "test@test","1234"));
+        Usuario user = new Usuario("test", "test@test","1234");
+
+        session().save(user);
 
         Mascota m = new Mascota();
         m.setNombre("Lulu");
@@ -62,8 +62,10 @@ public class RepositorioMascotaTest extends SpringTest {
     }
 
     private Usuario dadoQueUserTiene2Mascotas() {
-        Usuario user = this.repositorioUsuario.guardarUsuario(new Usuario("test", "test@test","1234"));
-        Usuario user2 = this.repositorioUsuario.guardarUsuario(new Usuario("test2", "test2@test2","1234"));
+        Usuario user = new Usuario("test", "test@test","1234");
+        Usuario user2 = new Usuario("test2", "test2@test2","1234");
+        session().save(user);
+        session().save(user2);
         Mascota m = new Mascota();
         m.setNombre("Lulu");
         m.setUsuario(user);
@@ -88,18 +90,19 @@ public class RepositorioMascotaTest extends SpringTest {
     private void podemosObtenerSoloLasMascotasdeUser(List<Mascota> mascotasSinPublicar) {
         assertThat(mascotasSinPublicar).hasSize(2);
     }
-/*
+
     @Test
     @Transactional
     @Rollback
-    public void alGuardar3MascotasMeDevuelveUnaListaDeLasQueNoEstanPublicadas(){
-         Usuario user = dadoQueUnUsuarioTiene3MascotasGuardadasSinPublicar();
-        List<Mascota> mascotasSinPublicar = alListarlas(user);
-        podemosObtenerUnaListaDeLasMismas(mascotasSinPublicar);
+    public void alListarLasMascotasDeUnUsuarioMeDevuelveElListadoDeSusMascotas(){
+        Usuario user = dadoQueUnUsuarioTiene3MascotasGuardadas();
+        List<Mascota> mascotas = alListarlas(user);
+        podemosObtenerUnaListaDeLasMismas(mascotas);
     }
 
-    private Usuario dadoQueUnUsuarioTiene3MascotasGuardadasSinPublicar() {
-        Usuario user = this.repositorioUsuario.guardarUsuario(new Usuario("test", "test@test","1234"));
+    private Usuario dadoQueUnUsuarioTiene3MascotasGuardadas() {
+        Usuario user = new Usuario("test", "test@test","1234");
+        session().save(user);
 
         Mascota m = new Mascota();
         m.setNombre("Lulu");
@@ -119,7 +122,7 @@ public class RepositorioMascotaTest extends SpringTest {
     }
 
     private List<Mascota> alListarlas(Usuario user) {
-        return this.repositorioMascota.listarMascotasaPublicar(user);
+        return this.repositorioMascota.listarMascotaPorUsuario(user);
 
 
     }
@@ -127,7 +130,6 @@ public class RepositorioMascotaTest extends SpringTest {
     private void podemosObtenerUnaListaDeLasMismas(List<Mascota> mascotasSinPublicar) {
         assertThat(mascotasSinPublicar).hasSize(3);
     }
-*/
 
 
 
