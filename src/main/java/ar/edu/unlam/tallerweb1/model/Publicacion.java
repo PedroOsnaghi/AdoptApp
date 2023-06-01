@@ -15,8 +15,6 @@ public class Publicacion {
         DISPONIBLE,
         RESERVADO,
         ADOPTADO,
-
-
     }
 
     @Id
@@ -39,12 +37,6 @@ public class Publicacion {
     private Timestamp create_at;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "publicacion")
     private List<Imagen> imagenes = new ArrayList<>();
-
-
-
-
-
-
 
     public Publicacion(){}
 
@@ -149,6 +141,4 @@ public class Publicacion {
     public void setImagenes(List<Imagen> imagenes) {
         this.imagenes = imagenes;
     }
-
-
 }
