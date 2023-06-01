@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.auth.ServicioSesion;
 import ar.edu.unlam.tallerweb1.domain.mascota.ServicioMascota;
 import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -25,7 +26,7 @@ public class ControladorMascotaTest {
     @Mock
     private ServicioAuth servicioAuth;
     @Mock
-    HttpSession session;
+    private ServicioSesion servicioSesion;
     @Mock
     HttpServletRequest request;
     @InjectMocks
@@ -40,58 +41,79 @@ public class ControladorMascotaTest {
 
 
     @Test
-    public void alIngresarMascotaDesdeMiPefilAlfinalizarElIngresoMellevaNuevamenteAMiPerfil() {
-        MascotaDto mascota = dadoQueExisteMascota();
+    public void alIngresarMascotaDesdeMiPefilAlfinalizarCorrectamenteElIngresoMellevaNuevamenteAMiPerfil() {
+        MascotaDto mascota = dadoQueExisteMascotaEnPerfil();
         ModelAndView mav = cuandoIngresoLaMascota(mascota);
-        entoncesElIngresoEsExitoso(mav);
+        entoncesElIngresoEsExitosoYMeLlevaAlPerfil(mav);
+    }
+    @Test
+    public void alIngresarMascotaDesdePublicacionAlfinalizarCorrectamenteElIngresoMellevaNuevamenteAPublicacion() {
+        MascotaDto mascota = dadoQueExisteMascotaEnPublicacion();
+        ModelAndView mav = cuandoIngresoLaMascota(mascota);
+        entoncesElIngresoEsExitosoYMeLlevaAPublicacion(mav);
     }
 
+
     @Test
-    public void alNoIngresarLosDatosRequeridosDeLaMascotaNoSePuedeGuardarLaMisma()
+    public void alNoIngresarLosDatosRequeridosDeLaMascotaNoSePuedeGuardarLaMismaYMeVuelveAlFormularioParaIngresarMascota()
     {
-        MascotaDto mascota = dadoQueTengoUnaMascotaIncompleta();
+        MascotaDto mascota = dadoQueExisteUnaMascotaIncompleta();
         ModelAndView mav = cuandoIngresoLaMascota(mascota);
         entoncesElIngresoNoEsExitoso(mav);
 
     }
 
-    private void entoncesElIngresoNoEsExitoso(ModelAndView mav) {
-        assertThat(mav.getViewName()).isEqualTo( "new-mascot");
+    private MascotaDto dadoQueExisteMascotaEnPerfil() {
+
+        MascotaDto mascotadto = new MascotaDto();
+        String target = "perfil";
+        when(this.servicioSesion.getAtributoDeSesion("target")).thenReturn(target);
+
+        return mascotadto;
+
     }
 
-    private MascotaDto dadoQueTengoUnaMascotaIncompleta() {
+    private MascotaDto dadoQueExisteMascotaEnPublicacion() {
+
+        MascotaDto mascotadto = new MascotaDto();
+        String target = "publicacion";
+        when(this.servicioSesion.getAtributoDeSesion("target")).thenReturn(target);
+
+        return mascotadto;
+
+    }
+
+    private ModelAndView cuandoIngresoLaMascota(MascotaDto mascotadto) {
+
+        when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(userAuth);
+        when(this.request.getContextPath()).thenReturn("adoptapp");
+        return controladorMascota.guardarMascota(mascotadto, request);
+
+    }
+
+    private void entoncesElIngresoEsExitosoYMeLlevaAlPerfil(ModelAndView mav) {
+        assertThat(mav.getViewName()).isEqualTo( "redirect: adoptapp/perfil/actividad/mascotas");
+
+    }
+
+    private void entoncesElIngresoEsExitosoYMeLlevaAPublicacion(ModelAndView mav) {
+        assertThat(mav.getViewName()).isEqualTo( "redirect: adoptapp/publicacion/crear");
+
+    }
+
+    private MascotaDto dadoQueExisteUnaMascotaIncompleta() {
 
         MascotaDto mascotadto = new MascotaDto();
 
-
-
-        String target = "publicacion";
         when(servicioMascota.guardar(mascotadto,this.userAuth)).thenReturn(null);
 
         return mascotadto;
     }
 
-    private MascotaDto dadoQueExisteMascota() {
 
 
-        MascotaDto mascotadto = new MascotaDto();
-
-        String target = "perfil";
-        when(request.getAttribute("target")).thenReturn(target);
-
-        return mascotadto;
-    }
-
-    private ModelAndView cuandoIngresoLaMascota(MascotaDto mascotadto) {
-
-        when(servicioAuth.getUsuarioAutenticado()).thenReturn(userAuth);
-        return controladorMascota.guardarMascota(mascotadto, request);
-
-    }
-
-    private void entoncesElIngresoEsExitoso(ModelAndView mav) {
-        assertThat(mav.getViewName()).isEqualTo( "redirect: " + request.getContextPath() + "/perfil/actividad/mascotas");
-
+    private void entoncesElIngresoNoEsExitoso(ModelAndView mav) {
+        assertThat(mav.getViewName()).isEqualTo( "new-mascot");
     }
 
 
