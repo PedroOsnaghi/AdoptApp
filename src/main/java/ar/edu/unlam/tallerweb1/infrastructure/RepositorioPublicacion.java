@@ -1,16 +1,12 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
-import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.PublicacionMensajes;
 import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ConstantException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

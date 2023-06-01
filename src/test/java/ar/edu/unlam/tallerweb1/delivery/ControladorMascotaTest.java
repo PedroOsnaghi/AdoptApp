@@ -85,7 +85,7 @@ public class ControladorMascotaTest {
     private ModelAndView cuandoIngresoLaMascota(MascotaDto mascotadto) {
 
         when(servicioAuth.getUsuarioAutenticado()).thenReturn(userAuth);
-        return controladorMascota.guardarMascota(mascotadto, session, request);
+        return controladorMascota.guardarMascota(mascotadto, request);
 
     }
 
