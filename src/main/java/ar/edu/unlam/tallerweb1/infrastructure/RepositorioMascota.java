@@ -14,6 +14,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Repository
+@Transactional
 public class RepositorioMascota implements IRepositorioMascota {
 
     private SessionFactory sessionFactory;

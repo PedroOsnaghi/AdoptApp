@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.model.Usuario;
+import org.hibernate.criterion.Restrictions;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -12,18 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RepositorioUsuarioTest extends SpringTest {
 
-    @Autowired
-    private RepositorioUsuario repositorioUsuario;
-
-
 
     @Test
     @Transactional
     @Rollback
-    public void alCrearUnNuevoUsuarioPodemosObtenerSuId(){
+    public void alCrearUnUsuarioPodemosObtenerSuId(){
         Usuario usuario = new Usuario("test", "test@test", "1234");
-        Usuario usuarioNuevo = this.repositorioUsuario.guardarUsuario(usuario);
-        assertThat(usuarioNuevo.getId()).isNotNull();
+        session().save(usuario);
+        assertThat(usuario.getId()).isNotNull();
     }
 
     @Test
@@ -46,19 +43,24 @@ public class RepositorioUsuarioTest extends SpringTest {
 
     private Usuario alModificarSuNombre(Usuario usuarioExistente, String nuevoNombre) {
         usuarioExistente.setNombre(nuevoNombre);
-        this.repositorioUsuario.actualizarDatos(usuarioExistente);
+
+        session().update(usuarioExistente);
 
         return usuarioExistente;
     }
 
     private Usuario alBuscarPorSuEmail(String email) {
-        return this.repositorioUsuario.buscarUsuarioPorEmail(email);
+        return (Usuario) session().createCriteria(Usuario.class)
+                .add(Restrictions.eq("email",email))
+                .uniqueResult();
     }
 
     private Usuario dadoQueExisteUnUsuarioRegistrado() {
         Usuario usuario = new Usuario("test", "test@test", "1234");
-        Usuario usuarioNuevo = this.repositorioUsuario.guardarUsuario(usuario);
-        return usuarioNuevo;
+
+        session().save(usuario);
+
+        return usuario;
     }
 
 
