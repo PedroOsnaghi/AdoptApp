@@ -25,8 +25,7 @@ public class RepositorioMascota implements IRepositorioMascota {
     }
 
     @Override
-    public void guardar(Mascota mascota){
-        this.sessionFactory.getCurrentSession().save(mascota);
+    public void guardar(Mascota mascota){this.sessionFactory.getCurrentSession().save(mascota);
     }
 
     @Override
