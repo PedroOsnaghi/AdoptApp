@@ -13,6 +13,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RepositorioUsuarioTest extends SpringTest {
 
+    @Autowired
+    private RepositorioUsuario repositorioUsuario;
 
     @Test
     @Transactional
