@@ -58,7 +58,7 @@ public class ControladorAuthTest {
         Usuario usuario = new Usuario();
         usuario.setEmail("emailMalo");
 
-        when(servicioAuth.validarCredenciales(usuario, loginDto.getPassword())).thenReturn(false);
+       // when(servicioAuth.validarCredenciales(usuario, loginDto.getPassword())).thenReturn(false);
 
         ModelMap modelEsperado = new ModelMap();
         modelEsperado.put("error", "Usuario y/o contraseña invalido");
