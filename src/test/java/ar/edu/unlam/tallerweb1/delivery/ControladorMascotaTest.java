@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.auth.ServicioSesion;
 import ar.edu.unlam.tallerweb1.domain.mascota.ServicioMascota;
 import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -25,7 +26,7 @@ public class ControladorMascotaTest {
     @Mock
     private ServicioAuth servicioAuth;
     @Mock
-    HttpSession session;
+    private ServicioSesion servicioSesion;
     @Mock
     HttpServletRequest request;
     @InjectMocks
@@ -66,7 +67,7 @@ public class ControladorMascotaTest {
 
         MascotaDto mascotadto = new MascotaDto();
         String target = "perfil";
-        when(session.getAttribute("target")).thenReturn(target);
+        when(this.servicioSesion.getAtributoDeSesion("target")).thenReturn(target);
 
         return mascotadto;
 
@@ -76,7 +77,7 @@ public class ControladorMascotaTest {
 
         MascotaDto mascotadto = new MascotaDto();
         String target = "publicacion";
-        when(session.getAttribute("target")).thenReturn(target);
+        when(this.servicioSesion.getAtributoDeSesion("target")).thenReturn(target);
 
         return mascotadto;
 
@@ -84,18 +85,19 @@ public class ControladorMascotaTest {
 
     private ModelAndView cuandoIngresoLaMascota(MascotaDto mascotadto) {
 
-        when(servicioAuth.getUsuarioAutenticado()).thenReturn(userAuth);
+        when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(userAuth);
+        when(this.request.getContextPath()).thenReturn("adoptapp");
         return controladorMascota.guardarMascota(mascotadto, request);
 
     }
 
     private void entoncesElIngresoEsExitosoYMeLlevaAlPerfil(ModelAndView mav) {
-        assertThat(mav.getViewName()).isEqualTo( "redirect: " + request.getContextPath() + "/perfil/actividad/mascotas");
+        assertThat(mav.getViewName()).isEqualTo( "redirect: adoptapp/perfil/actividad/mascotas");
 
     }
 
     private void entoncesElIngresoEsExitosoYMeLlevaAPublicacion(ModelAndView mav) {
-        assertThat(mav.getViewName()).isEqualTo( "redirect: " + request.getContextPath() + "/publicacion/crear");
+        assertThat(mav.getViewName()).isEqualTo( "redirect: adoptapp/publicacion/crear");
 
     }
 
@@ -103,8 +105,6 @@ public class ControladorMascotaTest {
 
         MascotaDto mascotadto = new MascotaDto();
 
-        String target = "publicacion";
-        when(session.getAttribute("target")).thenReturn(target);
         when(servicioMascota.guardar(mascotadto,this.userAuth)).thenReturn(null);
 
         return mascotadto;
