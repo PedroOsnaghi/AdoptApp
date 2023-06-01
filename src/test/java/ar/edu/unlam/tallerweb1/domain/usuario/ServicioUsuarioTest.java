@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -71,10 +72,12 @@ public class ServicioUsuarioTest {
         assertThat(usuarioCreado.getId()).isEqualTo(10L);
     }
 
-    private Usuario alCrearUnNuevoUsuario(Usuario usuario) {
-        usuario.setId(10L);
-        when(this.repositorioUsuario.guardarUsuario(usuario)).thenReturn(usuario);
-        return this.servicioUsuario.crearUsuario(usuario.getNombre(), usuario.getEmail(), usuario.getPassword());
+    private Usuario alCrearUnNuevoUsuario(Usuario user) {
+
+        user.setId(10L);
+
+        when(this.repositorioUsuario.guardarUsuario(anyObject())).thenReturn(user);
+        return this.servicioUsuario.crearUsuario(user.getNombre(), user.getEmail(), user.getPassword());
     }
 
     private Usuario dadoQueExisteUnUsuarioACrear() {
