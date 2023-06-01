@@ -5,15 +5,18 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository
-@Transactional
 public class RepositorioUsuario implements IRepositorioUsuario {
 
-    @Autowired
+
     private SessionFactory sessionFactory;
+
+    @Autowired
+    public RepositorioUsuario(SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+    }
 
 
     @Override

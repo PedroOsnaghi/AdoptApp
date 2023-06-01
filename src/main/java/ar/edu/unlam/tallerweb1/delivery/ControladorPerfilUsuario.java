@@ -155,7 +155,7 @@ public class ControladorPerfilUsuario {
 
     @RequireAuth
     @RequestMapping("/info/editar")
-    public ModelAndView irAEditarDatos(HttpSession session) {
+    public ModelAndView irAEditarDatos() {
 
         ModelMap model = this.iniciarModel("info");
 

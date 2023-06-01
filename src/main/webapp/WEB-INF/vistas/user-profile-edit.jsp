@@ -33,7 +33,7 @@
                                             <li>
                                                 <a class="nav-link active" href="#v-pills-basicinfo-tab"
                                                    data-bs-toggle="pill"
-                                                   data-bs-target="#v-pills-basicinfo-tab" role="button">Informaci?n
+                                                   data-bs-target="#v-pills-basicinfo-tab" role="button">Información
                                                     Personal
                                                 </a>
                                             </li>
@@ -50,7 +50,7 @@
                                                  role="tabpanel"
                                                  aria-labelledby="v-pills-basicinfo-tab">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <h4>Informaci?n Personal</h4>
+                                                    <h4>Información Personal</h4>
 
                                                 </div>
 
@@ -81,10 +81,10 @@
 
                                                         <div class="form-group col-8 col-sm-7">
                                                             <label class="form-label" for="fname">Tu
-                                                                presentac?on</label>
+                                                                presentación</label>
 
                                                             <form:textarea class="form-control " path="presentacion" value="${usuarioDto.presentacion}"
-                                                                      placeholder="Escribí un texto de presentaci?n que ser? visible en tu perfil por otros usuarios"
+                                                                      placeholder="Escribí un texto de presentación que será visible en tu perfil por otros usuarios"
                                                                       id="" rows="3"></form:textarea>
                                                         </div>
 

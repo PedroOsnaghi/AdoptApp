@@ -11,7 +11,7 @@ public class ServicioUsuario implements IServicioUsuario {
 
 
     private final IServicioArchivo servicioArchivo;
-    IRepositorioUsuario repositorioUsuario;
+    private final IRepositorioUsuario repositorioUsuario;
 
     @Autowired
     public ServicioUsuario(IRepositorioUsuario repositorioUsuario, IServicioArchivo servicioArchivo){
@@ -21,6 +21,7 @@ public class ServicioUsuario implements IServicioUsuario {
 
     @Override
     public Usuario buscarUsuarioPorEmail(String email){
+
         return this.repositorioUsuario.buscarUsuarioPorEmail(email);
     }
 
