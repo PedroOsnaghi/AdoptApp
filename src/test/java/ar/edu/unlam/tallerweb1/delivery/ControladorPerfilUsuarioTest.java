@@ -54,8 +54,41 @@ public class ControladorPerfilUsuarioTest  {
         debeObtenerLaVistaCorrecta(vista, "user-profile-messages");
     }
 
+    @Test
+    public void cuandoUnUsuarioAutenticadoQuereAccederAsuInfoDePerfil(){
+        Usuario usuario = dadoQueExisteUnUsuarioAutenticado();
+        ModelAndView vista = alAccederASuInformacion(usuario);
+        debeObtenerLaVistaCorrecta(vista,"user-profile-info");
+    }
 
+    @Test
+    public void cuandoUnUsuarioAutenticadoQuereEditarSuInfoDePerfil(){
+        Usuario usuario = dadoQueExisteUnUsuarioAutenticado();
+        ModelAndView vista = alAccederAEditarSuInfo(usuario);
+        debeObtenerLaVistaCorrecta(vista,"user-profile-edit");
+    }
 
+    @Test
+    public void cuandoUnUsuarioAutenticadoQuereAccederALasSolicitudes(){
+        Usuario usuario = dadoQueExisteUnUsuarioAutenticado();
+        ModelAndView vista = alAccederASolicitudes(usuario);
+        debeObtenerLaVistaCorrecta(vista,"user-profile-request");
+    }
+
+    private ModelAndView alAccederASolicitudes(Usuario usuario) {
+        when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(usuario);
+        return this.controladorPerfilUsuario.solicitudesUsuario();
+    }
+
+    private ModelAndView alAccederAEditarSuInfo(Usuario usuario) {
+        when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(usuario);
+        return this.controladorPerfilUsuario.irAEditarDatos();
+    }
+
+    private ModelAndView alAccederASuInformacion(Usuario usuario) {
+        when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(usuario);
+        return this.controladorPerfilUsuario.infoUsuario();
+    }
 
 
     private void debeObtenerLaVistaCorrecta(ModelAndView vista, String nombre_vista) {
