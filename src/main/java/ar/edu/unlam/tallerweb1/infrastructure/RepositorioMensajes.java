@@ -28,15 +28,13 @@ public class RepositorioMensajes implements IRepositorioMensajes {
     }
     @Override
     public Long guardarMensaje(Mensaje msj) {
-        this.sessionFactory.getCurrentSession().save(msj);
-
-        return msj.getId();
+        return  (Long) this.sessionFactory.getCurrentSession().save(msj);
     }
 
     @Override
-    public void actualizarMensaje(Mensaje msj) {
+    public Mensaje actualizarMensaje(Mensaje msj) {
         this.sessionFactory.getCurrentSession().update(msj);
-
+        return msj;
     }
 
     @Override

@@ -61,7 +61,7 @@ public class ControladorMensajes {
 
     @RequireAuth
     @RequestMapping(path = "/eliminar",method = RequestMethod.GET)
-    public ModelAndView responderMensaje(@RequestParam Long idm, Long pid, HttpServletRequest request){
+    public ModelAndView eliminarRespuesta(@RequestParam Long idm, Long pid, HttpServletRequest request){
 
         try{
 
