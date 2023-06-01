@@ -6,20 +6,18 @@ import ar.edu.unlam.tallerweb1.infrastructure.RepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@Service("servicioPublicacion")
-@Transactional
+@Service
 public class ServicioPublicacion implements IServicioPublicacion{
 
     private String errorMessage;
     private final IServicioArchivo servicioArchivo;
-    private RepositorioPublicacion repositorioPublicacion;
+    private IRepositorioPublicacion repositorioPublicacion;
 
     @Autowired
-    public ServicioPublicacion(RepositorioPublicacion repositorioPublicacion, IServicioArchivo servicioArchivo){
+    public ServicioPublicacion(IRepositorioPublicacion repositorioPublicacion, IServicioArchivo servicioArchivo){
         this.repositorioPublicacion = repositorioPublicacion;
         this.servicioArchivo = servicioArchivo;
     }
