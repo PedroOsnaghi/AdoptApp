@@ -57,7 +57,7 @@ public class ControladorMascota {
 
     @RequireAuth
     @RequestMapping(path = "/guardar", method = RequestMethod.POST)
-    public ModelAndView guardarMascota(@ModelAttribute MascotaDto mascotaDto, HttpSession session, HttpServletRequest request) {
+    public ModelAndView guardarMascota(@ModelAttribute MascotaDto mascotaDto, HttpServletRequest request) {
 
         String target = "";
 
@@ -72,8 +72,8 @@ public class ControladorMascota {
             return new ModelAndView("new-mascot", model);
         }
 
-        if (request.getAttribute("target") != null)
-            target = (String) request.getAttribute("target");
+        if (servicioSesion.getAtributoDeSesion("target") != null)
+            target = (String) servicioSesion.getAtributoDeSesion("target");
 
         switch (target) {
             case "publicacion":
