@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -57,6 +58,15 @@ public class ControladorPublicacionTest {
         entoncesMeDevuelveLaVistaCorrecta(vista,  "new-post");
     }
 
+    @Test
+    public void TestCuandoQuieroAccederACrearPublicacion(){
+        Usuario usuario = new Usuario("Usuario Test", "test@test", "1234");
+        when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(usuario);
+        when(this.servicioMascota.listarMascotasAPublicar(this.servicioAuth.getUsuarioAutenticado())).thenReturn(new ArrayList<>());
+        ModelAndView vista = this.controladorPublicacion.crear();
+        entoncesMeDevuelveLaVistaCorrecta(vista, "new-post");
+    }
+
     private ModelAndView cuandoQuieroCrearPublicacionConError(PublicacionDto publicacionDto) {
         when(this.servicioPublicacion.guardarPublicacion(publicacionDto)).thenReturn(null);
 
@@ -82,7 +92,6 @@ public class ControladorPublicacionTest {
         when(servicioPublicacion.listarPublicacionesDisponibles()).thenReturn(new ArrayList<>());
 
     }
-
 
     private void entoncesMeDevuelveLaVistaCorrecta(ModelAndView vista, String vistaEsperada) {
         assertThat(vista.getViewName()).isEqualTo(vistaEsperada);
