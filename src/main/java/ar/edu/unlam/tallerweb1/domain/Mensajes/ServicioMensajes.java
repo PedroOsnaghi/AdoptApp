@@ -25,30 +25,32 @@ public class ServicioMensajes implements IServicioMensajes{
 
         Mensaje msj = new Mensaje(msjDto.getPublicacion(), msjDto.getEmisor(), msjDto.getPregunta());
 
-        this.repositorioMensajes.guardarMensaje(msj);
-
-        return msj.getId();
+        return this.repositorioMensajes.guardarMensaje(msj);
 
     }
 
     @Override
-    public void responderMensaje(MensajeDto msjDto) {
+    public Mensaje responderMensaje(MensajeDto msjDto) {
         Mensaje msj = this.repositorioMensajes.obtenerMensaje(msjDto.getId());
 
         msj.setRespuesta(msjDto.getRespuesta());
         msj.setFechaRespuesta(Timestamp.from(Instant.now()));
 
-        this.repositorioMensajes.actualizarMensaje(msj);
+        return this.repositorioMensajes.actualizarMensaje(msj);
+
+
     }
 
     @Override
-    public void eliminarRespuesta(Long idMensaje) {
+    public Mensaje eliminarRespuesta(Long idMensaje) {
         Mensaje msj = this.repositorioMensajes.obtenerMensaje(idMensaje);
 
         msj.setRespuesta(null);
         msj.setFechaRespuesta(null);
 
-        this.repositorioMensajes.actualizarMensaje(msj);
+        msj = this.repositorioMensajes.actualizarMensaje(msj);
+
+        return msj;
     }
 
     @Override

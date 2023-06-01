@@ -9,9 +9,9 @@ public interface IServicioMensajes {
 
     Long enviarMensaje(MensajeDto msjDto);
 
-    void responderMensaje(MensajeDto msjDto);
+    Mensaje responderMensaje(MensajeDto msjDto);
 
-    void eliminarRespuesta(Long idMensaje);
+    Mensaje eliminarRespuesta(Long idMensaje);
 
     List<Mensaje> listarMensajesPublicacion(Long idPublicacion);
 
