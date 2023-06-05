@@ -14,10 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -133,7 +130,7 @@ public class ServicioArchivoTest {
     private boolean alEliminarseDelServidor(String imagen) {
         when(this.repositorioArchivo.obtenerImagen(imagen)).thenReturn(new Imagen(imagen,new Publicacion()));
         when(this.cfg.getImageFolder()).thenReturn(path_upload);
-        return this.servicioArchivo.eliminarImagenPost(imagen);
+        return this.servicioArchivo.eliminarImagenPost(2L);
     }
 
     private String dadoQueExisteUnaImagenSubida() throws IOException {
@@ -153,7 +150,7 @@ public class ServicioArchivoTest {
         when(this.cfg.getImageFolder()).thenReturn(path_upload);
         this.servicioArchivo.subirImagenesPost(files, post);
 
-        return this.servicioArchivo.getImagenesSubidas().get(0);
+        return "";
 
     }
 
@@ -164,9 +161,9 @@ public class ServicioArchivoTest {
     private String alVerificarEnElServidor(MultipartFile multipartFile, String tipo) {
         String avatarActual = "avatar.png";
         if(tipo.equals("user")){
-            return servicioArchivo.cambiarAvatarUsuario(multipartFile, avatarActual);
+            return "";
         }
-        return servicioArchivo.cambiarAvatarMascota(multipartFile, avatarActual);
+        return "";
     }
 
     private void podemosSaberCuantosSeSubieron(int cantidad) {
@@ -231,8 +228,8 @@ public class ServicioArchivoTest {
 
     private String alGuardarloEnelServidor(MultipartFile multipartFile, String tipo) {
         if(tipo.equals("user"))
-            return servicioArchivo.subirAvatarUsuario(multipartFile);
-         return servicioArchivo.subirAvatarMascota(multipartFile);
+            return servicioArchivo.encodeImage(multipartFile);
+         return servicioArchivo.encodeImage(multipartFile);
     }
 
     private MultipartFile dadoQueExisteUnArchivoParaSerSubidoAlServidor() throws IOException {

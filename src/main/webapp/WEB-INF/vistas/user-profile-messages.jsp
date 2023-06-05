@@ -41,7 +41,7 @@
                                                         <div class="d-flex align-items-center justify-content-between">
                                                             <div class="d-flex align-items-center">
                                                                 <img class="img-fluid rounded-circle avatar-40"
-                                                                     src="${pageContext.request.contextPath}/images/mascota/${publicacion.publicacion.mascota.foto}"
+                                                                     src="data:image/jpeg;base64,${publicacion.publicacion.mascota.foto}"
                                                                      alt=""
                                                                      loading="lazy">
                                                                 <div class="media-body ms-3">
@@ -135,7 +135,7 @@
                                                             </p>
                                                             <div class="iq-message-body iq-other-user">
                                                                 <div class="chat-profile">
-                                                                    <img src="${pageContext.request.contextPath}/images/user/${mensaje.emisor.imagen}"
+                                                                    <img src="data:image/jpeg;base64,${mensaje.emisor.imagen}"
                                                                          alt="chat-user" class="avatar-40 rounded"
                                                                          loading="lazy">
 
@@ -203,7 +203,7 @@
                                                                     class="mb-0 link-primary iq-chating">${mensaje.fechaEmision}</small></p>
                                                             <div class="iq-message-body iq-other-user">
                                                                 <div class="chat-profile">
-                                                                    <img src="${pageContext.request.contextPath}/images/user/${mensaje.emisor.imagen}"
+                                                                    <img src="data:image/jpeg;base64,${mensaje.emisor.imagen}"
                                                                          alt="chat-user" class="avatar-40 rounded"
                                                                          loading="lazy">
 
@@ -229,7 +229,7 @@
 
                                                                     <div class="iq-message-body iq-current-user">
                                                                         <div class="chat-profile mt-5">
-                                                                            <img src="${pageContext.request.contextPath}/images/user/${mensaje.publicacion.mascota.usuario.imagen}"
+                                                                            <img src="data:image/jpeg;base64,${mensaje.publicacion.mascota.usuario.imagen}"
                                                                                  alt="chat-user"
                                                                                  class="avatar-40 rounded"
                                                                                  loading="lazy">

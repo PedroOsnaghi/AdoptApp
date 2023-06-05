@@ -76,7 +76,7 @@
                                                    <label for="m-${mascota.id}" class="btn-radio-mascota mb-1 p-1 ps-2">
                                                       <div class="d-flex align-items-center  justify-content-between flex-wrap">
                                                          <div class="user-img img-fluid flex-shrink-0">
-                                                            <img src="${pageContext.request.contextPath}/images/mascota/${mascota.foto}" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
+                                                            <img src="data:image/jpeg;base64,${mascota.foto}" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
                                                          </div>
                                                          <div class="flex-grow-1 ms-3">
                                                             <h6><strong>${mascota.nombre}</strong></h6>

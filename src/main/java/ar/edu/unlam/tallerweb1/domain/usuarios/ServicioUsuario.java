@@ -27,6 +27,7 @@ public class ServicioUsuario implements IServicioUsuario {
     @Override
     public Usuario crearUsuario(String nombre, String email, String password) {
         Usuario usuario = new Usuario(nombre, email, password);
+        usuario.setImagen(this.servicioArchivo.getDefaultUserImageEncoded());
         return repositorioUsuario.guardarUsuario(usuario);
     }
 
@@ -45,9 +46,11 @@ public class ServicioUsuario implements IServicioUsuario {
         user.setProvincia(uDto.getProvincia());
         user.setLat(uDto.getLat());
         user.setLng(uDto.getLng());
-        String nombreArchivo = this.servicioArchivo.cambiarAvatarUsuario(uDto.getAvatar(), user.getImagen());
-        user.setImagen(nombreArchivo);
         user.setPresentacion(uDto.getPresentacion());
+
+        String nombreArchivo = this.servicioArchivo.encodeImage(uDto.getAvatar());
+        if(nombreArchivo != null) user.setImagen(nombreArchivo);
+
         return user;
 
     }

@@ -79,9 +79,9 @@ public class ServicioMascota implements IServicioMascota {
         m.setPeso(mDto.getPeso());
         m.setTipo(mDto.getTipo());
         m.setSalud(mDto.getSalud());
-        String nombreImagen = this.servicioArchivo.subirAvatarMascota(mDto.getImagen());
-        m.setFoto(nombreImagen);
 
+        String nombreImagen = this.servicioArchivo.encodeImage(mDto.getImagen());
+        m.setFoto(nombreImagen != null? nombreImagen : this.servicioArchivo.getDefaultMascotImageEncoded());
 
         return m;
     }

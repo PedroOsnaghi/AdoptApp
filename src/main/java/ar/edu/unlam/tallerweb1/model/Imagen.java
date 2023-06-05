@@ -8,7 +8,8 @@ public class Imagen  {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
+    @Column(columnDefinition="LONGTEXT")
+    private String base64Content;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publicacion_id")
@@ -17,8 +18,8 @@ public class Imagen  {
 
     public Imagen(){}
 
-    public Imagen(String nombre, Publicacion post){
-        this.nombre = nombre;
+    public Imagen(String content, Publicacion post){
+        this.base64Content = content;
         this.publicacion = post;
     }
 
@@ -38,11 +39,11 @@ public class Imagen  {
         this.publicacion = publicacion;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getBase64Content() {
+        return base64Content;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setBase64Content(String content) {
+        this.base64Content = content;
     }
 }
