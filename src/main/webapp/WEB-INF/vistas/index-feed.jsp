@@ -43,7 +43,7 @@
                                                 <a href="">
                                                     <div class="me-3">
                                                         <img class="rounded-circle img-fluid"
-                                                             src="${pageContext.request.contextPath}/images/user/${publicacion.mascota.usuario.imagen}"
+                                                             src="data:image/jpeg;base64,${publicacion.mascota.usuario.imagen}"
                                                              style="max-width: 40px;" alt="" loading="lazy">
                                                     </div>
                                                 </a>
@@ -91,15 +91,15 @@
                                             <p>${publicacion.bio}</p>
                                         </div>
                                         <div class="user-post">
-                                            <div id="carousel" class="carousel slide"
+                                            <div id="carousel-${publicacion.id}" class="carousel slide"
                                                  data-bs-ride="carousel">
                                                 <div class="carousel-indicators">
                                                     <c:forEach items="${publicacion.imagenes}" begin="0"
                                                                end="${publicacion.imagenes.size() - 1}"
                                                                varStatus="index">
-                                                        <button type="button" data-bs-target="#carousel"
-                                                                data-bs-slide-to="${index.count - 1}" class="active"
-                                                                aria-current="true"></button>
+                                                        <button type="button" data-bs-target="#carousel-${publicacion.id}"
+                                                                data-bs-slide-to="${index.count - 1}" class="<c:if test="${index.count - 1 eq 0}">active</c:if>"
+                                                                aria-current="<c:if test="${index.count - 1 eq 0}">true</c:if>"></button>
                                                     </c:forEach>
 
                                                 </div>
@@ -107,7 +107,7 @@
                                                     <c:forEach items="${publicacion.imagenes}" varStatus="index"
                                                                var="imagen">
                                                         <div class="carousel-item <c:if test="${index.count - 1 eq 0}">active</c:if>">
-                                                            <img src="${pageContext.request.contextPath}/images/posts/${imagen.nombre}"
+                                                            <img src="data:image/jpg;base64,${imagen.base64Content}"
                                                                  class=" w-100 image-cover"
                                                                  height="100%" loading="lazy" alt="image">
                                                         </div>
@@ -115,13 +115,13 @@
 
                                                 </div>
                                                 <button class="carousel-control-prev" type="button"
-                                                        data-bs-target="#carousel" data-bs-slide="prev"
+                                                        data-bs-target="#carousel-${publicacion.id}" data-bs-slide="prev"
                                                         control-id="ControlID-7">
                                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                     <span class="visually-hidden">Previous</span>
                                                 </button>
                                                 <button class="carousel-control-next" type="button"
-                                                        data-bs-target="#carousel" data-bs-slide="next"
+                                                        data-bs-target="#carousel-${publicacion.id}" data-bs-slide="next"
                                                         control-id="ControlID-8">
                                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                     <span class="visually-hidden">Next</span>

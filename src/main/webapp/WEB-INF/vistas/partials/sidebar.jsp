@@ -23,7 +23,7 @@
 
           <!-- MI PERFIL -->
           <li class="nav-item">
-             <a class="nav-link active" aria-current="page" href="${pageContext.request.contextPath}/perfil/actividad/posts">
+             <a class="nav-link" aria-current="page" href="${pageContext.request.contextPath}/perfil/actividad/posts">
                 <i class="icon material-symbols-outlined">
                    person
                 </i>
@@ -33,7 +33,7 @@
 
           <!-- PUBLICACION -->
           <li class="nav-item">
-             <a class="nav-link" data-bs-toggle="collapse" href="#post" role="button" aria-expanded="false"
+             <a class="nav-link" style="cursor: pointer" data-bs-toggle="collapse"  role="button" aria-expanded="false"
                 aria-controls="profile">
                 <i class="icon material-symbols-outlined">
                    article

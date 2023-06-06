@@ -30,7 +30,7 @@
                      <div class="row">
                         <div class="col-lg-2">
                            <div class="item1 ms-1">
-                              <img src="${pageContext.request.contextPath}/images/mascota/${publicacion.mascota.foto}" class="img-fluid rounded profile-image"
+                              <img src="data:image/jpeg;base64,${publicacion.mascota.foto}" class="img-fluid rounded profile-image"
                                  alt="profile-image" loading="lazy">
                            </div>
                         </div>
@@ -44,7 +44,7 @@
                                  <div class="d-flex justify-content-between">
                                     <a href="">
                                        <div class="me-3">
-                                          <img class="rounded-circle img-fluid" src="${pageContext.request.contextPath}/images/user/${publicacion.mascota.usuario.imagen}"
+                                          <img class="rounded-circle img-fluid" src="data:image/jpeg;base64,${publicacion.mascota.usuario.imagen}"
                                              style="max-width: 40px;" alt="" loading="lazy">
                                        </div>
                                     </a>
@@ -209,8 +209,8 @@
 
                      <div class="d-grid gap-2 grid-cols-3">
                         <c:forEach items="${publicacion.imagenes}" var="imagen"  varStatus="index">
-                           <a data-fslightbox="gallery" href="${pageContext.request.contextPath}/images/posts/${imagen.nombre}">
-                              <img src="${pageContext.request.contextPath}/images/posts/${imagen.nombre}" class="img-fluid bg-soft-info img-size fit-cover"
+                           <a data-fslightbox="gallery" href="data:image/jpeg;base64,${imagen.base64Content}">
+                              <img src="data:image/jpeg;base64,${imagen.base64Content}" class="img-fluid bg-soft-info img-size fit-cover"
                                    alt="photo-profile" loading="lazy">
                            </a>
                         </c:forEach>

@@ -1,17 +1,16 @@
 package ar.edu.unlam.tallerweb1.domain.archivos;
 
-import ar.edu.unlam.tallerweb1.model.Imagen;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface IServicioArchivo {
-    String subirAvatarUsuario(MultipartFile multipart);
+    String encodeImage(MultipartFile multipart);
 
-    String cambiarAvatarUsuario(MultipartFile file, String oldFile);
+    String getDefaultUserImageEncoded();
 
-    String subirAvatarMascota(MultipartFile multipart);
+    String getDefaultMascotImageEncoded();
 
     int subirImagenesPost(MultipartFile[] files, Publicacion post);
 
-    boolean eliminarImagenPost(String fileName);
+    boolean eliminarImagenPost(Long idImagen);
 }
