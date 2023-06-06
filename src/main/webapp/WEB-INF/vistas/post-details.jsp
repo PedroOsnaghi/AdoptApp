@@ -375,4 +375,5 @@
 
 <%@ include file="partials/script.jsp" %>
 
-
+<!-- fslightbox Script -->
+<script src="${pageContext.request.contextPath}/js/fslightbox.js" defer></script>
