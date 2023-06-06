@@ -107,7 +107,7 @@
                                                     <c:forEach items="${publicacion.imagenes}" varStatus="index"
                                                                var="imagen">
                                                         <div class="carousel-item <c:if test="${index.count - 1 eq 0}">active</c:if>">
-                                                            <img src="data:image/jpeg;base64,${imagen.base64Content}"
+                                                            <img src="data:image/jpg;base64,${imagen.base64Content}"
                                                                  class=" w-100 image-cover"
                                                                  height="100%" loading="lazy" alt="image">
                                                         </div>

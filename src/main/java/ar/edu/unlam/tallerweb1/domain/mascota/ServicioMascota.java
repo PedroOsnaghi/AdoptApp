@@ -80,8 +80,8 @@ public class ServicioMascota implements IServicioMascota {
         m.setTipo(mDto.getTipo());
         m.setSalud(mDto.getSalud());
 
-        String nombreImagen = this.servicioArchivo.encodeImage(mDto.getImagen());
-        m.setFoto(nombreImagen != null? nombreImagen : this.servicioArchivo.getDefaultMascotImageEncoded());
+        String encodedImage = this.servicioArchivo.encodeImage(mDto.getImagen());
+        m.setFoto(encodedImage != null? encodedImage : this.servicioArchivo.getDefaultMascotImageEncoded());
 
         return m;
     }
