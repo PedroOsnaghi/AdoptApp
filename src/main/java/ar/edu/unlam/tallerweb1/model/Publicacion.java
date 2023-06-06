@@ -11,11 +11,7 @@ import java.util.*;
 @Entity
 public class Publicacion {
 
-    public enum EstadoPublicacion {
-        DISPONIBLE,
-        RESERVADO,
-        ADOPTADO,
-    }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
