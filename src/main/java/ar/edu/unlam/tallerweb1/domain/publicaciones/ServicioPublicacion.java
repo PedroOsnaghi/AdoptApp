@@ -87,7 +87,7 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
     @Override
     public List<Publicacion> listarPublicacionesDisponibles() {
-        return repositorioPublicacion.listarPublicaciones("disponible");
+        return repositorioPublicacion.listarPublicaciones(EstadoPublicacion.DISPONIBLE);
     }
 
     @Override
@@ -141,7 +141,6 @@ public class ServicioPublicacion implements IServicioPublicacion{
         p.setDireccion(publicacionDto.getDireccion());
         p.setProvincia(publicacionDto.getProvincia());
         p.setCiudad(publicacionDto.getCiudad());
-
         p.setEstado(EstadoPublicacion.DISPONIBLE);
 
         return p;

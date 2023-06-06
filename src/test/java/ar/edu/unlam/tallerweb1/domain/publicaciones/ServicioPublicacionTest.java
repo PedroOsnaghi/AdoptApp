@@ -70,7 +70,7 @@ public class ServicioPublicacionTest {
     }
 
     private List<Publicacion> alListarPublicacionesDisponibles(List<Publicacion> publicacionesDisponibles) {
-        when(this.repositorioPublicacion.listarPublicaciones("disponible")).thenReturn(publicacionesDisponibles);
+        when(this.repositorioPublicacion.listarPublicaciones(EstadoPublicacion.DISPONIBLE)).thenReturn(publicacionesDisponibles);
         return this.servicioPublicacion.listarPublicacionesDisponibles();
     }
 

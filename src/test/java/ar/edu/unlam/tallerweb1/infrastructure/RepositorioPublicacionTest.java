@@ -32,7 +32,7 @@ public class RepositorioPublicacionTest extends SpringTest {
     @Rollback
     public void alListarPublicacionesDisponiblesDebeDevolverSoloLasDisponibles(){
         dadoQueExistenPublicacionesCreadas();
-        List<Publicacion> publicaciones = alListar("disponible");
+        List<Publicacion> publicaciones = alListar(EstadoPublicacion.DISPONIBLE);
         assertThat(publicaciones).hasSize(2);
     }
 
@@ -71,7 +71,7 @@ public class RepositorioPublicacionTest extends SpringTest {
         return this.repositorioPublicacion.listarPublicacionesPorUsuarioId(id);
     }
 
-    private List<Publicacion> alListar(String estado) {
+    private List<Publicacion> alListar(EstadoPublicacion estado) {
         return this.repositorioPublicacion.listarPublicaciones(estado);
     }
 
