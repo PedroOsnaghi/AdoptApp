@@ -24,7 +24,7 @@ public class Mascota {
     private Date nacimiento;
     private String personalidad;
     private String salud;
-    @Column(columnDefinition="LONGTEXT")
+    @Lob
     private String foto;
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "mascota")
     private Publicacion publicacion;

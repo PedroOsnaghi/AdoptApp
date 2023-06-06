@@ -25,7 +25,7 @@ public class Usuario {
     private String lat;
     private String lng;
     private String tel;
-    @Column(columnDefinition="LONGTEXT")
+    @Lob
     private String imagen;
 
     private String rol;

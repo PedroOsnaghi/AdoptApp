@@ -8,7 +8,7 @@ public class Imagen  {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
 
-    @Column(columnDefinition="LONGTEXT")
+    @Lob
     private String base64Content;
 
     @ManyToOne(fetch = FetchType.LAZY)
