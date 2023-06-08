@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.domain.mascota;
 
 import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
+import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
 import ar.edu.unlam.tallerweb1.model.enumerated.GeneroMascota;
 import ar.edu.unlam.tallerweb1.model.enumerated.TipoMascota;
 import org.junit.Before;
@@ -25,28 +26,28 @@ public class ServicioMascotaTest {
         this.servicioMascota = new ServicioMascota(repositorioMascota, servicioArchivo);
 
     }
-    @Test
-    public void alNoIngresarNombreDeLaMascotaDevuelveFalse()
+    @Test(expected = DataValidationException.class)
+    public void alNoIngresarNombreDeLaMascotaLanzaExcepcionDeValidacion()
     {
         MascotaDto mascota = dadoQueIngresoLaMascotaSinNombre();
-        Boolean resultado = cuandoIntentoGuardarLaMascota(mascota);
-        entoncesDevuelveFalse(resultado);
+        cuandoIntentoGuardarLaMascota(mascota);
+
     }
 
 
-    @Test
-    public void alNoIngresarElTipoDeMascotaMeDevuelveFalse()
+    @Test(expected = DataValidationException.class)
+    public void alNoIngresarElTipoDeMascotaLanzaExcepcionDeValidacion()
     {
         MascotaDto mascota = dadoQueIngresoLaMascotaSinTipo();
-        Boolean resultado = cuandoIntentoGuardarLaMascota(mascota);
-        entoncesDevuelveFalse(resultado);
+        cuandoIntentoGuardarLaMascota(mascota);
+
     }
-    @Test
-    public void alNoIngresarElGeneroDeMascotaMeDevuelveFalse()
+    @Test(expected = DataValidationException.class)
+    public void alNoIngresarElGeneroDeMascotaLanzaExcepcionDeValidacion()
     {
         MascotaDto mascota = dadoQueIngresoLaMascotaSinGenero();
-        Boolean resultado = cuandoIntentoGuardarLaMascota(mascota);
-        entoncesDevuelveFalse(resultado);
+        cuandoIntentoGuardarLaMascota(mascota);
+
     }
 
     @Test
