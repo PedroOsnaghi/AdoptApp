@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,12 +66,13 @@ public class ControladorMascota {
 
         Usuario usuario = this.servicioAuth.getUsuarioAutenticado();
 
-        Long p_id = this.servicioMascota.guardar(mascotaDto, usuario);
-
-        if (p_id == null) {
-            model.put("error", this.servicioMascota.getErrorMessage());
+        try {
+            this.servicioMascota.guardar(mascotaDto, usuario);
+        }catch (MaxUploadSizeExceededException error){
+            model.put("error", error.getMessage());
             return new ModelAndView("new-mascot", model);
         }
+
 
         if (servicioSesion.getAtributoDeSesion("target") != null)
             target = (String) servicioSesion.getAtributoDeSesion("target");

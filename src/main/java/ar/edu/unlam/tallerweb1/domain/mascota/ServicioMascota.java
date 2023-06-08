@@ -81,6 +81,7 @@ public class ServicioMascota implements IServicioMascota {
         m.setSalud(mDto.getSalud());
 
         String encodedImage = this.servicioArchivo.encodeImage(mDto.getImagen());
+
         m.setFoto(encodedImage != null? encodedImage : this.servicioArchivo.getDefaultMascotImageEncoded());
 
         return m;

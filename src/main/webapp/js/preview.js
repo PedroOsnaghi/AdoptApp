@@ -2,7 +2,7 @@ var f = document.getElementById('file');
 var reader = new FileReader();
 var img = document.getElementById('preview');
 
-const MAXIMO_TAMANIO_BYTES = 1000000;
+const MAXIMO_TAMANIO_BYTES = 8000000;
 
 
 
