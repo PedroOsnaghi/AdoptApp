@@ -4,6 +4,8 @@ import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
 import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioSesion;
+import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
+import ar.edu.unlam.tallerweb1.domain.exceptions.MaxSizeFileException;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,8 +70,8 @@ public class ControladorMascota {
 
         try {
             this.servicioMascota.guardar(mascotaDto, usuario);
-        }catch (MaxUploadSizeExceededException error){
-            model.put("error", error.getCause().getMessage());
+        }catch (DataValidationException error){
+            model.put("error", error.getMessage());
             return new ModelAndView("new-mascot", model);
         }
 

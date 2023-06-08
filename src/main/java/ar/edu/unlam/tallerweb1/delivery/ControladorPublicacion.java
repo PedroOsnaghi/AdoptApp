@@ -8,6 +8,7 @@ import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
 import ar.edu.unlam.tallerweb1.domain.exceptions.EmptyFileException;
 import ar.edu.unlam.tallerweb1.domain.exceptions.MaxSizeFileException;
+import ar.edu.unlam.tallerweb1.domain.exceptions.PostCreationException;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -77,7 +78,7 @@ public class ControladorPublicacion {
 
            p_id = servicioPublicacion.guardarPublicacion(publicacionDto);
 
-        }catch (DataValidationException error){
+        }catch (DataValidationException | PostCreationException error){
             model.put("error", error.getMessage());
             return new ModelAndView("new-post",model);
         }
