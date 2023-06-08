@@ -65,18 +65,18 @@
                                     <label for="tipo" class="form-label"><strong>Qué tipo de mascota
                                         es?</strong></label>
                                     <form:select path="tipo" class="form-select" id="tipo" required="true">
-                                        <option selected="" disabled="" value="null">Selecciona un Tipo</option>
-                                        <option value="PERRO">PERRO</option>
-                                        <option value="GATO">GATO</option>
+                                        <option <c:if test="${mascotaDto.tipo eq null}">selected="true"</c:if>  disabled="" value="null">Selecciona un Tipo</option>
+                                        <option <c:if test="${mascotaDto.tipo eq 'PERRO'}">selected="true"</c:if>  value="PERRO">PERRO</option>
+                                        <option <c:if test="${mascotaDto.tipo eq 'GATO'}">selected="true"</c:if>  value="GATO">GATO</option>
                                     </form:select>
                                 </div>
 
                                 <div class="col-md-6 position-relative">
                                     <label for="genero" class="form-label"><strong>Género</strong></label>
                                     <form:select path="genero" class="form-select" id="genero">
-                                        <option selected="" disabled="" value="">Selecciona un Género</option>
-                                        <option value="HEMBRA">HEMBRA</option>
-                                        <option value="MACHO">MACHO</option>
+                                        <option <c:if test="${mascotaDto.genero eq null}">selected="true"</c:if>  disabled="" value="">Selecciona un Género</option>
+                                        <option <c:if test="${mascotaDto.genero eq 'HEMBRA'}">selected="true"</c:if>   value="HEMBRA">HEMBRA</option>
+                                        <option <c:if test="${mascotaDto.genero eq 'MACHO'}">selected="true"</c:if>  value="MACHO">MACHO</option>
                                     </form:select>
 
                                 </div>
