@@ -20,16 +20,17 @@ jobs:
           cache: maven
       - name: Compilar con Maven (push)
         run: mvn clean install --batch-mode --no-transfer-progress
+        id: build_push
       - name: Checkear build de Maven (push)
         run: |
-          if [ ${{ failure() }} == true ]; then
+          if [ $? -ne 0 ]; then
             echo "Fallo en el build."
             echo "::set-output name=build_status::failed"
-            else
+          else
             echo "::set-output name=build_status::success"
           fi
       - name: Funcionó todo! (push)
-        run: echo "Felicitaciones a quien hayá pusheado esto!"
+        run: echo "Felicitaciones a quien haya pusheado esto!"
 
 
   build_pull_request:
@@ -45,12 +46,13 @@ jobs:
           cache: maven
       - name: Compilar con Maven (pull request)
         run: mvn clean install --batch-mode --no-transfer-progress
+        id: build_pull_request
       - name: Checkear build de Maven (pull request)
         run: |
-          if [ ${{ failure() }} == true ]; then
+          if [ $? -ne 0 ]; then
             echo "Fallo en el build."
             echo "::set-output name=build_status::failed"
-            else
+          else
             echo "::set-output name=build_status::success"
           fi
       - name: Agregar comentario de error al PR
@@ -67,7 +69,4 @@ jobs:
               body: comment
             })
       - name: Funcionó todo! (pull request)
-        run: echo "Felicitaciones a quien hayá pusheado esto!"
-
-
-
+        run: echo "Felicitaciones a quien haya pusheado esto!"
