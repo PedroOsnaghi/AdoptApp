@@ -66,8 +66,8 @@
                                         es?</strong></label>
                                     <form:select path="tipo" class="form-select" id="tipo" required="true">
                                         <option selected="" disabled="" value="null">Selecciona un Tipo</option>
-                                        <option value="perro">PERRO</option>
-                                        <option value="gato">GATO</option>
+                                        <option value="PERRO">PERRO</option>
+                                        <option value="GATO">GATO</option>
                                     </form:select>
                                 </div>
 
@@ -75,8 +75,8 @@
                                     <label for="genero" class="form-label"><strong>Género</strong></label>
                                     <form:select path="genero" class="form-select" id="genero">
                                         <option selected="" disabled="" value="">Selecciona un Género</option>
-                                        <option value="hembra">HEMBRA</option>
-                                        <option value="macho">MACHO</option>
+                                        <option value="HEMBRA">HEMBRA</option>
+                                        <option value="MACHO">MACHO</option>
                                     </form:select>
 
                                 </div>

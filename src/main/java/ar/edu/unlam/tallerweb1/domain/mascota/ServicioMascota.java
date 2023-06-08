@@ -72,12 +72,12 @@ public class ServicioMascota implements IServicioMascota {
         Mascota m = new Mascota();
         m.setUsuario(user);
         m.setNombre(mDto.getNombre());
-        m.setGenero(mDto.getGenero());
+        m.setGenero(mDto.getGeneroToEnum());
         m.setPersonalidad(mDto.getPersonalidad());
         m.setNacimiento(mDto.getNacimiento());
         m.setRaza(mDto.getRaza());
         m.setPeso(mDto.getPeso());
-        m.setTipo(mDto.getTipo());
+        m.setTipo(mDto.getTipoToEnum());
         m.setSalud(mDto.getSalud());
 
         String encodedImage = this.servicioArchivo.encodeImage(mDto.getImagen());
