@@ -223,12 +223,12 @@ public class ServicioPublicacionTest {
     }
 
     private void debeRetornarElIdDeLAPublicacionGuardada(Long result) {
-        System.out.println(this.servicioPublicacion.getErrorMessage());
+
         assertThat(result).isNotNull();
     }
 
     private void debeRetornarNull(Long result) {
-        System.out.println("Error obtenido: " + this.servicioPublicacion.getErrorMessage());
+
         assertThat(result).isNull();
     }
 

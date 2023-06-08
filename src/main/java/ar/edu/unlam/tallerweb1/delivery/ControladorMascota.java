@@ -69,7 +69,7 @@ public class ControladorMascota {
         try {
             this.servicioMascota.guardar(mascotaDto, usuario);
         }catch (MaxUploadSizeExceededException error){
-            model.put("error", error.getMessage());
+            model.put("error", error.getCause().getMessage());
             return new ModelAndView("new-mascot", model);
         }
 

@@ -10,8 +10,6 @@ import java.util.List;
 
 public interface IServicioPublicacion {
 
-    String getErrorMessage();
-    //
     Publicacion findPublicacion(Long id);
     Long guardarPublicacion(PublicacionDto publicacionDto);
     void modificarPublicacion(Publicacion publicacion); //TODO return Publcacion
