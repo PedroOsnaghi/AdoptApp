@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 
 import ar.edu.unlam.tallerweb1.model.*;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -69,7 +70,7 @@ public class ServicioPublicacionTest {
     }
 
     private List<Publicacion> alListarPublicacionesDisponibles(List<Publicacion> publicacionesDisponibles) {
-        when(this.repositorioPublicacion.listarPublicaciones("disponible")).thenReturn(publicacionesDisponibles);
+        when(this.repositorioPublicacion.listarPublicaciones(EstadoPublicacion.DISPONIBLE)).thenReturn(publicacionesDisponibles);
         return this.servicioPublicacion.listarPublicacionesDisponibles();
     }
 
@@ -78,19 +79,19 @@ public class ServicioPublicacionTest {
 
         Publicacion publicacion = new Publicacion();
         publicacion.setId(2L);
-        publicacion.setEstado("disponible");
+        publicacion.setEstado(EstadoPublicacion.DISPONIBLE);
 
         Publicacion publicacion2 = new Publicacion();
         publicacion2.setId(3L);
-        publicacion2.setEstado("disponible");
+        publicacion2.setEstado(EstadoPublicacion.DISPONIBLE);
 
         Publicacion publicacion3 = new Publicacion();
         publicacion3.setId(6L);
-        publicacion3.setEstado("disponible");
+        publicacion3.setEstado(EstadoPublicacion.DISPONIBLE);
 
         Publicacion publicacion4 = new Publicacion();
         publicacion4.setId(7L);
-        publicacion4.setEstado("disponible");
+        publicacion4.setEstado(EstadoPublicacion.DISPONIBLE);
 
         publicaciones.add(publicacion);
         publicaciones.add(publicacion2);

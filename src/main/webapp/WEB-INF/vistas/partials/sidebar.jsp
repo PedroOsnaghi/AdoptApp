@@ -33,7 +33,7 @@
 
           <!-- PUBLICACION -->
           <li class="nav-item">
-             <a class="nav-link" style="cursor: pointer" data-bs-toggle="collapse"  role="button" aria-expanded="false"
+             <a class="nav-link" style="cursor: pointer" href="#post" data-bs-toggle="collapse"  role="button" aria-expanded="false"
                 aria-controls="profile">
                 <i class="icon material-symbols-outlined">
                    article

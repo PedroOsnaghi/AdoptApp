@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.PublicacionMensajes;
 import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     }
 
     @Override
-    public List<Publicacion> listarPublicaciones(String state) {
+    public List<Publicacion> listarPublicaciones(EstadoPublicacion state) {
 
         return (List<Publicacion>) this.sessionFactory.getCurrentSession()
                 .createCriteria(Publicacion.class)

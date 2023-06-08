@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.model.*;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -86,7 +87,7 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
     @Override
     public List<Publicacion> listarPublicacionesDisponibles() {
-        return repositorioPublicacion.listarPublicaciones("disponible");
+        return repositorioPublicacion.listarPublicaciones(EstadoPublicacion.DISPONIBLE);
     }
 
     @Override
@@ -140,8 +141,7 @@ public class ServicioPublicacion implements IServicioPublicacion{
         p.setDireccion(publicacionDto.getDireccion());
         p.setProvincia(publicacionDto.getProvincia());
         p.setCiudad(publicacionDto.getCiudad());
-
-        p.setEstado("disponible");
+        p.setEstado(EstadoPublicacion.DISPONIBLE);
 
         return p;
     }
