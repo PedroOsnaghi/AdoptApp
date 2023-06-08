@@ -212,7 +212,7 @@
                                  </div>
                               </div>
 
-                              <button type="submit" name="submit" class="btn btn-primary float-end"
+                              <button type="submit" name="submit" class="btn btn-success float-end"
                                  value="Submit" >Publicar</button>
                               <button type="button" name="previous"
                                  class="btn btn-dark previous action-button-previous float-end me-3" value="Previous"
