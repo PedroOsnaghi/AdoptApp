@@ -23,17 +23,9 @@ jobs:
       - name: Compilar con Maven
         run: mvn clean install --batch-mode --no-transfer-progress
         id: build_push
-      - name: Checkear build de Maven
-        run: |
-          if [ $? -ne 0 ]; then
-            echo "Fallo en el build."
-            echo "::set-output name=build_status::failed"
-          else
-            echo "::set-output name=build_status::success"
-          fi
       - name: Agregar comentario de error al PR
         uses: actions/github-script@v4
-        if: ${{ github.event_name }} == 'pull_request' && ${{ needs.build_pull_request.outputs.build_status == 'failed' }}
+        if: ${{ github.event_name }} == 'pull_request' }} && failure()
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -45,13 +37,13 @@ jobs:
               body: comment
             })
       - name: Error PR
-        if: ${{ github.event.action }} == 'pull_request' && ${{ needs.build_pull_request.outputs.build_status == 'failed' }}
+        if: ${{ github.event.action }} == 'pull_request' && failure()
         run: echo "Error en el PR"
       - name: Error PR
-        if: ${{ github.event.action }} == 'push' && ${{ needs.build_pull_request.outputs.build_status == 'failed' }}
+        if: ${{ github.event.action }} == 'push' && failure()
         run: echo "Error en el push"
       - name: Funcionó todo!
-        if: ${{ needs.build_pull_request.outputs.build_status == 'success' }}
+        if: success()
         run: echo "Felicitaciones a quien haya creado esto!"
 
 
