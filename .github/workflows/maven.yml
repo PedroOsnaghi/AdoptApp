@@ -44,10 +44,15 @@ jobs:
             repo: context.repo.repo,
             body: comment
           })
-        run: echo "Error en el PR!"
+      - name: Error PR
+        if: ${{ github.event.action }} == 'pull_request' && ${{ needs.build_pull_request.outputs.build_status == 'failed' }}
+        run: echo "Error en el PR"
+      - name: Error PR
+        if: ${{ github.event.action }} == 'push' && ${{ needs.build_pull_request.outputs.build_status == 'failed' }}
+        run: echo "Error en el push"
       - name: Funcionó todo!
         if: ${{ needs.build_pull_request.outputs.build_status == 'success' }}
-        run: echo "Felicitaciones a quien haya pusheado esto!"
+        run: echo "Felicitaciones a quien haya creado esto!"
 
 
 #  build_pull_request:
