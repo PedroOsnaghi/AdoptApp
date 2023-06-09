@@ -35,15 +35,15 @@ jobs:
         uses: actions/github-script@v4
         if: ${{ github.event.action }} == 'pull_request' && ${{ needs.build_pull_request.outputs.build_status == 'failed' }}
         with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const comment = `El build falló. Por favor, revisar el log de la acción.`;
-          github.issues.createComment({
-            issue_number: context.issue.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: comment
-          })
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const comment = `El build falló. Por favor, revisar el log de la acción.`;
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            })
       - name: Error PR
         if: ${{ github.event.action }} == 'pull_request' && ${{ needs.build_pull_request.outputs.build_status == 'failed' }}
         run: echo "Error en el PR"
