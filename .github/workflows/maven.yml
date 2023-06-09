@@ -33,7 +33,7 @@ jobs:
           fi
       - name: Agregar comentario de error al PR
         uses: actions/github-script@v4
-        if: ${{ github.event.action }} == 'pull_request' && ${{ needs.build_pull_request.outputs.build_status == 'failed' }}
+        if: ${{ github.event_name }} == 'pull_request' && ${{ needs.build_pull_request.outputs.build_status == 'failed' }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
