@@ -28,12 +28,11 @@ public class Publicacion {
     @Enumerated(value = EnumType.STRING)
     private EstadoPublicacion estado;
     @OneToOne
-    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     @JoinColumn(name = "mascota_id", nullable = false)
     private Mascota mascota;
     @CreationTimestamp
     private Timestamp create_at;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "publicacion")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "publicacion", cascade = {CascadeType.REMOVE, CascadeType.DETACH} , orphanRemoval = true)
     private List<Imagen> imagenes = new ArrayList<>();
 
     public Publicacion(){}

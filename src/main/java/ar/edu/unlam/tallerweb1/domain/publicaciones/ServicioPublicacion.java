@@ -2,10 +2,7 @@ package ar.edu.unlam.tallerweb1.domain.publicaciones;
 
 import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
-import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
-import ar.edu.unlam.tallerweb1.domain.exceptions.EmptyFileException;
-import ar.edu.unlam.tallerweb1.domain.exceptions.MaxSizeFileException;
-import ar.edu.unlam.tallerweb1.domain.exceptions.PostCreationException;
+import ar.edu.unlam.tallerweb1.domain.exceptions.*;
 import ar.edu.unlam.tallerweb1.model.*;
 import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +43,11 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
-    public void eliminarPublicacion(Long IdPublicacion) {
-        //TODO Implementar Eliminar Publicacion
+    public void eliminarPublicacion(Long idPublicacion, Usuario userAuth) {
+        Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(idPublicacion);
+
+        if(this.validarUsuario(p, userAuth))
+            this.repositorioPublicacion.eliminarPublicacion(p);
     }
 
     @Override
@@ -63,6 +63,30 @@ public class ServicioPublicacion implements IServicioPublicacion{
     @Override
     public List<Publicacion_favorito> listarFavoritosDeUsuario(Long idUsuario) {
         return this.repositorioPublicacion.ListarFavoritosDeUsuario(idUsuario);
+    }
+
+    @Override
+    public void pausarPublicacion(Long pid, Usuario userAuth) {
+        Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(pid);
+        //seteamos nuevo estado
+        p.setEstado(EstadoPublicacion.PAUSADA);
+
+        if(this.validarUsuario(p, userAuth))
+            this.repositorioPublicacion.modificarPublicacion(p);
+    }
+
+    @Override
+    public void reanudarPublicacion(Long pid, Usuario userAuth) {
+        Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(pid);
+        //seteamos nuevo estado
+        p.setEstado(EstadoPublicacion.DISPONIBLE);
+        if(this.validarUsuario(p, userAuth))
+            this.repositorioPublicacion.modificarPublicacion(p);
+    }
+
+    private boolean validarUsuario(Publicacion p, Usuario userAuth) {
+        if(p.getMascota().getUsuario().getId() != userAuth.getId()) throw new PostChangeException("Accion no permitida", "invalid_operation");
+        return true;
     }
 
     @Override

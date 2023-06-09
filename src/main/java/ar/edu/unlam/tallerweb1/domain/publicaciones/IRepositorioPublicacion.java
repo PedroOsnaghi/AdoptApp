@@ -13,7 +13,7 @@ public interface IRepositorioPublicacion {
 
     void modificarPublicacion(Publicacion publicacion);
 
-    void eliminarPublicacion(Long IdPublicacion);
+    void eliminarPublicacion(Publicacion publicacion);
 
     List<Publicacion> listarPublicaciones(EstadoPublicacion state);
 
