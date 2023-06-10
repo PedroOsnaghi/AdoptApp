@@ -152,19 +152,19 @@
                                                     <h4><strong>${publicacion.mascota.nombre}</strong></h4>
                                                     <c:choose>
                                                         <c:when test="${publicacion.estado.toString() eq 'DISPONIBLE'}">
-                                                            <span class="badge badge-pill bg-soft-success text-dark ms-2">
+                                                            <span class="badge badge-pill bg-soft-success  ms-2">
                                                             <i class="fa-solid fa-earth-americas"></i>
                                                             ${publicacion.estado.toString()}
                                                              </span>
                                                         </c:when>
                                                         <c:when test="${publicacion.estado.toString() eq 'PAUSADA'}">
-                                                            <span class="badge badge-pill bg-soft-warning text-dark ms-2">
+                                                            <span class="badge badge-pill bg-soft-warning  ms-2">
                                                             <i class="fa-solid fa-pause"></i>
                                                             ${publicacion.estado.toString()}
                                                              </span>
                                                         </c:when>
                                                         <c:when test="${publicacion.estado.toString() eq 'RESERVADA'}">
-                                                            <span class="badge badge-pill bg-soft-info text-dark ms-2">
+                                                            <span class="badge badge-pill bg-soft-info  ms-2">
                                                             <i class="fa-solid fa-bookmark"></i>
                                                             ${publicacion.estado.toString()}
                                                              </span>
