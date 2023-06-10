@@ -126,14 +126,14 @@
                                                                     </c:choose>
 
 
-                                                                    <a class="dropdown-item p-3" onclick="confirm(event)" action="${pageContext.request.contextPath}/publicacion/eliminar?pid=${publicacion.id}">
+                                                                    <a class="dropdown-item p-3" onclick="confirm(this)" action="${pageContext.request.contextPath}/publicacion/eliminar?pid=${publicacion.id}" href="javascript:void(0);">
                                                                         <div class="d-flex align-items-top">
                                                                             <span class="material-symbols-outlined">
                                                                                delete
                                                                             </span>
                                                                             <div class="data ms-2">
                                                                                 <h6>Eliminar Publicación</h6>
-                                                                                <p class="mb-0">Elimina de forma
+                                                                                <p class="mb-0">Elimina de forma permanente</p>
                                                                             </div>
                                                                         </div>
                                                                     </a>

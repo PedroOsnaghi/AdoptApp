@@ -1,28 +1,29 @@
-function confirm(e){
-	e.preventDefault();
+function confirm(link){
+
 	console.log("entro");
-	const link = e.target;
+
+	console.log(link);
+	console.log(link.getAttribute('action'));
 	//Warning Message
 
-		swal({
+		Swal.fire({
 				title: "Estas seguro?",
-				text: "Los datos se eliminarán de forma permanente",
-				type: "warning",
+				html: '<p>Los Datos se eliminaán de forma permanente y no podrás recuperarlos.</p>',
+				icon: "warning",
 				showCancelButton: true,
 				cancelButtonText: "Cancelar",
 				confirmButtonText: "Si, quiero eliminar!",
-				closeOnConfirm: true,
 				customClass: {
-					confirmButton: 'btn btn-primary',
+					title: 'h4',
+					confirmButton: 'btn btn-primary me-2',
 					cancelButton: 'btn btn-secondary',
 				},
 				buttonsStyling: false
-			},
-			function(){
-
-				window.location.href(link.getAttribute('action'));
-
-			});
+			}).then((result) => {
+			if (result.isConfirmed) {
+				window.location.href = link.getAttribute('action');
+			}
+		});
 
 
 
