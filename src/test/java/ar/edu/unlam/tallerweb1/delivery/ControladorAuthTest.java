@@ -143,6 +143,12 @@ public class ControladorAuthTest {
         assertEquals("/register", vistaObtenida);
         assertEquals(modelEsperado, modelObtenido);
     }
+
+    @Test
+    void testFallido(){
+        boolean _false  = false;
+        assertTrue(_false);
+    }
 }
 
 
