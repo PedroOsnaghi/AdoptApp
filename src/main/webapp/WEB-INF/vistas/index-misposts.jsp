@@ -2,6 +2,9 @@
 
 <%@ include file="partials/head.jsp" %>
 
+
+
+
 <!-- navbar -->
 
 <%@ include file="partials/navbar.jsp" %>
@@ -123,7 +126,7 @@
                                                                     </c:choose>
 
 
-                                                                    <a class="dropdown-item p-3" href="${pageContext.request.contextPath}/publicacion/eliminar?pid=${publicacion.id}">
+                                                                    <a class="dropdown-item p-3" onclick="confirm(event)" action="${pageContext.request.contextPath}/publicacion/eliminar?pid=${publicacion.id}">
                                                                         <div class="d-flex align-items-top">
                                                                             <span class="material-symbols-outlined">
                                                                                delete
@@ -131,7 +134,6 @@
                                                                             <div class="data ms-2">
                                                                                 <h6>Eliminar Publicación</h6>
                                                                                 <p class="mb-0">Elimina de forma
-                                                                                    permanente</p>
                                                                             </div>
                                                                         </div>
                                                                     </a>
@@ -307,3 +309,7 @@
 <c:if test="${not empty loader}">
     <script src="${pageContext.request.contextPath}/js/progress.js" type="text/javascript"></script>
 </c:if>
+
+<!--- Internal Sweet-Alert js -->
+<script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/jquery.sweet-alert.js"></script>
