@@ -144,11 +144,11 @@ public class ControladorAuthTest {
         assertEquals(modelEsperado, modelObtenido);
     }
 
-//    @Test
-//    void testFallido(){
-//        boolean _false  = false;
-//        assertTrue(_false);
-//    }
+    @Test
+    void testFallido(){
+        boolean _false  = false;
+        assertTrue(_false);
+    }
 }
 
 
