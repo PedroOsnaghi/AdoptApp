@@ -5,7 +5,7 @@ on:
     branches:
       - main
       - Dev
-
+w
 jobs:
   build_push:
     runs-on: ubuntu-latest
@@ -25,7 +25,7 @@ jobs:
         uses: actions/github-script@v4
         if: failure()
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const comment = `El build falló. Por favor, revisar el log de la acción.`;
             github.issues.createComment({
