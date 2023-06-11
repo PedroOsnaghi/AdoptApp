@@ -54,6 +54,55 @@ public class RepositorioPublicacionTest extends SpringTest {
         assertThat(publicacionFavorito.getUsuario()).isNotNull();
     }
 
+    @Test
+    @Transactional
+    @Rollback
+    public void testCrearSolicitud(){
+        Publicacion publicacion = dadoQueExisteUnaPublicacionCreada();
+        Usuario usuario = new Usuario("john doe", "test@test.com", "test");
+        session().save(usuario);
+        session().save(publicacion);
+
+        alEnviarUnaSolicitud(publicacion.getId(), usuario.getId());
+
+        seGuardaLaSolicitud(publicacion, usuario);
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    public void testEliminarSolicitud(){
+
+        Publicacion publicacion = dadoQueExisteUnaPublicacionCreada();
+        Usuario usuario = new Usuario("john doe", "test@test.com", "test");
+        session().save(usuario);
+        session().save(publicacion);
+
+        alEnviarUnaSolicitud(publicacion.getId(), usuario.getId());
+        alEliminarUnaSolicitud(publicacion.getId(), usuario.getId());
+
+        seEliminaLaSolicitud(publicacion, usuario);
+
+    }
+
+    private void alEnviarUnaSolicitud(Long idPublicacion, Long idUsuario){
+        repositorioPublicacion.crearSolicitud(idPublicacion, idUsuario);
+    }
+
+    private void seGuardaLaSolicitud(Publicacion publicacion, Usuario usuario){
+        assertThat(publicacion.getUsuariosSolicitantes()).isNotNull();
+        assertThat(publicacion.getUsuariosSolicitantes()).contains(usuario);
+    }
+
+    private void alEliminarUnaSolicitud(Long idPublicacion, Long idUsuario){
+        repositorioPublicacion.eliminarSolicitud(idPublicacion, idUsuario);
+    }
+
+    private void seEliminaLaSolicitud(Publicacion publicacion, Usuario usuario){
+        assertThat(publicacion.getUsuariosSolicitantes()).isNotNull();
+        assertThat(publicacion.getUsuariosSolicitantes()).doesNotContain(usuario);
+    }
+
     private Publicacion_favorito alAgregarAFavoritos(Long idPublicacion) {
         Publicacion publicacion = session().find(Publicacion.class, idPublicacion);
         Usuario usuario = new Usuario("pedro", "test@test.com", "test");
@@ -177,4 +226,8 @@ public class RepositorioPublicacionTest extends SpringTest {
         this.repositorioPublicacion.guardarPublicacion(publicacion);
         return publicacion;
     }
+
+
+
+
 }

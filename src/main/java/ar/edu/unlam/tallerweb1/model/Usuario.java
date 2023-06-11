@@ -44,6 +44,16 @@ public class Usuario {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
     List<Mascota> mascotas = new ArrayList<>();
 
+    public List<Publicacion> getAdoptionesSolicitadas() {
+        return adoptionesSolicitadas;
+    }
+
+    public void setAdoptionesSolicitadas(List<Publicacion> adoptionesSolicitadas) {
+        this.adoptionesSolicitadas = adoptionesSolicitadas;
+    }
+
+    @ManyToMany(mappedBy = "usuariosSolicitantes")
+    private List<Publicacion> adoptionesSolicitadas = new ArrayList<>();
 
     public Usuario() {
     }
@@ -53,7 +63,6 @@ public class Usuario {
         this.email = email;
         this.password = password;
     }
-
 
     public long getId() {
         return id;

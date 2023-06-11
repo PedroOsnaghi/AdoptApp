@@ -38,6 +38,23 @@ public class Publicacion {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "publicacion")
     private List<Imagen> imagenes = new ArrayList<>();
 
+    public List<Usuario> getUsuariosSolicitantes() {
+        return usuariosSolicitantes;
+    }
+
+    public void setUsuariosSolicitantes(List<Usuario> usuariosSolicitantes) {
+        this.usuariosSolicitantes = usuariosSolicitantes;
+    }
+
+    @ManyToMany
+    @JoinTable(
+            name = "solicitudes",
+            joinColumns = @JoinColumn(name = "publicacion_id"),
+            inverseJoinColumns = @JoinColumn(name = "usuario_id")
+    )
+    private List<Usuario> usuariosSolicitantes = new ArrayList<>();
+
+
     public Publicacion(){}
 
     @PrePersist

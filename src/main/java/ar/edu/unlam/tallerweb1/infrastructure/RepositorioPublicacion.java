@@ -4,6 +4,8 @@ import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.PublicacionMensajes;
 import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
+import ar.edu.unlam.tallerweb1.model.Usuario;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,4 +100,26 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
         this.sessionFactory.getCurrentSession().remove(favorito);
 
     }
+
+    @Override
+    public void crearSolicitud(Long publicacionId, Long usuarioId) {
+        Session session = sessionFactory.getCurrentSession();
+        Publicacion publicacion = session.get(Publicacion.class, publicacionId);
+        Usuario usuario = session.get(Usuario.class, usuarioId);
+
+        publicacion.getUsuariosSolicitantes().add(usuario);
+        session.saveOrUpdate(publicacion);
+    }
+
+    @Override
+    public void eliminarSolicitud(Long publicacionId, Long usuarioId) {
+        Session session = sessionFactory.getCurrentSession();
+        Publicacion publicacion = session.get(Publicacion.class, publicacionId);
+        Usuario usuario = session.get(Usuario.class, usuarioId);
+
+        publicacion.getUsuariosSolicitantes().remove(usuario);
+        session.saveOrUpdate(publicacion);
+    }
+
+
 }
