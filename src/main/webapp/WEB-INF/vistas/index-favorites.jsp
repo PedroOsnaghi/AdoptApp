@@ -49,7 +49,7 @@
                                             <c:forEach items="${publicaciones}" var="favorito">
                                                 <li class="d-flex align-items-center  justify-content-between flex-wrap">
                                                     <div class="user-img img-fluid flex-shrink-0">
-                                                        <img src="${pageContext.request.contextPath}/images/mascota/${favorito.publicacion.mascota.foto}"
+                                                        <img src="data:image/jpeg;base64,${favorito.publicacion.mascota.foto}"
                                                              alt="story-img"
                                                              class="rounded-circle avatar-40" loading="lazy">
                                                     </div>

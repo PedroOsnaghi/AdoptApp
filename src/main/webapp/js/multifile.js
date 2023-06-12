@@ -17,7 +17,7 @@ function ImgUpload() {
             filesArr.forEach(function (f, index) {
 
                 if (!f.type.match('image.*')) {
-                    return;
+                    return false;
                 }
 
                 if (imgArray.length > maxLength) {
@@ -33,7 +33,7 @@ function ImgUpload() {
                         return false;
                     } else {
                         imgArray.push(f);
-
+                        console.log("Se cargo: " + f);
                         var reader = new FileReader();
                         reader.onload = function (e) {
                             var html = "<div class='upload__img-box'><div style='background-image: url(" + e.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + f.name + "' class='img-bg'><div class='upload__img-close'></div></div></div>";

@@ -25,6 +25,7 @@ public class Usuario {
     private String lat;
     private String lng;
     private String tel;
+    @Lob
     private String imagen;
 
     private String rol;
@@ -51,7 +52,6 @@ public class Usuario {
         this.nombre = nombre;
         this.email = email;
         this.password = password;
-        this.imagen = "default.jpg";
     }
 
 

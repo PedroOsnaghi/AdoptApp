@@ -65,7 +65,7 @@
 
 
                                                                 <img class="avatar-130 img-fluid"
-                                                                     src="${pageContext.request.contextPath}/images/user/${usuarioDto.imagen}"
+                                                                     src="data:image/jpeg;base64,${usuarioDto.imagen}"
                                                                      id="preview" alt="">
                                                                 <div class="material-symbols-outlined btn btn-primary btn-profile">
                                                                     photo_camera

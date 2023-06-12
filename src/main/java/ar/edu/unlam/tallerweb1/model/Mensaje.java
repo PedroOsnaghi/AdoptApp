@@ -66,7 +66,7 @@ public class Mensaje {
     }
 
     public String getFechaEmision() {
-        return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fechaEmision);
+        return fechaEmision != null? new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fechaEmision) : null;
     }
 
     public void setFechaEmision(Timestamp fechaEmision) {
@@ -90,7 +90,7 @@ public class Mensaje {
     }
 
     public String getFechaRespuesta() {
-        return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fechaRespuesta);
+        return fechaRespuesta!= null? new SimpleDateFormat("dd/MM/yyyy HH:mm").format(fechaRespuesta) : null;
     }
 
     public void setFechaRespuesta(Timestamp fechaRespuesta) {

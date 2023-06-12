@@ -10,7 +10,7 @@ public interface IRepositorioMensajes {
 
     Long guardarMensaje(Mensaje msj);
 
-    void actualizarMensaje(Mensaje msj);
+    Mensaje actualizarMensaje(Mensaje msj);
 
     List<Mensaje> listarMensajesPublicacion(Long idPublicacion);
 

@@ -4,8 +4,11 @@ package ar.edu.unlam.tallerweb1.delivery;
 import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
+import ar.edu.unlam.tallerweb1.domain.exceptions.PostCreationException;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -47,18 +50,27 @@ public class ControladorPublicacionTest {
     public void testAlGuardarPublicacionExitosa() {
         PublicacionDto publicacion = dadoQueTengoDatosDePublicacionDeUnUsuario();
         ModelAndView vista = cuandoQuieroCrearPublicacion(publicacion);
-        entoncesMeDevuelveLaVistaCorrecta(vista,  "redirect: adoptapp/home/mispublicaciones?pid=10");
+        entoncesMeDevuelveLaVistaEsperada(vista,  "redirect: adoptapp/home/mispublicaciones?pid=10");
     }
 
     @Test
-    public void testAlGuardarPublicacionConError() {
+    public void AlCrearPblicacionLanzaExcepcionPostCreateExceptionYRetornaALaVistaDeCrear() {
         PublicacionDto publicacion = dadoQueTengoDatosDePublicacionDeUnUsuario();
         ModelAndView vista = cuandoQuieroCrearPublicacionConError(publicacion);
-        entoncesMeDevuelveLaVistaCorrecta(vista,  "new-post");
+        entoncesMeDevuelveLaVistaEsperada(vista,  "new-post");
+    }
+
+    @Test
+    public void TestCuandoQuieroAccederACrearPublicacion(){
+        Usuario usuario = new Usuario("Usuario Test", "test@test", "1234");
+        when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(usuario);
+        when(this.servicioMascota.listarMascotasAPublicar(this.servicioAuth.getUsuarioAutenticado())).thenReturn(new ArrayList<>());
+        ModelAndView vista = this.controladorPublicacion.crear();
+        entoncesMeDevuelveLaVistaEsperada(vista, "new-post");
     }
 
     private ModelAndView cuandoQuieroCrearPublicacionConError(PublicacionDto publicacionDto) {
-        when(this.servicioPublicacion.guardarPublicacion(publicacionDto)).thenReturn(null);
+        when(this.servicioPublicacion.guardarPublicacion(publicacionDto)).thenThrow(DataValidationException.class);
 
         return controladorPublicacion.guardarPublicacion(publicacionDto, this.request );
     }
@@ -83,8 +95,7 @@ public class ControladorPublicacionTest {
 
     }
 
-
-    private void entoncesMeDevuelveLaVistaCorrecta(ModelAndView vista, String vistaEsperada) {
+    private void entoncesMeDevuelveLaVistaEsperada(ModelAndView vista, String vistaEsperada) {
         assertThat(vista.getViewName()).isEqualTo(vistaEsperada);
     }
 }

@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.PublicacionMensajes;
 import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +29,22 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     }
 
     @Override
-    public void guardarPublicacion(Publicacion publicacion) {
-         this.sessionFactory.getCurrentSession().save(publicacion);
+    public Long guardarPublicacion(Publicacion publicacion) {
+       return (Long) this.sessionFactory.getCurrentSession().save(publicacion);
     }
 
     @Override
     public void modificarPublicacion(Publicacion publicacion) {
+        this.sessionFactory.getCurrentSession().update(publicacion);
     }
 
     @Override
-    public void eliminarPublicacion(Long IdPublicacion) {
-
+    public void eliminarPublicacion(Publicacion publicacion) {
+     this.sessionFactory.getCurrentSession().delete(publicacion);
     }
 
     @Override
-    public List<Publicacion> listarPublicaciones(String state) {
+    public List<Publicacion> listarPublicaciones(EstadoPublicacion state) {
 
         return (List<Publicacion>) this.sessionFactory.getCurrentSession()
                 .createCriteria(Publicacion.class)
@@ -73,22 +75,6 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
 
         return mascota;
     }
-
-    @Override
-    public void agregarFavorito(Publicacion_favorito favorito){
-
-            this.sessionFactory.getCurrentSession().save(favorito);
-
-
-    }
-
-    @Override
-    public void eliminarFavorito(Publicacion_favorito favorito) {
-
-        this.sessionFactory.getCurrentSession().remove(favorito);
-
-    }
-
     @Override
     public List<Publicacion_favorito> ListarFavoritosDeUsuario(Long idUsuario) {
         return (List<Publicacion_favorito>) this.sessionFactory.getCurrentSession()
@@ -98,5 +84,21 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
                 .addOrder(Order.desc("id"))
                 .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .list();
+    }
+
+
+
+    @Override
+    public Publicacion_favorito agregarFavorito(Publicacion_favorito favorito){
+
+        return (Publicacion_favorito) this.sessionFactory.getCurrentSession().save(favorito);
+
+    }
+
+    @Override
+    public void eliminarFavorito(Publicacion_favorito favorito) {
+
+        this.sessionFactory.getCurrentSession().remove(favorito);
+
     }
 }

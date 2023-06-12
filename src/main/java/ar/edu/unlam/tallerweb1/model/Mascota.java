@@ -1,5 +1,7 @@
 package ar.edu.unlam.tallerweb1.model;
 
+import ar.edu.unlam.tallerweb1.model.enumerated.GeneroMascota;
+import ar.edu.unlam.tallerweb1.model.enumerated.TipoMascota;
 import org.hibernate.annotations.Cascade;
 import org.springframework.util.StringUtils;
 
@@ -17,13 +19,16 @@ public class Mascota {
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
     private String nombre;
-    private String tipo;
-    private String genero;
+    @Enumerated(value = EnumType.STRING)
+    private TipoMascota tipo;
+    @Enumerated(value = EnumType.STRING)
+    private GeneroMascota genero;
     private String raza;
     private Float peso;
     private Date nacimiento;
     private String personalidad;
     private String salud;
+    @Lob
     private String foto;
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "mascota")
     private Publicacion publicacion;
@@ -59,19 +64,19 @@ public class Mascota {
         this.nombre = nombre;
     }
 
-    public String getTipo() {
+    public TipoMascota getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoMascota tipo) {
         this.tipo = tipo;
     }
 
-    public String getGenero() {
+    public GeneroMascota getGenero() {
         return genero;
     }
 
-    public void setGenero(String genero) {
+    public void setGenero(GeneroMascota genero) {
         this.genero = genero;
     }
 

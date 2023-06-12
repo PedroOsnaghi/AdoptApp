@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.Mensajes;
 
 import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
+import ar.edu.unlam.tallerweb1.domain.exceptions.SendingMessageException;
 import ar.edu.unlam.tallerweb1.model.Mensaje;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,32 +24,48 @@ public class ServicioMensajes implements IServicioMensajes{
     @Override
     public Long enviarMensaje(MensajeDto msjDto) {
 
-        Mensaje msj = new Mensaje(msjDto.getPublicacion(), msjDto.getEmisor(), msjDto.getPregunta());
+        Mensaje msj = validarMensaje(msjDto);
 
-        this.repositorioMensajes.guardarMensaje(msj);
-
-        return msj.getId();
+        return this.repositorioMensajes.guardarMensaje(msj);
 
     }
 
+    private Mensaje validarMensaje(MensajeDto msjDto) {
+        if(msjDto.getEmisor() == null) throw new SendingMessageException("Falta especificar Emisor del mensaje");
+
+        if(msjDto.getPublicacion() == null) throw new SendingMessageException("UnMensaje debe estar vinculado a una publicacion");
+
+        if(msjDto.getPregunta().isEmpty()) throw new SendingMessageException("No se puede enviar un mensaje vacío");
+
+        //validacion para mensajes a si mismo
+        if(msjDto.getEmisor().getId() == msjDto.getPublicacion().getMascota().getUsuario().getId())
+            throw new SendingMessageException("No se Puede enviar Mensajes a si mismo");
+
+        return  new Mensaje(msjDto.getPublicacion(), msjDto.getEmisor(), msjDto.getPregunta());
+    }
+
     @Override
-    public void responderMensaje(MensajeDto msjDto) {
+    public Mensaje responderMensaje(MensajeDto msjDto) {
         Mensaje msj = this.repositorioMensajes.obtenerMensaje(msjDto.getId());
 
         msj.setRespuesta(msjDto.getRespuesta());
         msj.setFechaRespuesta(Timestamp.from(Instant.now()));
 
-        this.repositorioMensajes.actualizarMensaje(msj);
+        return this.repositorioMensajes.actualizarMensaje(msj);
+
+
     }
 
     @Override
-    public void eliminarRespuesta(Long idMensaje) {
+    public Mensaje eliminarRespuesta(Long idMensaje) {
         Mensaje msj = this.repositorioMensajes.obtenerMensaje(idMensaje);
 
         msj.setRespuesta(null);
         msj.setFechaRespuesta(null);
 
-        this.repositorioMensajes.actualizarMensaje(msj);
+        msj = this.repositorioMensajes.actualizarMensaje(msj);
+
+        return msj;
     }
 
     @Override
