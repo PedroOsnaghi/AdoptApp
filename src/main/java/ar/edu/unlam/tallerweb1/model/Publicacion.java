@@ -35,6 +35,12 @@ public class Publicacion {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "publicacion", cascade = {CascadeType.REMOVE, CascadeType.DETACH} , orphanRemoval = true)
     private List<Imagen> imagenes = new ArrayList<>();
 
+    //@OneToMany(fetch = FetchType.EAGER, mappedBy = "publicacion", cascade = {CascadeType.REMOVE, CascadeType.DETACH} , orphanRemoval = true)
+   // private List<Solicitud> solicitudes = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "publicacion", cascade = {CascadeType.REMOVE, CascadeType.DETACH} , orphanRemoval = true)
+    private List<Mensaje> mensajes = new ArrayList<>();
+
     public Publicacion(){}
 
     @PrePersist
@@ -137,5 +143,13 @@ public class Publicacion {
 
     public void setImagenes(List<Imagen> imagenes) {
         this.imagenes = imagenes;
+    }
+
+    public List<Mensaje> getMensajes() {
+        return mensajes;
+    }
+
+    public void setMensajes(List<Mensaje> mensajes) {
+        this.mensajes = mensajes;
     }
 }

@@ -50,73 +50,45 @@
                                                     <table class="table forum-table mb-0 rounded">
                                                         <thead class="bg-primary text-white">
                                                         <tr>
-                                                            <th>PublicacÃ­on</th>
+                                                            <th>Publicacíon</th>
                                                             <th>Solicitudes</th>
                                                             <th>Preguntas</th>
                                                             <th>Estado</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <tr>
-                                                            <td class="col-lg-5">
-                                                                <a href="#">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <img class="img-fluid rounded-circle avatar-40"
-                                                                             src="${pageContext.request.contextPath}/images/posts/4/1.jpg" alt=""
-                                                                             loading="lazy">
-                                                                        <div class="media-body ms-3">
-                                                                            <h6 class="text-dark"><strong>Ninna</strong>
-                                                                            </h6>
-                                                                            <p class="mb-0"><span class="text-muted">Hace </span>
-                                                                                <span class="link-primary"> 3
-                                                                        dï¿½as</span>
-                                                                            </p>
+
+                                                        <c:forEach items="${publicaciones}" var="publicacion">
+                                                            <!--rows-->
+                                                            <tr>
+                                                                <td class="col-lg-5">
+                                                                    <a href="#">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <img class="img-fluid rounded-circle avatar-40"
+                                                                                 src="data:image/jpeg;base64,${publicacion.mascota.foto}" alt=""
+                                                                                 loading="lazy">
+                                                                            <div class="media-body ms-3">
+                                                                                <h6 class="text-dark"><strong>${publicacion.mascota.nombre}</strong>
+                                                                                </h6>
+                                                                                <p class="mb-0"><span class="text-muted"></span>
+                                                                                    <span class="link-primary"><script>getTime("${publicacion.create_at}")</script></span>
+                                                                                </p>
+                                                                            </div>
                                                                         </div>
-                                                                    </div>
-                                                                </a>
+                                                                    </a>
 
-                                                            </td>
-                                                            <td class="col-lg-2 h6 text-center align-items-center">6
-                                                            </td>
-                                                            <td class="col-lg-2 h6 text-center align-items-center">25
-                                                            </td>
-                                                            <td class="col-lg-3 ">
+                                                                </td>
+                                                                <td class="col-lg-2 h6 text-center align-items-center">0
+                                                                </td>
+                                                                <td class="col-lg-2 h6 text-center align-items-center">${publicacion.mensajes.size()}
+                                                                </td>
+                                                                <td class="col-lg-3 ">
 
-                                                         <span
-                                                                 class="badge badge-pill bg-success mt-2">DISPONIBLE</span>
+                                                                  <span class="badge badge-pill bg-success mt-2">DISPONIBLE</span>
 
-
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="col-lg-5">
-                                                                <a href="#">
-                                                                    <div class="d-flex align-items-center">
-                                                                        <img class="img-fluid rounded-circle avatar-40"
-                                                                             src="${pageContext.request.contextPath}/images/posts/3/1.avif" alt=""
-                                                                             loading="lazy">
-                                                                        <div class="media-body ms-3">
-                                                                            <h6 class="text-dark">
-                                                                                <strong>Chonino</strong></h6>
-                                                                            <p class="mb-0"><span class="text-muted">Hace </span>
-                                                                                <span class="link-primary"> 2
-                                                                        semanas</span>
-                                                                            </p>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </td>
-                                                            <td class="col-lg-2 h6 text-center align-items-center">6
-                                                            </td>
-                                                            <td class="col-lg-2 h6 text-center align-items-center">25
-                                                            </td>
-                                                            <td class="col-lg-3 ">
-
-                                                                <span class="badge badge-pill bg-warning mt-2">RESERVADO</span>
-
-
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
 
 
                                                         </tbody>

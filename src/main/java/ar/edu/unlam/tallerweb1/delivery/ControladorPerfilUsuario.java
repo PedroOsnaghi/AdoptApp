@@ -59,7 +59,7 @@ public class ControladorPerfilUsuario {
 
         //TODO Implementar sevicio de Calificaciones
 
-        //TODO implementar Listado de publicaciones del usuario
+        model.put("publicaciones", this.servicioPublicacion.listarPublicacionesPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
 
         return new ModelAndView("user-profile-activity-posts", model);
 
