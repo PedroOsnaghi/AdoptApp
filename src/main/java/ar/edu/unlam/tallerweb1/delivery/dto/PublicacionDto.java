@@ -1,6 +1,10 @@
 package ar.edu.unlam.tallerweb1.delivery.dto;
 
+import ar.edu.unlam.tallerweb1.model.Imagen;
+import ar.edu.unlam.tallerweb1.model.Mascota;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 public class PublicacionDto {
     private Long id;
@@ -14,6 +18,10 @@ public class PublicacionDto {
     private MultipartFile[] files;
     private Long usuario_id;
     private Long mascota_id;
+
+    private Mascota mascota;
+
+    private List<Imagen> imagenes;
 
 
     public Long getId() {
@@ -106,6 +114,20 @@ public class PublicacionDto {
     }
 
 
+    public Mascota getMascota() {
+        return mascota;
+    }
 
+    public void setMascota(Mascota mascota) {
+        this.mascota = mascota;
+    }
+
+    public List<Imagen> getImagenes() {
+        return imagenes;
+    }
+
+    public void setImagenes(List<Imagen> imagenes) {
+        this.imagenes = imagenes;
+    }
 }
 

@@ -93,7 +93,7 @@ public class ControladorPublicacion {
     public ModelAndView verPublicacion(@RequestParam Long pid, @RequestParam(required = false) String msj_response){
         ModelMap model = iniciarModel();
 
-        model.put("publicacion", this.servicioPublicacion.findPublicacion(pid));
+        model.put("publicacion", this.servicioPublicacion.getPublicacion(pid));
 
         model.put("mensajes", this.servicioMesnaje.listarMensajesPublicacion(pid));
 
@@ -149,7 +149,16 @@ public class ControladorPublicacion {
     }
 
 
+    @RequireAuth
+    @RequestMapping(path = "/editar", method = RequestMethod.GET)
+    public ModelAndView editar(@RequestParam Long pid) {
 
+        ModelMap model = this.iniciarModel();
+
+        model.put("publicacionDto", this.servicioPublicacion.getDtoPublicacion(pid));
+
+        return new ModelAndView("edit-post", model);
+    }
 
 
 

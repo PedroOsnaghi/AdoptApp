@@ -274,7 +274,7 @@ public class ServicioPublicacionTest {
     {
         Publicacion publicacion = dadoQueExisteUnaPublicacion();
         when(this.repositorioPublicacion.buscarPublicacionPorId(anyLong())).thenReturn(publicacion);
-        return this.servicioPublicacion.findPublicacion(id);
+        return this.servicioPublicacion.getPublicacion(id);
     }
 
     private void puedoAccederAsuBio(Publicacion publicacionObtenida) {

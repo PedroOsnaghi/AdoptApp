@@ -25,8 +25,31 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
-    public Publicacion findPublicacion (Long id) {
+    public Publicacion getPublicacion (Long id) {
+        //TODO Validar que exista
         return repositorioPublicacion.buscarPublicacionPorId(id);
+    }
+
+    @Override
+    public PublicacionDto getDtoPublicacion(Long id) {
+        Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(id);
+
+        return this.publicacionToDto(p);
+    }
+
+    private PublicacionDto publicacionToDto(Publicacion p) {
+        PublicacionDto pd = new PublicacionDto();
+        pd.setId(p.getId());
+        pd.setMascota(p.getMascota());
+        pd.setImagenes(p.getImagenes());
+        pd.setBio(p.getBio());
+        pd.setDisponibilidad(p.getDisponibilidad());
+        pd.setDireccion(p.getDireccion());
+        pd.setCiudad(p.getCiudad());
+        pd.setProvincia(p.getProvincia());
+        pd.setLatitud(p.getLatitud());
+        pd.setLongitud(p.getLongitud());
+        return pd;
     }
 
     @Override

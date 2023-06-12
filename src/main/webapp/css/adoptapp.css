@@ -23804,6 +23804,10 @@ button.bg-soft-dark:hover {
     background-color: #19243280;
 }
 
+.upload__img-box .uploaded {
+    background-color: #00764480!important;
+}
+
 .dark .upload__img-box {
     background-color: #ffffff!important;
     border: 1px solid #00a3ff24!important;

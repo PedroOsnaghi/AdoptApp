@@ -70,6 +70,26 @@
                                        <div class="row mb-2">
                                           <div class="col-8">
 
+                                             <form:radiobutton path="mascota_id" checked="true"  class="btn-check"  id="m-${publicacionDto.mascota.id}"  value="${publicacionDto.mascota.id}" />
+                                             <label for="m-${publicacionDto.mascota.id}" class="btn-radio-mascota mb-1 p-1 ps-2">
+                                                <div class="d-flex align-items-center  justify-content-between flex-wrap">
+                                                   <div class="user-img img-fluid flex-shrink-0">
+                                                      <img src="data:image/jpeg;base64,${publicacionDto.mascota.foto}" alt="story-img" class="rounded-circle avatar-40" loading="lazy">
+                                                   </div>
+                                                   <div class="flex-grow-1 ms-3">
+                                                      <h6><strong>${publicacionDto.mascota.nombre}</strong></h6>
+                                                      <p class="mb-0">${publicacionDto.mascota.tipo}</p>
+                                                   </div>
+                                                   <div>
+                                                      <i class="material-symbols-outlined shadow">
+                                                         check_circle
+                                                      </i>
+                                                   </div>
+
+                                                </div>
+                                             </label>
+
+
                                              <c:forEach items="${mascotas}" var="mascota"  varStatus="i">
 
                                                    <form:radiobutton path="mascota_id"  class="btn-check"  id="m-${mascota.id}"  value="${mascota.id}" />
@@ -93,9 +113,6 @@
 
 
                                              </c:forEach>
-                                             <c:if test="${empty mascotas}">
-                                                <p class="text-muted mt-2">No tienes mascotas registradas. Puedes crear una nueva.</p>
-                                             </c:if>
 
 
                                           </div>
@@ -130,7 +147,17 @@
                                                 <form:input path="files"  type="file" multiple="true" data-max_length="3" class="upload__inputfile"/>
                                              </label>
                                           </div>
-                                          <div class="upload__img-wrap"></div>
+                                          <div class="upload__img-wrap">
+                                             <c:forEach items="${publicacionDto.imagenes}" var="imagen" varStatus="index">
+                                             <div class='upload__img-box uploaded'>
+                                                <div style="background-image: url('data:image/jpeg;base64,${imagen.base64Content}')" file-id="${imagen.id}" class='img-bg'>
+                                                   <a class='upload__img-close' href="">
+
+                                                   </a>
+                                                </div>
+                                             </div>
+                                             </c:forEach>
+                                          </div>
                                        </div>
                                     </div>
                                  </div>

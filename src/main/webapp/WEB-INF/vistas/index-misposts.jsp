@@ -75,7 +75,7 @@
                                                                   more_horiz
                                                                </span>
                                                                 <div class="dropdown-menu m-0 p-0">
-                                                                    <a class="dropdown-item p-3" href="#">
+                                                                    <a class="dropdown-item p-3" href="${pageContext.request.contextPath}/publicacion/editar?pid=${publicacion.id}">
                                                                         <div class="d-flex align-items-top">
                                                                             <span class="material-symbols-outlined">
                                                                                edit

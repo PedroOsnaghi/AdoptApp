@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface IServicioPublicacion {
 
-    Publicacion findPublicacion(Long id);
+    Publicacion getPublicacion(Long id);
+    PublicacionDto getDtoPublicacion(Long id);
     Long guardarPublicacion(PublicacionDto publicacionDto);
     void modificarPublicacion(Publicacion publicacion); //TODO return Publcacion
 
