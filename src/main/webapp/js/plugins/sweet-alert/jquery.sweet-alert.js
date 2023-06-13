@@ -1,13 +1,7 @@
 function confirm(link){
 
-	console.log("entro");
-
-	console.log(link);
-	console.log(link.getAttribute('action'));
-	//Warning Message
-
 		Swal.fire({
-				title: "Estas seguro?",
+				title: "Estas seguro/a?",
 				html: '<p>Los Datos se eliminaán de forma permanente y no podrás recuperarlos.</p>',
 				icon: "warning",
 				showCancelButton: true,
