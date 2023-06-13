@@ -59,7 +59,7 @@ public class ControladorPerfilUsuario {
 
         //TODO Implementar sevicio de Calificaciones
 
-        model.put("publicaciones", this.servicioPublicacion.listarPublicacionesPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
+        model.put("publicaciones", this.servicioPublicacion.listarPublicacionesDetalladasPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
 
         return new ModelAndView("user-profile-activity-posts", model);
 
@@ -75,7 +75,7 @@ public class ControladorPerfilUsuario {
 
         //TODO Implementar sevicio de Calificaciones
 
-        //TODO implementar Listado de favoritos de usuario
+        model.put("publicaciones", this.servicioPublicacion.listarFavoritosDeUsuario(this.servicioAuth.getUsuarioAutenticado().getId()));
 
         return new ModelAndView("user-profile-activity-favorites", model);
 

@@ -30,6 +30,7 @@
 
                      <div class="card-body">
 
+
                         <form:form  class="text-center mt-3" action="publicar" id="form-steep"  method="POST" modelAttribute="publicacionDto" enctype="multipart/form-data">
                            <ul id="top-tab-list" class="p-0 row list-inline mb-2">
                               <li class="col-lg-4 col-md-12 text-start mb-2 active" id="mascota">
