@@ -3,8 +3,12 @@ package ar.edu.unlam.tallerweb1.domain.publicaciones;
 import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 
+import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
+import ar.edu.unlam.tallerweb1.domain.exceptions.PostCreationException;
 import ar.edu.unlam.tallerweb1.model.*;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.assertj.core.api.Assertions;
+import org.assertj.core.api.ThrowableAssert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -69,7 +74,7 @@ public class ServicioPublicacionTest {
     }
 
     private List<Publicacion> alListarPublicacionesDisponibles(List<Publicacion> publicacionesDisponibles) {
-        when(this.repositorioPublicacion.listarPublicaciones("disponible")).thenReturn(publicacionesDisponibles);
+        when(this.repositorioPublicacion.listarPublicaciones(EstadoPublicacion.DISPONIBLE)).thenReturn(publicacionesDisponibles);
         return this.servicioPublicacion.listarPublicacionesDisponibles();
     }
 
@@ -78,19 +83,19 @@ public class ServicioPublicacionTest {
 
         Publicacion publicacion = new Publicacion();
         publicacion.setId(2L);
-        publicacion.setEstado("disponible");
+        publicacion.setEstado(EstadoPublicacion.DISPONIBLE);
 
         Publicacion publicacion2 = new Publicacion();
         publicacion2.setId(3L);
-        publicacion2.setEstado("disponible");
+        publicacion2.setEstado(EstadoPublicacion.DISPONIBLE);
 
         Publicacion publicacion3 = new Publicacion();
         publicacion3.setId(6L);
-        publicacion3.setEstado("disponible");
+        publicacion3.setEstado(EstadoPublicacion.DISPONIBLE);
 
         Publicacion publicacion4 = new Publicacion();
         publicacion4.setId(7L);
-        publicacion4.setEstado("disponible");
+        publicacion4.setEstado(EstadoPublicacion.DISPONIBLE);
 
         publicaciones.add(publicacion);
         publicaciones.add(publicacion2);
@@ -173,22 +178,21 @@ public class ServicioPublicacionTest {
     @Test
     public void alGuardarUnaPublicacionCorrectaRetornaElId(){
         PublicacionDto publicacion = dadoQueTengoDatosCorrectos();
-        Long result = alGuardar(publicacion);
+        Long result = alGuardardeFormaCorrecta(publicacion);
         debeRetornarElIdDeLAPublicacionGuardada(result);
     }
 
-    @Test
+    @Test(expected = DataValidationException.class)
     public void alQuererGuardarUnaPublicacionConDatosIncompletosRetornaNull(){
         PublicacionDto publicacion = dadoQueTengoDatosIncorrectos();
-        Long result = alGuardar(publicacion);
-        debeRetornarNull(result);
+        alGuardarConErrorDeValidacion(publicacion);
+
     }
 
-    @Test
-    public void alQuererGuardarUnaPublicacionYProducirseUnErrorenElGuardadoDebeRetornarNull(){
+    @Test(expected = PostCreationException.class)
+    public void alQuererGuardarUnaPublicacionYProducirseUnErrorenElGuardadoDebeRetornarError(){
         PublicacionDto publicacion = dadoQueTengoDatosCorrectos();
-        Long result = alGuardarConError(publicacion);
-        debeRetornarNull(result);
+        alGuardarConError(publicacion);
     }
 
     @Test
@@ -215,23 +219,25 @@ public class ServicioPublicacionTest {
         return this.servicioPublicacion.agregarFavorito(idPublicacion, user);
     }
 
-    private Long alGuardarConError(PublicacionDto publicacion) {
+    private void alGuardarConError(PublicacionDto publicacion)  {
         when(this.servicioArchivo.subirImagenesPost(anyObject(),anyObject())).thenReturn(0);
-        when(this.repositorioPublicacion.guardarPublicacion(anyObject())).thenReturn(null);
-        return this.servicioPublicacion.guardarPublicacion(publicacion);
+        when(this.repositorioPublicacion.guardarPublicacion(anyObject())).thenThrow(PostCreationException.class);
+        this.servicioPublicacion.guardarPublicacion(publicacion);
     }
 
     private void debeRetornarElIdDeLAPublicacionGuardada(Long result) {
-        System.out.println(this.servicioPublicacion.getErrorMessage());
+
         assertThat(result).isNotNull();
     }
 
-    private void debeRetornarNull(Long result) {
-        System.out.println("Error obtenido: " + this.servicioPublicacion.getErrorMessage());
-        assertThat(result).isNull();
+
+    private Long alGuardarConErrorDeValidacion(PublicacionDto publicacion) {
+        when(this.servicioArchivo.subirImagenesPost(anyObject(),anyObject())).thenReturn(0);
+        when(this.repositorioPublicacion.guardarPublicacion(anyObject())).thenThrow(DataValidationException.class);
+        return this.servicioPublicacion.guardarPublicacion(publicacion);
     }
 
-    private Long alGuardar(PublicacionDto publicacion) {
+    private Long alGuardardeFormaCorrecta(PublicacionDto publicacion) {
         when(this.servicioArchivo.subirImagenesPost(anyObject(),anyObject())).thenReturn(0);
         when(this.repositorioPublicacion.guardarPublicacion(anyObject())).thenReturn(20L);
         return this.servicioPublicacion.guardarPublicacion(publicacion);

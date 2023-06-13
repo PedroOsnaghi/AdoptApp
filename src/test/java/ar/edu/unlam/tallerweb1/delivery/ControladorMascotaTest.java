@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.delivery;
 import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioSesion;
+import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
 import ar.edu.unlam.tallerweb1.domain.mascota.ServicioMascota;
 import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import java.util.ArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class ControladorMascotaTest {
@@ -55,10 +57,10 @@ public class ControladorMascotaTest {
 
 
     @Test
-    public void alNoIngresarLosDatosRequeridosDeLaMascotaNoSePuedeGuardarLaMismaYMeVuelveAlFormularioParaIngresarMascota()
+    public void alNoIngresarLosDatosObligatoriosLanzaExcepcionDeValidacionYVuelveALaVistaCrear()
     {
         MascotaDto mascota = dadoQueExisteUnaMascotaIncompleta();
-        ModelAndView mav = cuandoIngresoLaMascota(mascota);
+        ModelAndView mav = cuandoIngresoLaMascotaConErrorValidacion(mascota);
         entoncesElIngresoNoEsExitoso(mav);
 
     }
@@ -91,6 +93,14 @@ public class ControladorMascotaTest {
 
     }
 
+    private ModelAndView cuandoIngresoLaMascotaConErrorValidacion(MascotaDto mascotadto) {
+
+        when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(userAuth);
+        when(this.servicioMascota.guardar(anyObject(), anyObject())).thenThrow(DataValidationException.class);
+        return controladorMascota.guardarMascota(mascotadto, request);
+
+    }
+
     private void entoncesElIngresoEsExitosoYMeLlevaAlPerfil(ModelAndView mav) {
         assertThat(mav.getViewName()).isEqualTo( "redirect: adoptapp/perfil/actividad/mascotas");
 
@@ -104,8 +114,6 @@ public class ControladorMascotaTest {
     private MascotaDto dadoQueExisteUnaMascotaIncompleta() {
 
         MascotaDto mascotadto = new MascotaDto();
-
-        when(servicioMascota.guardar(mascotadto,this.userAuth)).thenReturn(null);
 
         return mascotadto;
     }

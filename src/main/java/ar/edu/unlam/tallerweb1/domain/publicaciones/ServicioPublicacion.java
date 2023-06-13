@@ -2,17 +2,19 @@ package ar.edu.unlam.tallerweb1.domain.publicaciones;
 
 import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
-import ar.edu.unlam.tallerweb1.infrastructure.RepositorioPublicacion;
+import ar.edu.unlam.tallerweb1.domain.exceptions.*;
 import ar.edu.unlam.tallerweb1.model.*;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @Service
 public class ServicioPublicacion implements IServicioPublicacion{
 
-    private String errorMessage;
     private final IServicioArchivo servicioArchivo;
     private IRepositorioPublicacion repositorioPublicacion;
 
@@ -41,8 +43,11 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
-    public void eliminarPublicacion(Long IdPublicacion) {
-        //TODO Implementar Eliminar Publicacion
+    public void eliminarPublicacion(Long idPublicacion, Usuario userAuth) {
+        Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(idPublicacion);
+
+        if(this.validarUsuario(p, userAuth))
+            this.repositorioPublicacion.eliminarPublicacion(p);
     }
 
     @Override
@@ -58,6 +63,30 @@ public class ServicioPublicacion implements IServicioPublicacion{
     @Override
     public List<Publicacion_favorito> listarFavoritosDeUsuario(Long idUsuario) {
         return this.repositorioPublicacion.ListarFavoritosDeUsuario(idUsuario);
+    }
+
+    @Override
+    public void pausarPublicacion(Long pid, Usuario userAuth) {
+        Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(pid);
+        //seteamos nuevo estado
+        p.setEstado(EstadoPublicacion.PAUSADA);
+
+        if(this.validarUsuario(p, userAuth))
+            this.repositorioPublicacion.modificarPublicacion(p);
+    }
+
+    @Override
+    public void reanudarPublicacion(Long pid, Usuario userAuth) {
+        Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(pid);
+        //seteamos nuevo estado
+        p.setEstado(EstadoPublicacion.DISPONIBLE);
+        if(this.validarUsuario(p, userAuth))
+            this.repositorioPublicacion.modificarPublicacion(p);
+    }
+
+    private boolean validarUsuario(Publicacion p, Usuario userAuth) {
+        if(p.getMascota().getUsuario().getId() != userAuth.getId()) throw new PostChangeException("Accion no permitida", "invalid_operation");
+        return true;
     }
 
     @Override
@@ -86,28 +115,29 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
     @Override
     public List<Publicacion> listarPublicacionesDisponibles() {
-        return repositorioPublicacion.listarPublicaciones("disponible");
+        return repositorioPublicacion.listarPublicaciones(EstadoPublicacion.DISPONIBLE);
     }
 
-    @Override
-    public String getErrorMessage(){
-        return this.errorMessage;
-    }
 
 
     private boolean validarDatos(PublicacionDto pd) {
-        if(pd.getMascota_id() == null){
-            this.errorMessage = "Debe seleccionar una mascota";
-            return false;
+        if(pd.getMascota_id() == null) throw new DataValidationException("Debe seleccionar una mascota");
+
+        if(pd.getDireccion().isEmpty()) throw new DataValidationException("Debe especificar una dirección de entrega");
+
+        if(pd.getDisponibilidad().isEmpty()) throw new DataValidationException("Debe especificar su disponibilidad horaria");
+
+        //validacion de archivos
+        try{
+
+            this.servicioArchivo.validarArchivos(pd.getFiles());
+
+        }catch (EmptyFileException error){
+            throw new DataValidationException("Es necesario que suba al menos una imagen para poder generar la Publicación");
+        }catch (MaxSizeFileException error){
+            throw new DataValidationException(error.getMessage());
         }
-        if(pd.getDireccion() == null){
-            this.errorMessage = "Debe especificar una dirección de entrega";
-            return false;
-        }
-        if(pd.getDisponibilidad() == null){
-            this.errorMessage = "Debe especificar su disponibilidad horaria";
-            return false;
-        }
+
 
         return true;
     }
@@ -115,17 +145,18 @@ public class ServicioPublicacion implements IServicioPublicacion{
     private Long publicar(PublicacionDto publicacionDto) {
         Publicacion pub = this.setearPublicacion(publicacionDto);
 
-        Long pid = repositorioPublicacion.guardarPublicacion(pub);
+        try {
 
-        if(pid != null){
+            Long pid = repositorioPublicacion.guardarPublicacion(pub);
 
             this.servicioArchivo.subirImagenesPost(publicacionDto.getFiles(), pub);
+
             return pid;
 
+        }catch (RuntimeException error){
+            throw new PostCreationException("No se Pudo generar la Publicación debido a un error");
         }
 
-        this.errorMessage = "No se pudo guardar la publicacion debido a un error";
-        return null;
 
     }
 
@@ -140,8 +171,7 @@ public class ServicioPublicacion implements IServicioPublicacion{
         p.setDireccion(publicacionDto.getDireccion());
         p.setProvincia(publicacionDto.getProvincia());
         p.setCiudad(publicacionDto.getCiudad());
-
-        p.setEstado("disponible");
+        p.setEstado(EstadoPublicacion.DISPONIBLE);
 
         return p;
     }

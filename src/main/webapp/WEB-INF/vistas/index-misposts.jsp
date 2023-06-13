@@ -2,6 +2,9 @@
 
 <%@ include file="partials/head.jsp" %>
 
+
+
+
 <!-- navbar -->
 
 <%@ include file="partials/navbar.jsp" %>
@@ -77,34 +80,60 @@
                                                                             <span class="material-symbols-outlined">
                                                                                edit
                                                                             </span>
-                                                                                <div class="data ms-2">
-                                                                                    <h6>Editar Publicación</h6>
-                                                                                    <p class="mb-0">Modifica la información
-                                                                                        publicada</p>
-                                                                                </div>
-                                                                        </div>
-                                                                    </a>
-                                                                    <a class="dropdown-item p-3" href="#">
-                                                                        <div class="d-flex align-items-top">
-                                                                            <span class="material-symbols-outlined">
-                                                                               pause
-                                                                            </span>
                                                                             <div class="data ms-2">
-                                                                                <h6>Pausar Publicación</h6>
-                                                                                <p class="mb-0">Cambia el estado de tu
-                                                                                    publicación</p>
+                                                                                <h6>Editar Publicación</h6>
+                                                                                <p class="mb-0">Modifica la información
+                                                                                    publicada</p>
                                                                             </div>
                                                                         </div>
                                                                     </a>
-                                                                    <a class="dropdown-item p-3" href="#">
+
+
+                                                                    <c:choose>
+                                                                        <c:when test="${publicacion.estado.toString() eq 'DISPONIBLE'}">
+                                                                            <a class="dropdown-item p-3"
+                                                                               href="${pageContext.request.contextPath}/publicacion/pausar?pid=${publicacion.id}">
+                                                                                <div class="d-flex align-items-top">
+                                                                                        <span class="material-symbols-outlined">
+                                                                                     pause
+                                                                                    </span>
+                                                                                    <div class="data ms-2">
+                                                                                        <h6>Pausar Publicación</h6>
+                                                                                        <p class="mb-0">Cambia el estado
+                                                                                            de tu
+                                                                                            publicación</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </a>
+                                                                        </c:when>
+                                                                        <c:when test="${publicacion.estado.toString() eq 'PAUSADA'}">
+                                                                            <a class="dropdown-item p-3"
+                                                                               href="${pageContext.request.contextPath}/publicacion/reanudar?pid=${publicacion.id}">
+                                                                                <div class="d-flex align-items-top">
+
+                                                                                     <span class="material-symbols-outlined">
+                                                                                     play_arrow
+                                                                                     </span>
+                                                                                    <div class="data ms-2">
+                                                                                        <h6>Reanudar Publicación</h6>
+                                                                                        <p class="mb-0">Cambia el estado
+                                                                                            de tu
+                                                                                            publicación</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </a>
+                                                                        </c:when>
+                                                                    </c:choose>
+
+
+                                                                    <a class="dropdown-item p-3" onclick="confirm(this)" action="${pageContext.request.contextPath}/publicacion/eliminar?pid=${publicacion.id}" href="javascript:void(0);">
                                                                         <div class="d-flex align-items-top">
                                                                             <span class="material-symbols-outlined">
                                                                                delete
                                                                             </span>
                                                                             <div class="data ms-2">
                                                                                 <h6>Eliminar Publicación</h6>
-                                                                                <p class="mb-0">Elimina de forma
-                                                                                    permanente</p>
+                                                                                <p class="mb-0">Elimina de forma permanente</p>
                                                                             </div>
                                                                         </div>
                                                                     </a>
@@ -119,7 +148,31 @@
                                         <hr class="mt-0">
                                         <div class="mt-3">
                                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                                <h4><strong>${publicacion.mascota.nombre}</strong></h4>
+                                                <div class="d-flex align-items-center">
+                                                    <h4><strong>${publicacion.mascota.nombre}</strong></h4>
+                                                    <c:choose>
+                                                        <c:when test="${publicacion.estado.toString() eq 'DISPONIBLE'}">
+                                                            <span class="badge badge-pill bg-soft-success  ms-2">
+                                                            <i class="fa-solid fa-earth-americas"></i>
+                                                            ${publicacion.estado.toString()}
+                                                             </span>
+                                                        </c:when>
+                                                        <c:when test="${publicacion.estado.toString() eq 'PAUSADA'}">
+                                                            <span class="badge badge-pill bg-soft-warning  ms-2">
+                                                            <i class="fa-solid fa-pause"></i>
+                                                            ${publicacion.estado.toString()}
+                                                             </span>
+                                                        </c:when>
+                                                        <c:when test="${publicacion.estado.toString() eq 'RESERVADA'}">
+                                                            <span class="badge badge-pill bg-soft-info  ms-2">
+                                                            <i class="fa-solid fa-bookmark"></i>
+                                                            ${publicacion.estado.toString()}
+                                                             </span>
+                                                        </c:when>
+                                                    </c:choose>
+
+                                                </div>
+
                                                 <div class="text-muted">
                                                     <span class="mx-1"><i
                                                             class="fa-solid fa-mars"></i></span>${publicacion.mascota.genero}
@@ -143,15 +196,18 @@
                                                     <c:forEach items="${publicacion.imagenes}" begin="0"
                                                                end="${publicacion.imagenes.size() - 1}"
                                                                varStatus="index">
-                                                        <button type="button" data-bs-target="#carousel-${publicacion.id}"
-                                                                data-bs-slide-to="${index.count - 1}" class="<c:if test="${index.count - 1 eq 0}">active</c:if>"
+                                                        <button type="button"
+                                                                data-bs-target="#carousel-${publicacion.id}"
+                                                                data-bs-slide-to="${index.count - 1}"
+                                                                class="<c:if test="${index.count - 1 eq 0}">active</c:if>"
                                                                 aria-current="<c:if test="${index.count - 1 eq 0}">true</c:if>"></button>
                                                     </c:forEach>
 
                                                 </div>
                                                 <div class="carousel-inner " style="height: 400px;">
                                                     <c:forEach items="${publicacion.imagenes}" begin="0"
-                                                               end="${publicacion.imagenes.size() - 1}" varStatus="index"
+                                                               end="${publicacion.imagenes.size() - 1}"
+                                                               varStatus="index"
                                                                var="imagen">
                                                         <div class="carousel-item <c:if test="${index.count - 1 eq 0}">active</c:if>">
                                                             <img src="data:image/jpeg;base64,${imagen.base64Content}"
@@ -162,13 +218,15 @@
 
                                                 </div>
                                                 <button class="carousel-control-prev" type="button"
-                                                        data-bs-target="#carousel-${publicacion.id}" data-bs-slide="prev"
+                                                        data-bs-target="#carousel-${publicacion.id}"
+                                                        data-bs-slide="prev"
                                                         control-id="ControlID-7">
                                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                     <span class="visually-hidden">Previous</span>
                                                 </button>
                                                 <button class="carousel-control-next" type="button"
-                                                        data-bs-target="#carousel-${publicacion.id}" data-bs-slide="next"
+                                                        data-bs-target="#carousel-${publicacion.id}"
+                                                        data-bs-slide="next"
                                                         control-id="ControlID-8">
                                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                     <span class="visually-hidden">Next</span>
@@ -183,7 +241,8 @@
                                                     <div class="d-flex justify-content-end w-100 align-items-center">
 
                                                         <a href="${pageContext.request.contextPath}/publicacion/ver?pid=${publicacion.id}"
-                                                           class="btn d-inline-flex mb-3 me-1 btn-primary">Ver perfil público</a>
+                                                           class="btn d-inline-flex mb-3 me-1 btn-primary">Ver perfil
+                                                            público</a>
                                                     </div>
 
                                                 </div>
@@ -250,3 +309,7 @@
 <c:if test="${not empty loader}">
     <script src="${pageContext.request.contextPath}/js/progress.js" type="text/javascript"></script>
 </c:if>
+
+<!--- Internal Sweet-Alert js -->
+<script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/jquery.sweet-alert.js"></script>

@@ -1,4 +1,5 @@
 package ar.edu.unlam.tallerweb1.model;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,11 +12,7 @@ import java.util.*;
 @Entity
 public class Publicacion {
 
-    public enum EstadoPublicacion {
-        DISPONIBLE,
-        RESERVADO,
-        ADOPTADO,
-    }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,14 +25,14 @@ public class Publicacion {
     private String longitud;
     @Column(length = 255)
     private String disponibilidad;
-    private String estado;
+    @Enumerated(value = EnumType.STRING)
+    private EstadoPublicacion estado;
     @OneToOne
-    @Cascade(org.hibernate.annotations.CascadeType.REMOVE)
     @JoinColumn(name = "mascota_id", nullable = false)
     private Mascota mascota;
     @CreationTimestamp
     private Timestamp create_at;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "publicacion")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "publicacion", cascade = {CascadeType.REMOVE, CascadeType.DETACH} , orphanRemoval = true)
     private List<Imagen> imagenes = new ArrayList<>();
 
     public List<Usuario> getUsuariosSolicitantes() {
@@ -135,11 +132,11 @@ public class Publicacion {
         this.mascota = mascota;
     }
 
-    public String getEstado() {
+    public EstadoPublicacion getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoPublicacion estado) {
         this.estado = estado;
     }
 

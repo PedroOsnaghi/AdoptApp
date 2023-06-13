@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.model.PublicacionMensajes;
 import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.hibernate.Session;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,16 +37,16 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
 
     @Override
     public void modificarPublicacion(Publicacion publicacion) {
-        //TODO: Implementar
+        this.sessionFactory.getCurrentSession().update(publicacion);
     }
 
     @Override
-    public void eliminarPublicacion(Long IdPublicacion) {
-    //TODO: Implementar
+    public void eliminarPublicacion(Publicacion publicacion) {
+     this.sessionFactory.getCurrentSession().delete(publicacion);
     }
 
     @Override
-    public List<Publicacion> listarPublicaciones(String state) {
+    public List<Publicacion> listarPublicaciones(EstadoPublicacion state) {
 
         return (List<Publicacion>) this.sessionFactory.getCurrentSession()
                 .createCriteria(Publicacion.class)
@@ -86,6 +87,8 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
                 .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .list();
     }
+
+
 
     @Override
     public Publicacion_favorito agregarFavorito(Publicacion_favorito favorito){

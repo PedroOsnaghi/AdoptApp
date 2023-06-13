@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
 import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.exceptions.SendingMessageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,12 +35,11 @@ public class ControladorMensajes {
 
 
        mensajeDto.setEmisor(this.servicioAuth.getUsuarioAutenticado());
-
-       Long mid = this.servicioMensajes.enviarMensaje(mensajeDto);
-
-       if (mid == null){
-           return new ModelAndView("redirect: "  + request.getContextPath() + "/publicacion/ver?pid=" + mensajeDto.getPublicacion().getId() + "&msj_response=error");
-       }
+        try {
+            this.servicioMensajes.enviarMensaje(mensajeDto);
+        }catch (SendingMessageException error){
+            return new ModelAndView("redirect: "  + request.getContextPath() + "/publicacion/ver?pid=" + mensajeDto.getPublicacion().getId() + "&msj_response=error");
+        }
 
         return new ModelAndView("redirect: "  + request.getContextPath() + "/publicacion/ver?pid=" + mensajeDto.getPublicacion().getId() + "&msj_response=success");
 

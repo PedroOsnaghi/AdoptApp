@@ -1,17 +1,22 @@
 package ar.edu.unlam.tallerweb1.delivery.dto;
 
+import ar.edu.unlam.tallerweb1.model.enumerated.GeneroMascota;
+import ar.edu.unlam.tallerweb1.model.enumerated.TipoMascota;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 
 public class MascotaDto {
 
 
     private String nombre;
+
+
     private String tipo;
+
     private String genero;
     private String raza;
     private Float peso;
@@ -31,6 +36,25 @@ public class MascotaDto {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public TipoMascota getTipoToEnum(){
+        if(this.tipo.equalsIgnoreCase("perro"))
+            return TipoMascota.PERRO;
+        return TipoMascota.GATO;
+    }
+
+    public void setEnumToTipo(TipoMascota tipo){
+        this.tipo = tipo == TipoMascota.PERRO ? "PERRO" : "GATO";
+    }
+
+    public GeneroMascota getGeneroToEnum(){
+        if(this.genero.equalsIgnoreCase("macho")) return GeneroMascota.MACHO;
+        return GeneroMascota.HEMBRA;
+    }
+
+    public void setEnumToGenero(GeneroMascota genero){
+        this.genero = genero == GeneroMascota.MACHO ? "MACHO" : "HEMBRA";
     }
 
     public String getTipo() {

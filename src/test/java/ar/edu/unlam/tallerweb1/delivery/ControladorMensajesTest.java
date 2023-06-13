@@ -3,12 +3,15 @@ package ar.edu.unlam.tallerweb1.delivery;
 import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.ServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.exceptions.SendingMessageException;
 import ar.edu.unlam.tallerweb1.model.Mensaje;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.web.servlet.ModelAndView;
+
+import static org.assertj.core.api.Assertions.anyOf;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import javax.persistence.PersistenceException;
@@ -17,8 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.time.Instant;
 
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.ArgumentMatchers.anyObject;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -41,14 +43,21 @@ public class ControladorMensajesTest {
     }
 
     @Test
-    public void alEnviarseUnMensajeDeFormaCorrectaDebeRedireccionarConREspuestaSuccess(){
+    public void alEnviarseUnMensajeDeFormaCorrectaDebeRedireccionarAPublicacionConRespuestaSuccess(){
         MensajeDto msj = dadoQueExisteUnMensajeParaSerEnviado();
         ModelAndView view = alEnviarlo(msj);
         obtenemosLaRespuestaCorrecta(view, "redirect: adoptapp/publicacion/ver?pid=10&msj_response=success");
     }
 
     @Test
-    public void alResponderUnMensajeDebeRedireccionarConRespuestaSuccess(){
+    public void alEnviarseUnMensajeYOcurrirUnErrorDebeRedireccionarAPublicacionConRespuestaError(){
+        MensajeDto msj = dadoQueExisteUnMensajeParaSerEnviado();
+        ModelAndView view = alEnviarloConError(msj);
+        obtenemosLaRespuestaCorrecta(view, "redirect: adoptapp/publicacion/ver?pid=10&msj_response=error");
+    }
+
+    @Test
+    public void alResponderUnMensajeDebeRedireccionarAlPanelDeMensajesConRespuestaSuccess(){
         MensajeDto msj = dadoQueExisteUnMensajeParaSerRespondido();
         ModelAndView view = alResponderlo(msj);
         obtenemosLaRespuestaCorrecta(view, "redirect: adoptapp/perfil/mensajes?pid=10&response=success");
@@ -127,11 +136,17 @@ public class ControladorMensajesTest {
 
     private ModelAndView alEnviarlo(MensajeDto msj) {
         when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(new Usuario("juan", "test","1234"));
-        when(this.servicioMensajes.enviarMensaje(anyObject())).thenReturn(1L);
+
         when(this.request.getContextPath()).thenReturn("adoptapp");
         return this.controladorMensajes.enviarMensaje(msj, this.request);
     }
 
+    private ModelAndView alEnviarloConError(MensajeDto msj) {
+        when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(new Usuario("juan", "test","1234"));
+        when(this.servicioMensajes.enviarMensaje(anyObject())).thenThrow(SendingMessageException.class);
+        when(this.request.getContextPath()).thenReturn("adoptapp");
+        return this.controladorMensajes.enviarMensaje(msj, this.request);
+    }
     private MensajeDto dadoQueExisteUnMensajeParaSerEnviado() {
         Publicacion p = new Publicacion();
         p.setId(10L);

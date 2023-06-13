@@ -10,13 +10,11 @@ import java.util.List;
 
 public interface IServicioPublicacion {
 
-    String getErrorMessage();
-    //
     Publicacion findPublicacion(Long id);
     Long guardarPublicacion(PublicacionDto publicacionDto);
     void modificarPublicacion(Publicacion publicacion); //TODO return Publcacion
 
-    void eliminarPublicacion(Long IdPublicacion);//TODO return bool o int
+    void eliminarPublicacion(Long idPublicacion, Usuario userAuth);//TODO return bool o int
 
     Publicacion_favorito agregarFavorito(Long idPublicacion, Usuario usuario);
 
@@ -30,6 +28,7 @@ public interface IServicioPublicacion {
 
     List<Publicacion_favorito> listarFavoritosDeUsuario(Long idUsuario);
 
+    void pausarPublicacion(Long pid, Usuario userAuth);
 
-
+    void reanudarPublicacion(Long pid, Usuario userAuth);
 }
