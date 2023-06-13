@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.SpringTest;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
 
 import ar.edu.unlam.tallerweb1.model.*;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -31,7 +32,7 @@ public class RepositorioPublicacionTest extends SpringTest {
     @Rollback
     public void alListarPublicacionesDisponiblesDebeDevolverSoloLasDisponibles(){
         dadoQueExistenPublicacionesCreadas();
-        List<Publicacion> publicaciones = alListar("disponible");
+        List<Publicacion> publicaciones = alListar(EstadoPublicacion.DISPONIBLE);
         assertThat(publicaciones).hasSize(2);
     }
 
@@ -70,7 +71,7 @@ public class RepositorioPublicacionTest extends SpringTest {
         return this.repositorioPublicacion.listarPublicacionesPorUsuarioId(id);
     }
 
-    private List<Publicacion> alListar(String estado) {
+    private List<Publicacion> alListar(EstadoPublicacion estado) {
         return this.repositorioPublicacion.listarPublicaciones(estado);
     }
 
@@ -96,17 +97,17 @@ public class RepositorioPublicacionTest extends SpringTest {
         Publicacion publicacion1 = new Publicacion();
         publicacion1.setBio("Bio de prueba 1");
         publicacion1.setMascota(mascota1);
-        publicacion1.setEstado("disponible");
+        publicacion1.setEstado(EstadoPublicacion.DISPONIBLE);
 
         Publicacion publicacion2 = new Publicacion();
         publicacion2.setBio("Bio de prueba 2");
         publicacion2.setMascota(mascota2);
-        publicacion2.setEstado("disponible");
+        publicacion2.setEstado(EstadoPublicacion.DISPONIBLE);
 
         Publicacion publicacion3 = new Publicacion();
         publicacion3.setBio("Bio de prueba 3");
         publicacion3.setMascota(mascota3);
-        publicacion3.setEstado("reservada");
+        publicacion3.setEstado(EstadoPublicacion.RESERVADO);
 
         this.repositorioPublicacion.guardarPublicacion(publicacion1);
         this.repositorioPublicacion.guardarPublicacion(publicacion2);
@@ -138,17 +139,17 @@ public class RepositorioPublicacionTest extends SpringTest {
         Publicacion publicacion1 = new Publicacion();
         publicacion1.setBio("Bio de prueba 1");
         publicacion1.setMascota(mascota1);
-        publicacion1.setEstado("disponible");
+        publicacion1.setEstado(EstadoPublicacion.DISPONIBLE);
 
         Publicacion publicacion2 = new Publicacion();
         publicacion2.setBio("Bio de prueba 2");
         publicacion2.setMascota(mascota2);
-        publicacion2.setEstado("disponible");
+        publicacion2.setEstado(EstadoPublicacion.DISPONIBLE);
 
         Publicacion publicacion3 = new Publicacion();
         publicacion3.setBio("Bio de prueba 3");
         publicacion3.setMascota(mascota3);
-        publicacion3.setEstado("reservada");
+        publicacion3.setEstado(EstadoPublicacion.RESERVADO);
 
         this.repositorioPublicacion.guardarPublicacion(publicacion1);
         this.repositorioPublicacion.guardarPublicacion(publicacion2);

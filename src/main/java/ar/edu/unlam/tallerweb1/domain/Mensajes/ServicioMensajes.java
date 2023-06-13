@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.Mensajes;
 
 import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
+import ar.edu.unlam.tallerweb1.domain.exceptions.SendingMessageException;
 import ar.edu.unlam.tallerweb1.model.Mensaje;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,10 +24,24 @@ public class ServicioMensajes implements IServicioMensajes{
     @Override
     public Long enviarMensaje(MensajeDto msjDto) {
 
-        Mensaje msj = new Mensaje(msjDto.getPublicacion(), msjDto.getEmisor(), msjDto.getPregunta());
+        Mensaje msj = validarMensaje(msjDto);
 
         return this.repositorioMensajes.guardarMensaje(msj);
 
+    }
+
+    private Mensaje validarMensaje(MensajeDto msjDto) {
+        if(msjDto.getEmisor() == null) throw new SendingMessageException("Falta especificar Emisor del mensaje");
+
+        if(msjDto.getPublicacion() == null) throw new SendingMessageException("UnMensaje debe estar vinculado a una publicacion");
+
+        if(msjDto.getPregunta().isEmpty()) throw new SendingMessageException("No se puede enviar un mensaje vacío");
+
+        //validacion para mensajes a si mismo
+        if(msjDto.getEmisor().getId() == msjDto.getPublicacion().getMascota().getUsuario().getId())
+            throw new SendingMessageException("No se Puede enviar Mensajes a si mismo");
+
+        return  new Mensaje(msjDto.getPublicacion(), msjDto.getEmisor(), msjDto.getPregunta());
     }
 
     @Override

@@ -12,5 +12,4 @@ public interface IServicioMascota {
 
     List<Mascota> listarMascotasAPublicar(Usuario usuario);
 
-    String getErrorMessage();
 }

@@ -4,6 +4,8 @@ import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
 import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioSesion;
+import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
+import ar.edu.unlam.tallerweb1.domain.exceptions.MaxSizeFileException;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -65,12 +68,13 @@ public class ControladorMascota {
 
         Usuario usuario = this.servicioAuth.getUsuarioAutenticado();
 
-        Long p_id = this.servicioMascota.guardar(mascotaDto, usuario);
-
-        if (p_id == null) {
-            model.put("error", this.servicioMascota.getErrorMessage());
+        try {
+            this.servicioMascota.guardar(mascotaDto, usuario);
+        }catch (DataValidationException error){
+            model.put("error", error.getMessage());
             return new ModelAndView("new-mascot", model);
         }
+
 
         if (servicioSesion.getAtributoDeSesion("target") != null)
             target = (String) servicioSesion.getAtributoDeSesion("target");

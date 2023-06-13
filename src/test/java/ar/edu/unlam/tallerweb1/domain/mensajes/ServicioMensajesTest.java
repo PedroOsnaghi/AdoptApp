@@ -2,7 +2,9 @@ package ar.edu.unlam.tallerweb1.domain.mensajes;
 
 import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.ServicioMensajes;
+import ar.edu.unlam.tallerweb1.domain.exceptions.SendingMessageException;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioMensajes;
+import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Mensaje;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 
@@ -39,6 +41,11 @@ public class ServicioMensajesTest {
         MensajeDto mensajeDto = dadoQueExisteUnMensajeParaSerEnviado();
         Long id = alEnviarlo(mensajeDto);
         obtenemosSuId(id);
+    }
+    @Test(expected = SendingMessageException.class)
+    public void alEnviarUnMensajeASiMismoDebeLanzarExcepcion(){
+        MensajeDto mensajeDto = dadoQueExisteUnMensajeParaSerEnviadoDelMismoUsuario();
+        alEnviarlo(mensajeDto);
     }
 
     @Test
@@ -113,11 +120,38 @@ public class ServicioMensajesTest {
     }
 
     private MensajeDto dadoQueExisteUnMensajeParaSerEnviado() {
+        Usuario emisor = new Usuario("emisor","emisor@test","123");
+        emisor.setId(2L);
+        Mascota m = new Mascota(1L);
+        m.setUsuario(new Usuario("receptor",null,null));
+        m.getUsuario().setId(3L);
+
+
         Publicacion p = new Publicacion();
+        p.setMascota(m);
         MensajeDto msjDto = new MensajeDto();
         msjDto.setPublicacion(p);
         msjDto.setPregunta("pasara el Test?");
         msjDto.setRespuesta("respuesta");
+        msjDto.setEmisor(emisor);
+        return msjDto;
+    }
+
+    private MensajeDto dadoQueExisteUnMensajeParaSerEnviadoDelMismoUsuario() {
+        Usuario emisor = new Usuario("emisor","emisor@test","123");
+        emisor.setId(2L);
+        Mascota m = new Mascota(1L);
+        m.setUsuario(emisor);
+        m.getUsuario().setId(3L);
+
+
+        Publicacion p = new Publicacion();
+        p.setMascota(m);
+        MensajeDto msjDto = new MensajeDto();
+        msjDto.setPublicacion(p);
+        msjDto.setPregunta("pasara el Test?");
+        msjDto.setRespuesta("respuesta");
+        msjDto.setEmisor(emisor);
         return msjDto;
     }
 
