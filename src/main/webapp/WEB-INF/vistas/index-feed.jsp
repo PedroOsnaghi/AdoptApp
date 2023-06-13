@@ -191,6 +191,11 @@
 
 <%@ include file="partials/footer.jsp" %>
 
+
+
+
+<!-- RESPONSES -->
+
 <c:if test="${not empty response_f}">
 
     <c:if test="${response_f eq 'exist'}">
@@ -205,4 +210,5 @@
 <!-- scripts -->
 
 <%@ include file="partials/script.jsp" %>
+
 

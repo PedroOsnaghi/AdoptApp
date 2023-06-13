@@ -5,10 +5,7 @@ import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
-import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
-import ar.edu.unlam.tallerweb1.domain.exceptions.EmptyFileException;
-import ar.edu.unlam.tallerweb1.domain.exceptions.MaxSizeFileException;
-import ar.edu.unlam.tallerweb1.domain.exceptions.PostCreationException;
+import ar.edu.unlam.tallerweb1.domain.exceptions.*;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -106,6 +103,51 @@ public class ControladorPublicacion {
 
         return new ModelAndView("post-details", model);
     }
+
+    @RequireAuth
+    @RequestMapping(path = "/pausar", method = RequestMethod.GET)
+    public ModelAndView pausar(@RequestParam Long pid, HttpServletRequest request){
+        try {
+
+            this.servicioPublicacion.pausarPublicacion(pid, this.servicioAuth.getUsuarioAutenticado());
+
+        }catch (PostChangeException error){
+             return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones?error=" + error.getErrorCode());
+        }
+
+       return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones");
+
+    }
+
+    @RequireAuth
+    @RequestMapping(path = "/reanudar", method = RequestMethod.GET)
+    public ModelAndView reanudar(@RequestParam Long pid, HttpServletRequest request){
+        try {
+
+            this.servicioPublicacion.reanudarPublicacion(pid, this.servicioAuth.getUsuarioAutenticado());
+
+        }catch (PostChangeException error){
+            return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones?error=" + error.getErrorCode());
+        }
+
+        return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones");
+
+    }
+
+    @RequireAuth
+    @RequestMapping(path = "/eliminar", method = RequestMethod.GET)
+    public ModelAndView eliminar(@RequestParam Long pid, HttpServletRequest request){
+        try {
+            this.servicioPublicacion.eliminarPublicacion(pid, this.servicioAuth.getUsuarioAutenticado());
+
+        }catch (PostChangeException error){
+            return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones?error=" + error.getErrorCode());
+        }
+
+        return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones");
+
+    }
+
 
 
 

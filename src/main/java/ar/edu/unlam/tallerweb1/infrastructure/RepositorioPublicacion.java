@@ -35,12 +35,12 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
 
     @Override
     public void modificarPublicacion(Publicacion publicacion) {
-        //TODO: Implementar
+        this.sessionFactory.getCurrentSession().update(publicacion);
     }
 
     @Override
-    public void eliminarPublicacion(Long IdPublicacion) {
-    //TODO: Implementar
+    public void eliminarPublicacion(Publicacion publicacion) {
+     this.sessionFactory.getCurrentSession().delete(publicacion);
     }
 
     @Override
@@ -85,6 +85,8 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
                 .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .list();
     }
+
+
 
     @Override
     public Publicacion_favorito agregarFavorito(Publicacion_favorito favorito){
