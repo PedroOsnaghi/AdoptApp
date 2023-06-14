@@ -82,8 +82,7 @@
                                                             </td>
                                                             <td class="col-lg-3 ">
 
-                                                         <span
-                                                                 class="badge badge-pill bg-success mt-2">DISPONIBLE</span>
+                                                         <span class="badge badge-pill bg-success mt-2">DISPONIBLE</span>
 
 
                                                             </td>

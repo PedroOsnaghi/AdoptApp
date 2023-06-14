@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.delivery;
 import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
 import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.delivery.dto.UsuarioDto;
+import ar.edu.unlam.tallerweb1.domain.Calificacion.IServicioCalificacion;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
@@ -28,13 +29,16 @@ public class ControladorPerfilUsuario {
     private final IServicioUsuario servicioUsuario;
     private final IServicioPublicacion servicioPublicacion;
     private final IServicioMensajes servicioMensajes;
+    private final IServicioCalificacion servicioCalificacion;
 
     @Autowired
-    public ControladorPerfilUsuario(IServicioUsuario servicioUsuario, IServicioPublicacion servicioPublicacion, IServicioMensajes servicioMensajes, IServicioAuth servicioAuth) {
+    public ControladorPerfilUsuario(IServicioUsuario servicioUsuario, IServicioPublicacion servicioPublicacion, IServicioMensajes servicioMensajes, IServicioAuth servicioAuth,
+                                    IServicioCalificacion servicioCalificacion) {
         this.servicioUsuario = servicioUsuario;
         this.servicioAuth = servicioAuth;
         this.servicioPublicacion = servicioPublicacion;
         this.servicioMensajes = servicioMensajes;
+        this.servicioCalificacion = servicioCalificacion;
     }
 
 
@@ -57,7 +61,9 @@ public class ControladorPerfilUsuario {
 
         model.put("seccion", "posts");
 
-        //TODO Implementar sevicio de Calificaciones
+        model.put("cal_publicador", this.servicioCalificacion.getCalificacionPublicador(this.servicioAuth.getUsuarioAutenticado().getId()));
+
+        model.put("cal_adoptante", this.servicioCalificacion.getCalificacionAdoptante(this.servicioAuth.getUsuarioAutenticado().getId()));
 
         //TODO implementar Listado de publicaciones del usuario
 

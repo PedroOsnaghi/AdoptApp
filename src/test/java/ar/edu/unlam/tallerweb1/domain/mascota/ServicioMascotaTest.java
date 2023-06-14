@@ -3,8 +3,7 @@ package ar.edu.unlam.tallerweb1.domain.mascota;
 import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
-import ar.edu.unlam.tallerweb1.model.enumerated.GeneroMascota;
-import ar.edu.unlam.tallerweb1.model.enumerated.TipoMascota;
+
 import org.junit.Before;
 import org.junit.Test;
 

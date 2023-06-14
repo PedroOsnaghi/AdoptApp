@@ -1,5 +1,6 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.domain.Calificacion.ServicioCalificacion;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.ServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
@@ -28,6 +29,8 @@ public class ControladorPerfilUsuarioTest  {
 
     private ServicioAuth servicioAuth;
 
+    private ServicioCalificacion servicioCalificacion;
+
 
 
     @Before
@@ -36,7 +39,8 @@ public class ControladorPerfilUsuarioTest  {
         this.servicioPublicacion = mock(ServicioPublicacion.class);
         this.servicioMensajes = mock(ServicioMensajes.class);
         this.servicioAuth = mock(ServicioAuth.class);
-        this.controladorPerfilUsuario = new ControladorPerfilUsuario(this.servicioUsuario, this.servicioPublicacion, this.servicioMensajes, this.servicioAuth);
+        this.servicioCalificacion = mock(ServicioCalificacion.class);
+        this.controladorPerfilUsuario = new ControladorPerfilUsuario(this.servicioUsuario, this.servicioPublicacion, this.servicioMensajes, this.servicioAuth, this.servicioCalificacion);
     }
 
     @Test
