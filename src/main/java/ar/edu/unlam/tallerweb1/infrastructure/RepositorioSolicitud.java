@@ -57,13 +57,13 @@ public class RepositorioSolicitud implements IRepositorioSolicitud {
     public List<Solicitud> listarSolicitudesRecibidas(Long idUsuario) {
         EntityManager entityManager = this.sessionFactory.createEntityManager();
 
-        String queryString = "SELECT DISTINCT s.usuario_id, s.publicacion_id, s.estado, s.mensaje " +
+        String queryString = "SELECT DISTINCT s.usuario, s.publicacion, s.estado, s.mensaje " +
                 "FROM Solicitud s " +
-                "WHERE s.publicacion_id IN " +
-                "(   SELECT p.publicacion_id " +
+                "WHERE s.publicacion IN " +
+                "(   SELECT p.id " +
                 "    FROM Publicacion p " +
                 "    JOIN p.mascota m " +
-                "    WHERE m.usuario_id = :idusuario " +
+                "    WHERE m.usuario = :idusuario " +
                 ")";
 
         Query query = entityManager.createQuery(queryString);
