@@ -3,12 +3,15 @@ package ar.edu.unlam.tallerweb1.delivery;
 import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
 import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.SolicitudDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
+import ar.edu.unlam.tallerweb1.domain.Solicitud.IServicioSolicitud;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.exceptions.*;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
+import ar.edu.unlam.tallerweb1.model.Solicitud;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,15 +37,17 @@ public class ControladorPublicacion {
     private final IServicioPublicacion servicioPublicacion;
     private final IServicioMascota servicioMascota;
     private final IServicioMensajes servicioMesnaje;
+    private final IServicioSolicitud servicioSolicitud;
 
     private Usuario userAuth;
 
     @Autowired
-    public ControladorPublicacion(IServicioPublicacion servicioPublicacion, IServicioMascota servicioMascota, IServicioMensajes servicioMensaje, IServicioAuth servicioAuth) {
+    public ControladorPublicacion(IServicioPublicacion servicioPublicacion, IServicioMascota servicioMascota, IServicioMensajes servicioMensaje, IServicioAuth servicioAuth, IServicioSolicitud servicioSolicitud) {
         this.servicioPublicacion = servicioPublicacion;
         this.servicioAuth = servicioAuth;
         this.servicioMascota = servicioMascota;
         this.servicioMesnaje = servicioMensaje;
+        this.servicioSolicitud = servicioSolicitud;
     }
 
     private ModelMap iniciarModel() {
@@ -94,16 +99,22 @@ public class ControladorPublicacion {
 
     @RequireAuth
     @RequestMapping(path = "/ver", method = RequestMethod.GET)
-    public ModelAndView verPublicacion(@RequestParam Long pid, @RequestParam(required = false) String msj_response){
+    public ModelAndView verPublicacion(@RequestParam Long pid, @RequestParam(required = false) String msj_response, @RequestParam(required = false) String sol_response){
         ModelMap model = iniciarModel();
 
         model.put("publicacion", this.servicioPublicacion.getPublicacion(pid));
 
         model.put("mensajes", this.servicioMesnaje.listarMensajesPublicacion(pid));
 
+        model.put("solicitud", this.servicioSolicitud.getSolicitudDeUsuarioPorPublicacion(this.servicioPublicacion.getPublicacion(pid), this.servicioAuth.getUsuarioAutenticado()));
+
         model.put("mensajeDto", new MensajeDto());
 
+        model.put("solicitudDto", new SolicitudDto());
+
         model.put("msj_response", msj_response);
+
+        model.put("sol_response", sol_response);
 
         return new ModelAndView("post-details", model);
     }
@@ -192,6 +203,8 @@ public class ControladorPublicacion {
 
 
     }
+
+
 
 
 

@@ -36,6 +36,9 @@ public class Publicacion {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "publicacion", cascade = {CascadeType.REMOVE, CascadeType.DETACH} , orphanRemoval = true)
     private List<Imagen> imagenes = new ArrayList<>();
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "publicacion", cascade = {CascadeType.REMOVE, CascadeType.DETACH} , orphanRemoval = true)
+    private List<Solicitud> solicitudes = new ArrayList<>();
+
     public Publicacion(){}
 
     public Publicacion(PublicacionDto p){
@@ -152,6 +155,14 @@ public class Publicacion {
 
     public void setImagenes(List<Imagen> imagenes) {
         this.imagenes = imagenes;
+    }
+
+    public List<Solicitud> getSolicitudes() {
+        return solicitudes;
+    }
+
+    public void setSolicitudes(List<Solicitud> solicitudes) {
+        this.solicitudes = solicitudes;
     }
 
     public PublicacionDto toDto(){
