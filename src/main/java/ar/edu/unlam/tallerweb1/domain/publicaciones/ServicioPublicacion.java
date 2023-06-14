@@ -7,9 +7,7 @@ import ar.edu.unlam.tallerweb1.model.*;
 import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.xml.bind.ValidationException;
 import java.util.List;
 
 @Service
@@ -25,15 +23,17 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
-    public Publicacion findPublicacion (Long id) {
+    public Publicacion getPublicacion (Long id) {
+        //TODO Validar que exista
         return repositorioPublicacion.buscarPublicacionPorId(id);
     }
+
 
     @Override
     public Long  guardarPublicacion(PublicacionDto publicacionDto) {
 
-        if (!this.validarDatos(publicacionDto))
-            return null;
+        this.validarPublicacion(publicacionDto);
+
         return this.publicar(publicacionDto);
     }
 
@@ -41,6 +41,44 @@ public class ServicioPublicacion implements IServicioPublicacion{
     public void modificarPublicacion(Publicacion publicacion) {
         //TODO Implementar modificar Publicacion
     }
+
+    @Override
+    public void actualizarPublicacion(PublicacionDto publicacionDto) {
+
+            this.validarPublicacion(publicacionDto);
+            Publicacion pub = this.repositorioPublicacion.buscarPublicacionPorId(publicacionDto.getId());
+            pub.merge(publicacionDto);
+
+        try{
+            this.repositorioPublicacion.modificarPublicacion(pub);
+            this.servicioArchivo.subirImagenesPost(publicacionDto.getFiles(), pub);
+
+        }catch (RuntimeException error){
+            throw new PostCreationException("No se Pudo generar la Publicación debido a un error");
+        }
+    }
+
+
+    @Override
+    public void pausarPublicacion(Long pid, Usuario userAuth) {
+        Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(pid);
+        //seteamos nuevo estado
+        p.setEstado(EstadoPublicacion.PAUSADA);
+
+        if(this.validarUsuario(p, userAuth))
+            this.repositorioPublicacion.modificarPublicacion(p);
+    }
+
+    @Override
+    public void reanudarPublicacion(Long pid, Usuario userAuth) {
+        Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(pid);
+        //seteamos nuevo estado
+        p.setEstado(EstadoPublicacion.DISPONIBLE);
+        if(this.validarUsuario(p, userAuth))
+            this.repositorioPublicacion.modificarPublicacion(p);
+    }
+
+
 
     @Override
     public void eliminarPublicacion(Long idPublicacion, Usuario userAuth) {
@@ -65,24 +103,6 @@ public class ServicioPublicacion implements IServicioPublicacion{
         return this.repositorioPublicacion.ListarFavoritosDeUsuario(idUsuario);
     }
 
-    @Override
-    public void pausarPublicacion(Long pid, Usuario userAuth) {
-        Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(pid);
-        //seteamos nuevo estado
-        p.setEstado(EstadoPublicacion.PAUSADA);
-
-        if(this.validarUsuario(p, userAuth))
-            this.repositorioPublicacion.modificarPublicacion(p);
-    }
-
-    @Override
-    public void reanudarPublicacion(Long pid, Usuario userAuth) {
-        Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(pid);
-        //seteamos nuevo estado
-        p.setEstado(EstadoPublicacion.DISPONIBLE);
-        if(this.validarUsuario(p, userAuth))
-            this.repositorioPublicacion.modificarPublicacion(p);
-    }
 
     private boolean validarUsuario(Publicacion p, Usuario userAuth) {
         if(p.getMascota().getUsuario().getId() != userAuth.getId()) throw new PostChangeException("Accion no permitida", "invalid_operation");
@@ -120,12 +140,16 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
 
 
-    private boolean validarDatos(PublicacionDto pd) {
-        if(pd.getMascota_id() == null) throw new DataValidationException("Debe seleccionar una mascota");
+    private boolean validarPublicacion(PublicacionDto pd) {
+        if(pd.getMascota() == null ||  pd.getMascota().getId() == null) throw new DataValidationException("Debe seleccionar una mascota");
 
-        if(pd.getDireccion().isEmpty()) throw new DataValidationException("Debe especificar una dirección de entrega");
+        if(pd.getBio().isEmpty() || pd.getBio().length() == 0) throw new DataValidationException("Debe especificar un contenido en la Bio de la publicación");
 
-        if(pd.getDisponibilidad().isEmpty()) throw new DataValidationException("Debe especificar su disponibilidad horaria");
+        if(pd.getDireccion().isEmpty() || pd.getDireccion().length() == 0) throw new DataValidationException("Debe especificar una dirección de entrega");
+
+        if(pd.getDisponibilidad().isEmpty() || pd.getDisponibilidad().length() == 0) throw new DataValidationException("Debe especificar su disponibilidad horaria");
+
+
 
         //validacion de archivos
         try{
@@ -133,7 +157,7 @@ public class ServicioPublicacion implements IServicioPublicacion{
             this.servicioArchivo.validarArchivos(pd.getFiles());
 
         }catch (EmptyFileException error){
-            throw new DataValidationException("Es necesario que suba al menos una imagen para poder generar la Publicación");
+           if(pd.getImagenes() == null || pd.getImagenes().size() == 0) throw new DataValidationException("Es necesario que suba al menos una imagen para poder generar la Publicación");
         }catch (MaxSizeFileException error){
             throw new DataValidationException(error.getMessage());
         }
@@ -142,8 +166,11 @@ public class ServicioPublicacion implements IServicioPublicacion{
         return true;
     }
 
+
+
     private Long publicar(PublicacionDto publicacionDto) {
-        Publicacion pub = this.setearPublicacion(publicacionDto);
+
+        Publicacion pub = new Publicacion(publicacionDto);
 
         try {
 
@@ -160,21 +187,9 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
     }
 
-    private Publicacion setearPublicacion(PublicacionDto publicacionDto) {
-        Publicacion p = new Publicacion();
-        p.setBio(publicacionDto.getBio());
-        p.setMascota(new Mascota(publicacionDto.getMascota_id()));
-        p.setDireccion(publicacionDto.getDireccion());
-        p.setDisponibilidad(publicacionDto.getDisponibilidad());
-        p.setLatitud(publicacionDto.getLatitud());
-        p.setLongitud(publicacionDto.getLongitud());
-        p.setDireccion(publicacionDto.getDireccion());
-        p.setProvincia(publicacionDto.getProvincia());
-        p.setCiudad(publicacionDto.getCiudad());
-        p.setEstado(EstadoPublicacion.DISPONIBLE);
 
-        return p;
-    }
+
+
 
     public void crearSolicitud(Long pid, Usuario userAuth) {
 
