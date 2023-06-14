@@ -1,12 +1,11 @@
-name: Java CI with Maven
+name: Java con Maven push
 
 on:
   push:
-    branches: [ "Dev" ]
+    branches: [ "*" ]
 
 jobs:
-  build:
-
+  build_push:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,5 +18,7 @@ jobs:
           cache: maven
       - name: Compilar con Maven
         run: mvn clean install --batch-mode --no-transfer-progress
+        id: build_push
       - name: Funcionó todo!
-        run: echo "Felicitaciones a quien hayá pusheado esto!"
+        if: success()
+        run: echo "Felicitaciones a quien haya creado esto!"
