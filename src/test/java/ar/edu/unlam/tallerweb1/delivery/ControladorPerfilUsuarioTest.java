@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.delivery;
 import ar.edu.unlam.tallerweb1.domain.Calificacion.ServicioCalificacion;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.ServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.mascota.ServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -29,6 +30,8 @@ public class ControladorPerfilUsuarioTest  {
 
     private ServicioAuth servicioAuth;
 
+    private ServicioMascota servicioMascota;
+
     private ServicioCalificacion servicioCalificacion;
 
 
@@ -40,7 +43,8 @@ public class ControladorPerfilUsuarioTest  {
         this.servicioMensajes = mock(ServicioMensajes.class);
         this.servicioAuth = mock(ServicioAuth.class);
         this.servicioCalificacion = mock(ServicioCalificacion.class);
-        this.controladorPerfilUsuario = new ControladorPerfilUsuario(this.servicioUsuario, this.servicioPublicacion, this.servicioMensajes, this.servicioAuth, this.servicioCalificacion);
+        this.servicioMascota = mock(ServicioMascota.class);
+        this.controladorPerfilUsuario = new ControladorPerfilUsuario(this.servicioUsuario, this.servicioPublicacion, this.servicioMensajes, this.servicioAuth, this.servicioCalificacion,this.servicioMascota);
     }
 
     @Test
