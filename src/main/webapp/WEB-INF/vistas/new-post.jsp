@@ -30,33 +30,21 @@
 
                      <div class="card-body">
 
-                        <form:form  class="text-center mt-3" action="publicar" id="form-steep"  method="POST" modelAttribute="publicacionDto" enctype="multipart/form-data">
-                           <ul id="top-tab-list" class="p-0 row list-inline mb-2">
-                              <li class="col-lg-4 col-md-12 text-start mb-2 active" id="mascota">
-                                 <a href="javascript:void(0);">
-                                    <i class="material-symbols-outlined">
-                                       pets
-                                    </i><span>Mascota</span>
-                                 </a>
-                              </li>
-                              <li  class="col-lg-4 col-md-12 mb-2 text-start" id="fotos">
-                                 <a href="javascript:void(0);">
-                                    <i class="material-symbols-outlined">
-                                       photo_camera
-                                    </i><span>Imagenes</span>
-                                 </a>
-                              </li>
-                              <li class="col-lg-4 col-md-12 mb-2 text-start" id="entrega">
-                                 <a href="javascript:void(0);">
-                                    <i class="material-symbols-outlined">
-                                       fmd_good
-                                    </i><span>Entrega</span>
-                                 </a>
-                              </li>
+                        <!-- error -->
+                        <c:if test="${not empty error}">
+                           <div class="mt-2">
+                              <div class="alert alert-solid alert-danger alert-dismissible fade show d-flex align-items-center gap-2"
+                                   role="alert">
+                                 <span class="d-flex"><i class="material-symbols-outlined">error</i></span>
+                                 <span>${error}</span>
+                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                         aria-label="Close" control-id="ControlID-9"></button>
+                              </div>
+                           </div>
+                        </c:if>
 
-                           </ul>
-                           <!-- fieldsets -->
-                           <fieldset  >
+                        <form:form  class="text-center mt-3" action="publicar" id="form-steep"  method="POST" modelAttribute="publicacionDto" enctype="multipart/form-data">
+
                               <div class="form-card text-start">
                                  <div class="row">
                                     <div class="col-12">
@@ -70,9 +58,16 @@
                                        <div class="row mb-2">
                                           <div class="col-8">
 
-                                             <c:forEach items="${mascotas}" var="mascota"  varStatus="i">
+                                             <c:forEach items="${mascotas}" var="mascota" begin="0"  varStatus="i">
 
-                                                   <form:radiobutton path="mascota_id"  class="btn-check"  id="m-${mascota.id}"  value="${mascota.id}" />
+                                               <c:choose>
+                                                  <c:when test="${i.count eq 1}">
+                                                     <form:radiobutton path="mascota.id"  class="btn-check"  id="m-${mascota.id}"  value="${mascota.id}" checked="checked" />
+                                                  </c:when>
+                                                  <c:otherwise>
+                                                     <form:radiobutton path="mascota.id"  class="btn-check"  id="m-${mascota.id}"  value="${mascota.id}" />
+                                                  </c:otherwise>
+                                               </c:choose>
                                                    <label for="m-${mascota.id}" class="btn-radio-mascota mb-1 p-1 ps-2">
                                                       <div class="d-flex align-items-center  justify-content-between flex-wrap">
                                                          <div class="user-img img-fluid flex-shrink-0">
@@ -112,41 +107,38 @@
                                     </div>
 
                               </div>
-                              <button type="button" name="next" class="btn btn-primary next action-button float-end"
-                                 value="Next" control-id="ControlID-3">Continuar</button>
-                           </fieldset>
-                           <fieldset control-id="ControlID-4"  >
+
                               <div class="form-card text-start">
                                   <div class="row mb-2">
                                     <div class="col-12">
                                        <h5 class="mb-1">Cargar Imagenes:</h5>
+                                       <hr class="mt-0">
                                        <p class="text-muted">Agrega Imagenes a tu publicacion para que las personas puedan conocer mejor a tu mascota.</p>
                                     </div>
                                     <div class="col-12">
                                        <div class="upload__box">
-                                          <div class="btn btn-primary">
-                                             <label class="upload__btn">
-                                                <p class="mb-0">Cargar Imagenes</p>
-                                                <form:input path="files"  type="file" multiple="true" data-max_length="3" class="upload__inputfile"/>
-                                             </label>
+                                          <div class="d-flex align-items-baseline">
+                                             <div class="btn btn-primary">
+                                                <label class="upload__btn">
+                                                   <p class="mb-0">Cargar Imagenes</p>
+                                                   <form:input path="files"  type="file" multiple="true" id="input_file" img-loaded="0"
+                                                               data-max_length="${max_upload}" class="upload__inputfile"/>
+                                                </label>
+                                             </div>
+                                             <p class="ms-2">Imagenes cargadas: <span id="img-loaded" class="text-primary ms-1">0</span><span>/${max_upload}</span></p>
                                           </div>
-                                          <div class="upload__img-wrap"></div>
+                                          <div class="upload__img-wrap" id="img_wrap"></div>
                                        </div>
                                     </div>
                                  </div>
                               </div>
-                              <button type="button" name="next" class="btn btn-primary next action-button float-end"
-                                 value="Next" control-id="ControlID-5">Continuar</button>
-                              <button type="button" name="previous"
-                                 class="btn btn-dark previous action-button-previous float-end me-3" value="Previous"
-                                 control-id="ControlID-6">Atrás</button>
-                           </fieldset>
-                           <fieldset control-id="ControlID-7" >
+
                               <div class="form-card text-start">
 
                                  <div class="row">
                                     <div class="col-12">
                                        <h5 class="mb-1">Lugar de entrega:</h5>
+                                       <hr class="mt-0">
                                        <p class="text-muted">Especifica un domicilio real donde se realizará la entrega de la
                                           mascota, pero no te
                                           preocupes que esta información no sera visible hasta que tu no aceptes
@@ -214,25 +206,10 @@
 
                               <button type="submit" name="submit" class="btn btn-primary float-end"
                                  value="Submit" >Publicar</button>
-                              <button type="button" name="previous"
-                                 class="btn btn-dark previous action-button-previous float-end me-3" value="Previous"
-                                 >Atrás</button>
-                           </fieldset>
 
                         </form:form>
 
-                        <!-- error -->
-                        <c:if test="${not empty error}">
-                           <div class="mt-2">
-                              <div class="alert alert-solid alert-danger alert-dismissible fade show d-flex align-items-center gap-2"
-                                   role="alert">
-                                 <span class="d-flex"><i class="material-symbols-outlined">error</i></span>
-                                 <span>${error}</span>
-                                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
-                                         aria-label="Close" control-id="ControlID-9"></button>
-                              </div>
-                           </div>
-                        </c:if>
+
 
 
 

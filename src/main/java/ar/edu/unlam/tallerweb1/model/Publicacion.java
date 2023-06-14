@@ -1,4 +1,5 @@
 package ar.edu.unlam.tallerweb1.model;
+import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
@@ -36,6 +37,20 @@ public class Publicacion {
     private List<Imagen> imagenes = new ArrayList<>();
 
     public Publicacion(){}
+
+    public Publicacion(PublicacionDto p){
+        this.setId(p.getId());
+        this.setBio(p.getBio());
+        this.setMascota(p.getMascota());
+        this.setDireccion(p.getDireccion());
+        this.setDisponibilidad(p.getDisponibilidad());
+        this.setLatitud(p.getLatitud());
+        this.setLongitud(p.getLongitud());
+        this.setDireccion(p.getDireccion());
+        this.setProvincia(p.getProvincia());
+        this.setCiudad(p.getCiudad());
+        this.setEstado(EstadoPublicacion.DISPONIBLE);
+    }
 
     @PrePersist
     public void prePersist() {
@@ -137,5 +152,32 @@ public class Publicacion {
 
     public void setImagenes(List<Imagen> imagenes) {
         this.imagenes = imagenes;
+    }
+
+    public PublicacionDto toDto(){
+        PublicacionDto pd = new PublicacionDto();
+        pd.setId(this.id);
+        pd.setMascota(this.mascota);
+        pd.setImagenes(this.imagenes);
+        pd.setBio(this.bio);
+        pd.setDisponibilidad(this.disponibilidad);
+        pd.setDireccion(this.direccion);
+        pd.setCiudad(this.ciudad);
+        pd.setProvincia(this.provincia);
+        pd.setLatitud(this.latitud);
+        pd.setLongitud(this.longitud);
+        return pd;
+    }
+
+    public void merge(PublicacionDto pd){
+        this.setId(pd.getId());
+        this.setBio(pd.getBio());
+        this.setDireccion(pd.getDireccion());
+        this.setDisponibilidad(pd.getDisponibilidad());
+        this.setLatitud(pd.getLatitud());
+        this.setLongitud(pd.getLongitud());
+        this.setDireccion(pd.getDireccion());
+        this.setProvincia(pd.getProvincia());
+        this.setCiudad(pd.getCiudad());
     }
 }
