@@ -27,6 +27,6 @@ public interface IRepositorioPublicacion {
 
     List<Publicacion_favorito> ListarFavoritosDeUsuario(Long idUsuario);
 
-    void crearSolicitud(Long idPublicacion, Long idUsuario);
-    void eliminarSolicitud(Long publicacionId, Long usuarioId);
+    boolean crearSolicitud(Long idPublicacion, Long idUsuario);
+    boolean eliminarSolicitud(Long publicacionId, Long usuarioId);
 }

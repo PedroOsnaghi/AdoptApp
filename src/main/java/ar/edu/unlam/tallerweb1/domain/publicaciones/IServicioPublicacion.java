@@ -31,4 +31,8 @@ public interface IServicioPublicacion {
     void pausarPublicacion(Long pid, Usuario userAuth);
 
     void reanudarPublicacion(Long pid, Usuario userAuth);
+
+    void crearSolicitud(Long pid, Usuario userAuth);
+
+    void eliminarSolicitud(Long publicacionId, Usuario userAuth);
 }

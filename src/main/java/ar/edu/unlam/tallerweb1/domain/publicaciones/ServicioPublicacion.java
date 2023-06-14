@@ -176,6 +176,25 @@ public class ServicioPublicacion implements IServicioPublicacion{
         return p;
     }
 
+    public void crearSolicitud(Long pid, Usuario userAuth) {
 
+        try {
+
+            repositorioPublicacion.crearSolicitud(pid, userAuth.getId());
+
+        } catch (RuntimeException error) {
+            throw new PostCreationException("No se pudo generar la solicitud de adopción");
+        }
+    }
+
+    public void eliminarSolicitud(Long publicacionId, Usuario userAuth) {
+        try {
+
+            repositorioPublicacion.eliminarSolicitud(publicacionId, userAuth.getId());
+
+        } catch (RuntimeException error) {
+            throw new PostCreationException("No se pudo eliminar la solicitud");
+        }
+    }
 
 }

@@ -105,23 +105,25 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     }
 
     @Override
-    public void crearSolicitud(Long publicacionId, Long usuarioId) {
+    public boolean crearSolicitud(Long publicacionId, Long usuarioId) {
         Session session = sessionFactory.getCurrentSession();
         Publicacion publicacion = session.get(Publicacion.class, publicacionId);
         Usuario usuario = session.get(Usuario.class, usuarioId);
 
         publicacion.getUsuariosSolicitantes().add(usuario);
         session.saveOrUpdate(publicacion);
+        return true;
     }
 
     @Override
-    public void eliminarSolicitud(Long publicacionId, Long usuarioId) {
+    public boolean eliminarSolicitud(Long publicacionId, Long usuarioId) {
         Session session = sessionFactory.getCurrentSession();
         Publicacion publicacion = session.get(Publicacion.class, publicacionId);
         Usuario usuario = session.get(Usuario.class, usuarioId);
 
         publicacion.getUsuariosSolicitantes().remove(usuario);
         session.saveOrUpdate(publicacion);
+        return true;
     }
 
 
