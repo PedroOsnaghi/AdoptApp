@@ -7,26 +7,60 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+class SolicitudId implements Serializable {
+    private Usuario usuario;
+    private Publicacion publicacion;
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Publicacion getPublicacion() {
+        return publicacion;
+    }
+
+    public void setPublicacion(Publicacion publicacion) {
+        this.publicacion = publicacion;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SolicitudId that = (SolicitudId) o;
+        return Objects.equals(usuario, that.usuario) && Objects.equals(publicacion, that.publicacion);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(usuario, publicacion);
+    }
+}
+
 @Entity
-@IdClass(Solicitud.class)
-public class Solicitud implements Serializable {
+@Table(name = "solicitud")
+@IdClass(SolicitudId.class)
+public class Solicitud {
 
-
-    @ManyToOne()
-    @JoinColumn(name = "usuario_id")
     @Id
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
-    @ManyToOne()
-    @JoinColumn(name = "publicacion_id")
     @Id
+    @ManyToOne
+    @JoinColumn(name = "publicacion_id")
     private Publicacion publicacion;
 
     @Enumerated(value = EnumType.STRING)
-    @Column
+    @Column(name = "estado", nullable = false)
     private EstadoSolicitud estado;
 
-    @Column
+    @Column(name = "mensaje", nullable = false)
     private String mensaje;
 
     public Solicitud(){}
@@ -44,7 +78,6 @@ public class Solicitud implements Serializable {
         this.mensaje = sd.getMensaje();
         this.estado = EstadoSolicitud.PENDIENTE;
     }
-
 
     public Usuario getUsuario() {
         return usuario;
@@ -90,7 +123,5 @@ public class Solicitud implements Serializable {
     public int hashCode() {
         return Objects.hash( getUsuario(), getPublicacion());
     }
-
-
 }
 
