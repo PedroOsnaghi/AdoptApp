@@ -17,9 +17,9 @@
         <div class="row">
             <div class="col-sm-12">
 
-                <%@include file="partials/profile-header.jsp" %>
+                <%@include file="partials/profile-header.jsp"%>
 
-                <%@include file="partials/nav-profile.jsp" %>
+                <%@include file="partials/nav-profile.jsp"%>
 
             </div>
             <div class="col-sm-12">
@@ -30,9 +30,9 @@
                             <div class="row">
                                 <div class="col-lg-4">
 
-                                    <%@include file="partials/calificacion.jsp" %>
+                                    <%@include file="partials/calificacion.jsp"%>
 
-                                    <%@include file="partials/nav-profile-activity.jsp" %>
+                                    <%@include file="partials/nav-profile-activity.jsp"%>
 
                                 </div>
                                 <div class="col-lg-8">
@@ -50,67 +50,72 @@
                                                     <table class="table forum-table mb-0 rounded">
                                                         <thead class="bg-primary text-white">
                                                         <tr>
-                                                            <th>Publicacíon</th>
+                                                            <th>PublicacÃ­on</th>
                                                             <th>Solicitudes</th>
                                                             <th>Preguntas</th>
                                                             <th>Estado</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
-
-                                                        <c:forEach items="${publicaciones}" var="publicacion">
-                                                            <!--rows-->
-                                                            <tr>
-                                                                <td class="col-lg-5">
-                                                                    <a href="#">
-                                                                        <div class="d-flex align-items-center">
-                                                                            <img class="img-fluid rounded-circle avatar-40"
-                                                                                 src="data:image/jpeg;base64,${publicacion.publicacion.mascota.foto}"
-                                                                                 alt=""
-                                                                                 loading="lazy">
-                                                                            <div class="media-body ms-3">
-                                                                                <h6 class="text-dark">
-                                                                                    <strong>${publicacion.publicacion.mascota.nombre}</strong>
-                                                                                </h6>
-                                                                                <p class="mb-0"><span
-                                                                                        class="text-muted"></span>
-                                                                                    <span class="link-primary"><script>getTime("${publicacion.publicacion.create_at}")</script></span>
-                                                                                </p>
-                                                                            </div>
+                                                        <tr>
+                                                            <td class="col-lg-5">
+                                                                <a href="#">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <img class="img-fluid rounded-circle avatar-40"
+                                                                             src="${pageContext.request.contextPath}/images/posts/4/1.jpg" alt=""
+                                                                             loading="lazy">
+                                                                        <div class="media-body ms-3">
+                                                                            <h6 class="text-dark"><strong>Ninna</strong>
+                                                                            </h6>
+                                                                            <p class="mb-0"><span class="text-muted">Hace </span>
+                                                                                <span class="link-primary"> 3
+                                                                        dï¿½as</span>
+                                                                            </p>
                                                                         </div>
-                                                                    </a>
+                                                                    </div>
+                                                                </a>
 
-                                                                </td>
-                                                                <td class="col-lg-2 h6 text-center align-items-center">0
-                                                                </td>
-                                                                <td class="col-lg-2 h6 text-center align-items-center">${publicacion.cantMensajes}
-                                                                </td>
-                                                                <td class="col-lg-3 ">
+                                                            </td>
+                                                            <td class="col-lg-2 h6 text-center align-items-center">6
+                                                            </td>
+                                                            <td class="col-lg-2 h6 text-center align-items-center">25
+                                                            </td>
+                                                            <td class="col-lg-3 ">
 
-                                                                    <c:choose>
-                                                                        <c:when test="${publicacion.publicacion.estado.toString() eq 'DISPONIBLE'}">
-                                                                            <span class="badge badge-pill bg-success  ms-2">
-                                                                            <i class="fa-solid fa-earth-americas"></i>
-                                                                            ${publicacion.publicacion.estado.toString()}
-                                                                             </span>
-                                                                        </c:when>
-                                                                        <c:when test="${publicacion.publicacion.estado.toString() eq 'PAUSADA'}">
-                                                                            <span class="badge badge-pill bg-warning  ms-2">
-                                                                            <i class="fa-solid fa-pause"></i>
-                                                                            ${publicacion.publicacion.estado.toString()}
-                                                                             </span>
-                                                                        </c:when>
-                                                                        <c:when test="${publicacion.publicacion.estado.toString() eq 'RESERVADA'}">
-                                                                            <span class="badge badge-pill bg-info  ms-2">
-                                                                            <i class="fa-solid fa-bookmark"></i>
-                                                                            ${publicacion.publicacion.estado.toString()}
-                                                                             </span>
-                                                                        </c:when>
-                                                                    </c:choose>
+                                                         <span class="badge badge-pill bg-success mt-2">DISPONIBLE</span>
 
-                                                                </td>
-                                                            </tr>
-                                                        </c:forEach>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="col-lg-5">
+                                                                <a href="#">
+                                                                    <div class="d-flex align-items-center">
+                                                                        <img class="img-fluid rounded-circle avatar-40"
+                                                                             src="${pageContext.request.contextPath}/images/posts/3/1.avif" alt=""
+                                                                             loading="lazy">
+                                                                        <div class="media-body ms-3">
+                                                                            <h6 class="text-dark">
+                                                                                <strong>Chonino</strong></h6>
+                                                                            <p class="mb-0"><span class="text-muted">Hace </span>
+                                                                                <span class="link-primary"> 2
+                                                                        semanas</span>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                            </td>
+                                                            <td class="col-lg-2 h6 text-center align-items-center">6
+                                                            </td>
+                                                            <td class="col-lg-2 h6 text-center align-items-center">25
+                                                            </td>
+                                                            <td class="col-lg-3 ">
+
+                                                                <span class="badge badge-pill bg-warning mt-2">RESERVADO</span>
+
+
+                                                            </td>
+                                                        </tr>
 
 
                                                         </tbody>
