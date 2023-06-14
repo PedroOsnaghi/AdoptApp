@@ -60,6 +60,7 @@ public class ControladorPublicacion {
         
         model.put("publicacionDto", new PublicacionDto());
         model.put("mascotas", this.servicioMascota.listarMascotasAPublicar(this.userAuth));
+        model.put("max_upload", 4);
 
         return new ModelAndView("new-post", model);
     }
@@ -79,6 +80,7 @@ public class ControladorPublicacion {
         }catch (DataValidationException | PostCreationException error){
             model.put("error", error.getMessage());
             model.put("mascotas", this.servicioMascota.listarMascotasAPublicar(this.userAuth));
+            model.put("max_upload", 4);
             return new ModelAndView("new-post",model);
         }
 

@@ -250,7 +250,7 @@ public class ServicioPublicacionTest {
         p.setMascota(m);
         p.setDireccion("Calle falsa 123");
         p.setDisponibilidad("todo el dia");
-
+        p.setBio("Publicacion de prueba");
         return p;
 
 

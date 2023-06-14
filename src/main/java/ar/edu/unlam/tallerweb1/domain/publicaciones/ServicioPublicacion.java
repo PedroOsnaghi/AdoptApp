@@ -44,10 +44,12 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
     @Override
     public void actualizarPublicacion(PublicacionDto publicacionDto) {
-        try{
+
             this.validarPublicacion(publicacionDto);
             Publicacion pub = this.repositorioPublicacion.buscarPublicacionPorId(publicacionDto.getId());
             pub.merge(publicacionDto);
+
+        try{
             this.repositorioPublicacion.modificarPublicacion(pub);
             this.servicioArchivo.subirImagenesPost(publicacionDto.getFiles(), pub);
 
@@ -139,13 +141,15 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
 
     private boolean validarPublicacion(PublicacionDto pd) {
-        if(pd.getMascota().getId() == null) throw new DataValidationException("Debe seleccionar una mascota");
+        if(pd.getMascota() == null ||  pd.getMascota().getId() == null) throw new DataValidationException("Debe seleccionar una mascota");
 
-        if(pd.getDireccion().isEmpty()) throw new DataValidationException("Debe especificar una dirección de entrega");
+        if(pd.getBio().isEmpty() || pd.getBio().length() == 0) throw new DataValidationException("Debe especificar un contenido en la Bio de la publicación");
 
-        if(pd.getDisponibilidad().isEmpty()) throw new DataValidationException("Debe especificar su disponibilidad horaria");
+        if(pd.getDireccion().isEmpty() || pd.getDireccion().length() == 0) throw new DataValidationException("Debe especificar una dirección de entrega");
 
-        if(pd.getBio().isEmpty()) throw new DataValidationException("Debe especificar un contenido en la Bio de la publicación");
+        if(pd.getDisponibilidad().isEmpty() || pd.getDisponibilidad().length() == 0) throw new DataValidationException("Debe especificar su disponibilidad horaria");
+
+
 
         //validacion de archivos
         try{

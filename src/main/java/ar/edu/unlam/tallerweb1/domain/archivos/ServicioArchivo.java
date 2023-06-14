@@ -115,6 +115,7 @@ public class ServicioArchivo implements IServicioArchivo {
 
 
     private String bytesToBase64(byte[] bytes)throws IOException {
+        if(bytes.length == 0) throw new IOException("Array de Bytes vacío");
         String encodedString = Base64.getEncoder().encodeToString(bytes);
         return encodedString;
     }

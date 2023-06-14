@@ -23786,7 +23786,7 @@ button.bg-soft-dark:hover {
     display: flex;
     flex-wrap: wrap;
     margin: 20px 0px;
-    height: 210px;
+    height: fit-content;
     border-radius: 5px;
     border: 1px solid #dddddd;
 }
@@ -23797,9 +23797,9 @@ button.bg-soft-dark:hover {
 }
 
 .upload__img-box {
-    width: 200px;
-    padding: 10px 10px;
-    margin: auto 5px;
+    width: 150px;
+    padding: 5px 5px;
+    margin: 5px 5px;
     border-radius: 5px;
     background-color: #19243280;
 }
@@ -23808,8 +23808,15 @@ button.bg-soft-dark:hover {
     background-color: #00764480!important;
 }
 
+
+.dark .uploaded {
+    background-color: #25ffa330!important;
+}
+
+
+
 .dark .upload__img-box {
-    background-color: #ffffff!important;
+    background-color: #6c6c6c80;
     border: 1px solid #00a3ff24!important;
 }
 
@@ -23912,6 +23919,14 @@ input[readonly]{
 
 #loader_container{
     transition: opacity 1s ease-out;
+}
+
+.card-mascota{
+    background-color: #f7f7f7;
+}
+
+.dark .card-mascota{
+    background-color: #50b5ff14!important;
 }
 
 

@@ -31,15 +31,26 @@ function ImgUpload() {
                 if (imgArray.length >= (maxLength -  imgLoaded)) {
                     return false;
                 } else {
+
+                    var len = 0;
+                    for (var i = 0; i < imgArray.length; i++) {
+                        if (imgArray[i] !== undefined) {
+                            len++;
+                        }
+                    }
+                    if (len > (maxLength -  imgLoaded)) {
+                        return false;
+                    } else {
+
                         imgArray.push(f);
-                        labelLoaded.innerText = (imgArray.length  + imgLoaded).toString() ;
+                        labelLoaded.innerText = (imgArray.length + imgLoaded).toString();
                         var reader = new FileReader();
                         reader.onload = function (e) {
                             var html = "<div class='upload__img-box'><div style='background-image: url(" + e.target.result + ")' data-number='" + $(".upload__img-close").length + "' data-file='" + f.name + "' class='img-bg'><div class='upload__img-close'></div></div></div>";
                             $('#img_wrap').append(html);
                         }
                         reader.readAsDataURL(f);
-
+                    }
                 }
             });
         });

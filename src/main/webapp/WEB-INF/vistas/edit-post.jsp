@@ -63,7 +63,7 @@
                                  <div class="col-12">
                                     <h5 class="mb-1">Mascota publicada:</h5>
                                  </div>
-                                  <div class="card col-12" style="background-color: #f7f7f7;">
+                                  <div class="card card-mascota mx-auto" style="width: 90%">
                                       <div  class="card-body">
                                           <div class="row">
                                               <div class="col-lg-2">
@@ -115,10 +115,10 @@
                                   </div>
                               </div>
 
-                               <h6 class="">Biografía</h6>
+                               <h5>Biografía</h5>
                                <hr class="mt-0">
-                               <div class="row mb-2">
-                                   <p class="text-muted">Escribe una breve bio acerca de tu mascota para que otros usuarios puedan saber un poco mas..</p>
+                               <div class="row mb-3">
+                                   <p class="text-muted mb-0">Escribe una breve bio acerca de tu mascota para que otros usuarios puedan saber un poco mas..</p>
                                    <form:textarea path="bio" rows="3" maxlength="255" class="form-control"></form:textarea>
                                </div>
 
@@ -129,6 +129,7 @@
                                 <div class="row mb-2">
                                     <div class="col-12">
                                         <h5 class="mb-1">Cargar Imagenes:</h5>
+                                        <hr class="mt-0">
                                         <p class="text-muted">Agrega Imagenes a tu publicacion para que las personas
                                             puedan conocer mejor a tu mascota.</p>
                                     </div>
@@ -169,6 +170,7 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <h5 class="mb-1">Lugar de entrega:</h5>
+                                        <hr class="mt-0">
                                         <p class="text-muted">Especifica un domicilio real donde se realizará la entrega
                                             de la
                                             mascota, pero no te
