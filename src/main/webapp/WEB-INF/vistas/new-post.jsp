@@ -72,7 +72,7 @@
 
                                              <c:forEach items="${mascotas}" var="mascota"  varStatus="i">
 
-                                                   <form:radiobutton path="mascota_id"  class="btn-check"  id="m-${mascota.id}"  value="${mascota.id}" />
+                                                   <form:radiobutton path="mascota.id"  class="btn-check"  id="m-${mascota.id}"  value="${mascota.id}" />
                                                    <label for="m-${mascota.id}" class="btn-radio-mascota mb-1 p-1 ps-2">
                                                       <div class="d-flex align-items-center  justify-content-between flex-wrap">
                                                          <div class="user-img img-fluid flex-shrink-0">

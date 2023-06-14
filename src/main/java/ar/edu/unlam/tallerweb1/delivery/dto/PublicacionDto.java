@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.delivery.dto;
 
 import ar.edu.unlam.tallerweb1.model.Imagen;
 import ar.edu.unlam.tallerweb1.model.Mascota;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -16,8 +17,6 @@ public class PublicacionDto {
     private String longitud;
     private String disponibilidad;
     private MultipartFile[] files;
-    private Long usuario_id;
-    private Long mascota_id;
 
     private Mascota mascota;
 
@@ -97,22 +96,6 @@ public class PublicacionDto {
         this.files = files;
     }
 
-    public Long getUsuario_id() {
-        return usuario_id;
-    }
-
-    public void setUsuario_id(Long usuario_id) {
-        this.usuario_id = usuario_id;
-    }
-
-    public Long getMascota_id() {
-        return mascota_id;
-    }
-
-    public void setMascota_id(Long mascota_id) {
-        this.mascota_id = mascota_id;
-    }
-
 
     public Mascota getMascota() {
         return mascota;
@@ -128,6 +111,13 @@ public class PublicacionDto {
 
     public void setImagenes(List<Imagen> imagenes) {
         this.imagenes = imagenes;
+    }
+
+    public void merge(Publicacion p){
+        this.setId(p.getId());
+        this.setMascota(p.getMascota());
+        this.setImagenes(p.getImagenes());
+
     }
 }
 

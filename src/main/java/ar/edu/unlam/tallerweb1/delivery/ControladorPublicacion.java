@@ -8,6 +8,7 @@ import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.exceptions.*;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -48,7 +49,6 @@ public class ControladorPublicacion {
         this.userAuth = this.servicioAuth.getUsuarioAutenticado();
         ModelMap m = new ModelMap();
         m.put("usuario", this.userAuth);
-        m.put("mascotas", this.servicioMascota.listarMascotasAPublicar(this.userAuth));
         return m;
     }
 
@@ -59,6 +59,7 @@ public class ControladorPublicacion {
         ModelMap model = this.iniciarModel();
         
         model.put("publicacionDto", new PublicacionDto());
+        model.put("mascotas", this.servicioMascota.listarMascotasAPublicar(this.userAuth));
 
         return new ModelAndView("new-post", model);
     }
@@ -77,6 +78,7 @@ public class ControladorPublicacion {
 
         }catch (DataValidationException | PostCreationException error){
             model.put("error", error.getMessage());
+            model.put("mascotas", this.servicioMascota.listarMascotasAPublicar(this.userAuth));
             return new ModelAndView("new-post",model);
         }
 
@@ -151,13 +153,42 @@ public class ControladorPublicacion {
 
     @RequireAuth
     @RequestMapping(path = "/editar", method = RequestMethod.GET)
-    public ModelAndView editar(@RequestParam Long pid) {
+    public ModelAndView editar(@RequestParam Long pid, @RequestParam(required = false) String response) {
 
         ModelMap model = this.iniciarModel();
 
-        model.put("publicacionDto", this.servicioPublicacion.getDtoPublicacion(pid));
+        model.put("publicacionDto", this.servicioPublicacion.getPublicacion(pid).toDto());
+        model.put("max_upload", 4);
+        model.put("success", response);
 
         return new ModelAndView("edit-post", model);
+    }
+
+    @RequireAuth
+    @RequestMapping(path = "/actualizar", method = RequestMethod.POST)
+    public ModelAndView actualizarPublicacion(@ModelAttribute("publicacionDto") PublicacionDto publicacionDto, HttpServletRequest request) {
+        ModelMap model = this.iniciarModel();
+
+        Publicacion post = this.servicioPublicacion.getPublicacion(publicacionDto.getId());
+
+        publicacionDto.merge(post);
+
+        try{
+
+           this.servicioPublicacion.actualizarPublicacion(publicacionDto);
+
+        }catch (DataValidationException | PostCreationException error){
+            model.put("error", error.getMessage());
+            model.put("max_upload", 4);
+            return new ModelAndView("edit-post", model);
+        }
+
+
+        return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/editar?pid=" + publicacionDto.getId() + "&response=success");
+
+
+
+
     }
 
 

@@ -245,7 +245,9 @@ public class ServicioPublicacionTest {
 
     private PublicacionDto dadoQueTengoDatosCorrectos() {
         PublicacionDto p = new PublicacionDto();
-        p.setMascota_id(5L);
+        Mascota m = new Mascota();
+        m.setId(5L);
+        p.setMascota(m);
         p.setDireccion("Calle falsa 123");
         p.setDisponibilidad("todo el dia");
 

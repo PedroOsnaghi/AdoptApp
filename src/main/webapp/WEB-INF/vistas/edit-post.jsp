@@ -30,6 +30,19 @@
                     <div class="card-body">
 
                         <!-- error -->
+                        <c:if test="${not empty success}">
+                            <div class="mb-2">
+                                <div class="alert alert-solid alert-success alert-dismissible fade show d-flex align-items-center gap-2"
+                                     role="alert">
+                                    <span class="d-flex"><i class="material-symbols-outlined">done</i></span>
+                                    <span>Los cambios se guardaron con correctamente.</span>
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close" control-id="ControlID-9"></button>
+                                </div>
+                            </div>
+                        </c:if>
+
+                        <!-- error -->
                         <c:if test="${not empty error}">
                             <div class="mb-2">
                                 <div class="alert alert-solid alert-danger alert-dismissible fade show d-flex align-items-center gap-2"
@@ -42,7 +55,7 @@
                             </div>
                         </c:if>
 
-                        <form:form class="text-center mt-3" action="publicar" id="form-steep" method="POST"
+                        <form:form class="text-center mt-3" action="actualizar"  method="POST"
                                    modelAttribute="publicacionDto" enctype="multipart/form-data">
 
                            <div class="form-card text-start">
@@ -102,7 +115,12 @@
                                   </div>
                               </div>
 
-
+                               <h6 class="">Biografía</h6>
+                               <hr class="mt-0">
+                               <div class="row mb-2">
+                                   <p class="text-muted">Escribe una breve bio acerca de tu mascota para que otros usuarios puedan saber un poco mas..</p>
+                                   <form:textarea path="bio" rows="3" maxlength="255" class="form-control"></form:textarea>
+                               </div>
 
                            </div>
 
@@ -116,14 +134,18 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="upload__box">
-                                            <div class="btn btn-primary">
-                                                <label class="upload__btn">
-                                                    <p class="mb-0">Cargar Imagenes</p>
-                                                    <form:input path="files" type="file" multiple="true"
-                                                                data-max_length="3" class="upload__inputfile"/>
-                                                </label>
+                                            <div class="d-flex align-items-baseline">
+                                                <div class="btn btn-primary">
+                                                    <label class="upload__btn">
+                                                        <p class="mb-0">Cargar Imagenes</p>
+                                                        <form:input path="files" type="file" id="input_file" multiple="true" img-loaded="${publicacionDto.imagenes.size()}"
+                                                                    data-max_length="${max_upload}" class="upload__inputfile"/>
+                                                    </label>
+                                                </div>
+                                                <p class="ms-2">Imagenes cargadas: <span id="img-loaded" class="text-primary ms-1">${publicacionDto.imagenes.size()}</span><span>/${max_upload}</span></p>
                                             </div>
-                                            <div class="upload__img-wrap">
+
+                                            <div class="upload__img-wrap" id="img_wrap">
                                                 <c:forEach items="${publicacionDto.imagenes}" var="imagen"
                                                            varStatus="index">
                                                     <div class='upload__img-box uploaded'>
@@ -220,6 +242,9 @@
                                     value="Submit">Guardar Cambios
                             </button>
 
+
+                        <!-- INPUTS OCULTOS -->
+                            <form:input path="id" type="hidden" value="${publicacionDto.id}"/>
 
                         </form:form>
 
