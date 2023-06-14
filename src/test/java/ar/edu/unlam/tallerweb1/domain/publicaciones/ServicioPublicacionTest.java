@@ -245,10 +245,12 @@ public class ServicioPublicacionTest {
 
     private PublicacionDto dadoQueTengoDatosCorrectos() {
         PublicacionDto p = new PublicacionDto();
-        p.setMascota_id(5L);
+        Mascota m = new Mascota();
+        m.setId(5L);
+        p.setMascota(m);
         p.setDireccion("Calle falsa 123");
         p.setDisponibilidad("todo el dia");
-
+        p.setBio("Publicacion de prueba");
         return p;
 
 
@@ -274,7 +276,7 @@ public class ServicioPublicacionTest {
     {
         Publicacion publicacion = dadoQueExisteUnaPublicacion();
         when(this.repositorioPublicacion.buscarPublicacionPorId(anyLong())).thenReturn(publicacion);
-        return this.servicioPublicacion.findPublicacion(id);
+        return this.servicioPublicacion.getPublicacion(id);
     }
 
     private void puedoAccederAsuBio(Publicacion publicacionObtenida) {
