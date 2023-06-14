@@ -47,7 +47,7 @@
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <h4>Mis Mascotas</h4>
                                                         <div>
-                                                            <a href="new-mascot.html" class="btn btn-primary">Agregar
+                                                            <a href="${pageContext.request.contextPath}/mascota/crear?target=perfil" class="btn btn-primary">Agregar
                                                                 nueva..</a>
                                                         </div>
                                                     </div>
@@ -59,7 +59,7 @@
                                                                 <div class="card bg-soft-dark">
                                                                     <div class="card-body" style="height: 135px;">
                                                                         <div class="iq-badges text-left">
-                                                                            <div class="d-flex align-items-s">
+                                                                            <div class="d-flex align-items-start justify-content-between">
                                                                                 <div class="badges-icon">
                                                                                     <img class="avatar-80 rounded border border-light"
                                                                                          src="data:image/jpg;base64,${mascota.foto}" style="object-fit: cover;" alt=""
@@ -73,7 +73,7 @@
                                                                                          </span>
                                                                                     </c:when>
                                                                                     <c:when test="${empty mascota.publicacion}">
-                                                                                        <span class="badge badge-pill bg-light  ms-2">
+                                                                                        <span class="badge badge-pill bg-light text-dark  ms-2">
                                                                                         <i class="fa-solid fa-folder"></i>
                                                                                         SIN PUBLICAR
                                                                                          </span>

@@ -84,7 +84,7 @@ public class ControladorMascota {
                 return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/crear");
 
             case "perfil":
-                return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/actividad/mascotas");
+                return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/actividad/mismascotas");
 
             default:
                 return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed");
