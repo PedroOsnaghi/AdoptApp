@@ -17,4 +17,6 @@ public interface IRepositorioSolicitud {
     List<Solicitud> listarSolicitudesEnviadas(Long idUsuario);
 
     List<Solicitud> listarSolicitudesRecibidas(Long idUsuario);
+
+
 }

@@ -50,77 +50,45 @@
                                                     <h4>Mis Solicitudes de Adopción</h4>
                                                     <hr>
                                                     <ul class="request-list list-inline m-0 p-0">
-                                                        <li
-                                                                class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                            <div class="d-flex">
-                                                                <div class="user-img img-fluid flex-shrink-0">
-                                                                    <img src="${pageContext.request.contextPath}/images/posts/1/1.jpg" alt="story-img"
-                                                                         class="rounded-circle avatar-40"
-                                                                         loading="lazy">
-                                                                </div>
-                                                                <div class="flex-grow-1 ms-3">
-                                                                    <h6><strong>Tobby </strong> <small
-                                                                            class="text-muted">de <a
-                                                                            href="#">Maria
-                                                                        Gutierrez</a></small></h6>
-                                                                    <p class="mb-0">6 Interesados</p>
-                                                                </div>
-                                                            </div>
+
+                                                      <c:forEach items="${solicitudes}" var="solicitud">
+                                                          <li
+                                                                  class="d-flex align-items-center  justify-content-between flex-wrap">
+                                                              <div class="d-flex">
+                                                                  <div class="user-img img-fluid flex-shrink-0">
+                                                                      <img src="data:image/jpg;base64,${solicitud.publicacion.mascota.foto}" alt="story-img"
+                                                                           class="rounded-circle avatar-40"
+                                                                           loading="lazy">
+                                                                  </div>
+                                                                  <div class="flex-grow-1 ms-3">
+                                                                      <h6><strong>${solicitud.publicacion.mascota.nombre}</strong> <small
+                                                                              class="text-muted">de <a
+                                                                              href="#">${solicitud.publicacion.mascota.usuario.nombre}</a></small></h6>
+                                                                     <p class="mb-0">${solicitud.cantSolicitudes} Interesados</p>
+                                                                  </div>
+                                                              </div>
 
 
-                                                            <div class="d-flex align-items-center mt-2 mt-md-0">
-                                                                <div class="d-flex align-items-center">
+                                                              <div class="d-flex align-items-center mt-2 mt-md-0">
+                                                                  <div class="d-flex align-items-center">
                                                          <span class="material-symbols-outlined text-warning">
                                                             timer
                                                          </span>
-                                                                    <span
-                                                                            class="badge badge-pill text-warning me-5">Pendiente</span>
-                                                                </div>
-                                                                <div class="confirm-click-btn">
-                                                                    <a href="#"
-                                                                       class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
+                                                                      <span
+                                                                              class="badge badge-pill text-warning me-5">${solicitud.estado.toString()}</span>
+                                                                  </div>
+                                                                  <div class="confirm-click-btn">
+                                                                      <a href="#"
+                                                                         class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
 
-                                                                </div>
-                                                                <a href="#" class="btn btn-secondary rounded">Cancelar
-                                                                    Solicitud</a>
-                                                            </div>
-                                                        </li>
-                                                        <li
-                                                                class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                            <div class="d-flex">
-                                                                <div class="user-img img-fluid flex-shrink-0">
-                                                                    <img src="${pageContext.request.contextPath}/images/posts/3/1.avif" alt="story-img"
-                                                                         class="rounded-circle avatar-40"
-                                                                         loading="lazy">
-                                                                </div>
-                                                                <div class="flex-grow-1 ms-3">
-                                                                    <h6><strong>Tor </strong> <small class="text-muted">de
-                                                                        <a
-                                                                                href="#">Jorge Gallur</a></small></h6>
-                                                                    <p class="mb-0">12 Interesados</p>
-                                                                </div>
-                                                            </div>
+                                                                  </div>
+                                                                  <a href="#" class="btn btn-secondary rounded">Cancelar
+                                                                      Solicitud</a>
+                                                              </div>
+                                                          </li>
+                                                      </c:forEach>
 
 
-                                                            <div class="d-flex align-items-center mt-2 mt-md-0">
-                                                                <div class="d-flex align-items-center">
-                                                         <span class="material-symbols-outlined text-warning">
-                                                            timer
-                                                         </span>
-                                                                    <span class="badge badge-pill text-warning me-5">
-
-                                                            Pendiente</span>
-                                                                </div>
-
-                                                                <div class="confirm-click-btn">
-                                                                    <a href="#"
-                                                                       class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
-
-                                                                </div>
-                                                                <a href="#" class="btn btn-secondary rounded">Cancelar
-                                                                    Solicitud</a>
-                                                            </div>
-                                                        </li>
 
                                                     </ul>
 

@@ -138,6 +138,10 @@ public class Solicitud {
         this.mensaje = mensaje;
     }
 
+    public int getCantSolicitudes(){
+        return this.getPublicacion().getSolicitudes().size();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

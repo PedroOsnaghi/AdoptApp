@@ -165,6 +165,11 @@ public class Publicacion {
         this.solicitudes = solicitudes;
     }
 
+    public int getCantSolicitudes(){
+        List<Solicitud> c = this.getSolicitudes();
+        return c.size();
+    }
+
     public PublicacionDto toDto(){
         PublicacionDto pd = new PublicacionDto();
         pd.setId(this.id);

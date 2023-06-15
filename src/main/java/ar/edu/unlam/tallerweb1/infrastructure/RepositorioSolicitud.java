@@ -71,4 +71,6 @@ public class RepositorioSolicitud implements IRepositorioSolicitud {
 
         return (List<Solicitud>) query.getResultList();
     }
+
+
 }
