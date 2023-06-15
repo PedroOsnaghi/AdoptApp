@@ -49,7 +49,7 @@ public class RepositorioSolicitud implements IRepositorioSolicitud {
     public List<Solicitud> listarSolicitudesEnviadas(Long idUsuario) {
         return (List<Solicitud>) this.sessionFactory.getCurrentSession()
                 .createCriteria(Solicitud.class)
-                .add(Restrictions.eq("usuario_id", idUsuario))
+                .add(Restrictions.eq("usuario.id", idUsuario))
                 .list();
     }
 
