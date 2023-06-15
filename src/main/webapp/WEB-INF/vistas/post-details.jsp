@@ -96,7 +96,18 @@
                                         </div>
                                         <div class="col-lg-7">
                                             <div class="item6 border-light border-start">
-                                                <div class="d-grid ms-2">
+
+                                            <c:choose>
+                                                <c:when test="${usuario.id eq publicacion.mascota.usuario.id}">
+                                                    <div class="d-grid ms-2">
+                                                        <h6>Herramientas de publicador</h6>
+                                                        <hr>
+                                                        
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+
+                                                    <div class="d-grid ms-2">
 
                                                     <h6 class="mb-4">No lo dudes!,
                                                         <strong>${publicacion.mascota.nombre}</strong> te necesita</h6>
@@ -119,18 +130,23 @@
                                                                         </div>
                                                                     </div>
                                                                 </c:if>
-                                                                <button type="button" class="btn btn-secondary d-block"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#confirma-adopcion">
-                                                                    Cancelar Solicitud
-                                                                </button>
+                                                                <form:form action="${pageContext.request.contextPath}/solicitud/cancelar"  method="post" modelAttribute="solicitud">
+                                                                    <form:input path="usuario.id" type="hidden"/>
+                                                                    <form:input path="publicacionSolicitud.id" type="hidden"/>
+                                                                    <form:input path="mensajeSolicitud" type="hidden"/>
+                                                                    <button type="submit" class="btn btn-secondary d-block w-100" >
+                                                                        Cancelar Solicitud
+                                                                    </button>
+                                                                </form:form>
+
                                                             </c:when>
                                                         </c:choose>
 
                                                     </div>
                                                 </div>
 
-
+                                                </c:otherwise>
+                                            </c:choose>
                                             </div>
                                         </div>
 

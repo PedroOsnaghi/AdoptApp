@@ -79,6 +79,17 @@ public class Solicitud {
         this.estado = EstadoSolicitud.PENDIENTE;
     }
 
+    public Solicitud(Long idUsuario, Long idPublicacion){
+        Usuario u = new Usuario();
+        u.setId(idUsuario);
+        Publicacion p = new Publicacion();
+        p.setId(idPublicacion);
+        this.setUsuario(u);
+        this.setPublicacion(p);
+        this.estado = EstadoSolicitud.PENDIENTE;
+
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -89,6 +100,14 @@ public class Solicitud {
 
     public Publicacion getPublicacion() {
         return publicacion;
+    }
+
+    public Publicacion getPublicacionSolicitud() {
+        return publicacion;
+    }
+
+    public void setPublicacionSolicitud(Publicacion publicacion) {
+        this.publicacion = publicacion;
     }
 
     public void setPublicacion(Publicacion publicacion) {
@@ -108,6 +127,14 @@ public class Solicitud {
     }
 
     public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public String getMensajeSolicitud() {
+        return mensaje;
+    }
+
+    public void setMensajeSolicitud(String mensaje) {
         this.mensaje = mensaje;
     }
 
