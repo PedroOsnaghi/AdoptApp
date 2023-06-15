@@ -96,25 +96,57 @@
                                         </div>
                                         <div class="col-lg-7">
                                             <div class="item6 border-light border-start">
-                                                <div class="d-grid ms-2">
+
+                                            <c:choose>
+                                                <c:when test="${usuario.id eq publicacion.mascota.usuario.id}">
+                                                    <div class="d-grid ms-2">
+                                                        <h6>Herramientas de publicador</h6>
+                                                        <hr>
+                                                        
+                                                    </div>
+                                                </c:when>
+                                                <c:otherwise>
+
+                                                    <div class="d-grid ms-2">
 
                                                     <h6 class="mb-4">No lo dudes!,
                                                         <strong>${publicacion.mascota.nombre}</strong> te necesita</h6>
                                                     <div class="d-grid">
-                                                        <button type="button" class="btn btn-primary d-block mt-3"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#confirma-adopcion">
-                                                            Quiero Adoptarlo!
-                                                        </button>
-                                                        <button type="button" class="btn btn-secondary d-block mt-3"
-                                                                data-bs-toggle="modal"
-                                                                data-bs-target="#confirma-adopcion">
-                                                            Cancelar Solicitud
-                                                        </button>
+                                                        <c:choose>
+                                                            <c:when test="${empty solicitud}">
+                                                                <button type="button" class="btn btn-primary d-block mt-3"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#confirma-adopcion">
+                                                                    Quiero Adoptarlo!
+                                                                </button>
+
+                                                            </c:when>
+                                                            <c:when test="${not empty solicitud}">
+                                                                <c:if test="${sol_response eq 'success'}">
+                                                                    <div class="alert alert-solid alert-success d-flex align-items-center mb-2 py-1 "
+                                                                         role="alert">
+                                                                        <div>
+                                                                            Enviamos tu solicitud a ${publicacion.mascota.usuario.nombre}.
+                                                                        </div>
+                                                                    </div>
+                                                                </c:if>
+                                                                <form:form action="${pageContext.request.contextPath}/solicitud/cancelar"  method="post" modelAttribute="solicitud">
+                                                                    <form:input path="usuario.id" type="hidden"/>
+                                                                    <form:input path="publicacionSolicitud.id" type="hidden"/>
+                                                                    <form:input path="mensajeSolicitud" type="hidden"/>
+                                                                    <button type="submit" class="btn btn-secondary d-block w-100" >
+                                                                        Cancelar Solicitud
+                                                                    </button>
+                                                                </form:form>
+
+                                                            </c:when>
+                                                        </c:choose>
+
                                                     </div>
                                                 </div>
 
-
+                                                </c:otherwise>
+                                            </c:choose>
                                             </div>
                                         </div>
 
@@ -368,19 +400,20 @@
                     caso
                     de salir de vacaciones.</p>
                 <hr>
-                <form action="">
-
+                <form:form action="${pageContext.request.contextPath}/solicitud/enviar" method="post" modelAttribute="solicitudDto">
+                    <form:input path="publicacionSol.id" type="hidden" value="${publicacion.id}"/>
+                    <form:input path="usuarioSol.id" type="hidden" value="${usuario.id}"/>
                     <div class="form-group">
                         <label class="form-label" for="exampleFormControlTextarea1">Mensaje a María Guttierrez</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="4"
-                                  placeholder="Dile por qué debería aceptarte como Adoptante de Tobby"></textarea>
+                        <form:textarea path="mensaje" class="form-control" id="exampleFormControlTextarea1" rows="4"
+                                  placeholder="Dile por qué debería aceptarte como Adoptante de Tobby" required="true"></form:textarea>
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Lo pensaré</button>
-                        <button type="button" class="btn btn-primary">Estoy seguro</button>
+                        <button type="submit" class="btn btn-primary">Estoy seguro</button>
                     </div>
 
-                </form>
+                </form:form>
             </div>
 
 
