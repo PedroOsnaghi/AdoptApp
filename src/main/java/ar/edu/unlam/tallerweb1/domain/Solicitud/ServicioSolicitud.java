@@ -6,6 +6,8 @@ import ar.edu.unlam.tallerweb1.model.Solicitud;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
+
 
 @Service
 public class ServicioSolicitud implements IServicioSolicitud{
@@ -24,7 +26,22 @@ public class ServicioSolicitud implements IServicioSolicitud{
     }
 
     @Override
+    public void cancelarSolicitud(Solicitud solicitud) {
+        this.repositorioSolicitud.cancelarSolicitud(solicitud);
+    }
+
+    @Override
     public Solicitud getSolicitudDeUsuarioPorPublicacion(Publicacion publicacion, Usuario usuario) {
         return this.repositorioSolicitud.getSolicitudDeUsuarioPorPublicacion(publicacion, usuario);
+    }
+
+    @Override
+    public List<Solicitud> listarSolicitudesEnviadas(Usuario usuario) {
+        return this.repositorioSolicitud.listarSolicitudesEnviadas(usuario.getId());
+    }
+
+    @Override
+    public List<Solicitud> listarSolicitudesRecibidas(Usuario usuario) {
+        return this.repositorioSolicitud.listarSolicitudesRecibidas(usuario.getId());
     }
 }
