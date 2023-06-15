@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.hibernate.SessionFactory;
 
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,8 +26,7 @@ public class RepositorioMascota implements IRepositorioMascota {
     }
 
     @Override
-    public void guardar(Mascota mascota){
-        this.sessionFactory.getCurrentSession().save(mascota);
+    public void guardar(Mascota mascota){this.sessionFactory.getCurrentSession().save(mascota);
     }
 
     @Override
@@ -45,6 +45,6 @@ public class RepositorioMascota implements IRepositorioMascota {
     public List<Mascota> listarMascotaPorUsuario(Usuario usuario)
     {
         return (List<Mascota>) this.sessionFactory.getCurrentSession().createCriteria(Mascota.class)
-                .add(Restrictions.eq("usuario", usuario)).list();
+                .add(Restrictions.eq("usuario", usuario)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
     }
 }

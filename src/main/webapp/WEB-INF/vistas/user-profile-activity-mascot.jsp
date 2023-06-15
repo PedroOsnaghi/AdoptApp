@@ -47,47 +47,53 @@
                                                     <div class="d-flex align-items-center justify-content-between">
                                                         <h4>Mis Mascotas</h4>
                                                         <div>
-                                                            <a href="new-mascot.html" class="btn btn-primary">Agregar
+                                                            <a href="${pageContext.request.contextPath}/mascota/crear?target=perfil" class="btn btn-primary">Agregar
                                                                 nueva..</a>
                                                         </div>
                                                     </div>
 
                                                     <hr>
                                                     <div class="row ">
-                                                        <div class="col-6 mt-5">
-                                                            <div class="card bg-soft-dark">
-                                                                <div class="card-body">
-                                                                    <div class="iq-badges text-left">
-                                                                        <div class="badges-icon">
-                                                                            <img class="avatar-80 rounded border border-light"
-                                                                                 src="${pageContext.request.contextPath}/images/posts/1/1.jpg" alt=""
-                                                                                 loading="lazy">
-                                                                        </div>
-                                                                        <h5 class="mb-2"><strong>Chonino</strong></h5>
+                                                        <c:forEach items="${mascotas}" var="mascota">
+                                                            <div class="col-6 mt-5">
+                                                                <div class="card bg-soft-dark">
+                                                                    <div class="card-body" style="height: 135px;">
+                                                                        <div class="iq-badges text-left">
+                                                                            <div class="d-flex align-items-start justify-content-between">
+                                                                                <div class="badges-icon">
+                                                                                    <img class="avatar-80 rounded border border-light"
+                                                                                         src="data:image/jpg;base64,${mascota.foto}" style="object-fit: cover;" alt=""
+                                                                                         loading="lazy">
+                                                                                </div>
+                                                                                <c:choose>
+                                                                                    <c:when test="${not empty mascota.publicacion}">
+                                                                                        <span class="badge badge-pill bg-success  ms-2">
+                                                                                        <i class="fa-solid fa-earth-americas"></i>
+                                                                                        PUBLICADA
+                                                                                         </span>
+                                                                                    </c:when>
+                                                                                    <c:when test="${empty mascota.publicacion}">
+                                                                                        <span class="badge badge-pill bg-light text-dark  ms-2">
+                                                                                        <i class="fa-solid fa-folder"></i>
+                                                                                        SIN PUBLICAR
+                                                                                         </span>
+                                                                                    </c:when>
 
-                                                                        <span class="text-uppercase">23 de Abril del 2023</span>
+                                                                                </c:choose>
+                                                                            </div>
+
+                                                                            <h5 class="mb-2"><strong>${mascota.nombre}</strong></h5>
+
+                                                                            <span class="text-uppercase">${mascota.nacimiento}</span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-6 mt-5">
-                                                            <div class="card bg-soft-dark">
-                                                                <div class="card-body">
-                                                                    <div class="iq-badges text-left">
-                                                                        <div class="badges-icon">
-                                                                            <img class="avatar-80 rounded border border-light"
-                                                                                 src="${pageContext.request.contextPath}/images/posts/4/1.jpg" alt=""
-                                                                                 loading="lazy">
-                                                                        </div>
-                                                                        <h5 class="mb-2"><strong>Isabella</strong></h5>
+                                                        </c:forEach>
 
-                                                                        <span class="text-uppercase">4 de Enero del 2023</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+
                                                     </div>
-
+                                                    <%--
                                                     <h4>Adoptados</h4>
                                                     <hr>
                                                     <div class="row ">
@@ -109,7 +115,7 @@
                                                         </div>
 
                                                     </div>
-
+                                                    --%>
                                                 </div>
                                             </div>
                                         </div>

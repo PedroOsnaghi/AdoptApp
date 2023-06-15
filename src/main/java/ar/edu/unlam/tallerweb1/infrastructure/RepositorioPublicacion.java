@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
+import ar.edu.unlam.tallerweb1.model.PublicacionDetallada;
 import ar.edu.unlam.tallerweb1.model.PublicacionMensajes;
 import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
 import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
@@ -75,6 +76,18 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
 
         return mascota;
     }
+
+    @Override
+    public List<PublicacionDetallada> listarPublicacionesDetalladasPorUsuarioId(Long idUsuario){
+        EntityManager entityManager = this.sessionFactory.createEntityManager();
+
+        List<PublicacionDetallada> publicacion_detallada = entityManager.createQuery("SELECT new ar.edu.unlam.tallerweb1.model.PublicacionDetallada(p, COUNT(m.id))  FROM Publicacion p LEFT JOIN Mensaje m on m.publicacion.id = p.id WHERE p.mascota.usuario.id = :user  group BY p.id", PublicacionDetallada.class)
+                .setParameter("user", idUsuario)
+                .getResultList();
+
+        return  publicacion_detallada;
+    }
+
     @Override
     public List<Publicacion_favorito> ListarFavoritosDeUsuario(Long idUsuario) {
         return (List<Publicacion_favorito>) this.sessionFactory.getCurrentSession()

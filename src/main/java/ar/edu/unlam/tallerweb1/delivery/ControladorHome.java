@@ -129,7 +129,7 @@ public class ControladorHome {
     }
 
     @RequestMapping(path = "/favoritos/eliminar")
-    public ModelAndView eliminarFavorito(@RequestParam Long pid) {
+    public ModelAndView eliminarFavorito(@RequestParam Long pid, @RequestParam(required = false) String target) {
 
         this.servicioPublicacion.eliminarFavorito(pid, this.servicioAuth.getUsuarioAutenticado());
 

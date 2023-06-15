@@ -45,7 +45,7 @@
                                             <div class="d-flex justify-content-between">
                                                 <a href="">
                                                     <div class="me-3">
-                                                        <img class="rounded-circle img-fluid"
+                                                        <img class="rounded-circle img-fluid avatar-40"
                                                              src="data:image/jpeg;base64,${publicacion.mascota.usuario.imagen}"
                                                              style="max-width: 40px;" alt="" loading="lazy">
                                                     </div>
@@ -211,8 +211,8 @@
                                                                var="imagen">
                                                         <div class="carousel-item <c:if test="${index.count - 1 eq 0}">active</c:if>">
                                                             <img src="data:image/jpeg;base64,${imagen.base64Content}"
-                                                                 class="img-fluid w-100 image-cover"
-                                                                 height="100" loading="lazy" alt="image">
+                                                                 class="w-100 image-cover"
+                                                                 height="100%" loading="lazy" alt="image">
                                                         </div>
                                                     </c:forEach>
 

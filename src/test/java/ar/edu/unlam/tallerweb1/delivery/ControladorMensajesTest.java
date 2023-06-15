@@ -4,6 +4,8 @@ import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.ServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.exceptions.SendingMessageException;
+import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Mensaje;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -30,6 +32,8 @@ public class ControladorMensajesTest {
 
     private ServicioAuth servicioAuth;
 
+    private ServicioPublicacion servicioPublicacion;
+
     private ControladorMensajes controladorMensajes;
     private HttpServletRequest request;
 
@@ -38,7 +42,8 @@ public class ControladorMensajesTest {
         this.servicioMensajes = mock(ServicioMensajes.class);
         this.servicioAuth = mock(ServicioAuth.class);
         this.request = mock(HttpServletRequest.class);
-        this.controladorMensajes = new ControladorMensajes(this.servicioMensajes, this.servicioAuth);
+        this.servicioPublicacion = mock(ServicioPublicacion.class);
+        this.controladorMensajes = new ControladorMensajes(this.servicioMensajes, this.servicioAuth, this.servicioPublicacion);
 
     }
 
@@ -136,20 +141,27 @@ public class ControladorMensajesTest {
 
     private ModelAndView alEnviarlo(MensajeDto msj) {
         when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(new Usuario("juan", "test","1234"));
-
+        when(this.servicioPublicacion.getPublicacion(anyLong())).thenReturn(msj.getPublicacion());
         when(this.request.getContextPath()).thenReturn("adoptapp");
         return this.controladorMensajes.enviarMensaje(msj, this.request);
     }
 
     private ModelAndView alEnviarloConError(MensajeDto msj) {
-        when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(new Usuario("juan", "test","1234"));
+        Usuario user = new Usuario("juan", "test","1234");
+        user.setId(1L);
+        when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(user);
         when(this.servicioMensajes.enviarMensaje(anyObject())).thenThrow(SendingMessageException.class);
+        when(this.servicioPublicacion.getPublicacion(anyLong())).thenReturn(msj.getPublicacion());
         when(this.request.getContextPath()).thenReturn("adoptapp");
         return this.controladorMensajes.enviarMensaje(msj, this.request);
     }
     private MensajeDto dadoQueExisteUnMensajeParaSerEnviado() {
         Publicacion p = new Publicacion();
         p.setId(10L);
+        Mascota m = new Mascota(2L);
+        Usuario user = new Usuario("juan",null,null);
+        user.setId(1L);
+        m.setUsuario(user);
 
         MensajeDto msjDto = new MensajeDto();
         msjDto.setPublicacion(p);

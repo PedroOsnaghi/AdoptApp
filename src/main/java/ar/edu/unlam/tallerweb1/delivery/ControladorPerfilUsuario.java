@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.delivery.dto.UsuarioDto;
 import ar.edu.unlam.tallerweb1.domain.Calificacion.IServicioCalificacion;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.IServicioUsuario;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -30,15 +31,17 @@ public class ControladorPerfilUsuario {
     private final IServicioPublicacion servicioPublicacion;
     private final IServicioMensajes servicioMensajes;
     private final IServicioCalificacion servicioCalificacion;
+    private final IServicioMascota servicioMascota;
 
     @Autowired
     public ControladorPerfilUsuario(IServicioUsuario servicioUsuario, IServicioPublicacion servicioPublicacion, IServicioMensajes servicioMensajes, IServicioAuth servicioAuth,
-                                    IServicioCalificacion servicioCalificacion) {
+                                    IServicioCalificacion servicioCalificacion, IServicioMascota servicioMascota) {
         this.servicioUsuario = servicioUsuario;
         this.servicioAuth = servicioAuth;
         this.servicioPublicacion = servicioPublicacion;
         this.servicioMensajes = servicioMensajes;
         this.servicioCalificacion = servicioCalificacion;
+        this.servicioMascota = servicioMascota;
     }
 
 
@@ -65,7 +68,7 @@ public class ControladorPerfilUsuario {
 
         model.put("cal_adoptante", this.servicioCalificacion.getCalificacionAdoptante(this.servicioAuth.getUsuarioAutenticado().getId()));
 
-        //TODO implementar Listado de publicaciones del usuario
+        model.put("publicaciones", this.servicioPublicacion.listarPublicacionesDetalladasPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
 
         return new ModelAndView("user-profile-activity-posts", model);
 
@@ -79,9 +82,11 @@ public class ControladorPerfilUsuario {
 
         model.put("seccion", "favoritos");
 
-        //TODO Implementar sevicio de Calificaciones
+        model.put("cal_publicador", this.servicioCalificacion.getCalificacionPublicador(this.servicioAuth.getUsuarioAutenticado().getId()));
 
-        //TODO implementar Listado de favoritos de usuario
+        model.put("cal_adoptante", this.servicioCalificacion.getCalificacionAdoptante(this.servicioAuth.getUsuarioAutenticado().getId()));
+
+        model.put("publicaciones", this.servicioPublicacion.listarFavoritosDeUsuario(this.servicioAuth.getUsuarioAutenticado().getId()));
 
         return new ModelAndView("user-profile-activity-favorites", model);
 
@@ -96,7 +101,9 @@ public class ControladorPerfilUsuario {
 
         model.put("seccion", "solicitudes");
 
-        //TODO Implementar sevicio de Calificaciones
+        model.put("cal_publicador", this.servicioCalificacion.getCalificacionPublicador(this.servicioAuth.getUsuarioAutenticado().getId()));
+
+        model.put("cal_adoptante", this.servicioCalificacion.getCalificacionAdoptante(this.servicioAuth.getUsuarioAutenticado().getId()));
 
         //TODO implementar Listado de mis solicitudes de adopcion
 
@@ -112,9 +119,11 @@ public class ControladorPerfilUsuario {
 
         model.put("seccion", "mascotas");
 
-        //TODO Implementar sevicio de Calificaciones
+        model.put("cal_publicador", this.servicioCalificacion.getCalificacionPublicador(this.servicioAuth.getUsuarioAutenticado().getId()));
 
-        //TODO implementar Listado de mis mascotas
+        model.put("cal_adoptante", this.servicioCalificacion.getCalificacionAdoptante(this.servicioAuth.getUsuarioAutenticado().getId()));
+
+        model.put("mascotas", this.servicioMascota.listarMascotaPorUsuario(this.servicioAuth.getUsuarioAutenticado()));
 
         return new ModelAndView("user-profile-activity-mascot", model);
 

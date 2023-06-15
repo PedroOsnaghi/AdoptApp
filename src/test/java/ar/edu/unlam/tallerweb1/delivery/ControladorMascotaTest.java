@@ -102,7 +102,7 @@ public class ControladorMascotaTest {
     }
 
     private void entoncesElIngresoEsExitosoYMeLlevaAlPerfil(ModelAndView mav) {
-        assertThat(mav.getViewName()).isEqualTo( "redirect: adoptapp/perfil/actividad/mascotas");
+        assertThat(mav.getViewName()).isEqualTo( "redirect: adoptapp/perfil/actividad/mismascotas");
 
     }
 

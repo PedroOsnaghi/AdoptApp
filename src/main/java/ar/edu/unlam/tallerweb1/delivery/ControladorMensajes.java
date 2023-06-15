@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.exceptions.SendingMessageException;
+import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,11 +23,13 @@ public class ControladorMensajes {
 
     private final IServicioMensajes servicioMensajes;
     private final IServicioAuth servicioAuth;
+    private final IServicioPublicacion servicioPublicacion;
 
     @Autowired
-    public ControladorMensajes(IServicioMensajes servicioMensajes, IServicioAuth servicioAuth){
+    public ControladorMensajes(IServicioMensajes servicioMensajes, IServicioAuth servicioAuth, IServicioPublicacion servicioPublicacion){
         this.servicioMensajes = servicioMensajes;
         this.servicioAuth = servicioAuth;
+        this.servicioPublicacion = servicioPublicacion;
     }
 
     @RequireAuth
@@ -35,6 +38,9 @@ public class ControladorMensajes {
 
 
        mensajeDto.setEmisor(this.servicioAuth.getUsuarioAutenticado());
+       mensajeDto.setPublicacion(this.servicioPublicacion.getPublicacion(mensajeDto.getPublicacion().getId()));
+
+
         try {
             this.servicioMensajes.enviarMensaje(mensajeDto);
         }catch (SendingMessageException error){

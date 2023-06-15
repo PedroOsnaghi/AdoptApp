@@ -94,6 +94,11 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
+    public List<PublicacionDetallada> listarPublicacionesDetalladasPorUsuarioId(Long idUsuario) {
+        return this.repositorioPublicacion.listarPublicacionesDetalladasPorUsuarioId(idUsuario);
+    }
+
+    @Override
     public List<PublicacionMensajes> listarPublicacionesMensajesPorUsuarioId(Long idUsuario) {
         return this.repositorioPublicacion.listarPublicacionesConMensajesPorUsuarioId(idUsuario);
     }
