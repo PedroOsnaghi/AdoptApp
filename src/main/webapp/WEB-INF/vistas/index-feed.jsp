@@ -42,7 +42,7 @@
                                             <div class="d-flex justify-content-between">
                                                 <a href="">
                                                     <div class="me-3">
-                                                        <img class="rounded-circle img-fluid"
+                                                        <img class="rounded-circle img-fluid avatar-40"
                                                              src="data:image/jpeg;base64,${publicacion.mascota.usuario.imagen}"
                                                              style="max-width: 40px;" alt="" loading="lazy">
                                                     </div>
