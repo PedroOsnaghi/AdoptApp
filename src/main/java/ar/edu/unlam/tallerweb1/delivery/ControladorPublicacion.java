@@ -102,19 +102,21 @@ public class ControladorPublicacion {
     public ModelAndView verPublicacion(@RequestParam Long pid, @RequestParam(required = false) String msj_response, @RequestParam(required = false) String sol_response){
         ModelMap model = iniciarModel();
 
-        model.put("publicacion", this.servicioPublicacion.getPublicacion(pid));
+        try{
+            Publicacion post = this.servicioPublicacion.getPublicacion(pid);
 
-        model.put("mensajes", this.servicioMesnaje.listarMensajesPublicacion(pid));
+            model.put("publicacion", post);
+            model.put("mensajes", this.servicioMesnaje.listarMensajesPublicacion(pid));
+            model.put("solicitud", this.servicioSolicitud.getSolicitudDeUsuarioPorPublicacion(post, this.servicioAuth.getUsuarioAutenticado()));
+            model.put("mensajeDto", new MensajeDto());
+            model.put("solicitudDto", new SolicitudDto());
+            model.put("msj_response", msj_response);
+            model.put("sol_response", sol_response);
 
-        model.put("solicitud", this.servicioSolicitud.getSolicitudDeUsuarioPorPublicacion(this.servicioPublicacion.getPublicacion(pid), this.servicioAuth.getUsuarioAutenticado()));
-
-        model.put("mensajeDto", new MensajeDto());
-
-        model.put("solicitudDto", new SolicitudDto());
-
-        model.put("msj_response", msj_response);
-
-        model.put("sol_response", sol_response);
+        }catch (NotFoundPostExcption err){
+            model.put("error", err.getMessage());
+            return new ModelAndView("/404/post-404", model);
+        }
 
         return new ModelAndView("post-details", model);
     }

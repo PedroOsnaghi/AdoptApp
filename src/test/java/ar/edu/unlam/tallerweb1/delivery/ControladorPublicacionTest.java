@@ -3,11 +3,14 @@ package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
+import ar.edu.unlam.tallerweb1.domain.Solicitud.IServicioSolicitud;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
+import ar.edu.unlam.tallerweb1.domain.exceptions.NotFoundPostExcption;
 import ar.edu.unlam.tallerweb1.domain.exceptions.PostCreationException;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +24,8 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyObject;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -36,6 +41,9 @@ public class ControladorPublicacionTest {
 
     @Mock
      IServicioMensajes servicioMensaje;
+
+    @Mock
+    IServicioSolicitud servicioSolicitud;
 
     @Mock
      HttpSession session;
@@ -67,6 +75,50 @@ public class ControladorPublicacionTest {
         when(this.servicioMascota.listarMascotasAPublicar(this.servicioAuth.getUsuarioAutenticado())).thenReturn(new ArrayList<>());
         ModelAndView vista = this.controladorPublicacion.crear();
         entoncesMeDevuelveLaVistaEsperada(vista, "new-post");
+    }
+
+    @Test
+    public void AlBuscarUnaPublicacionExistenteMeLLevaALaVistaPostDetails(){
+        Publicacion publicacion = dadoQueExisteUnaPublicacion();
+        ModelAndView vista = alBuscarLaPublicacionExistente(publicacion);
+        obtengoVista(vista, "post-details");
+
+    }
+
+    @Test
+    public void AlBuscarUnaPublicacionInexistenteMeLLevaALaVistaPost404(){
+
+        ModelAndView vista = alBuscarLaPublicacionInexistente();
+        obtengoVista(vista, "/404/post-404");
+
+    }
+
+    private ModelAndView alBuscarLaPublicacionInexistente() {
+        when(servicioPublicacion.getPublicacion(anyLong())).thenThrow(NotFoundPostExcption.class);
+        when(servicioAuth.getUsuarioAutenticado()).thenReturn(null);
+   
+
+        return this.controladorPublicacion.verPublicacion(100L, null, null);
+    }
+
+
+    private void obtengoVista(ModelAndView vista, String viewName) {
+        assertThat(vista.getViewName()).isEqualTo(viewName);
+    }
+
+    private ModelAndView alBuscarLaPublicacionExistente(Publicacion publicacion) {
+        when(servicioPublicacion.getPublicacion(anyLong())).thenReturn(publicacion);
+        when(servicioAuth.getUsuarioAutenticado()).thenReturn(null);
+        when(servicioMensaje.listarMensajesPublicacion(anyLong())).thenReturn(null);
+        when(servicioSolicitud.getSolicitudDeUsuarioPorPublicacion(anyObject(), anyObject())).thenReturn(null);
+
+        return this.controladorPublicacion.verPublicacion(10L, null, null);
+    }
+
+    private Publicacion dadoQueExisteUnaPublicacion() {
+        Publicacion p = new Publicacion();
+        p.setId(10L);
+        return p;
     }
 
     private ModelAndView cuandoQuieroCrearPublicacionConError(PublicacionDto publicacionDto) {

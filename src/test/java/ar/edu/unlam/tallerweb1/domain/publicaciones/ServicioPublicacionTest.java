@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
 
 import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
+import ar.edu.unlam.tallerweb1.domain.exceptions.NotFoundPostExcption;
 import ar.edu.unlam.tallerweb1.domain.exceptions.PostCreationException;
 import ar.edu.unlam.tallerweb1.model.*;
 import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
@@ -39,6 +40,18 @@ public class ServicioPublicacionTest {
         Long idPublicacion = 4L;
         Publicacion publicacion = AlBuscarPorId(idPublicacion);
         puedoAccederAsuBio(publicacion);
+    }
+
+    @Test(expected = NotFoundPostExcption.class)
+    public void cuandoBuscoUnaPublicacionInexistenteLAnzaNotFoundPosExceptions(){
+
+        Publicacion publicacion = AlBuscarInexistente();
+
+    }
+
+    private Publicacion AlBuscarInexistente() {
+        when(this.repositorioPublicacion.buscarPublicacionPorId(anyLong())).thenReturn(null);
+        return this.servicioPublicacion.getPublicacion(10L);
     }
 
     @Test

@@ -24,8 +24,12 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
     @Override
     public Publicacion getPublicacion (Long id) {
-        //TODO Validar que exista
-        return repositorioPublicacion.buscarPublicacionPorId(id);
+
+        Publicacion p = repositorioPublicacion.buscarPublicacionPorId(id);
+
+        if(p == null) throw new NotFoundPostExcption("El resurso no se encuentra disponible o no existe");
+
+        return p;
     }
 
 
