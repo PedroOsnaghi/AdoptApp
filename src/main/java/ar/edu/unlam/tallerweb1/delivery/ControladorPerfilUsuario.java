@@ -4,10 +4,12 @@ import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.delivery.dto.UsuarioDto;
 import ar.edu.unlam.tallerweb1.domain.Calificacion.IServicioCalificacion;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
+import ar.edu.unlam.tallerweb1.domain.Solicitud.IServicioSolicitud;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.IServicioUsuario;
+import ar.edu.unlam.tallerweb1.model.Solicitud;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,16 +34,18 @@ public class ControladorPerfilUsuario {
     private final IServicioMensajes servicioMensajes;
     private final IServicioCalificacion servicioCalificacion;
     private final IServicioMascota servicioMascota;
+    private final IServicioSolicitud servicioSolicitud;
 
     @Autowired
     public ControladorPerfilUsuario(IServicioUsuario servicioUsuario, IServicioPublicacion servicioPublicacion, IServicioMensajes servicioMensajes, IServicioAuth servicioAuth,
-                                    IServicioCalificacion servicioCalificacion, IServicioMascota servicioMascota) {
+                                    IServicioCalificacion servicioCalificacion, IServicioMascota servicioMascota, IServicioSolicitud servicioSolicitud) {
         this.servicioUsuario = servicioUsuario;
         this.servicioAuth = servicioAuth;
         this.servicioPublicacion = servicioPublicacion;
         this.servicioMensajes = servicioMensajes;
         this.servicioCalificacion = servicioCalificacion;
         this.servicioMascota = servicioMascota;
+        this.servicioSolicitud = servicioSolicitud;
     }
 
 
@@ -105,7 +109,9 @@ public class ControladorPerfilUsuario {
 
         model.put("cal_adoptante", this.servicioCalificacion.getCalificacionAdoptante(this.servicioAuth.getUsuarioAutenticado().getId()));
 
-        //TODO implementar Listado de mis solicitudes de adopcion
+        model.put("solicitudes", this.servicioSolicitud.listarSolicitudesEnviadas(this.servicioAuth.getUsuarioAutenticado()));
+
+        model.put("ma_solicitud", new Solicitud());
 
         return new ModelAndView("user-profile-activity-solicitudes", model);
 
@@ -141,11 +147,15 @@ public class ControladorPerfilUsuario {
 
     @RequireAuth
     @RequestMapping("/solicitud")
-    public ModelAndView solicitudesUsuario(){
+    public ModelAndView solicitudesUsuario(@RequestParam(required = false) Long pid){
 
         ModelMap model = this.iniciarModel("solicitud");
 
-        //TODO mostrar solicitudes de adopcion
+        model.put("publicaciones", this.servicioPublicacion.listarPublicacionesMensajesPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
+
+        model.put("solicitudes", this.servicioSolicitud.listarSolicitudesRecibidas(pid));
+
+        model.put("selected_pub", pid);
 
         return new ModelAndView("user-profile-request", model);
 

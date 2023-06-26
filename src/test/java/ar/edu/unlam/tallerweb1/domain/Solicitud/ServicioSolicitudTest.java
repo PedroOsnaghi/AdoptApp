@@ -156,7 +156,7 @@ public class ServicioSolicitudTest extends SpringTest {
     }
 
     private List<Solicitud> alListarLasSolicitudesRecibidasPorElUsuario(Usuario usuario, List<Solicitud> solicitudes) {
-        return servicioSolicitud.listarSolicitudesRecibidas(usuario);
+        return servicioSolicitud.listarSolicitudesRecibidas(1L);
     }
 
     private void seObtienenLasSolicitudesRecibidas(List<Solicitud> solicitudes, List<Solicitud> solicitudesObtenidas, Usuario usuario) {

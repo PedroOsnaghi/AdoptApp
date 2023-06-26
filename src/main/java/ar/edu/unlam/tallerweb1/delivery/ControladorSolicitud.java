@@ -48,7 +48,7 @@ public class ControladorSolicitud {
 
     @RequireAuth
     @RequestMapping(path = "/cancelar", method = RequestMethod.POST)
-    public ModelAndView cancelarSolicitud(@ModelAttribute Solicitud solicitud, HttpServletRequest request) {
+    public ModelAndView cancelarSolicitud(@ModelAttribute Solicitud solicitud, @RequestParam(required = false) String target, HttpServletRequest request) {
 
         try{
             solicitud.setEstado(EstadoSolicitud.PENDIENTE);
@@ -58,7 +58,15 @@ public class ControladorSolicitud {
             return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + solicitud.getPublicacion().getId() + "&sol_response=error");
         }
 
-        return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + solicitud.getPublicacion().getId());
+        switch (target){
+            case "publicacion":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + solicitud.getPublicacion().getId());
+            case "perfil":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/actividad/solicitudes");
+            default:
+                return new ModelAndView("redirect: " + request.getContextPath() + "/home");
+        }
+
 
     }
 }

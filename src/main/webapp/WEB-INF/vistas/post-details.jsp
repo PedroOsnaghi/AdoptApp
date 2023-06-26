@@ -140,7 +140,7 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                         </c:if>
-                                                                                        <form:form action="${pageContext.request.contextPath}/solicitud/cancelar"  method="post" modelAttribute="solicitud">
+                                                                                        <form:form action="${pageContext.request.contextPath}/solicitud/cancelar?target=publicacion"  method="post" modelAttribute="solicitud">
                                                                                             <form:input path="usuario.id" type="hidden"/>
                                                                                             <form:input path="publicacionSolicitud.id" type="hidden"/>
                                                                                             <form:input path="mensajeSolicitud" type="hidden"/>

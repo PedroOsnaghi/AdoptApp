@@ -41,7 +41,7 @@ public class ServicioSolicitud implements IServicioSolicitud{
     }
 
     @Override
-    public List<Solicitud> listarSolicitudesRecibidas(Usuario usuario) {
-        return this.repositorioSolicitud.listarSolicitudesRecibidas(usuario.getId());
+    public List<Solicitud> listarSolicitudesRecibidas(Long idPublicacion) {
+        return this.repositorioSolicitud.listarSolicitudesRecibidas(idPublicacion);
     }
 }

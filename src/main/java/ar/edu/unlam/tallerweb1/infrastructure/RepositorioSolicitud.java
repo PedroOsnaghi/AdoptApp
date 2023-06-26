@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Solicitud;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaSpecification;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,25 +51,16 @@ public class RepositorioSolicitud implements IRepositorioSolicitud {
         return (List<Solicitud>) this.sessionFactory.getCurrentSession()
                 .createCriteria(Solicitud.class)
                 .add(Restrictions.eq("usuario.id", idUsuario))
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .list();
     }
 
     @Override
-    public List<Solicitud> listarSolicitudesRecibidas(Long idUsuario) {
-        EntityManager entityManager = this.sessionFactory.createEntityManager();
-
-        String queryString = "SELECT DISTINCT s.usuario, s.publicacion, s.estado, s.mensaje " +
-                "FROM Solicitud s " +
-                "WHERE s.publicacion IN " +
-                "(   SELECT p.id " +
-                "    FROM Publicacion p " +
-                "    JOIN p.mascota m " +
-                "    WHERE m.usuario = :idusuario " +
-                ")";
-
-        Query query = entityManager.createQuery(queryString);
-        query.setParameter("idusuario", idUsuario);
-
-        return (List<Solicitud>) query.getResultList();
+    public List<Solicitud> listarSolicitudesRecibidas(Long idPublicacion) {
+        return (List<Solicitud>) this.sessionFactory.getCurrentSession()
+                .createCriteria(Solicitud.class)
+                .add(Restrictions.eq("publicacion.id", idPublicacion))
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+                .list();
     }
 }
