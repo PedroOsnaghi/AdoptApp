@@ -71,9 +71,9 @@ public class ServicioSolicitudTest extends SpringTest {
         Usuario usuario = dadoQueExisteUnUsuarioQueRecibioSolicitudes();
         List<Solicitud> solicitudes = dadoQueElUsuarioRecibioSolicitudes(usuario);
 
-        List<Solicitud> solicitudesObtenidas = alListarLasSolicitudesRecibidasPorElUsuario(usuario, solicitudes);
+        List<Solicitud> solicitudesObtenidas = alListarLasSolicitudesRecibidasPorElUsuario(1L);
 
-        seObtienenLasSolicitudesRecibidas(solicitudes, solicitudesObtenidas, usuario);
+        seObtienenLasSolicitudesRecibidas(solicitudes, solicitudesObtenidas);
 
     }
 
@@ -150,17 +150,17 @@ public class ServicioSolicitudTest extends SpringTest {
         solicitudes.add(new Solicitud());
         solicitudes.add(new Solicitud());
 
-        when(repositorioSolicitud.listarSolicitudesRecibidas(usuario.getId())).thenReturn(solicitudes);
+        when(repositorioSolicitud.listarSolicitudesRecibidas(anyLong())).thenReturn(solicitudes);
 
         return solicitudes;
     }
 
-    private List<Solicitud> alListarLasSolicitudesRecibidasPorElUsuario(Usuario usuario, List<Solicitud> solicitudes) {
-        return servicioSolicitud.listarSolicitudesRecibidas(usuario);
+    private List<Solicitud> alListarLasSolicitudesRecibidasPorElUsuario(Long idPublicacion) {
+        return servicioSolicitud.listarSolicitudesRecibidas(idPublicacion);
     }
 
-    private void seObtienenLasSolicitudesRecibidas(List<Solicitud> solicitudes, List<Solicitud> solicitudesObtenidas, Usuario usuario) {
+    private void seObtienenLasSolicitudesRecibidas(List<Solicitud> solicitudes, List<Solicitud> solicitudesObtenidas) {
         assertEquals(solicitudes, solicitudesObtenidas);
-        verify(repositorioSolicitud, times(1)).listarSolicitudesRecibidas(usuario.getId());
+        verify(repositorioSolicitud, times(1)).listarSolicitudesRecibidas(anyLong());
     }
 }

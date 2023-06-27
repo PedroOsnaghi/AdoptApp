@@ -2,9 +2,12 @@ package ar.edu.unlam.tallerweb1.model;
 
 import ar.edu.unlam.tallerweb1.delivery.dto.SolicitudDto;
 import ar.edu.unlam.tallerweb1.model.enumerated.EstadoSolicitud;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Objects;
 
 class SolicitudId implements Serializable {
@@ -62,6 +65,12 @@ public class Solicitud {
 
     @Column(name = "mensaje", nullable = false)
     private String mensaje;
+
+    @CreationTimestamp
+    private Timestamp created_at;
+
+    @UpdateTimestamp
+    private Timestamp update_at;
 
     public Solicitud(){}
 
@@ -136,6 +145,22 @@ public class Solicitud {
 
     public void setMensajeSolicitud(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    public Timestamp getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Timestamp created_at) {
+        this.created_at = created_at;
+    }
+
+    public Timestamp getUpdate_at() {
+        return update_at;
+    }
+
+    public void setUpdate_at(Timestamp update_at) {
+        this.update_at = update_at;
     }
 
     @Override

@@ -30,53 +30,47 @@
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4>Publicación</h4>
+                                        <h4>Tus Publicaciones</h4>
                                         <hr>
                                         <ul class="nav nav-pills basic-info-items list-inline d-block p-0 m-0">
-                                            <li>
-                                                <a class="nav-link mb-2 active" href="#v-pills-solicitud-p1-tab"
-                                                   data-bs-toggle="pill"
-                                                   data-bs-target="#v-pills-solicitud-p1-tab" role="button">
+                                            <c:forEach items="${publicaciones}" var="publicacion">
+                                                <li>
+                                                    <a class="nav-link mb-2 <c:if test="${selected_pub eq publicacion.publicacion.id}">active</c:if> "
+                                                       href="${pageContext.request.contextPath}/perfil/solicitud?pid=${publicacion.publicacion.id}">
 
-                                                    <div class="d-flex align-items-center justify-content-between">
-                                                        <div class="d-flex align-items-center">
-                                                            <img class="img-fluid rounded-circle avatar-40"
-                                                                 src="${pageContext.request.contextPath}/images/posts/4/1.jpg" alt=""
-                                                                 loading="lazy">
-                                                            <div class="media-body ms-3">
-                                                                <h6 class="text-dark"><strong>Ninna</strong></h6>
-                                                                <p class="mb-0"><span class="text-muted">Hace </span>
-                                                                    <span class="link-primary"> 3
-                                                      días</span>
-                                                                </p>
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <div class="d-flex align-items-center">
+                                                                <img class="img-fluid rounded-circle avatar-40"
+                                                                     src="data:image/jpeg;base64,${publicacion.publicacion.mascota.foto}"
+                                                                     alt=""
+                                                                     loading="lazy">
+                                                                <div class="media-body ms-3">
+                                                                    <h6 class="text-dark">
+                                                                        <strong>${publicacion.publicacion.mascota.nombre}</strong>
+                                                                    </h6>
+                                                                    <p class="mb-0"><span
+                                                                            class="text-muted">Publicada </span>
+                                                                        <span class="link-primary">
+                                                                        <script>getTime("${publicacion.publicacion.create_at}")</script>
+                                                                        </span>
+                                                                    </p>
+                                                                </div>
+
                                                             </div>
+                                                            <c:if test="${not empty publicacion.new_messages and publicacion.new_messages > 0}">
+                                                                <span class="badge badge-pill bg-light text-dark ml-2"><strong>${publicacion.new_messages}</strong></span>
+                                                            </c:if>
 
                                                         </div>
-                                                        <span class="badge bg-danger ml-2 text-white"><strong>2</strong></span>
-                                                    </div>
 
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="nav-link mb-2" href="#v-pills-solicitud-p2-tab"
-                                                   data-bs-toggle="pill"
-                                                   data-bs-target="#v-pills-solicitud-p2-tab" role="button">
-                                                    <div class="d-flex align-items-center justify-content-between">
-                                                        <div class="d-flex align-items-center">
-                                                            <img class="img-fluid rounded-circle avatar-40"
-                                                                 src="${pageContext.request.contextPath}/images/posts/3/1.avif" alt=""
-                                                                 loading="lazy">
-                                                            <div class="media-body ms-3">
-                                                                <h6 class="text-dark"><strong>Chonino</strong></h6>
-                                                                <p class="mb-0"><span class="text-muted">Hace </span>
-                                                                    <span class="link-primary"> 2
-                                                   semanas</span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </a>
-                                            </li>
+                                                    </a>
+                                                </li>
+                                            </c:forEach>
+
+                                            <c:if test="${empty publicaciones}">
+                                                <p class="text-muted mt-4 mb-3 text-center">No has publicado nada todavia</p>
+                                                <p class="text-center"><a href="${pageContext.request.contextPath}/publicacion/crear">Crear publicación</a></p>
+                                            </c:if>
 
                                         </ul>
                                     </div>
@@ -85,110 +79,101 @@
                             <div class="col-md-8 ps-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <div class="">
-                                            <h4>Solicitudes de Adopción</h4>
-                                            <p class="font-size-12 text-primary">Elije al mejor candidato para tu
-                                                mascota. </p>
-
-                                        </div>
-
-                                        <hr>
-                                        <div class="tab-content">
-                                            <div class="tab-pane fade show active" id="v-pills-solicitud-p1-tab"
-                                                 role="tabpanel"
-                                                 aria-labelledby="v-pills-solicitud-p1-tab">
-
-
-                                                <ul class="request-list list-inline m-0 p-0">
-                                                    <li class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                        <a href="" class="d-flex nav-link">
-                                                            <div class="user-img img-fluid flex-shrink-0">
-                                                                <img src="${pageContext.request.contextPath}/images/user/05.jpg" alt="story-img"
-                                                                     class="rounded-circle avatar-40" loading="lazy">
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-3">
-                                                                <h6>Jaques Amole</h6>
-                                                                <div class="d-flex">
-                                                                    <div class="shadow-none progress  w-100 mt-2 me-2"
-                                                                         style="height: 6px">
-                                                                        <div class="progress-bar bg-success "
-                                                                             data-toggle="progress-bar"
-                                                                             role="progressbar" aria-valuenow="90"
-                                                                             aria-valuemin="0"
-                                                                             aria-valuemax="100"
-                                                                             style="width: 34%; transition: width 2s ease 0s;">
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <small class="text-warning">4.5</small>
-                                                                </div>
-
-                                                            </div>
-                                                        </a>
-
-                                                        <div class="d-flex align-items-center mt-2 mt-md-0">
-                                                            <div class="confirm-click-btn">
-                                                                <a href="#"
-                                                                   class="me-3 btn btn-primary rounded confirm-btn">Confirmar</a>
-
-                                                            </div>
-                                                            <a href="#" class="btn btn-secondary rounded"
-                                                               data-extra-toggle="delete" data-closest-elem=".item">Rechazar</a>
-                                                        </div>
-                                                    </li>
-                                                    <li class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                        <a href="" class="d-flex nav-link">
-                                                            <div class="user-img img-fluid flex-shrink-0">
-                                                                <img src="${pageContext.request.contextPath}/images/user/06.jpg" alt="story-img"
-                                                                     class="rounded-circle avatar-40" loading="lazy">
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-3">
-                                                                <h6>Mariel Godoy</h6>
-                                                                <div class="d-flex">
-                                                                    <div class="shadow-none progress  w-100 mt-2 me-2"
-                                                                         style="height: 6px">
-                                                                        <div class="progress-bar bg-success "
-                                                                             data-toggle="progress-bar"
-                                                                             role="progressbar" aria-valuenow="55"
-                                                                             aria-valuemin="0"
-                                                                             aria-valuemax="100"
-                                                                             style="width: 34%; transition: width 2s ease 0s;">
-                                                                        </div>
-
-                                                                    </div>
-                                                                    <small class="text-warning">3.5</small>
-                                                                </div>
-
-                                                            </div>
-                                                        </a>
-
-                                                        <div class="d-flex align-items-center mt-2 mt-md-0">
-                                                            <div class="confirm-click-btn">
-                                                                <a href="#"
-                                                                   class="me-3 btn btn-primary rounded confirm-btn">Confirmar</a>
-
-                                                            </div>
-                                                            <a href="#" class="btn btn-secondary rounded"
-                                                               data-extra-toggle="delete" data-closest-elem=".item">Rechazar</a>
-                                                        </div>
-                                                    </li>
-
-
-                                                </ul>
+                                        <c:if test="${empty selected_pub}">
+                                            <div class="d-flex flex-column align-items-center"
+                                                 style="margin-top: 40px;">
+                                                <img src="${pageContext.request.contextPath}/images/page-img/request.png"
+                                                     class="img-fluid w-100 text-center"
+                                                     style="opacity: .1; max-width: 100px;" alt="">
+                                                <h6 class="text-muted text-center mt-4">Aquí verás las Solicitudes de personas interesadas en tus Publicaciones.</h6>
+                                                <h6 class="text-muted text-center mb-5">Selecciona una publicación para
+                                                    verlas.</h6>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${not empty selected_pub}">
+                                            <div class="">
+                                                <h4>Solicitudes de Adopción</h4>
+                                                <p class="font-size-12 text-primary">Elije al mejor candidato para tu
+                                                    mascota. </p>
 
                                             </div>
 
-                                            <div class="tab-pane fade " id="v-pills-solicitud-p2-tab" role="tabpanel"
-                                                 aria-labelledby="v-pills-solicitud-p2-tab">
+                                            <hr>
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade show active" id="v-pills-solicitud-p1-tab"
+                                                     role="tabpanel"
+                                                     aria-labelledby="v-pills-solicitud-p1-tab">
 
-                                                <div class="d-flex w-100 justify-content-center">
-                                                    <p class="text-muted">Aún no tenés Solicitudes para esta
-                                                        publicación</p>
+
+                                                    <ul class="request-list list-inline m-0 p-0">
+                                                        <c:forEach items="${solicitudes}" var="solicitud">
+
+                                                            <li class="d-flex align-items-center  justify-content-between flex-wrap">
+                                                                <a href="" class="d-flex nav-link">
+                                                                    <div class="user-img img-fluid flex-shrink-0">
+                                                                        <img src="data:image/jpg;base64,${solicitud.usuario.imagen}" alt="story-img"
+                                                                             class="rounded-circle avatar-40" loading="lazy">
+                                                                    </div>
+                                                                    <div class="flex-grow-1 ms-3">
+                                                                        <h6>${solicitud.usuario.nombre}</h6>
+                                                                        <div class="d-flex">
+                                                                            <div class="shadow-none progress  w-100 mt-2 me-2"
+                                                                                 style="height: 6px">
+                                                                                <div class="progress-bar bg-success "
+                                                                                     data-toggle="progress-bar"
+                                                                                     role="progressbar" aria-valuenow="90"
+                                                                                     aria-valuemin="0"
+                                                                                     aria-valuemax="100"
+                                                                                     style="width: 34%; transition: width 2s ease 0s;">
+                                                                                </div>
+
+                                                                            </div>
+                                                                            <small class="text-warning">4.5</small>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </a>
+
+                                                                <div class="d-flex align-items-center mt-2 mt-md-0">
+                                                                    <div class="confirm-click-btn">
+                                                                        <a href="#"
+                                                                           class="me-3 btn btn-primary rounded confirm-btn">Confirmar</a>
+
+                                                                    </div>
+                                                                    <form:form action="${pageContext.request.contextPath}/solicitud/cancelar?target=perfil-solicitud"  method="post" modelAttribute="ma_solicitud">
+                                                                        <form:input path="usuario.id" value="${solicitud.usuario.id}" type="hidden"/>
+                                                                        <form:input path="publicacionSolicitud.id" value="${solicitud.publicacion.id}" type="hidden"/>
+                                                                        <form:input path="mensajeSolicitud" value="${solicitud.mensaje}"  type="hidden"/>
+                                                                        <button type="submit" class="btn btn-secondary d-block w-100" >
+                                                                            Rechazar
+                                                                        </button>
+                                                                    </form:form>
+                                                                </div>
+                                                            </li>
+
+                                                        </c:forEach>
+
+                                                        <c:if test="${empty solicitudes}">
+                                                            <p class="text-muted text-center">No tienes solicitudes para esta publicación.</p>
+                                                        </c:if>
+
+                                                    </ul>
+
                                                 </div>
 
+                                                <div class="tab-pane fade " id="v-pills-solicitud-p2-tab" role="tabpanel"
+                                                     aria-labelledby="v-pills-solicitud-p2-tab">
 
+                                                    <div class="d-flex w-100 justify-content-center">
+                                                        <p class="text-muted">Aún no tenés Solicitudes para esta
+                                                            publicación</p>
+                                                    </div>
+
+
+                                                </div>
                                             </div>
-                                        </div>
+                                        </c:if>
+
                                     </div>
                                 </div>
                             </div>

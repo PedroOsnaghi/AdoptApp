@@ -16,5 +16,5 @@ public interface IServicioSolicitud {
 
     List<Solicitud> listarSolicitudesEnviadas(Usuario usuario);
 
-    List<Solicitud> listarSolicitudesRecibidas(Usuario usuario);
+    List<Solicitud> listarSolicitudesRecibidas(Long idPublicacion);
 }

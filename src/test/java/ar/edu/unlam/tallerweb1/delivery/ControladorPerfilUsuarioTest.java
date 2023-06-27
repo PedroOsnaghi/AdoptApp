@@ -2,6 +2,7 @@ package ar.edu.unlam.tallerweb1.delivery;
 
 import ar.edu.unlam.tallerweb1.domain.Calificacion.ServicioCalificacion;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.ServicioMensajes;
+import ar.edu.unlam.tallerweb1.domain.Solicitud.ServicioSolicitud;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.mascota.ServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
@@ -34,6 +35,8 @@ public class ControladorPerfilUsuarioTest  {
 
     private ServicioCalificacion servicioCalificacion;
 
+    private ServicioSolicitud servicioSolicitud;
+
 
 
     @Before
@@ -44,7 +47,8 @@ public class ControladorPerfilUsuarioTest  {
         this.servicioAuth = mock(ServicioAuth.class);
         this.servicioCalificacion = mock(ServicioCalificacion.class);
         this.servicioMascota = mock(ServicioMascota.class);
-        this.controladorPerfilUsuario = new ControladorPerfilUsuario(this.servicioUsuario, this.servicioPublicacion, this.servicioMensajes, this.servicioAuth, this.servicioCalificacion,this.servicioMascota);
+        this.servicioSolicitud = mock(ServicioSolicitud.class);
+        this.controladorPerfilUsuario = new ControladorPerfilUsuario(this.servicioUsuario, this.servicioPublicacion, this.servicioMensajes, this.servicioAuth, this.servicioCalificacion,this.servicioMascota, this.servicioSolicitud);
     }
 
     @Test
@@ -85,7 +89,7 @@ public class ControladorPerfilUsuarioTest  {
 
     private ModelAndView alAccederASolicitudes(Usuario usuario) {
         when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(usuario);
-        return this.controladorPerfilUsuario.solicitudesUsuario();
+        return this.controladorPerfilUsuario.solicitudesUsuario(null);
     }
 
     private ModelAndView alAccederAEditarSuInfo(Usuario usuario) {
