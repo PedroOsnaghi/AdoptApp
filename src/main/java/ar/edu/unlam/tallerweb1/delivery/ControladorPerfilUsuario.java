@@ -157,6 +157,8 @@ public class ControladorPerfilUsuario {
 
         model.put("selected_pub", pid);
 
+        model.put("ma_solicitud", new Solicitud());
+
         return new ModelAndView("user-profile-request", model);
 
 

@@ -63,6 +63,9 @@ public class ControladorSolicitud {
                 return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + solicitud.getPublicacion().getId());
             case "perfil":
                 return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/actividad/solicitudes");
+            case "perfil-solicitud":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/solicitud?pid=" + solicitud.getPublicacion().getId());
+
             default:
                 return new ModelAndView("redirect: " + request.getContextPath() + "/home");
         }

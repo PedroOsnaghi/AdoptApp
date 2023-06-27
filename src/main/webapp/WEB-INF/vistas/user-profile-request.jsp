@@ -106,79 +106,56 @@
 
 
                                                     <ul class="request-list list-inline m-0 p-0">
-                                                        <li class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                            <a href="" class="d-flex nav-link">
-                                                                <div class="user-img img-fluid flex-shrink-0">
-                                                                    <img src="${pageContext.request.contextPath}/images/user/05.jpg" alt="story-img"
-                                                                         class="rounded-circle avatar-40" loading="lazy">
-                                                                </div>
-                                                                <div class="flex-grow-1 ms-3">
-                                                                    <h6>Jaques Amole</h6>
-                                                                    <div class="d-flex">
-                                                                        <div class="shadow-none progress  w-100 mt-2 me-2"
-                                                                             style="height: 6px">
-                                                                            <div class="progress-bar bg-success "
-                                                                                 data-toggle="progress-bar"
-                                                                                 role="progressbar" aria-valuenow="90"
-                                                                                 aria-valuemin="0"
-                                                                                 aria-valuemax="100"
-                                                                                 style="width: 34%; transition: width 2s ease 0s;">
-                                                                            </div>
+                                                        <c:forEach items="${solicitudes}" var="solicitud">
 
-                                                                        </div>
-                                                                        <small class="text-warning">4.5</small>
+                                                            <li class="d-flex align-items-center  justify-content-between flex-wrap">
+                                                                <a href="" class="d-flex nav-link">
+                                                                    <div class="user-img img-fluid flex-shrink-0">
+                                                                        <img src="data:image/jpg;base64,${solicitud.usuario.imagen}" alt="story-img"
+                                                                             class="rounded-circle avatar-40" loading="lazy">
                                                                     </div>
+                                                                    <div class="flex-grow-1 ms-3">
+                                                                        <h6>${solicitud.usuario.nombre}</h6>
+                                                                        <div class="d-flex">
+                                                                            <div class="shadow-none progress  w-100 mt-2 me-2"
+                                                                                 style="height: 6px">
+                                                                                <div class="progress-bar bg-success "
+                                                                                     data-toggle="progress-bar"
+                                                                                     role="progressbar" aria-valuenow="90"
+                                                                                     aria-valuemin="0"
+                                                                                     aria-valuemax="100"
+                                                                                     style="width: 34%; transition: width 2s ease 0s;">
+                                                                                </div>
 
-                                                                </div>
-                                                            </a>
-
-                                                            <div class="d-flex align-items-center mt-2 mt-md-0">
-                                                                <div class="confirm-click-btn">
-                                                                    <a href="#"
-                                                                       class="me-3 btn btn-primary rounded confirm-btn">Confirmar</a>
-
-                                                                </div>
-                                                                <a href="#" class="btn btn-secondary rounded"
-                                                                   data-extra-toggle="delete" data-closest-elem=".item">Rechazar</a>
-                                                            </div>
-                                                        </li>
-                                                        <li class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                            <a href="" class="d-flex nav-link">
-                                                                <div class="user-img img-fluid flex-shrink-0">
-                                                                    <img src="${pageContext.request.contextPath}/images/user/06.jpg" alt="story-img"
-                                                                         class="rounded-circle avatar-40" loading="lazy">
-                                                                </div>
-                                                                <div class="flex-grow-1 ms-3">
-                                                                    <h6>Mariel Godoy</h6>
-                                                                    <div class="d-flex">
-                                                                        <div class="shadow-none progress  w-100 mt-2 me-2"
-                                                                             style="height: 6px">
-                                                                            <div class="progress-bar bg-success "
-                                                                                 data-toggle="progress-bar"
-                                                                                 role="progressbar" aria-valuenow="55"
-                                                                                 aria-valuemin="0"
-                                                                                 aria-valuemax="100"
-                                                                                 style="width: 34%; transition: width 2s ease 0s;">
                                                                             </div>
-
+                                                                            <small class="text-warning">4.5</small>
                                                                         </div>
-                                                                        <small class="text-warning">3.5</small>
+
                                                                     </div>
+                                                                </a>
 
+                                                                <div class="d-flex align-items-center mt-2 mt-md-0">
+                                                                    <div class="confirm-click-btn">
+                                                                        <a href="#"
+                                                                           class="me-3 btn btn-primary rounded confirm-btn">Confirmar</a>
+
+                                                                    </div>
+                                                                    <form:form action="${pageContext.request.contextPath}/solicitud/cancelar?target=perfil-solicitud"  method="post" modelAttribute="ma_solicitud">
+                                                                        <form:input path="usuario.id" value="${solicitud.usuario.id}" type="hidden"/>
+                                                                        <form:input path="publicacionSolicitud.id" value="${solicitud.publicacion.id}" type="hidden"/>
+                                                                        <form:input path="mensajeSolicitud" value="${solicitud.mensaje}"  type="hidden"/>
+                                                                        <button type="submit" class="btn btn-secondary d-block w-100" >
+                                                                            Rechazar
+                                                                        </button>
+                                                                    </form:form>
                                                                 </div>
-                                                            </a>
+                                                            </li>
 
-                                                            <div class="d-flex align-items-center mt-2 mt-md-0">
-                                                                <div class="confirm-click-btn">
-                                                                    <a href="#"
-                                                                       class="me-3 btn btn-primary rounded confirm-btn">Confirmar</a>
+                                                        </c:forEach>
 
-                                                                </div>
-                                                                <a href="#" class="btn btn-secondary rounded"
-                                                                   data-extra-toggle="delete" data-closest-elem=".item">Rechazar</a>
-                                                            </div>
-                                                        </li>
-
+                                                        <c:if test="${empty solicitudes}">
+                                                            <p class="text-muted text-center">No tienes solicitudes para esta publicación.</p>
+                                                        </c:if>
 
                                                     </ul>
 
