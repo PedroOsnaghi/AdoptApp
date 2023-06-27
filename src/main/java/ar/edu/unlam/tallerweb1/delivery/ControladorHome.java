@@ -73,6 +73,16 @@ public class ControladorHome {
 
     }
 
+    @RequestMapping(path = "/s",method = RequestMethod.GET)
+    public ModelAndView solicitud() {
+
+        ModelMap model = iniciarModel();
+
+        return new ModelAndView("post-solicitud",model);
+
+
+    }
+
     @RequireAuth
     @RequestMapping(path = "/favoritos",method = RequestMethod.GET)
     public ModelAndView favoritos(@RequestParam(required = false)String response) {

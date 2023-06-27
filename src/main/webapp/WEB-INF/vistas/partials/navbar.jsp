@@ -111,7 +111,7 @@
                      <i class="material-symbols-outlined">home</i>
                   </a>
                </li>
-
+               <%--
                <!-- notificaciones -->
                <li class="nav-item dropdown">
                   <a href="javascript:void(0);" class="search-toggle dropdown-toggle d-flex align-items-center"
@@ -188,7 +188,7 @@
                      </div>
                   </div>
                </li>
-
+               --%>
 
                <li class="nav-item dropdown user-dropdown">
                   <a href="javascript:void(0);" class="d-flex align-items-center dropdown-toggle" id="drop-down-arrow"

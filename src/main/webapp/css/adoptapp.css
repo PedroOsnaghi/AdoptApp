@@ -7602,7 +7602,7 @@ fieldset:disabled .btn {
 }
 .bg-body {
     --bs-bg-opacity: 1;
-    background-color: rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity))!important
+    background-color: #cbd4d5!important
 }
 .bg-transparent {
     --bs-bg-opacity: 1;
@@ -21167,7 +21167,7 @@ button.bg-soft-dark:hover {
     color: #c7c7c7
 }
 .dark .card-footer {
-    border-top: 1px solid #2a2a2a
+    border-top: none
 }
 .dark .files-lists.table td {
     border-color: #2a2a2a
@@ -23929,4 +23929,22 @@ input[readonly]{
     background-color: #50b5ff14!important;
 }
 
+.dark .counter-star{
+    color:#2dcdb2!important;
+}
 
+.dark .text-muted{
+    color: #545454;
+}
+
+.dark .bg-body{
+    background-color: #202d30!important;
+}
+
+.chat-time{
+    color: #727272!important;
+}
+
+.dark .chat-time{
+    color: #b3b3b3!important;
+}
