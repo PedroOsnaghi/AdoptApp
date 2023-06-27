@@ -135,19 +135,17 @@
                                                                 </a>
 
                                                                 <div class="d-flex align-items-center mt-2 mt-md-0">
+                                                                    <a href="${pageContext.request.contextPath}/solicitud/publicador?code=${solicitud.codigo}&target=perfil"
+                                                                       class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
                                                                     <div class="confirm-click-btn">
                                                                         <a href="#"
                                                                            class="me-3 btn btn-primary rounded confirm-btn">Confirmar</a>
 
                                                                     </div>
-                                                                    <form:form action="${pageContext.request.contextPath}/solicitud/cancelar?target=perfil-solicitud"  method="post" modelAttribute="ma_solicitud">
-                                                                        <form:input path="usuario.id" value="${solicitud.usuario.id}" type="hidden"/>
-                                                                        <form:input path="publicacionSolicitud.id" value="${solicitud.publicacion.id}" type="hidden"/>
-                                                                        <form:input path="mensajeSolicitud" value="${solicitud.mensaje}"  type="hidden"/>
-                                                                        <button type="submit" class="btn btn-secondary d-block w-100" >
-                                                                            Rechazar
-                                                                        </button>
-                                                                    </form:form>
+                                                                    <a class="btn btn-secondary d-block w-100" onclick="confirmRechazar(this)" action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=perfil-solicitud" href="javascript:void(0);">
+                                                                        Rechazar
+                                                                    </a>
+
                                                                 </div>
                                                             </li>
 
@@ -197,3 +195,6 @@
 
 <%@ include file="partials/script.jsp" %>
 
+<!--- Internal Sweet-Alert js -->
+<script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/jquery.sweet-alert.js"></script>

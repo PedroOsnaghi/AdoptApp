@@ -17,4 +17,9 @@ public interface IRepositorioSolicitud {
     List<Solicitud> listarSolicitudesEnviadas(Long idUsuario);
 
     List<Solicitud> listarSolicitudesRecibidas(Long idPublicacion);
+
+
+    Solicitud getSolicitud(String codigo);
+
+    void aceptarSolicitud(Solicitud solicitud);
 }

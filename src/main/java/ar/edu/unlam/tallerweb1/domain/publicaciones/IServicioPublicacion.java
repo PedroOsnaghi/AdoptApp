@@ -33,4 +33,6 @@ public interface IServicioPublicacion {
     void reanudarPublicacion(Long pid, Usuario userAuth);
 
     void actualizarPublicacion(PublicacionDto publicacionDto);
+
+    void reservar(Publicacion publicacion);
 }

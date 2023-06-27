@@ -64,7 +64,7 @@
                                                                         <h6><strong>${solicitud.publicacion.mascota.nombre}</strong> <small
                                                                                 class="text-muted">de <a
                                                                                 href="#">${solicitud.publicacion.mascota.usuario.nombre}</a></small></h6>
-                                                                        <p class="mb-0">${solicitud.created_at}</p>
+                                                                        <p class="mb-0"><small><script>getLongTime("${solicitud.created_at}")</script></small></p>
                                                                     </div>
                                                                 </div>
 
@@ -78,18 +78,14 @@
                                                                                 class="badge badge-pill text-warning me-5">${solicitud.estado}</span>
                                                                     </div>
                                                                     <div class="confirm-click-btn">
-                                                                        <a href="${pageContext.request.contextPath}/solicitud/adoptante?code=${solicitud.codigo}"
+                                                                        <a href="${pageContext.request.contextPath}/solicitud/adoptante?code=${solicitud.codigo}&target=perfil"
                                                                            class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
 
                                                                     </div>
-                                                                    <form:form action="${pageContext.request.contextPath}/solicitud/cancelar?target=perfil"  method="post" modelAttribute="ma_solicitud">
-                                                                        <form:input path="usuario.id" value="${solicitud.usuario.id}" type="hidden"/>
-                                                                        <form:input path="publicacionSolicitud.id" value="${solicitud.publicacion.id}" type="hidden"/>
-                                                                        <form:input path="mensajeSolicitud" value="${solicitud.mensaje}"  type="hidden"/>
-                                                                        <button type="submit" class="btn btn-secondary d-block w-100" >
-                                                                            Cancelar Solicitud
-                                                                        </button>
-                                                                    </form:form>
+                                                                    <a class="btn btn-secondary" onclick="confirmCancel(this)" action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=perfil" href="javascript:void(0);">
+                                                                        Cancelar Solicitud
+                                                                    </a>
+
                                                                 </div>
                                                             </li>
                                                         </c:forEach>
@@ -130,3 +126,6 @@
 
 <%@ include file="partials/script.jsp" %>
 
+<!--- Internal Sweet-Alert js -->
+<script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/jquery.sweet-alert.js"></script>

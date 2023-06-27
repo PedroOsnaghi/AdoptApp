@@ -62,6 +62,12 @@ public class ServicioPublicacion implements IServicioPublicacion{
         }
     }
 
+    @Override
+    public void reservar(Publicacion publicacion) {
+        publicacion.setEstado(EstadoPublicacion.RESERVADO);
+        this.repositorioPublicacion.modificarPublicacion(publicacion);
+    }
+
 
     @Override
     public void pausarPublicacion(Long pid, Usuario userAuth) {

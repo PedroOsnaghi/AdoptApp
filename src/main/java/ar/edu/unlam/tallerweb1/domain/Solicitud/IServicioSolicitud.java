@@ -17,4 +17,9 @@ public interface IServicioSolicitud {
     List<Solicitud> listarSolicitudesEnviadas(Usuario usuario);
 
     List<Solicitud> listarSolicitudesRecibidas(Long idPublicacion);
+
+
+    Solicitud getSolicitud(String codigo);
+
+    void aceptarSolicitud(Solicitud solicitud, Usuario usuarioAutenticado);
 }
