@@ -78,7 +78,7 @@
                                                                                 class="badge badge-pill text-warning me-5">${solicitud.estado}</span>
                                                                     </div>
                                                                     <div class="confirm-click-btn">
-                                                                        <a href="#"
+                                                                        <a href="${pageContext.request.contextPath}/solicitud/adoptante?code=${solicitud.codigo}"
                                                                            class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
 
                                                                     </div>
