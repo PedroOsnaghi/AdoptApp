@@ -82,8 +82,6 @@ public class ControladorSolicitud {
             return new ModelAndView("redirect: " + request.getContextPath() + "/home?response=error#1001");
         }
 
-
-
         switch (target){
             case "publicacion":
                 return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + solicitud.getPublicacion().getId());
@@ -95,8 +93,6 @@ public class ControladorSolicitud {
             default:
                 return new ModelAndView("redirect: " + request.getContextPath() + "/home");
         }
-
-
     }
 
     @RequireAuth
