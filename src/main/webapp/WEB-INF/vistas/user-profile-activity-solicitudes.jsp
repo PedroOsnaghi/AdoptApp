@@ -53,8 +53,8 @@
 
                                                         <c:forEach items="${solicitudes}" var="solicitud">
                                                             <li
-                                                                    class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                                <div class="d-flex">
+                                                                    class="d-flex flex-nowrap align-items-center  justify-content-between flex-wrap">
+                                                                <div class="d-flex flex-nowrap w-50">
                                                                     <div class="user-img img-fluid flex-shrink-0">
                                                                         <img src="data:image/jpg;base64,${solicitud.publicacion.mascota.foto}" alt="story-img"
                                                                              class="rounded-circle avatar-40"
@@ -69,22 +69,32 @@
                                                                 </div>
 
 
-                                                                <div class="d-flex align-items-center mt-2 mt-md-0">
+                                                                <div class="d-flex flex-nowrap align-items-center justify-content-between w-100 mt-2 mt-md-0">
                                                                     <div class="d-flex align-items-center">
-                                                         <span class="material-symbols-outlined text-warning">
-                                                            timer
-                                                         </span>
-                                                                        <span
-                                                                                class="badge badge-pill text-warning me-5">${solicitud.estado}</span>
+
+                                                                        <c:if test="${solicitud.estado.toString() eq 'PENDIENTE'}">
+                                                                            <span class="badge badge-pill bg-soft-warning me-3 ms-2">
+                                                                            <i class="fa-solid fa-clock"></i>
+                                                                            ${solicitud.estado}
+                                                                             </span>
+                                                                        </c:if>
+                                                                        <c:if test="${solicitud.estado.toString() eq 'ACEPTADA'}">
+                                                                            <span class="badge badge-pill bg-soft-success me-3 ms-2">
+                                                                            <i class="fa-solid fa-circle-check"></i>
+                                                                            ${solicitud.estado}
+                                                                             </span>
+                                                                        </c:if>
                                                                     </div>
                                                                     <div class="confirm-click-btn">
                                                                         <a href="${pageContext.request.contextPath}/solicitud/adoptante?code=${solicitud.codigo}&target=perfil"
-                                                                           class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
+                                                                           class="me-3 btn btn-primary rounded confirm-btn">Ver Estado</a>
 
                                                                     </div>
-                                                                    <a class="btn btn-secondary" onclick="confirmCancel(this)" action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=perfil" href="javascript:void(0);">
-                                                                        Cancelar Solicitud
-                                                                    </a>
+                                                                    <c:if test="${solicitud.estado.toString() eq 'PENDIENTE'}">
+                                                                        <a class="btn btn-secondary" onclick="confirmCancel(this)" action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=perfil" href="javascript:void(0);">
+                                                                            Cancelar Solicitud
+                                                                        </a>
+                                                                    </c:if>
 
                                                                 </div>
                                                             </li>

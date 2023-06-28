@@ -1,11 +1,9 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
-import ar.edu.unlam.tallerweb1.model.Publicacion;
-import ar.edu.unlam.tallerweb1.model.PublicacionDetallada;
-import ar.edu.unlam.tallerweb1.model.PublicacionMensajes;
-import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
+import ar.edu.unlam.tallerweb1.model.*;
 import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoSolicitud;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,11 +68,23 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     public List<PublicacionMensajes> listarPublicacionesConMensajesPorUsuarioId(Long idUsuario) {
         EntityManager entityManager = this.sessionFactory.createEntityManager();
 
-        List<PublicacionMensajes> mascota = entityManager.createQuery("select new ar.edu.unlam.tallerweb1.model.PublicacionMensajes(p, COUNT(m.id)) from Publicacion p left join Mensaje m on m.publicacion = p where  p.mascota.usuario.id = :iduser group by p.id order by p.id desc ", PublicacionMensajes.class)
+        List<PublicacionMensajes> publicaciones = entityManager.createQuery("select new ar.edu.unlam.tallerweb1.model.PublicacionMensajes(p, COUNT(m.id)) from Publicacion p left join Mensaje m on m.publicacion = p where  p.mascota.usuario.id = :iduser group by p.id order by p.id desc ", PublicacionMensajes.class)
                 .setParameter("iduser", idUsuario)
                 .getResultList();
 
-        return mascota;
+        return publicaciones;
+    }
+
+    @Override
+    public List<PublicacionSolicitud> listarPublicacionesDisponiblesParaSolicitudPorUsuarioId(Long idUsuario) {
+        EntityManager entityManager = this.sessionFactory.createEntityManager();
+
+        List<PublicacionSolicitud> publicaciones = entityManager.createQuery("select new ar.edu.unlam.tallerweb1.model.PublicacionSolicitud(p, COUNT(s.codigo)) from Publicacion p left join Solicitud s on s.publicacion = p where  p.mascota.usuario.id = :iduser and p.estado <> :estado group by p.id order by p.id desc ", PublicacionSolicitud.class)
+                .setParameter("iduser", idUsuario)
+                .setParameter("estado", EstadoPublicacion.CERRADA)
+                .getResultList();
+
+        return publicaciones;
     }
 
     @Override

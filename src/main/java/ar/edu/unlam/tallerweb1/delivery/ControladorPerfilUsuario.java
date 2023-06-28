@@ -151,7 +151,9 @@ public class ControladorPerfilUsuario {
 
         ModelMap model = this.iniciarModel("solicitud");
 
-        model.put("publicaciones", this.servicioPublicacion.listarPublicacionesMensajesPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
+        model.put("publicaciones", this.servicioPublicacion.listarPublicacionesDisponiblesParaSolicitudPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
+
+        model.put("solicitud_aceptada", this.servicioSolicitud.getSolicitudAceptada(pid));
 
         model.put("solicitudes", this.servicioSolicitud.listarSolicitudesRecibidas(pid));
 

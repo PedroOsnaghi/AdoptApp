@@ -20,7 +20,6 @@ if (typeof jQuery === 'undefined'){
 		var stars = typeof $(target).data('stars') == 'undefined' ? 0 : $(target).data('stars');
 
 		$(target).css('cursor', options.cursor);
-		$(target).append($("<input>", {type : "hidden", name : target.replace("#", ""), value : stars}));
 
 		// $(target).append($("<i>", {class : options.indicator, style : "color: transparent;"}));
 		for (var i = 1; i <= options.max; i++){
@@ -38,7 +37,7 @@ if (typeof jQuery === 'undefined'){
 
 		$.each($(target + " > i"), function (index, item){
 			$(item).click(function (){
-				$("[name=" + target.replace("#", "") + "]").val(index);
+				$('#cal').val(index);
 				$('#counter-star').html(index);
 				for (var i = 1; i <= options.max; i++){
 					$($(target + "> i")[i]).css("color", i <= index ? options.rgbOn : options.rgbOff);
@@ -49,7 +48,7 @@ if (typeof jQuery === 'undefined'){
 				}
 			});
 			$(item).mouseover(function (){
-				$("[name=" + target.replace("#", "") + "]").val(index);
+				$('#cal').val(index);
 				$('#counter-star').html(index);
 				for (var i = 1; i <= options.max; i++){
 					$($(target + " > i")[i]).css("color", i <= index ? options.rgbSelection : options.rgbOff);

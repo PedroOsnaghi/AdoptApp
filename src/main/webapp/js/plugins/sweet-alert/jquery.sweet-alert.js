@@ -95,6 +95,28 @@ function confirmAceptar(link){
 
 }
 
+function confirmEntrega(link){
+
+	Swal.fire({
+		title: "Confirmar",
+		html: '<p>¿Ya entregaste la Mascota?</p>',
+		icon: "question",
+		showCancelButton: true,
+		cancelButtonText: "Cancelar",
+		confirmButtonText: "Si, ya la entregué!",
+		customClass: {
+			title: 'h4',
+			confirmButton: 'btn btn-primary me-2',
+			cancelButton: 'btn btn-secondary',
+		},
+		buttonsStyling: false
+	}).then((result) => {
+		if (result.isConfirmed) {
+			window.location.href = link.getAttribute('action');
+		}
+	});
+
+}
 
 
 

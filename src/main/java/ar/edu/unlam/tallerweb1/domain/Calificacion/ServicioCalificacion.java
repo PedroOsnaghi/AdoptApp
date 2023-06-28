@@ -3,6 +3,7 @@ package ar.edu.unlam.tallerweb1.domain.Calificacion;
 import ar.edu.unlam.tallerweb1.delivery.dto.CalificacionDto;
 import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
 import ar.edu.unlam.tallerweb1.model.Calificacion;
+import ar.edu.unlam.tallerweb1.model.Usuario;
 import ar.edu.unlam.tallerweb1.model.UsuarioConCalificacion;
 import ar.edu.unlam.tallerweb1.model.enumerated.RolCalificacion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class ServicioCalificacion implements IServicioCalificacion{
 
     @Override
     public Long calificarAdoptante(CalificacionDto calDto) {
+
         Calificacion cal = this.validarDatos(calDto, RolCalificacion.ADOPTANTE);
         return this.repositorioCalificacion.guardarCalificacion(cal);
     }

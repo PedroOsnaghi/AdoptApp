@@ -56,6 +56,11 @@ public class ServicioSolicitud implements IServicioSolicitud{
     }
 
     @Override
+    public Solicitud getSolicitudAceptada(Long idPublicacion) {
+        return this.repositorioSolicitud.getSolicitudAceptada(idPublicacion);
+    }
+
+    @Override
     public void aceptarSolicitud(Solicitud solicitud, Usuario usuarioAutenticado) {
         if(solicitud.getPublicacion().getMascota().getUsuario().getId() != usuarioAutenticado.getId())
             throw new SolicitudException("Operación no permitida.");
@@ -66,5 +71,19 @@ public class ServicioSolicitud implements IServicioSolicitud{
 
         //resrvamos publicacion
         this.servcioPublicacion.reservar(solicitud.getPublicacion());
+    }
+
+    @Override
+    public void confirmarEntrega(Solicitud solicitud, Usuario usuarioAutenticado) {
+        if(solicitud.getPublicacion().getMascota().getUsuario().getId() != usuarioAutenticado.getId())
+            throw new SolicitudException("Operación no permitida.");
+
+        //cerramos publicacion publicacion
+        this.servcioPublicacion.cerrar(solicitud.getPublicacion());
+    }
+
+    @Override
+    public void actualizarSolicitud(Solicitud solicitud) {
+        this.repositorioSolicitud.actualizarSolicitud(solicitud);
     }
 }

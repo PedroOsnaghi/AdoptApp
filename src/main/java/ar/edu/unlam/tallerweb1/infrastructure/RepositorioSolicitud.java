@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.domain.Solicitud.IRepositorioSolicitud;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Solicitud;
 import ar.edu.unlam.tallerweb1.model.Usuario;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import ar.edu.unlam.tallerweb1.model.enumerated.EstadoSolicitud;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
@@ -76,5 +77,17 @@ public class RepositorioSolicitud implements IRepositorioSolicitud {
     public void aceptarSolicitud(Solicitud solicitud) {
         this.sessionFactory.getCurrentSession().update(solicitud);
 
+    }
+
+    @Override
+    public void actualizarSolicitud(Solicitud solicitud) {
+        this.sessionFactory.getCurrentSession().update(solicitud);
+    }
+
+    @Override
+    public Solicitud getSolicitudAceptada(Long idPublicacion) {
+        return (Solicitud) this.sessionFactory.getCurrentSession().createCriteria(Solicitud.class)
+                .add(Restrictions.and(Restrictions.eq("estado", EstadoSolicitud.ACEPTADA), Restrictions.eq("publicacion.id", idPublicacion)))
+                .uniqueResult();
     }
 }

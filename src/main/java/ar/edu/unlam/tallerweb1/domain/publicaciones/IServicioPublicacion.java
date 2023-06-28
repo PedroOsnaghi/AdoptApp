@@ -26,6 +26,8 @@ public interface IServicioPublicacion {
 
     List<PublicacionMensajes> listarPublicacionesMensajesPorUsuarioId(Long idUsuario);
 
+    List<PublicacionSolicitud> listarPublicacionesDisponiblesParaSolicitudPorUsuarioId(Long idUsuario);
+
     List<Publicacion_favorito> listarFavoritosDeUsuario(Long idUsuario);
 
     void pausarPublicacion(Long pid, Usuario userAuth);
@@ -35,4 +37,6 @@ public interface IServicioPublicacion {
     void actualizarPublicacion(PublicacionDto publicacionDto);
 
     void reservar(Publicacion publicacion);
+
+    void cerrar(Publicacion publicacion);
 }

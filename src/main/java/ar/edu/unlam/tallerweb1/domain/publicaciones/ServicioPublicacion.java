@@ -68,6 +68,12 @@ public class ServicioPublicacion implements IServicioPublicacion{
         this.repositorioPublicacion.modificarPublicacion(publicacion);
     }
 
+    @Override
+    public void cerrar(Publicacion publicacion) {
+        publicacion.setEstado(EstadoPublicacion.CERRADA);
+        this.repositorioPublicacion.modificarPublicacion(publicacion);
+    }
+
 
     @Override
     public void pausarPublicacion(Long pid, Usuario userAuth) {
@@ -111,6 +117,11 @@ public class ServicioPublicacion implements IServicioPublicacion{
     @Override
     public List<PublicacionMensajes> listarPublicacionesMensajesPorUsuarioId(Long idUsuario) {
         return this.repositorioPublicacion.listarPublicacionesConMensajesPorUsuarioId(idUsuario);
+    }
+
+    @Override
+    public List<PublicacionSolicitud> listarPublicacionesDisponiblesParaSolicitudPorUsuarioId(Long idUsuario) {
+        return this.repositorioPublicacion.listarPublicacionesDisponiblesParaSolicitudPorUsuarioId(idUsuario);
     }
 
     @Override

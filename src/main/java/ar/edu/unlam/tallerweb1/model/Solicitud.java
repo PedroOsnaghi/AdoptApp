@@ -74,6 +74,10 @@ public class Solicitud {
     @Column(nullable = false)
     private String codigo;
 
+    private boolean calA = false;
+
+    private boolean calP = false;
+
     @CreationTimestamp
     private Timestamp created_at;
 
@@ -180,6 +184,22 @@ public class Solicitud {
 
     public void setCodigo(String codigo) {
         this.codigo = codigo;
+    }
+
+    public boolean isCalA() {
+        return calA;
+    }
+
+    public void setCalA(boolean calA) {
+        this.calA = calA;
+    }
+
+    public boolean isCalP() {
+        return calP;
+    }
+
+    public void setCalP(boolean calP) {
+        this.calP = calP;
     }
 
     @Override

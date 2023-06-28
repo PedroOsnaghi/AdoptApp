@@ -21,5 +21,11 @@ public interface IServicioSolicitud {
 
     Solicitud getSolicitud(String codigo);
 
+    Solicitud getSolicitudAceptada(Long idPublicacion);
+
     void aceptarSolicitud(Solicitud solicitud, Usuario usuarioAutenticado);
+
+    void confirmarEntrega(Solicitud solicitud, Usuario usuarioAutenticado);
+
+    void actualizarSolicitud(Solicitud solicitud);
 }

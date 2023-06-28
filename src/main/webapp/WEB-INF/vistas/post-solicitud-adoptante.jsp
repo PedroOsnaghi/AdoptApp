@@ -78,7 +78,9 @@
                                 <c:if test="${solicitud.estado eq 'ACEPTADA'}">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h6 class="fw-bolder mb-1">Solicitud Aceptada</h6>
-                                        <small><script>getLongTime("${solicitud.update_at}")</script></small>
+                                        <c:if test="${solicitud.publicacion.estado eq 'RESERVADO'}">
+                                            <small><script>getLongTime("${solicitud.update_at}")</script></small>
+                                        </c:if>
                                     </div>
                                     <div class="d-inline-block w-100">
                                         <p>El publicador Aceptó tu solicitud, ya puedes retirar tu mascota.</p>
@@ -97,20 +99,39 @@
                                 </c:if>
                                 <c:if test="${solicitud.estado eq 'ACEPTADA'}">
                                     <div class="timeline-dots border-success"></div>
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <h6 class="fw-bolder mb-1">Pendiente de entrega</h6>
-
-                                    </div>
+                                    <c:if test="${solicitud.publicacion.estado eq 'RESERVADO'}">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <h6 class="fw-bolder mb-1">Pendiente de entrega</h6>
+                                        </div>
+                                        <p>Ya puedes retirar tu mascota.</p>
+                                    </c:if>
+                                    <c:if test="${solicitud.publicacion.estado eq 'CERRADA'}">
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <h6 class="fw-bolder mb-1">Entregada</h6>
+                                        </div>
+                                        <p>Ya retiraste tu mascota.</p>
+                                    </c:if>
                                 </c:if>
 
 
                             </li>
                             <li>
                                 <div class="timeline-dots border-light"></div>
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <h6 class="text-muted mb-1">Mascota adoptada</h6>
+                                <c:if test="${(solicitud.estado eq 'PENDIENTE') || ((solicitud.estado eq 'ACEPTADA') && (solicitud.publicacion.estado eq 'RESERVADO'))}">
+                                    <div class="timeline-dots border-light"></div>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="text-muted mb-1">Mascota adoptada</h6>
 
-                                </div>
+                                    </div>
+                                </c:if>
+                                <c:if test="${(solicitud.estado eq 'ACEPTADA') && (solicitud.publicacion.estado eq 'CERRADA')}">
+                                    <div class="timeline-dots border-success"></div>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="fw-bolder mb-1">Mascota adoptada</h6>
+                                        <small><script>getLongTime("${solicitud.update_at}")</script></small>
+                                    </div>
+
+                                </c:if>
 
                             </li>
 
@@ -132,10 +153,10 @@
                                 <hr>
                                 <div class="row mx-2">
                                     <div class="col-6">
-                                        <div class="form-group">
-                                            <label class="form-label" for="dir"><strong>Dirección de Entrega</strong></label>
-                                            <input  class="form-control" type="text" value="${solicitud.publicacion.direccion}" readonly id="dir"/>
-                                        </div>
+
+                                        <p><strong>Dirección de Entrega</strong></p>
+                                        <p>${solicitud.publicacion.direccion}"</p>
+
                                         <p><strong>Horarios de Entrega</strong></p>
                                         <p>${solicitud.publicacion.disponibilidad}</p>
 
@@ -148,7 +169,7 @@
                                             <p class="card-title mb-0">
                                                 <strong>Cómo llegar</strong>
                                             </p>
-                                            <a class="btn-link" href="">Abrir em google Maps</a>
+                                            <a class="btn-link" href="">Abrir en google Maps</a>
                                         </div>
 
                                         <div class="w-100 d-block mt-2" style="height: 200px;" id="map">
@@ -192,7 +213,7 @@
                             </div>
                         </div>
                     </c:if>
-                    <c:if test="${(solicitud.estado eq 'ACEPTADA') && (solicitud.publicacion.estado eq 'CERRADA')}">
+                    <c:if test="${(solicitud.estado eq 'ACEPTADA') && (solicitud.publicacion.estado eq 'CERRADA') && (solicitud.calA eq false)}">
                         <div class="card">
 
                             <div class="card-header bg-soft-success">
@@ -202,23 +223,39 @@
                             <div class="card-body">
                                 <h6>Contanos tu experiencia con <strong>User Test</strong></h6>
                                 <div class="mt-3">
-                                    <p class="ms-4"><strong>Que calificación le das?</strong><span class="text-muted"> (de 0 a 5 estrellas)</span>
-                                    </p>
-                                    <div class="rating-stars block" id="rating-1" data-stars="0" style="cursor: pointer;">
-                                    </div>
-                                    <p class="ms-4 mt-3"><strong>Opiná sobre el Publicador</strong><span class="text-muted"> (máximo 255 caracteres)</span>
-                                    </p>
-                                    <div class="px-4 d-flex flex-column justify-content-center">
-                                        <textarea class="form-control" maxlength="255" rows="3"></textarea>
-                                        <button type="submit" class="btn btn-primary mt-3" style="width: 50%">Enviar
-                                            Calificación
-                                        </button>
-                                    </div>
+                                    <form:form action="${pageContext.request.contextPath}/solicitud/calificarPublicador?id=${solicitud.publicacion.mascota.usuario.id}&code=${solicitud.codigo}" method="post" modelAttribute="calificacion">
+                                        <p class="ms-4"><strong>Que calificación le das?</strong><span class="text-muted"> (de 0 a 5 estrellas)</span>
+                                        </p>
+                                        <div class="rating-stars block" id="rating-1" data-stars="0" style="cursor: pointer;">
+                                        </div>
+                                        <p class="ms-4 mt-3"><strong>Opiná sobre el Publicador</strong><span class="text-muted"> (máximo 255 caracteres)</span>
+                                        </p>
+                                        <div class="px-4 d-flex flex-column justify-content-center">
+                                            <form:textarea path="commentario" class="form-control" maxlength="255" rows="3" required="true"></form:textarea>
+                                            <div class="d-flex justify-content-between align-items-center px-5">
+                                                <a  class="btn btn-secondary mt-3 mx-5" href="#" style="width: 50%">No deseo Calificar
+                                                </a>
+                                                <button type="submit" class="btn btn-primary mt-3 mx-5" style="width: 50%">Enviar
+                                                    Calificación
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                        <form:input path="calificacion" id="cal" type="hidden"/>
+                                    </form:form>
+
 
                                 </div>
                             </div>
                         </div>
                     </c:if>
+                <c:if test="${(solicitud.estado eq 'ACEPTADA') && (solicitud.publicacion.estado eq 'CERRADA') && (solicitud.calA eq true)}">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="text-center mt-3">La publicación se Cerró con fecha <strong><script>getLongTime('${solicitud.update_at}')</script></strong></p>
+                        </div>
+                    </div>
+                </c:if>
 
 
 

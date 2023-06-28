@@ -22,4 +22,10 @@ public interface IRepositorioSolicitud {
     Solicitud getSolicitud(String codigo);
 
     void aceptarSolicitud(Solicitud solicitud);
+
+    void actualizarSolicitud(Solicitud solicitud);
+
+    Solicitud getSolicitudAceptada(Long idPublicacion);
+
+
 }
