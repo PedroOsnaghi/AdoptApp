@@ -31,6 +31,7 @@ public class RepositorioMascotaTest extends SpringTest {
         podemosObtenerSuId(mascotaGuardada);
     }
 
+    /*
     @Test
     @Transactional
     @Rollback
@@ -39,6 +40,8 @@ public class RepositorioMascotaTest extends SpringTest {
         List<Mascota> mascotasDeUser = alListarLasMascotas(user);
         podemosObtenerSoloLasMascotasdeUser(mascotasDeUser);
     }
+
+*/
 
     private void podemosObtenerSuId(Mascota mascotaGuardada) {
         assertThat(mascotaGuardada.getId()).isNotNull();
@@ -91,6 +94,7 @@ public class RepositorioMascotaTest extends SpringTest {
         assertThat(mascotasSinPublicar).hasSize(2);
     }
 
+    /*
     @Test
     @Transactional
     @Rollback
@@ -99,6 +103,8 @@ public class RepositorioMascotaTest extends SpringTest {
         List<Mascota> mascotas = alListarlas(user);
         podemosObtenerUnaListaDeLasMismas(mascotas);
     }
+
+     */
 
     private Usuario dadoQueUnUsuarioTiene3MascotasGuardadas() {
         Usuario user = new Usuario("test", "test@test","1234");

@@ -174,7 +174,7 @@
                                                         </c:when>
                                                         <c:when test="${publicacion.estado.toString() eq 'CERRADA'}">
                                                         <span class="badge badge-pill bg-soft-secondary  ms-2">
-                                                            <i class="fa-solid fa-bookmark"></i>
+                                                            <i class="fa-solid fa-lock"></i>
                                                             ${publicacion.estado.toString()}
                                                              </span>
                                                         </c:when>

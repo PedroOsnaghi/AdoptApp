@@ -123,7 +123,7 @@
                                                                     </c:when>
                                                                     <c:when test="${publicacion.estado.toString() eq 'CERRADA'}">
                                                             <span class="badge badge-pill bg-soft-secondary  ms-2">
-                                                            <i class="fa-solid fa-bookmark"></i>
+                                                            <i class="fa-solid fa-lock"></i>
                                                             ${publicacion.estado.toString()}
                                                              </span>
                                                                     </c:when>
@@ -160,7 +160,7 @@
                                                     </c:when>
                                                     <c:otherwise>
                                                         <c:choose>
-                                                            <c:when test="${publicacion.estado eq 'PAUSADA'}">
+                                                            <c:when test="${publicacion.estado.toString() eq 'PAUSADA'}">
                                                                 <div class="d-grid ms-2">
                                                                     <div class="alert alert-solid alert-warning d-flex align-items-center mb-0 mt-5"
                                                                          role="alert">
@@ -175,12 +175,58 @@
                                                             <c:otherwise>
                                                                 <div class="d-grid ms-2">
 
-                                                                    <h6 class="mb-4">No lo dudes!,
-                                                                        <strong>${publicacion.mascota.nombre}</strong>
-                                                                        te necesita</h6>
+                                                                    <c:if test="${empty solicitud}">
+                                                                        <c:choose>
+                                                                            <c:when test="${publicacion.estado.toString() eq 'DISPONIBLE'}">
+                                                                                <h6 class="mb-4">No lo dudes!,
+                                                                                    <strong>${publicacion.mascota.nombre}</strong>
+                                                                                    te necesita</h6>
+                                                                            </c:when>
+                                                                            <c:when test="${publicacion.estado.toString() eq 'PAUSADA'}">
+                                                            <span class="badge badge-pill bg-soft-warning  ms-2">
+                                                            <i class="fa-solid fa-pause"></i>
+                                                            ${publicacion.estado.toString()}
+                                                             </span>
+                                                                            </c:when>
+                                                                            <c:when test="${publicacion.estado.toString() eq 'RESERVADO'}">
+                                                            <span class="badge badge-pill bg-soft-info  ms-2">
+                                                            <i class="fa-solid fa-bookmark"></i>
+                                                            ${publicacion.estado.toString()}
+                                                             </span>
+                                                                            </c:when>
+                                                                            <c:when test="${publicacion.estado.toString() eq 'CERRADA'}">
+                                                            <span class="badge badge-pill bg-soft-secondary  ms-2">
+                                                            <i class="fa-solid fa-lock"></i>
+                                                            ${publicacion.estado.toString()}
+                                                             </span>
+                                                                            </c:when>
+                                                                        </c:choose>
+
+                                                                    </c:if>
+                                                                    <c:if test="${not empty solicitud}">
+                                                                        <c:choose>
+                                                                            <c:when test="${solicitud.estado.toString() eq 'PENDIENTE' && publicacion.estado.toString() eq 'DISPONIBLE'}">
+                                                                                <h6 class="mb-4">Tu solicitud</h6>
+                                                                            </c:when>
+                                                                            <c:when test="${solicitud.estado.toString() eq 'ACEPTADA' && publicacion.estado.toString() eq 'RESERVADO'}">
+                                                                                <h6 class="mb-4">Tu solicitud fué ACEPTADA</h6>
+                                                                            </c:when>
+                                                                            <c:when test="${publicacion.estado.toString() eq 'CERRADA'}">
+                                                                            <span class="badge badge-pill bg-soft-secondary  mb-3">
+                                                                            <i class="fa-solid fa-bookmark"></i>
+                                                                            ${publicacion.estado.toString()}
+                                                                             </span>
+                                                                            </c:when>
+                                                                        </c:choose>
+
+
+
+                                                                    </c:if>
+
                                                                     <div class="d-grid">
                                                                         <c:choose>
-                                                                            <c:when test="${empty solicitud}">
+                                                                            <c:when test="${empty solicitud && publicacion.estado.toString() eq 'DISPONIBLE'}">
+
                                                                                 <button type="button"
                                                                                         class="btn btn-primary d-block mt-3"
                                                                                         data-bs-toggle="modal"
@@ -206,12 +252,15 @@
                                                                                             Estado</a>
 
                                                                                     </div>
-                                                                                    <a class="btn btn-secondary d-block w-100"
-                                                                                       onclick="confirmCancel(this)"
-                                                                                       action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=publicacion"
-                                                                                       href="javascript:void(0);">
-                                                                                        Cancelar Solicitud
-                                                                                    </a>
+                                                                                    <c:if test="${solicitud.estado.toString() eq 'PENDIENTE'}">
+                                                                                        <a class="btn btn-secondary d-block w-100"
+                                                                                           onclick="confirmCancel(this)"
+                                                                                           action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=publicacion"
+                                                                                           href="javascript:void(0);">
+                                                                                            Cancelar Solicitud
+                                                                                        </a>
+                                                                                    </c:if>
+
                                                                                 </div>
 
                                                                             </c:when>
@@ -354,14 +403,8 @@
                             </c:if>
 
                         </c:when>
-                        <c:when test="${publicacion.estado eq 'PAUSADA'}">
-                            <div class="card">
-                                <div class="card-header">
-                                    <p>El servicio de mensajería no se encuentra disponible para esta publicación.</p>
-                                </div>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
+
+                        <c:when test="${publicacion.estado.toString() eq 'DISPONIBLE'}">
                             <div class="card">
                                 <div class="card-header">
                                     <div class="header-title">
@@ -404,6 +447,13 @@
 
                             </div>
 
+                        </c:when>
+                        <c:otherwise>
+                            <div class="card">
+                                <div class="card-header">
+                                    <p>El servicio de mensajería no se encuentra disponible para esta publicación.</p>
+                                </div>
+                            </div>
                         </c:otherwise>
                     </c:choose>
 
