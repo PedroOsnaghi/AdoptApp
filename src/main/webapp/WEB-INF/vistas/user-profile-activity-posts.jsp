@@ -50,7 +50,7 @@
                                                     <table class="table forum-table mb-0 rounded">
                                                         <thead class="bg-primary text-white">
                                                         <tr>
-                                                            <th>PublicacÃ­on</th>
+                                                            <th>Publicación</th>
                                                             <th>Solicitudes</th>
                                                             <th>Preguntas</th>
                                                             <th>Estado</th>
@@ -110,7 +110,7 @@
                                                         </c:forEach>
 
                                                         <c:if test="${empty publicaciones}">
-                                                            <p class="text-muted text-center">AÃºn no has publicado</p>
+                                                            <p class="text-muted text-center">Aún no has publicado</p>
                                                         </c:if>
 
 
