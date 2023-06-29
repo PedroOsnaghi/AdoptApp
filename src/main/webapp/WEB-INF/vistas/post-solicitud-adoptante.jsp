@@ -62,20 +62,49 @@
                                 </div>
                             </li>
                             <li>
-                                <div class="timeline-dots border-success"></div>
+
                                 <c:if test="${solicitud.estado eq 'PENDIENTE'}">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <h6 class="fw-bolder mb-1">Pendiente de Aceptación</h6>
-                                        <a class="btn btn-secondary" onclick="confirmCancel(this)" action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=${target}" href="javascript:void(0);">
-                                            Cancelar Solicitud
-                                        </a>
-                                    </div>
-                                    <div class="d-inline-block w-100">
-                                        <p>Te informaremos si el publicador acepta tu solicitud</p>
-                                    </div>
+
+                                        <c:if test="${solicitud.publicacion.estado eq 'DISPONIBLE'}">
+                                            <div class="timeline-dots border-success"></div>
+                                            <div class="d-flex align-items-center justify-content-between">
+                                                <h6 class="fw-bolder mb-1">Pendiente de Aceptación</h6>
+                                                <a class="btn btn-secondary" onclick="confirmCancel(this)" action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=${target}" href="javascript:void(0);">
+                                                    Cancelar Solicitud
+                                                </a>
+                                            </div>
+                                            <div class="d-inline-block w-100">
+                                                <p>Te informaremos si el publicador acepta tu solicitud</p>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${solicitud.publicacion.estado eq 'RESERVADO'}">
+                                            <div class="timeline-dots border-warning"></div>
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <h6 class="fw-bolder mb-1">Tu solicitud se encuentra en Lista de Espera</h6>
+                                                    <a class="btn btn-secondary" onclick="confirmCancel(this)" action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=${target}" href="javascript:void(0);">
+                                                        Cancelar Solicitud
+                                                    </a>
+                                                </div>
+                                            <div class="d-inline-block w-100">
+                                                <p>No te preocupes, aún tienes chances. Te informaremos si se reanuda la publicación</p>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${solicitud.publicacion.estado eq 'CERRADA'}">
+                                        <div class="timeline-dots border-danger"></div>
+                                        <div class="d-flex align-items-center justify-content-between">
+                                            <h6 class="fw-bolder mb-1">Publicación Finalizada</h6>
+                                            <a class="btn btn-secondary" href="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=${target}" >
+                                                Cerrar Solicitud
+                                            </a>
+                                        </div>
+                                        <div class="d-inline-block w-100">
+                                            <p>La mascota ya fué adoptada por otro usuario pero no te desanimes, aún hay otras mascotas que te esperan.</p>
+                                        </div>
+                                    </c:if>
                                 </c:if>
 
                                 <c:if test="${solicitud.estado eq 'ACEPTADA'}">
+                                    <div class="timeline-dots border-success"></div>
                                     <div class="d-flex align-items-center justify-content-between">
                                         <h6 class="fw-bolder mb-1">Solicitud Aceptada</h6>
                                         <c:if test="${solicitud.publicacion.estado eq 'RESERVADO'}">

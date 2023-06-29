@@ -67,80 +67,83 @@
                                                         </div>
 
                                                         <!-- MENU EMERGENTE DE PUBLICACION -->
-                                                        <div class="card-post-toolbar">
-                                                            <div class="dropdown">
+                                                        <c:if test="${(publicacion.estado.toString() eq 'DISPONIBLE') || (publicacion.estado.toString() eq 'PAUSADA')}">
+                                                            <div class="card-post-toolbar">
+                                                                <div class="dropdown">
                                                                <span class="dropdown-toggle material-symbols-outlined"
                                                                      data-bs-toggle="dropdown" aria-haspopup="true"
                                                                      aria-expanded="false" role="button">
                                                                   more_horiz
                                                                </span>
-                                                                <div class="dropdown-menu m-0 p-0">
-                                                                    <a class="dropdown-item p-3" href="${pageContext.request.contextPath}/publicacion/editar?pid=${publicacion.id}">
-                                                                        <div class="d-flex align-items-top">
+                                                                    <div class="dropdown-menu m-0 p-0">
+                                                                        <a class="dropdown-item p-3" href="${pageContext.request.contextPath}/publicacion/editar?pid=${publicacion.id}">
+                                                                            <div class="d-flex align-items-top">
                                                                             <span class="material-symbols-outlined">
                                                                                edit
                                                                             </span>
-                                                                            <div class="data ms-2">
-                                                                                <h6>Editar Publicación</h6>
-                                                                                <p class="mb-0">Modifica la información
-                                                                                    publicada</p>
+                                                                                <div class="data ms-2">
+                                                                                    <h6>Editar Publicación</h6>
+                                                                                    <p class="mb-0">Modifica la información
+                                                                                        publicada</p>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </a>
+                                                                        </a>
 
 
-                                                                    <c:choose>
-                                                                        <c:when test="${publicacion.estado.toString() eq 'DISPONIBLE'}">
-                                                                            <a class="dropdown-item p-3"
-                                                                               href="${pageContext.request.contextPath}/publicacion/pausar?pid=${publicacion.id}">
-                                                                                <div class="d-flex align-items-top">
+                                                                        <c:choose>
+                                                                            <c:when test="${publicacion.estado.toString() eq 'DISPONIBLE'}">
+                                                                                <a class="dropdown-item p-3"
+                                                                                   href="${pageContext.request.contextPath}/publicacion/pausar?pid=${publicacion.id}&target=mispost">
+                                                                                    <div class="d-flex align-items-top">
                                                                                         <span class="material-symbols-outlined">
                                                                                      pause
                                                                                     </span>
-                                                                                    <div class="data ms-2">
-                                                                                        <h6>Pausar Publicación</h6>
-                                                                                        <p class="mb-0">Cambia el estado
-                                                                                            de tu
-                                                                                            publicación</p>
+                                                                                        <div class="data ms-2">
+                                                                                            <h6>Pausar Publicación</h6>
+                                                                                            <p class="mb-0">Cambia el estado
+                                                                                                de tu
+                                                                                                publicación</p>
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </a>
-                                                                        </c:when>
-                                                                        <c:when test="${publicacion.estado.toString() eq 'PAUSADA'}">
-                                                                            <a class="dropdown-item p-3"
-                                                                               href="${pageContext.request.contextPath}/publicacion/reanudar?pid=${publicacion.id}">
-                                                                                <div class="d-flex align-items-top">
+                                                                                </a>
+                                                                            </c:when>
+                                                                            <c:when test="${publicacion.estado.toString() eq 'PAUSADA'}">
+                                                                                <a class="dropdown-item p-3"
+                                                                                   href="${pageContext.request.contextPath}/publicacion/reanudar?pid=${publicacion.id}&target=mispost">
+                                                                                    <div class="d-flex align-items-top">
 
                                                                                      <span class="material-symbols-outlined">
                                                                                      play_arrow
                                                                                      </span>
-                                                                                    <div class="data ms-2">
-                                                                                        <h6>Reanudar Publicación</h6>
-                                                                                        <p class="mb-0">Cambia el estado
-                                                                                            de tu
-                                                                                            publicación</p>
+                                                                                        <div class="data ms-2">
+                                                                                            <h6>Reanudar Publicación</h6>
+                                                                                            <p class="mb-0">Cambia el estado
+                                                                                                de tu
+                                                                                                publicación</p>
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </a>
-                                                                        </c:when>
-                                                                    </c:choose>
+                                                                                </a>
+                                                                            </c:when>
+                                                                        </c:choose>
 
 
-                                                                    <a class="dropdown-item p-3" onclick="confirmDelete(this)" action="${pageContext.request.contextPath}/publicacion/eliminar?pid=${publicacion.id}" href="javascript:void(0);">
-                                                                        <div class="d-flex align-items-top">
+                                                                        <a class="dropdown-item p-3" onclick="confirmDelete(this)" action="${pageContext.request.contextPath}/publicacion/eliminar?pid=${publicacion.id}" href="javascript:void(0);">
+                                                                            <div class="d-flex align-items-top">
                                                                             <span class="material-symbols-outlined">
                                                                                delete
                                                                             </span>
-                                                                            <div class="data ms-2">
-                                                                                <h6>Eliminar Publicación</h6>
-                                                                                <p class="mb-0">Elimina de forma permanente</p>
+                                                                                <div class="data ms-2">
+                                                                                    <h6>Eliminar Publicación</h6>
+                                                                                    <p class="mb-0">Elimina de forma permanente</p>
+                                                                                </div>
                                                                             </div>
-                                                                        </div>
-                                                                    </a>
+                                                                        </a>
 
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </c:if>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -163,9 +166,15 @@
                                                             ${publicacion.estado.toString()}
                                                              </span>
                                                         </c:when>
-                                                        <c:when test="${publicacion.estado.toString() eq 'RESERVADA'}">
+                                                        <c:when test="${publicacion.estado.toString() eq 'RESERVADO'}">
                                                             <span class="badge badge-pill bg-soft-info  ms-2">
                                                             <i class="fa-solid fa-bookmark"></i>
+                                                            ${publicacion.estado.toString()}
+                                                             </span>
+                                                        </c:when>
+                                                        <c:when test="${publicacion.estado.toString() eq 'CERRADA'}">
+                                                        <span class="badge badge-pill bg-soft-secondary  ms-2">
+                                                            <i class="fa-solid fa-lock"></i>
                                                             ${publicacion.estado.toString()}
                                                              </span>
                                                         </c:when>

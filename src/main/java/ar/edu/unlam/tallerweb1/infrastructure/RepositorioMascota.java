@@ -44,7 +44,12 @@ public class RepositorioMascota implements IRepositorioMascota {
     @Override
     public List<Mascota> listarMascotaPorUsuario(Usuario usuario)
     {
-        return (List<Mascota>) this.sessionFactory.getCurrentSession().createCriteria(Mascota.class)
-                .add(Restrictions.eq("usuario", usuario)).setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY).list();
+        EntityManager entityManager = this.sessionFactory.createEntityManager();
+
+        List<Mascota> mascota = entityManager.createQuery("select m from Mascota m where m.id not IN ( select a.publicacion.mascota.id from Adopcion a) AND m.usuario = :user order by m.id desc ", Mascota.class)
+                .setParameter("user",usuario)
+                .getResultList();
+
+        return mascota;
     }
 }

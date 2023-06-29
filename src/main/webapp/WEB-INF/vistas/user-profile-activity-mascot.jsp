@@ -84,7 +84,7 @@
 
                                                                             <h5 class="mb-2"><strong>${mascota.nombre}</strong></h5>
 
-                                                                            <span class="text-uppercase">${mascota.nacimiento}</span>
+                                                                            <span class="text-uppercase">Nació el <script>getLongTime("${mascota.nacimiento}")</script> </span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -93,29 +93,38 @@
 
 
                                                     </div>
-                                                    <%--
-                                                    <h4>Adoptados</h4>
+
+                                                    <h4 class="mt-3">Adoptadas</h4>
                                                     <hr>
                                                     <div class="row ">
-                                                        <div class="col-6 mt-5">
-                                                            <div class="card bg-soft-dark">
-                                                                <div class="card-body">
-                                                                    <div class="iq-badges text-left">
-                                                                        <div class="badges-icon">
-                                                                            <img class="avatar-80 rounded border border-light"
-                                                                                 src="${pageContext.request.contextPath}/images/posts/3/1.avif" alt=""
-                                                                                 loading="lazy">
-                                                                        </div>
-                                                                        <h5 class="mb-2"><strong>Tiny</strong></h5>
+                                                        <c:forEach items="${adopciones}" var="adoptada">
+                                                            <div class="col-6 mt-5">
+                                                                <div class="card bg-soft-dark">
+                                                                    <div class="card-body" style="height: 135px;">
+                                                                        <div class="iq-badges text-left">
+                                                                            <div class="d-flex align-items-start justify-content-between">
+                                                                                <div class="badges-icon">
+                                                                                    <img class="avatar-80 rounded border border-light"
+                                                                                         src="data:image/jpg;base64,${adoptada.publicacion.mascota.foto}" style="object-fit: cover;" alt=""
+                                                                                         loading="lazy">
+                                                                                </div>
 
-                                                                        <span class="text-uppercase">23 de Abril del 2023</span>
+                                                                            </div>
+
+                                                                            <h5 class="mb-2"><strong>${adoptada.publicacion.mascota.nombre}</strong></h5>
+
+                                                                            <span class="text-uppercase">El <script>getLongTime("${adoptada.created_at}")</script></span>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </c:forEach>
+                                                        <c:if test="${empty adopciones}">
+                                                            <p class="text-center text-muted mt-3">No has adoptado aún.</p>
+                                                        </c:if>
 
                                                     </div>
-                                                    --%>
+
                                                 </div>
                                             </div>
                                         </div>

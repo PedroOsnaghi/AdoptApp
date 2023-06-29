@@ -96,9 +96,15 @@
                                                                             ${publicacion.publicacion.estado.toString()}
                                                                              </span>
                                                                         </c:when>
-                                                                        <c:when test="${publicacion.publicacion.estado.toString() eq 'RESERVADA'}">
+                                                                        <c:when test="${publicacion.publicacion.estado.toString() eq 'RESERVADO'}">
                                                                             <span class="badge badge-pill bg-info  ms-2">
                                                                             <i class="fa-solid fa-bookmark"></i>
+                                                                            ${publicacion.publicacion.estado.toString()}
+                                                                             </span>
+                                                                        </c:when>
+                                                                        <c:when test="${publicacion.publicacion.estado.toString() eq 'CERRADA'}">
+                                                                            <span class="badge badge-pill bg-soft-secondary  ms-2">
+                                                                            <i class="fa-solid fa-lock"></i>
                                                                             ${publicacion.publicacion.estado.toString()}
                                                                              </span>
                                                                         </c:when>

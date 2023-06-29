@@ -12,7 +12,7 @@
                </a>
 
                <!-- aqui el logo -->
-               <a href="index.html" class="d-flex align-items-center gap-2 iq-header-logo">
+               <a href="${pageContext.request.contextPath}/home/" class="d-flex align-items-center gap-2 iq-header-logo">
                   <div class="brand img-fluid"></div>
              
                </a>
@@ -107,7 +107,7 @@
 
             <ul class="navbar-nav navbar-list">
                <li class="nav-item">
-                  <a href="index.html" class="d-flex align-items-center">
+                  <a href="${pageContext.request.contextPath}/home/" class="d-flex align-items-center">
                      <i class="material-symbols-outlined">home</i>
                   </a>
                </li>

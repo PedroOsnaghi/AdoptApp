@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.delivery.dto.UsuarioDto;
 import ar.edu.unlam.tallerweb1.domain.Calificacion.IServicioCalificacion;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.Solicitud.IServicioSolicitud;
+import ar.edu.unlam.tallerweb1.domain.adopcion.IServicioAdopcion;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
@@ -35,10 +36,11 @@ public class ControladorPerfilUsuario {
     private final IServicioCalificacion servicioCalificacion;
     private final IServicioMascota servicioMascota;
     private final IServicioSolicitud servicioSolicitud;
+    private final IServicioAdopcion servicioAdopcion;
 
     @Autowired
     public ControladorPerfilUsuario(IServicioUsuario servicioUsuario, IServicioPublicacion servicioPublicacion, IServicioMensajes servicioMensajes, IServicioAuth servicioAuth,
-                                    IServicioCalificacion servicioCalificacion, IServicioMascota servicioMascota, IServicioSolicitud servicioSolicitud) {
+                                    IServicioCalificacion servicioCalificacion, IServicioMascota servicioMascota, IServicioSolicitud servicioSolicitud, IServicioAdopcion servicioAdopcion) {
         this.servicioUsuario = servicioUsuario;
         this.servicioAuth = servicioAuth;
         this.servicioPublicacion = servicioPublicacion;
@@ -46,6 +48,7 @@ public class ControladorPerfilUsuario {
         this.servicioCalificacion = servicioCalificacion;
         this.servicioMascota = servicioMascota;
         this.servicioSolicitud = servicioSolicitud;
+        this.servicioAdopcion = servicioAdopcion;
     }
 
 
@@ -130,6 +133,8 @@ public class ControladorPerfilUsuario {
         model.put("cal_adoptante", this.servicioCalificacion.getCalificacionAdoptante(this.servicioAuth.getUsuarioAutenticado().getId()));
 
         model.put("mascotas", this.servicioMascota.listarMascotaPorUsuario(this.servicioAuth.getUsuarioAutenticado()));
+
+        model.put("adopciones", this.servicioAdopcion.listarAdoptadasPorUsuario(this.servicioAuth.getUsuarioAutenticado()));
 
         return new ModelAndView("user-profile-activity-mascot", model);
 

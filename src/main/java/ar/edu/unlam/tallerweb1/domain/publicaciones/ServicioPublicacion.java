@@ -51,7 +51,13 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
             this.validarPublicacion(publicacionDto);
             Publicacion pub = this.repositorioPublicacion.buscarPublicacionPorId(publicacionDto.getId());
+
+            //valida que la publicacion tenga los estados validos para pausar o reanudar
+            if(pub.getEstado() != EstadoPublicacion.DISPONIBLE) throw new PostChangeException("Operación no permitida para esta publicacion","3001");
+
             pub.merge(publicacionDto);
+
+
 
         try{
             this.repositorioPublicacion.modificarPublicacion(pub);
@@ -77,7 +83,13 @@ public class ServicioPublicacion implements IServicioPublicacion{
 
     @Override
     public void pausarPublicacion(Long pid, Usuario userAuth) {
+
         Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(pid);
+        //valida que la publicacion tenga los estados validos para pausar o reanudar
+        if(p.getEstado() != EstadoPublicacion.DISPONIBLE) throw new PostChangeException("Operación no permitida para esta publicacion","3001");
+
+
+
         //seteamos nuevo estado
         p.setEstado(EstadoPublicacion.PAUSADA);
 
@@ -99,6 +111,9 @@ public class ServicioPublicacion implements IServicioPublicacion{
     @Override
     public void eliminarPublicacion(Long idPublicacion, Usuario userAuth) {
         Publicacion p = this.repositorioPublicacion.buscarPublicacionPorId(idPublicacion);
+
+        //valida que la publicacion tenga los estados validos para pausar o reanudar
+        if(p.getEstado() != EstadoPublicacion.DISPONIBLE) throw new PostChangeException("Operación no permitida para esta publicacion","3001");
 
         if(this.validarUsuario(p, userAuth))
             this.repositorioPublicacion.eliminarPublicacion(p);
