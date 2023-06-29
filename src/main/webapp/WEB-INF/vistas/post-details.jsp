@@ -19,373 +19,445 @@
 
     </div>
 
-            <div id="content-page" class="content-page superponer">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-lg-2">
-                                            <div class="item1 ms-1">
-                                                <img src="data:image/jpeg;base64,${publicacion.mascota.foto}"
-                                                     class="img-fluid rounded profile-image"
-                                                     alt="profile-image" loading="lazy">
-                                            </div>
+    <div id="content-page" class="content-page superponer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="item1 ms-1">
+                                        <img src="data:image/jpeg;base64,${publicacion.mascota.foto}"
+                                             class="img-fluid rounded profile-image"
+                                             alt="profile-image" loading="lazy">
+                                    </div>
+                                </div>
+                                <div class="col-lg-10">
+                                    <div class="d-flex justify-content-between">
+                                        <div class="item2 ">
+                                            <h4 class=""><strong>${publicacion.mascota.nombre}</strong></h4>
+                                            <span>6 Interesados</span>
                                         </div>
-                                        <div class="col-lg-10">
+                                        <div class="item4 ms-1">
                                             <div class="d-flex justify-content-between">
-                                                <div class="item2 ">
-                                                    <h4 class=""><strong>${publicacion.mascota.nombre}</strong></h4>
-                                                    <span>6 Interesados</span>
-                                                </div>
-                                                <div class="item4 ms-1">
+                                                <a href="">
+                                                    <div class="me-3">
+                                                        <img class="rounded-circle img-fluid"
+                                                             src="data:image/jpeg;base64,${publicacion.mascota.usuario.imagen}"
+                                                             style="max-width: 40px;" alt="" loading="lazy">
+                                                    </div>
+                                                </a>
+
+                                                <div class="w-100">
                                                     <div class="d-flex justify-content-between">
-                                                        <a href="">
-                                                            <div class="me-3">
-                                                                <img class="rounded-circle img-fluid"
-                                                                     src="data:image/jpeg;base64,${publicacion.mascota.usuario.imagen}"
-                                                                     style="max-width: 40px;" alt="" loading="lazy">
-                                                            </div>
-                                                        </a>
+                                                        <div class="">
+                                                            <h6 class="mb-0 d-inline-block">${publicacion.mascota.usuario.nombre}</h6>
+                                                            <p class="mb-0 text-primary ">
+                                                                <script>getTime("${publicacion.create_at}")</script>
+                                                            </p>
 
-                                                        <div class="w-100">
-                                                            <div class="d-flex justify-content-between">
-                                                                <div class="">
-                                                                    <h6 class="mb-0 d-inline-block">${publicacion.mascota.usuario.nombre}</h6>
-                                                                    <p class="mb-0 text-primary ">
-                                                                        <script>getTime("${publicacion.create_at}")</script>
-                                                                    </p>
-
-                                                                </div>
-
-
-                                                            </div>
                                                         </div>
+
+
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-lg-5">
-                                                    <div class="item5 mt-3">
-                                                        <div class="d-flex align-items-center mb-1">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-5">
+                                            <div class="item5 mt-3">
+                                                <div class="d-flex align-items-center mb-1">
                                            <span class="material-symbols-outlined  md-18">
                                               location_on
                                            </span>
-                                                            <a href="#"
-                                                               class="link-primary h6 ms-2">${publicacion.provincia}, ${publicacion.ciudad}</a>
-                                                        </div>
-                                                        <c:if test="${not empty publicacion.mascota.nacimiento}">
-                                                            <div class="d-flex align-items-center mb-1">
+                                                    <a href="#"
+                                                       class="link-primary h6 ms-2">${publicacion.provincia}, ${publicacion.ciudad}</a>
+                                                </div>
+                                                <c:if test="${not empty publicacion.mascota.nacimiento}">
+                                                    <div class="d-flex align-items-center mb-1">
                                            <span class="material-symbols-outlined md-18">
                                               bookmark_border
                                            </span>
-                                                                <span class="ms-2">Nació el <a href="#"
-                                                                                               class="link-primary h6"><script>getLongTime("${publicacion.mascota.nacimiento}")</script></a></span>
-                                                            </div>
-                                                        </c:if>
-                                                        <div class="d-flex align-items-center mb-1">
+                                                        <span class="ms-2">Nació el <a href="#"
+                                                                                       class="link-primary h6"><script>getLongTime("${publicacion.mascota.nacimiento}")</script></a></span>
+                                                    </div>
+                                                </c:if>
+                                                <div class="d-flex align-items-center mb-1">
                                            <span class="material-symbols-outlined md-18">
                                               sell
                                            </span>
-                                                            <span class="ms-2">Categoria: <a href="#"
-                                                                                             class="link-primary h6">${publicacion.mascota.tipo}</a></span>
-                                                        </div>
-                                                    </div>
+                                                    <span class="ms-2">Categoria: <a href="#"
+                                                                                     class="link-primary h6">${publicacion.mascota.tipo}</a></span>
                                                 </div>
-                                                <div class="col-lg-7">
-                                                    <div class="item6 border-light border-start h-100">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-7">
+                                            <div class="item6 border-light border-start h-100">
 
+                                                <c:choose>
+                                                    <c:when test="${usuario.id eq publicacion.mascota.usuario.id}">
+                                                        <div class="d-grid ms-2">
+                                                            <h6>Herramientas de publicador</h6>
+                                                            <hr>
+                                                            <div class="d-flex align-items-center justify-content-between">
+                                                                <c:choose>
+                                                                    <c:when test="${publicacion.estado.toString() eq 'DISPONIBLE'}">
+                                                            <span class="badge badge-pill bg-soft-success  ms-2">
+                                                            <i class="fa-solid fa-earth-americas"></i>
+                                                            ${publicacion.estado.toString()}
+                                                             </span>
+                                                                    </c:when>
+                                                                    <c:when test="${publicacion.estado.toString() eq 'PAUSADA'}">
+                                                            <span class="badge badge-pill bg-soft-warning  ms-2">
+                                                            <i class="fa-solid fa-pause"></i>
+                                                            ${publicacion.estado.toString()}
+                                                             </span>
+                                                                    </c:when>
+                                                                    <c:when test="${publicacion.estado.toString() eq 'RESERVADO'}">
+                                                            <span class="badge badge-pill bg-soft-info  ms-2">
+                                                            <i class="fa-solid fa-bookmark"></i>
+                                                            ${publicacion.estado.toString()}
+                                                             </span>
+                                                                    </c:when>
+                                                                    <c:when test="${publicacion.estado.toString() eq 'CERRADA'}">
+                                                            <span class="badge badge-pill bg-soft-secondary  ms-2">
+                                                            <i class="fa-solid fa-bookmark"></i>
+                                                            ${publicacion.estado.toString()}
+                                                             </span>
+                                                                    </c:when>
+                                                                </c:choose>
+                                                                <c:if test="${(publicacion.estado.toString() eq 'DISPONIBLE') || (publicacion.estado.toString() eq 'PAUSADA')}">
+                                                                    <div class="d-flex  justify-content-end">
+                                                                        <a href="${pageContext.request.contextPath}/publicacion/editar?pid=${publicacion.id}"
+                                                                           class="btn btn-secondary rounded me-2"><i
+                                                                                class="fa-solid fa-pen"></i></a>
+                                                                        <c:choose>
+                                                                            <c:when test="${publicacion.estado.toString() eq 'DISPONIBLE'}">
+                                                                                <a href="${pageContext.request.contextPath}/publicacion/pausar?pid=${publicacion.id}&target=details"
+                                                                                   class="btn btn-secondary rounded me-2"><i
+                                                                                        class="fa-solid fa-pause"></i></a>
+                                                                            </c:when>
+                                                                            <c:when test="${publicacion.estado.toString() eq 'PAUSADA'}">
+                                                                                <a href="${pageContext.request.contextPath}/publicacion/reanudar?pid=${publicacion.id}&target=details"
+                                                                                   class="btn btn-secondary rounded me-2"><i
+                                                                                        class="fa-solid fa-play"></i></a>
+                                                                            </c:when>
+
+                                                                        </c:choose>
+                                                                        <a onclick="confirmDelete(this)"
+                                                                           action="${pageContext.request.contextPath}/publicacion/eliminar?pid=${publicacion.id}"
+                                                                           class="btn btn-secondary rounded"><i
+                                                                                class="fa-solid fa-trash-can"></i></a>
+                                                                    </div>
+                                                                </c:if>
+
+                                                            </div>
+
+
+                                                        </div>
+                                                    </c:when>
+                                                    <c:otherwise>
                                                         <c:choose>
-                                                            <c:when test="${usuario.id eq publicacion.mascota.usuario.id}">
+                                                            <c:when test="${publicacion.estado eq 'PAUSADA'}">
                                                                 <div class="d-grid ms-2">
-                                                                    <h6>Herramientas de publicador</h6>
-                                                                    <hr>
-
+                                                                    <div class="alert alert-solid alert-warning d-flex align-items-center mb-0 mt-5"
+                                                                         role="alert">
+                                                                        <span class="d-flex"><i
+                                                                                class="material-symbols-outlined">warning</i></span>
+                                                                        <div>
+                                                                            Publicación PAUSADA
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </c:when>
                                                             <c:otherwise>
-                                                                <c:choose>
-                                                                    <c:when test="${publicacion.estado eq 'PAUSADA'}">
-                                                                        <div class="d-grid ms-2">
-                                                                            <div class="alert alert-solid alert-warning d-flex align-items-center mb-0 mt-5" role="alert">
-                                                                                <span class="d-flex"><i class="material-symbols-outlined">warning</i></span>
-                                                                                <div>
-                                                                                    Publicación PAUSADA
+                                                                <div class="d-grid ms-2">
+
+                                                                    <h6 class="mb-4">No lo dudes!,
+                                                                        <strong>${publicacion.mascota.nombre}</strong>
+                                                                        te necesita</h6>
+                                                                    <div class="d-grid">
+                                                                        <c:choose>
+                                                                            <c:when test="${empty solicitud}">
+                                                                                <button type="button"
+                                                                                        class="btn btn-primary d-block mt-3"
+                                                                                        data-bs-toggle="modal"
+                                                                                        data-bs-target="#confirma-adopcion">
+                                                                                    Quiero Adoptarlo!
+                                                                                </button>
+
+                                                                            </c:when>
+                                                                            <c:when test="${not empty solicitud}">
+                                                                                <c:if test="${sol_response eq 'success'}">
+                                                                                    <div class="alert alert-solid alert-success d-flex align-items-center mb-2 py-1 "
+                                                                                         role="alert">
+                                                                                        <div>
+                                                                                            Enviamos tu solicitud
+                                                                                            a ${publicacion.mascota.usuario.nombre}.
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </c:if>
+                                                                                <div class="d-flex">
+                                                                                    <div class="confirm-click-btn flex-shrink-0">
+                                                                                        <a href="${pageContext.request.contextPath}/solicitud/adoptante?code=${solicitud.codigo}&target=publicacion"
+                                                                                           class="me-3 btn btn-primary rounded confirm-btn">Ver
+                                                                                            Estado</a>
+
+                                                                                    </div>
+                                                                                    <a class="btn btn-secondary d-block w-100"
+                                                                                       onclick="confirmCancel(this)"
+                                                                                       action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=publicacion"
+                                                                                       href="javascript:void(0);">
+                                                                                        Cancelar Solicitud
+                                                                                    </a>
                                                                                 </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </c:when>
-                                                                    <c:otherwise>
-                                                                        <div class="d-grid ms-2">
 
-                                                                            <h6 class="mb-4">No lo dudes!,
-                                                                                <strong>${publicacion.mascota.nombre}</strong> te necesita</h6>
-                                                                            <div class="d-grid">
-                                                                                <c:choose>
-                                                                                    <c:when test="${empty solicitud}">
-                                                                                        <button type="button" class="btn btn-primary d-block mt-3"
-                                                                                                data-bs-toggle="modal"
-                                                                                                data-bs-target="#confirma-adopcion">
-                                                                                            Quiero Adoptarlo!
-                                                                                        </button>
+                                                                            </c:when>
+                                                                        </c:choose>
 
-                                                                                    </c:when>
-                                                                                    <c:when test="${not empty solicitud}">
-                                                                                        <c:if test="${sol_response eq 'success'}">
-                                                                                            <div class="alert alert-solid alert-success d-flex align-items-center mb-2 py-1 "
-                                                                                                 role="alert">
-                                                                                                <div>
-                                                                                                    Enviamos tu solicitud a ${publicacion.mascota.usuario.nombre}.
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </c:if>
-                                                                                        <a class="btn btn-secondary d-block w-100" onclick="confirmCancel(this)" action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=publicacion" href="javascript:void(0);">
-                                                                                            Cancelar Solicitud
-                                                                                        </a>
-                                                                                    </c:when>
-                                                                                </c:choose>
-
-                                                                            </div>
-                                                                        </div>
-                                                                    </c:otherwise>
-                                                                </c:choose>
-
-
-
+                                                                    </div>
+                                                                </div>
                                                             </c:otherwise>
                                                         </c:choose>
-                                                    </div>
-                                                </div>
 
+
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between">
-                                    <div class="header-title">
-                                        <h4 class="card-title">Bio</h4>
-                                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Bio</h4>
+                            </div>
 
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex flex-column justify-content-between">
+                                <p>${publicacion.bio}</p>
+                            </div>
+
+
+                            <!-- informacion de mascota -->
+                            <div class="row">
+                                <h4 class="mt-3">Información Básica</h4>
+                                <hr>
+                                <div class="col-4">
+                                    <h6>Género</h6>
                                 </div>
-                                <div class="card-body">
-                                    <div class="d-flex flex-column justify-content-between">
-                                        <p>${publicacion.bio}</p>
-                                    </div>
+                                <div class="col-8">
+                                    <p class="mb-0">${publicacion.mascota.genero}</p>
+                                </div>
+                                <div class="col-4">
+                                    <h6>Raza</h6>
+                                </div>
+                                <div class="col-8">
+                                    <p class="mb-0">
+                                        <c:if test="${empty publicacion.mascota.raza}">No apota</c:if>
+                                        <c:if test="${not empty publicacion.mascota.raza}">${publicacion.mascota.raza}</c:if>
+                                    </p>
+                                </div>
+                                <div class="col-4">
+                                    <h6>Peso</h6>
+                                </div>
+                                <div class="col-8">
+                                    <p class="mb-0">${publicacion.mascota.peso} Kg</p>
+                                </div>
+                                <div class="col-4">
+                                    <h6>Salud</h6>
+                                </div>
+                                <div class="col-8">
+                                    <p class="mb-0">
+                                        <c:if test="${empty publicacion.mascota.salud}">No apota</c:if>
+                                        <c:if test="${not empty publicacion.mascota.salud}">${publicacion.mascota.salud}</c:if>
+                                    </p>
+                                </div>
+                                <div class="col-4">
+                                    <h6>Edad</h6>
+                                </div>
+                                <div class="col-8">
+                                    <p class="mb-0">
+                                        <script>getBorn("${publicacion.mascota.nacimiento}")</script>
+                                    </p>
+                                </div>
+                            </div>
 
 
-                                    <!-- informacion de mascota -->
-                                    <div class="row">
-                                        <h4 class="mt-3">Información Básica</h4>
-                                        <hr>
-                                        <div class="col-4">
-                                            <h6>Género</h6>
-                                        </div>
-                                        <div class="col-8">
-                                            <p class="mb-0">${publicacion.mascota.genero}</p>
-                                        </div>
-                                        <div class="col-4">
-                                            <h6>Raza</h6>
-                                        </div>
-                                        <div class="col-8">
-                                            <p class="mb-0">
-                                                <c:if test="${empty publicacion.mascota.raza}">No apota</c:if>
-                                                <c:if test="${not empty publicacion.mascota.raza}">${publicacion.mascota.raza}</c:if>
-                                            </p>
-                                        </div>
-                                        <div class="col-4">
-                                            <h6>Peso</h6>
-                                        </div>
-                                        <div class="col-8">
-                                            <p class="mb-0">${publicacion.mascota.peso} Kg</p>
-                                        </div>
-                                        <div class="col-4">
-                                            <h6>Salud</h6>
-                                        </div>
-                                        <div class="col-8">
-                                            <p class="mb-0">
-                                                <c:if test="${empty publicacion.mascota.salud}">No apota</c:if>
-                                                <c:if test="${not empty publicacion.mascota.salud}">${publicacion.mascota.salud}</c:if>
-                                            </p>
-                                        </div>
-                                        <div class="col-4">
-                                            <h6>Edad</h6>
-                                        </div>
-                                        <div class="col-8">
-                                            <p class="mb-0">
-                                                <script>getBorn("${publicacion.mascota.nacimiento}")</script>
-                                            </p>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="d-flex flex-column  mt-4">
-                                        <h5>Personalidad</h5>
-                                        <div class="d-flex flex-wrap me-3">
+                            <div class="d-flex flex-column  mt-4">
+                                <h5>Personalidad</h5>
+                                <div class="d-flex flex-wrap me-3">
                                <span class="badge badge-pill bg-light text-dark mt-2 me-2">
                                   <i class="fa-solid fa-circle"></i>
                                   ${publicacion.mascota.personalidad}
                                </span>
 
-                                        </div>
-
-
-                                    </div>
-
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-8">
-                            <div id="post-modal-data" class="card">
-                                <div class="card-header d-flex justify-content-between">
-                                    <div class="header-title">
-                                        <h4 class="card-title">Fotos</h4>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-
-                                    <div class="d-grid gap-2 grid-cols-3">
-                                        <c:forEach items="${publicacion.imagenes}" var="imagen" varStatus="index">
-                                            <a data-fslightbox="gallery" href="data:image/jpeg;base64,${imagen.base64Content}">
-                                                <img src="data:image/jpeg;base64,${imagen.base64Content}"
-                                                     class="img-fluid bg-soft-info img-size fit-cover"
-                                                     alt="photo-profile" loading="lazy">
-                                            </a>
-                                        </c:forEach>
 
 
-                                    </div>
-                                </div>
-                            </div>
-                            <c:choose>
-                                <c:when test="${usuario.id eq publicacion.mascota.usuario.id}">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="header-title">
-                                                <h5 class="card-title">Administrar Mensajes de Publicación</h5>
-                                                <hr>
-                                            </div>
-                                            <div class="d-flex justify-content-center align-items-center">
-                                                <p class="my-2 text-black-50 col-7 ps-1 pe-2">Adimnistá y responde los mensajes de esta Publicación en el siguinte enlace</p>
-                                                <a href="${pageContext.request.contextPath}/perfil/mensajes?pid=${publicacion.id}" class="btn btn-soft-info col-5 ">Ir a Panel de Mensajeria</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:when>
-                                <c:when test="${publicacion.estado eq 'PAUSADA'}">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <p>El servicio de mensajería no se encuentra disponible para esta publicación.</p>
-                                        </div>
-                                    </div>
-                                </c:when>
-                                <c:otherwise>
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <div class="header-title">
-                                                <h5 class="card-title">Preguntale a
-                                                    <strong>${publicacion.mascota.usuario.nombre}</strong> por mi</h5>
-                                            </div>
-                                            <div>
-                                                <form:form action="${pageContext.request.contextPath}/mensaje/enviar"
-                                                           modelAttribute="mensajeDto">
-                                                    <form:textarea path="pregunta" class="form-control mt-2" rows="3"
-                                                                   placeholder="Escribí tu pregunta..." required="true"/>
-                                                    <form:input path="publicacion.id" value="${publicacion.id}" type="hidden"/>
-                                                    <div class="d-flex justify-content-end">
-                                                        <button type="submit" class="btn btn-primary mt-2"><i
-                                                                class="fa-regular fa-paper-plane" style="font-size: 18px;"></i>
-                                                            Enviar
-                                                        </button>
-
-                                                    </div>
-                                                </form:form>
-                                                <c:if test="${msj_response eq 'error'}">
-                                                    <div class="alert alert-solid alert-danger d-flex align-items-center mt-2 py-1 "
-                                                         role="alert">
-                                                        <div>
-                                                            No pudimos enviar tu mensaje debido a un error.
-                                                        </div>
-                                                    </div>
-                                                </c:if>
-                                                <c:if test="${msj_response eq 'success'}">
-                                                    <div class="alert alert-solid alert-success d-flex align-items-center mt-2 py-1 "
-                                                         role="alert">
-                                                        <div>
-                                                            Enviamos tu mensaje a ${publicacion.mascota.usuario.nombre}.
-                                                        </div>
-                                                    </div>
-                                                </c:if>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-
-                                </c:otherwise>
-                            </c:choose>
-
-
-
-
-                            <div class="card">
-                                <div class="card-header d-flex justify-content-between">
-                                    <div class="header-title">
-                                        <h4 class="card-title">Últimas realizadas</h4>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-
-                                    <c:forEach items="${mensajes}" var="mensaje">
-                                        <div class="post-comments p-2 m-0 card rounded bg-light mb-2">
-
-                                            <!-- PREGUNTA -->
-                                            <p class="mb-0">
-                                                <c:if test="${mensaje.emisor.id eq usuario.id}">
-                                                    <strong>Tu pregunta -</strong>
-                                                </c:if>
-
-                                                    ${mensaje.pregunta}
-
-                                                <small class="link-primary"> - ${mensaje.fechaEmision}</small>
-
-                                            </p>
-                                            <!--RESPUESTA OCULTA-->
-                                            <c:if test="${not empty mensaje.respuesta}">
-                                                <details>
-                                                    <summary class="comments-view  link-primary">Ver respuesta</summary>
-                                                    <p class="text-muted comments-response">
-                                                            ${mensaje.respuesta}
-                                                        <small class="link-primary"> - ${mensaje.fechaRespuesta}</small></p>
-                                                </details>
-                                            </c:if>
-
-
-                                        </div>
-                                    </c:forEach>
-
-                                    <c:if test="${empty mensajes}">
-                                        <p class="text-muted mt-3">Aún nadie ha realizado preguntas.</p>
-                                    </c:if>
-
-
-                                </div>
                             </div>
 
                         </div>
                     </div>
                 </div>
 
+                <div class="col-lg-8">
+                    <div id="post-modal-data" class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Fotos</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
 
+                            <div class="d-grid gap-2 grid-cols-3">
+                                <c:forEach items="${publicacion.imagenes}" var="imagen" varStatus="index">
+                                    <a data-fslightbox="gallery" href="data:image/jpeg;base64,${imagen.base64Content}">
+                                        <img src="data:image/jpeg;base64,${imagen.base64Content}"
+                                             class="img-fluid bg-soft-info img-size fit-cover"
+                                             alt="photo-profile" loading="lazy">
+                                    </a>
+                                </c:forEach>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <c:choose>
+                        <c:when test="${usuario.id eq publicacion.mascota.usuario.id}">
+                            <c:if test="${not publicacion.estado.toString() eq 'CERRADA'}">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <div class="header-title">
+                                            <h5 class="card-title">Administrar Mensajes de Publicación</h5>
+                                            <hr>
+                                        </div>
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <p class="my-2 text-black-50 col-7 ps-1 pe-2">Adimnistá y responde los mensajes
+                                                de esta Publicación en el siguinte enlace</p>
+                                            <a href="${pageContext.request.contextPath}/perfil/mensajes?pid=${publicacion.id}"
+                                               class="btn btn-soft-info col-5 ">Ir a Panel de Mensajeria</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </c:if>
+
+                        </c:when>
+                        <c:when test="${publicacion.estado eq 'PAUSADA'}">
+                            <div class="card">
+                                <div class="card-header">
+                                    <p>El servicio de mensajería no se encuentra disponible para esta publicación.</p>
+                                </div>
+                            </div>
+                        </c:when>
+                        <c:otherwise>
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="header-title">
+                                        <h5 class="card-title">Preguntale a
+                                            <strong>${publicacion.mascota.usuario.nombre}</strong> por mi</h5>
+                                    </div>
+                                    <div>
+                                        <form:form action="${pageContext.request.contextPath}/mensaje/enviar"
+                                                   modelAttribute="mensajeDto">
+                                            <form:textarea path="pregunta" class="form-control mt-2" rows="3"
+                                                           placeholder="Escribí tu pregunta..." required="true"/>
+                                            <form:input path="publicacion.id" value="${publicacion.id}" type="hidden"/>
+                                            <div class="d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary mt-2"><i
+                                                        class="fa-regular fa-paper-plane" style="font-size: 18px;"></i>
+                                                    Enviar
+                                                </button>
+
+                                            </div>
+                                        </form:form>
+                                        <c:if test="${msj_response eq 'error'}">
+                                            <div class="alert alert-solid alert-danger d-flex align-items-center mt-2 py-1 "
+                                                 role="alert">
+                                                <div>
+                                                    No pudimos enviar tu mensaje debido a un error.
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${msj_response eq 'success'}">
+                                            <div class="alert alert-solid alert-success d-flex align-items-center mt-2 py-1 "
+                                                 role="alert">
+                                                <div>
+                                                    Enviamos tu mensaje a ${publicacion.mascota.usuario.nombre}.
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </c:otherwise>
+                    </c:choose>
+
+
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="header-title">
+                                <h4 class="card-title">Últimas realizadas</h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <c:forEach items="${mensajes}" var="mensaje">
+                                <div class="post-comments p-2 m-0 card rounded bg-light mb-2">
+
+                                    <!-- PREGUNTA -->
+                                    <p class="mb-0">
+                                        <c:if test="${mensaje.emisor.id eq usuario.id}">
+                                            <strong>Tu pregunta -</strong>
+                                        </c:if>
+
+                                            ${mensaje.pregunta}
+
+                                        <small class="link-primary"> - ${mensaje.fechaEmision}</small>
+
+                                    </p>
+                                    <!--RESPUESTA OCULTA-->
+                                    <c:if test="${not empty mensaje.respuesta}">
+                                        <details>
+                                            <summary class="comments-view  link-primary">Ver respuesta</summary>
+                                            <p class="text-muted comments-response">
+                                                    ${mensaje.respuesta}
+                                                <small class="link-primary"> - ${mensaje.fechaRespuesta}</small></p>
+                                        </details>
+                                    </c:if>
+
+
+                                </div>
+                            </c:forEach>
+
+                            <c:if test="${empty mensajes}">
+                                <p class="text-muted mt-3">Aún nadie ha realizado preguntas.</p>
+                            </c:if>
+
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
+        </div>
 
+
+    </div>
 
 
 </div>
@@ -417,13 +489,15 @@
                     caso
                     de salir de vacaciones.</p>
                 <hr>
-                <form:form action="${pageContext.request.contextPath}/solicitud/enviar" method="post" modelAttribute="solicitudDto">
+                <form:form action="${pageContext.request.contextPath}/solicitud/enviar" method="post"
+                           modelAttribute="solicitudDto">
                     <form:input path="publicacionSol.id" type="hidden" value="${publicacion.id}"/>
                     <form:input path="usuarioSol.id" type="hidden" value="${usuario.id}"/>
                     <div class="form-group">
                         <label class="form-label" for="exampleFormControlTextarea1">Mensaje a María Guttierrez</label>
                         <form:textarea path="mensaje" class="form-control" id="exampleFormControlTextarea1" rows="4"
-                                  placeholder="Dile por qué debería aceptarte como Adoptante de Tobby" required="true"></form:textarea>
+                                       placeholder="Dile por qué debería aceptarte como Adoptante de Tobby"
+                                       required="true"></form:textarea>
                     </div>
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Lo pensaré</button>

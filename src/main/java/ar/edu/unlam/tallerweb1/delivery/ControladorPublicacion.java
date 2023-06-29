@@ -123,7 +123,7 @@ public class ControladorPublicacion {
 
     @RequireAuth
     @RequestMapping(path = "/pausar", method = RequestMethod.GET)
-    public ModelAndView pausar(@RequestParam Long pid, HttpServletRequest request){
+    public ModelAndView pausar(@RequestParam Long pid, @RequestParam(required = false) String target, HttpServletRequest request){
         try {
 
             this.servicioPublicacion.pausarPublicacion(pid, this.servicioAuth.getUsuarioAutenticado());
@@ -131,14 +131,21 @@ public class ControladorPublicacion {
         }catch (PostChangeException error){
              return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones?error=" + error.getErrorCode());
         }
+        switch (target){
+            case "mispost":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones");
+            case "details":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + pid);
+            default:
+                return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed");
+        }
 
-       return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones");
 
     }
 
     @RequireAuth
     @RequestMapping(path = "/reanudar", method = RequestMethod.GET)
-    public ModelAndView reanudar(@RequestParam Long pid, HttpServletRequest request){
+    public ModelAndView reanudar(@RequestParam Long pid, @RequestParam(required = false) String target,HttpServletRequest request){
         try {
 
             this.servicioPublicacion.reanudarPublicacion(pid, this.servicioAuth.getUsuarioAutenticado());
@@ -147,7 +154,14 @@ public class ControladorPublicacion {
             return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones?error=" + error.getErrorCode());
         }
 
-        return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones");
+        switch (target){
+            case "mispost":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones");
+            case "details":
+                return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + pid);
+            default:
+                return new ModelAndView("redirect: " + request.getContextPath() + "/home/feed");
+        }
 
     }
 
@@ -192,7 +206,7 @@ public class ControladorPublicacion {
 
            this.servicioPublicacion.actualizarPublicacion(publicacionDto);
 
-        }catch (DataValidationException | PostCreationException error){
+        }catch (DataValidationException | PostCreationException | PostChangeException error){
             model.put("error", error.getMessage());
             model.put("max_upload", 4);
             return new ModelAndView("edit-post", model);

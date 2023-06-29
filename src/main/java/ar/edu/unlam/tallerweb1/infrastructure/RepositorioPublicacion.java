@@ -68,8 +68,9 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     public List<PublicacionMensajes> listarPublicacionesConMensajesPorUsuarioId(Long idUsuario) {
         EntityManager entityManager = this.sessionFactory.createEntityManager();
 
-        List<PublicacionMensajes> publicaciones = entityManager.createQuery("select new ar.edu.unlam.tallerweb1.model.PublicacionMensajes(p, COUNT(m.id)) from Publicacion p left join Mensaje m on m.publicacion = p where  p.mascota.usuario.id = :iduser group by p.id order by p.id desc ", PublicacionMensajes.class)
+        List<PublicacionMensajes> publicaciones = entityManager.createQuery("select new ar.edu.unlam.tallerweb1.model.PublicacionMensajes(p, COUNT(m.id)) from Publicacion p left join Mensaje m on m.publicacion = p where  p.mascota.usuario.id = :iduser and p.estado <> :estado group by p.id order by p.id desc ", PublicacionMensajes.class)
                 .setParameter("iduser", idUsuario)
+                .setParameter("estado", EstadoPublicacion.CERRADA)
                 .getResultList();
 
         return publicaciones;
