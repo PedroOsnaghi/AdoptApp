@@ -11,7 +11,7 @@
           <a class="nav-link <c:if test="${target eq 'info'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/info">Informacion</a>
         </li>
         <li class="nav-item col-12 col-sm-3 p-0">
-          <a class="nav-link <c:if test="${target eq 'solicitud'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/solicitud">Solicitudes</a>
+          <a class="nav-link <c:if test="${target eq 'solicitud'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/solicitud">Solicitudes recibidas</a>
         </li>
         <li class="nav-item col-12 col-sm-3 p-0">
           <a class="nav-link <c:if test="${target eq 'mensajes'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/mensajes">Preguntas</a>

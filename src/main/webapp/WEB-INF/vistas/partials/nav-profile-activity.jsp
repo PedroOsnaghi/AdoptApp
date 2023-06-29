@@ -8,7 +8,7 @@
                 <a class="nav-link <c:if test="${seccion eq 'favoritos'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/actividad/favoritos">Favoritos</a>
             </li>
             <li>
-                <a class="nav-link <c:if test="${seccion eq 'solicitudes'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/actividad/solicitudes">Mis Solicitudes</a>
+                <a class="nav-link <c:if test="${seccion eq 'solicitudes'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/actividad/solicitudes">Solicitudes Enviadas</a>
             </li>
             <li>
                 <a class="nav-link <c:if test="${seccion eq 'mascotas'}">active</c:if>" href="${pageContext.request.contextPath}/perfil/actividad/mismascotas">Mis mascotas</a>
