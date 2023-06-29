@@ -81,7 +81,7 @@
                                               bookmark_border
                                            </span>
                                                                 <span class="ms-2">Nació el <a href="#"
-                                                                                               class="link-primary h6">${publicacion.mascota.nacimiento}</a></span>
+                                                                                               class="link-primary h6"><script>getLongTime("${publicacion.mascota.nacimiento}")</script></a></span>
                                                             </div>
                                                         </c:if>
                                                         <div class="d-flex align-items-center mb-1">
@@ -140,15 +140,9 @@
                                                                                                 </div>
                                                                                             </div>
                                                                                         </c:if>
-                                                                                        <form:form action="${pageContext.request.contextPath}/solicitud/cancelar?target=publicacion"  method="post" modelAttribute="solicitud">
-                                                                                            <form:input path="usuario.id" type="hidden"/>
-                                                                                            <form:input path="publicacionSolicitud.id" type="hidden"/>
-                                                                                            <form:input path="mensajeSolicitud" type="hidden"/>
-                                                                                            <button type="submit" class="btn btn-secondary d-block w-100" >
-                                                                                                Cancelar Solicitud
-                                                                                            </button>
-                                                                                        </form:form>
-
+                                                                                        <a class="btn btn-secondary d-block w-100" onclick="confirmCancel(this)" action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=publicacion" href="javascript:void(0);">
+                                                                                            Cancelar Solicitud
+                                                                                        </a>
                                                                                     </c:when>
                                                                                 </c:choose>
 
@@ -454,3 +448,6 @@
 
 <!-- fslightbox Script -->
 <script src="${pageContext.request.contextPath}/js/fslightbox.js" defer></script>
+<!--- Internal Sweet-Alert js -->
+<script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/jquery.sweet-alert.js"></script>

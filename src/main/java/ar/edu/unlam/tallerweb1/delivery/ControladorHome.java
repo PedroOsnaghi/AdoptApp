@@ -3,7 +3,6 @@ package ar.edu.unlam.tallerweb1.delivery;
 import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
-import ar.edu.unlam.tallerweb1.model.Imagen;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion_favorito;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -16,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.persistence.PersistenceException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/home")
@@ -66,7 +62,7 @@ public class ControladorHome {
 
         model.put("target","feed");
         model.put("publicaciones", publicaciones);
-        model.put("response_f", response);
+        model.put("response", response);
 
         return new ModelAndView("index-feed",model);
 
@@ -78,7 +74,7 @@ public class ControladorHome {
 
         ModelMap model = iniciarModel();
 
-        return new ModelAndView("post-solicitud",model);
+        return new ModelAndView("post-solicitud-adoptante",model);
 
 
     }

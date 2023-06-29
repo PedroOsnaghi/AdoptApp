@@ -196,16 +196,20 @@
 
 <!-- RESPONSES -->
 
-<c:if test="${not empty response_f}">
+<c:if test="${not empty response}">
 
-    <c:if test="${response_f eq 'exist'}">
+    <c:if test="${response eq 'exist'}">
         <script>showNotification("La publicación ya se encuentra en tu lista de Favoritos", "error");</script>
     </c:if>
-    <c:if test="${response_f eq 'success'}">
+    <c:if test="${response eq 'success'}">
         <script>showNotification("Se agregó a tu lista de Favoritos", "success");</script>
+    </c:if>
+    <c:if test="${response eq 'error#1001'}">
+        <script>showNotification("Operación no permitida", "error");</script>
     </c:if>
 
 </c:if>
+
 
 <!-- scripts -->
 

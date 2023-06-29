@@ -126,7 +126,7 @@
                                                                     </c:choose>
 
 
-                                                                    <a class="dropdown-item p-3" onclick="confirm(this)" action="${pageContext.request.contextPath}/publicacion/eliminar?pid=${publicacion.id}" href="javascript:void(0);">
+                                                                    <a class="dropdown-item p-3" onclick="confirmDelete(this)" action="${pageContext.request.contextPath}/publicacion/eliminar?pid=${publicacion.id}" href="javascript:void(0);">
                                                                         <div class="d-flex align-items-top">
                                                                             <span class="material-symbols-outlined">
                                                                                delete

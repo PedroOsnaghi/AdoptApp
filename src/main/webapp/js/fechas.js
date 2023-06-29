@@ -50,3 +50,11 @@ function getBorn(fecha_nac){
 
 
 }
+
+function getLongTime(fecha){
+    console.log(fecha);
+    moment.locale('es');
+    const f = moment(new Date(fecha), "YYYY-MM-DD HH:mm:ss");
+    console.log(f);
+    document.write(f.format('LL'));
+}

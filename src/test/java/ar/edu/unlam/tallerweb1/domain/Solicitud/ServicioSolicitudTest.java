@@ -1,10 +1,14 @@
 package ar.edu.unlam.tallerweb1.domain.Solicitud;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
+import ar.edu.unlam.tallerweb1.delivery.dto.MascotaDto;
 import ar.edu.unlam.tallerweb1.delivery.dto.SolicitudDto;
+import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Solicitud;
 import ar.edu.unlam.tallerweb1.model.Usuario;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoSolicitud;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -15,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -22,6 +27,9 @@ public class ServicioSolicitudTest extends SpringTest {
 
     @Mock
     private IRepositorioSolicitud repositorioSolicitud;
+
+    @Mock
+    private ServicioPublicacion servicioPublicacion;
 
     @InjectMocks
     private ServicioSolicitud servicioSolicitud;
@@ -75,6 +83,28 @@ public class ServicioSolicitudTest extends SpringTest {
 
         seObtienenLasSolicitudesRecibidas(solicitudes, solicitudesObtenidas);
 
+    }
+    // Que cuando no se el usuario duenio tire exception
+    @Test
+    public void TestQueAlAceptarSolicitudSeCambieElEstadoDePublicacionYSolicitud() {
+        Usuario usuario = new Usuario();
+        usuario.setId(1L);
+
+        Mascota mascota = new Mascota();
+        mascota.setUsuario(usuario);
+
+        Publicacion publicacion = new Publicacion();
+        publicacion.setMascota(mascota);
+
+        Solicitud solicitud = new Solicitud();
+        solicitud.setPublicacion(publicacion);
+
+        servicioSolicitud.aceptarSolicitud(solicitud, usuario);
+
+        verify(repositorioSolicitud, times(1)).aceptarSolicitud(solicitud);
+        verify(servicioPublicacion, times(1)).reservar(solicitud.getPublicacion());
+
+        assertThat(solicitud.getEstado()).isEqualTo(EstadoSolicitud.ACEPTADA);
     }
 
     private void seLLamaAlRepositorioParaGuardarLaSolicitud() {

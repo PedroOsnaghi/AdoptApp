@@ -9,8 +9,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
+import java.util.UUID;
 
 class SolicitudId implements Serializable {
+
+
     private Usuario usuario;
     private Publicacion publicacion;
 
@@ -29,6 +32,8 @@ class SolicitudId implements Serializable {
     public void setPublicacion(Publicacion publicacion) {
         this.publicacion = publicacion;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
@@ -66,6 +71,13 @@ public class Solicitud {
     @Column(name = "mensaje", nullable = false)
     private String mensaje;
 
+    @Column(nullable = false)
+    private String codigo;
+
+    private boolean calA = false;
+
+    private boolean calP = false;
+
     @CreationTimestamp
     private Timestamp created_at;
 
@@ -78,6 +90,7 @@ public class Solicitud {
         this.usuario = user;
         this.publicacion = post;
         this.mensaje = mensaje;
+        this.codigo = UUID.randomUUID().toString();
         this.estado = EstadoSolicitud.PENDIENTE;
     }
 
@@ -85,6 +98,7 @@ public class Solicitud {
         this.usuario = sd.getUsuarioSol();
         this.publicacion = sd.getPublicacionSol();
         this.mensaje = sd.getMensaje();
+        this.codigo = UUID.randomUUID().toString();
         this.estado = EstadoSolicitud.PENDIENTE;
     }
 
@@ -95,6 +109,7 @@ public class Solicitud {
         p.setId(idPublicacion);
         this.setUsuario(u);
         this.setPublicacion(p);
+        this.codigo = UUID.randomUUID().toString();
         this.estado = EstadoSolicitud.PENDIENTE;
 
     }
@@ -161,6 +176,30 @@ public class Solicitud {
 
     public void setUpdate_at(Timestamp update_at) {
         this.update_at = update_at;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public boolean isCalA() {
+        return calA;
+    }
+
+    public void setCalA(boolean calA) {
+        this.calA = calA;
+    }
+
+    public boolean isCalP() {
+        return calP;
+    }
+
+    public void setCalP(boolean calP) {
+        this.calP = calP;
     }
 
     @Override

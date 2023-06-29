@@ -57,8 +57,8 @@
                                                                 </div>
 
                                                             </div>
-                                                            <c:if test="${not empty publicacion.new_messages and publicacion.new_messages > 0}">
-                                                                <span class="badge badge-pill bg-light text-dark ml-2"><strong>${publicacion.new_messages}</strong></span>
+                                                            <c:if test="${not empty publicacion.new_solicitud and publicacion.new_solicitud > 0}">
+                                                                <span class="badge badge-pill bg-light text-dark ml-2"><strong>${publicacion.new_solicitud}</strong></span>
                                                             </c:if>
 
                                                         </div>
@@ -91,87 +91,137 @@
                                             </div>
                                         </c:if>
                                         <c:if test="${not empty selected_pub}">
-                                            <div class="">
-                                                <h4>Solicitudes de Adopción</h4>
-                                                <p class="font-size-12 text-primary">Elije al mejor candidato para tu
-                                                    mascota. </p>
+                                            <c:if test="${empty solicitud_aceptada}">
+                                                <div>
+                                                    <div class="">
+                                                        <h4>Solicitudes de Adopción</h4>
+                                                        <p class="font-size-12 text-primary">Elije al mejor candidato para tu
+                                                            mascota. </p>
 
-                                            </div>
+                                                    </div>
 
-                                            <hr>
-                                            <div class="tab-content">
-                                                <div class="tab-pane fade show active" id="v-pills-solicitud-p1-tab"
-                                                     role="tabpanel"
-                                                     aria-labelledby="v-pills-solicitud-p1-tab">
+                                                    <hr>
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane fade show active" id="v-pills-solicitud-p1-tab"
+                                                             role="tabpanel"
+                                                             aria-labelledby="v-pills-solicitud-p1-tab">
 
 
-                                                    <ul class="request-list list-inline m-0 p-0">
-                                                        <c:forEach items="${solicitudes}" var="solicitud">
+                                                            <ul class="request-list list-inline m-0 p-0">
+                                                                <c:forEach items="${solicitudes}" var="solicitud">
 
-                                                            <li class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                                <a href="" class="d-flex nav-link">
-                                                                    <div class="user-img img-fluid flex-shrink-0">
-                                                                        <img src="data:image/jpg;base64,${solicitud.usuario.imagen}" alt="story-img"
-                                                                             class="rounded-circle avatar-40" loading="lazy">
-                                                                    </div>
-                                                                    <div class="flex-grow-1 ms-3">
-                                                                        <h6>${solicitud.usuario.nombre}</h6>
-                                                                        <div class="d-flex">
-                                                                            <div class="shadow-none progress  w-100 mt-2 me-2"
-                                                                                 style="height: 6px">
-                                                                                <div class="progress-bar bg-success "
-                                                                                     data-toggle="progress-bar"
-                                                                                     role="progressbar" aria-valuenow="90"
-                                                                                     aria-valuemin="0"
-                                                                                     aria-valuemax="100"
-                                                                                     style="width: 34%; transition: width 2s ease 0s;">
+                                                                    <li class="d-flex align-items-center  justify-content-between flex-wrap">
+                                                                        <a href="" class="d-flex nav-link">
+                                                                            <div class="user-img img-fluid flex-shrink-0">
+                                                                                <img src="data:image/jpg;base64,${solicitud.usuario.imagen}" alt="story-img"
+                                                                                     class="rounded-circle avatar-40" loading="lazy">
+                                                                            </div>
+                                                                            <div class="flex-grow-1 ms-3">
+                                                                                <h6>${solicitud.usuario.nombre}</h6>
+                                                                                <div class="d-flex">
+                                                                                    <div class="shadow-none progress  w-100 mt-2 me-2"
+                                                                                         style="height: 6px">
+                                                                                        <div class="progress-bar bg-success "
+                                                                                             data-toggle="progress-bar"
+                                                                                             role="progressbar" aria-valuenow="90"
+                                                                                             aria-valuemin="0"
+                                                                                             aria-valuemax="100"
+                                                                                             style="width: 34%; transition: width 2s ease 0s;">
+                                                                                        </div>
+
+                                                                                    </div>
+                                                                                    <small class="text-warning">4.5</small>
                                                                                 </div>
 
                                                                             </div>
-                                                                            <small class="text-warning">4.5</small>
+                                                                        </a>
+
+                                                                        <div class="d-flex align-items-center mt-2 mt-md-0">
+                                                                            <a href="${pageContext.request.contextPath}/solicitud/publicador?code=${solicitud.codigo}&target=perfil"
+                                                                               class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
+
+                                                                            <div class="confirm-click-btn me-3">
+                                                                                <a class="btn btn-primary" onclick="confirmAceptar(this)" action="${pageContext.request.contextPath}/solicitud/aceptar?code=${solicitud.codigo}&target=perfil-solicitud" href="javascript:void(0);">
+                                                                                    Aceptar
+                                                                                </a>
+
+                                                                            </div>
+                                                                            <a class="btn btn-secondary d-block w-100" onclick="confirmRechazar(this)" action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=perfil-solicitud" href="javascript:void(0);">
+                                                                                Rechazar
+                                                                            </a>
+
                                                                         </div>
+                                                                    </li>
 
-                                                                    </div>
-                                                                </a>
+                                                                </c:forEach>
 
-                                                                <div class="d-flex align-items-center mt-2 mt-md-0">
-                                                                    <div class="confirm-click-btn">
-                                                                        <a href="#"
-                                                                           class="me-3 btn btn-primary rounded confirm-btn">Confirmar</a>
+                                                                <c:if test="${empty solicitudes}">
+                                                                    <p class="text-muted text-center">No tienes solicitudes para esta publicación.</p>
+                                                                </c:if>
 
-                                                                    </div>
-                                                                    <form:form action="${pageContext.request.contextPath}/solicitud/cancelar?target=perfil-solicitud"  method="post" modelAttribute="ma_solicitud">
-                                                                        <form:input path="usuario.id" value="${solicitud.usuario.id}" type="hidden"/>
-                                                                        <form:input path="publicacionSolicitud.id" value="${solicitud.publicacion.id}" type="hidden"/>
-                                                                        <form:input path="mensajeSolicitud" value="${solicitud.mensaje}"  type="hidden"/>
-                                                                        <button type="submit" class="btn btn-secondary d-block w-100" >
-                                                                            Rechazar
-                                                                        </button>
-                                                                    </form:form>
-                                                                </div>
-                                                            </li>
+                                                            </ul>
 
-                                                        </c:forEach>
+                                                        </div>
 
-                                                        <c:if test="${empty solicitudes}">
-                                                            <p class="text-muted text-center">No tienes solicitudes para esta publicación.</p>
-                                                        </c:if>
+                                                        <div class="tab-pane fade " id="v-pills-solicitud-p2-tab" role="tabpanel"
+                                                             aria-labelledby="v-pills-solicitud-p2-tab">
 
-                                                    </ul>
+                                                            <div class="d-flex w-100 justify-content-center">
+                                                                <p class="text-muted">Aún no tenés Solicitudes para esta
+                                                                    publicación</p>
+                                                            </div>
 
+
+                                                        </div>
+                                                    </div>
                                                 </div>
+                                            </c:if>
+                                            <c:if test="${not empty solicitud_aceptada}">
+                                                <div>
+                                                    <div class="">
+                                                        <h4>Adoptante Aceptado</h4>
+                                                        <p class="font-size-12 text-primary">El candidato que elegiste para tu mascota.</p>
+                                                        <div class="item4 ms-1">
+                                                            <div class="d-flex justify-content-between">
 
-                                                <div class="tab-pane fade " id="v-pills-solicitud-p2-tab" role="tabpanel"
-                                                     aria-labelledby="v-pills-solicitud-p2-tab">
+                                                                <div class="me-3">
+                                                                    <img class="rounded-circle img-fluid"
+                                                                         src="data:image/jpeg;base64,${solicitud_aceptada.usuario.imagen}" style="max-width: 40px;" alt="" loading="lazy">
+                                                                </div>
 
-                                                    <div class="d-flex w-100 justify-content-center">
-                                                        <p class="text-muted">Aún no tenés Solicitudes para esta
-                                                            publicación</p>
+
+                                                                <div class="w-100">
+                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                        <div class="">
+                                                                            <h6 class="mb-0 d-inline-block">${solicitud_aceptada.usuario.nombre}</h6>
+                                                                        </div>
+                                                                        <button type="button" class="btn btn-primary"
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#chat-solicitud">
+                                                                            ver mensajes
+                                                                        </button>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
 
+                                                    <hr>
+                                                    <div class="mt-3">
+                                                        <p>Puedes ver el estado del proceso de adopcion haciendo click en el siguiente boton</p>
+                                                        <a href="${pageContext.request.contextPath}/solicitud/publicador?code=${solicitud_aceptada.codigo}&target=perfil"
+                                                           class="me-3 btn btn-primary rounded confirm-btn">Ver Estado de Solicitud</a>
 
+
+
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            </c:if>
+
+
+
                                         </c:if>
 
                                     </div>
@@ -197,3 +247,6 @@
 
 <%@ include file="partials/script.jsp" %>
 
+<!--- Internal Sweet-Alert js -->
+<script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/sweetalert.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/jquery.sweet-alert.js"></script>
