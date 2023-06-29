@@ -21,6 +21,54 @@ public class RepositorioPublicacionTest extends SpringTest {
     @Test
     @Transactional
     @Rollback
+    public void alListarFavoritosDebenMostrarSoloPublicacionesDisponibles(){
+        Long idUsuario = dadoQueExitenPublicacionesEnFavoritos();
+        List<Publicacion_favorito> listaFavoritos = alListarFavoritos(idUsuario);
+        SeDebenMostrarSoloLasDisponibles(listaFavoritos);
+    }
+
+    private List<Publicacion_favorito> alListarFavoritos(Long idUsuario) {
+        return this.repositorioPublicacion.ListarFavoritosDeUsuario();
+    }
+
+    private Long dadoQueExitenPublicacionesEnFavoritos() {
+        Publicacion p = new Publicacion();
+        Publicacion p1 = new Publicacion();
+        Publicacion p2 = new Publicacion();
+        Mascota m = new Mascota();
+        Mascota m1 = new Mascota();
+        Mascota m2 = new Mascota();
+        Usuario u = new Usuario("aldana", "a@a", "1234");
+
+        session().save(u);
+        p.setMascota(m);
+        p.setEstado(EstadoPublicacion.PAUSADA);
+        session().save(p);
+        p1.setMascota(m1);
+        p1.setEstado(EstadoPublicacion.DISPONIBLE);
+        session().save(p1);
+        p2.setMascota(m2);
+        p2.setEstado(EstadoPublicacion.DISPONIBLE);
+        session().save(p2);
+
+        Publicacion_favorito pf = new Publicacion_favorito(u,p);
+       session().save(pf);
+        Publicacion_favorito pf1 = new Publicacion_favorito(u,p1);
+        session().save(pf1);
+        Publicacion_favorito pf2 = new Publicacion_favorito(u,p2);
+        session().save(pf2);
+
+        return u.getId();
+
+
+
+
+    }
+
+
+    @Test
+    @Transactional
+    @Rollback
     public void alCrearUnaPublicacionPuedoBuscarlaPorIdYObtenerSuBio(){
         Publicacion publicacionExistente =  dadoQueExisteUnaPublicacionCreada();
         Publicacion publicacionEncontrada = alBuscarPorSuId(publicacionExistente.getId());

@@ -53,6 +53,7 @@ public class ControladorPerfilUsuarioTest  {
         this.controladorPerfilUsuario = new ControladorPerfilUsuario(this.servicioUsuario, this.servicioPublicacion, this.servicioMensajes, this.servicioAuth, this.servicioCalificacion,this.servicioMascota, this.servicioSolicitud, this.servicioAdopcion);
     }
 
+
     @Test
     public void cuandoUnUsuarioAutenticadoQuiereAccederALaActividadDeSuPerfil(){
         Usuario usuarioLogueado = dadoQueExisteUnUsuarioAutenticado();
