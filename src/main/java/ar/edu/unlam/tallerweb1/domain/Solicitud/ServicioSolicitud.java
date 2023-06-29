@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.domain.Solicitud;
 
 import ar.edu.unlam.tallerweb1.delivery.dto.SolicitudDto;
+import ar.edu.unlam.tallerweb1.domain.adopcion.IServicioAdopcion;
 import ar.edu.unlam.tallerweb1.domain.exceptions.SolicitudException;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
@@ -18,10 +19,13 @@ public class ServicioSolicitud implements IServicioSolicitud{
     private final IRepositorioSolicitud repositorioSolicitud;
     private final IServicioPublicacion servcioPublicacion;
 
+    private final IServicioAdopcion servicioAdopcion;
+
     @Autowired
-    public ServicioSolicitud(IServicioPublicacion servicioPublicacion, IRepositorioSolicitud respsitoriosolicitud){
+    public ServicioSolicitud(IServicioPublicacion servicioPublicacion, IRepositorioSolicitud respsitoriosolicitud, IServicioAdopcion servicioAdopcion){
         this.repositorioSolicitud = respsitoriosolicitud;
         this.servcioPublicacion = servicioPublicacion;
+        this.servicioAdopcion = servicioAdopcion;
     }
 
     @Override
@@ -80,6 +84,9 @@ public class ServicioSolicitud implements IServicioSolicitud{
 
         //cerramos publicacion publicacion
         this.servcioPublicacion.cerrar(solicitud.getPublicacion());
+
+        //generamos la adopcion
+        this.servicioAdopcion.registrarAdopcion(solicitud.getUsuario(), solicitud.getPublicacion());
     }
 
     @Override
