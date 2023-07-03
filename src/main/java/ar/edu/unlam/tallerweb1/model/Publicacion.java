@@ -39,7 +39,9 @@ public class Publicacion {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "publicacion", cascade = {CascadeType.REMOVE, CascadeType.DETACH} , orphanRemoval = true)
     private List<Solicitud> solicitudes = new ArrayList<>();
 
-    public Publicacion(){}
+    public Publicacion(){
+        this.setEstado(EstadoPublicacion.DISPONIBLE);
+    }
 
     public Publicacion(PublicacionDto p){
         this.setId(p.getId());

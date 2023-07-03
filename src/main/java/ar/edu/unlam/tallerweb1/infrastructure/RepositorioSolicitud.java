@@ -52,7 +52,8 @@ public class RepositorioSolicitud implements IRepositorioSolicitud {
     public List<Solicitud> listarSolicitudesEnviadas(Long idUsuario) {
         return (List<Solicitud>) this.sessionFactory.getCurrentSession()
                 .createCriteria(Solicitud.class)
-                .add(Restrictions.eq("usuario.id", idUsuario))
+                .createAlias("publicacion", "p")
+                .add(Restrictions.and(Restrictions.eq("usuario.id", idUsuario),Restrictions.not(Restrictions.eq("p.estado",EstadoPublicacion.CERRADA))))
                 .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .list();
     }
