@@ -1,6 +1,7 @@
 package ar.edu.unlam.tallerweb1.infrastructure;
 
 import ar.edu.unlam.tallerweb1.SpringTest;
+import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
 
 import ar.edu.unlam.tallerweb1.model.*;
@@ -21,6 +22,7 @@ public class RepositorioPublicacionTest extends SpringTest {
     @Test
     @Transactional
     @Rollback
+<<<<<<< Updated upstream
     public void alListarFavoritosDebenMostrarSoloPublicacionesDisponibles(){
         Long idUsuario = dadoQueExitenPublicacionesEnFavoritos();
         List<Publicacion_favorito> listaFavoritos = alListarFavoritos(idUsuario);
@@ -66,6 +68,23 @@ public class RepositorioPublicacionTest extends SpringTest {
     }
 
 
+=======
+    public void dadoQueSeCreaUnaPublicacionLaPublicacionTieneEstadoDisponible(){
+      Publicacion p=  dadoQueExisteUnaPublicacion();
+      seDebeVerQueTieneEstadoDisponible(p);
+    }
+
+    private void seDebeVerQueTieneEstadoDisponible(Publicacion p) {
+        assertThat(p.getEstado()).isEqualTo(EstadoPublicacion.DISPONIBLE);
+    }
+
+    private Publicacion dadoQueExisteUnaPublicacion() {
+        PublicacionDto pdto = new PublicacionDto();
+        pdto.setMascota(new Mascota());
+        return new Publicacion(pdto);
+    }
+
+>>>>>>> Stashed changes
     @Test
     @Transactional
     @Rollback
