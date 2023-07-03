@@ -77,6 +77,8 @@ public class ControladorPerfilUsuario {
 
         model.put("publicaciones", this.servicioPublicacion.listarPublicacionesDetalladasPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
 
+        model.put("publicaciones_cerradas", this.servicioPublicacion.listarPublicacionesCerradasPorUsuario(this.servicioAuth.getUsuarioAutenticado().getId()));
+
         return new ModelAndView("user-profile-activity-posts", model);
 
     }
@@ -113,6 +115,8 @@ public class ControladorPerfilUsuario {
         model.put("cal_adoptante", this.servicioCalificacion.getCalificacionAdoptante(this.servicioAuth.getUsuarioAutenticado().getId()));
 
         model.put("solicitudes", this.servicioSolicitud.listarSolicitudesEnviadas(this.servicioAuth.getUsuarioAutenticado()));
+
+        model.put("solicitudes_cerradas", this.servicioPublicacion.listarSolicitudesCerradasPorUsuario(this.servicioAuth.getUsuarioAutenticado().getId()));
 
         model.put("ma_solicitud", new Solicitud());
 

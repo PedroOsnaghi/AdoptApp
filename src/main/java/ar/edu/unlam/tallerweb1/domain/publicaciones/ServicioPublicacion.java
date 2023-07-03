@@ -80,6 +80,16 @@ public class ServicioPublicacion implements IServicioPublicacion{
         this.repositorioPublicacion.modificarPublicacion(publicacion);
     }
 
+    @Override
+    public List<Solicitud> listarPublicacionesCerradasPorUsuario(Long idUsuario) {
+        return this.repositorioPublicacion.listarPublicacionesCerradasPorUsuario(idUsuario);
+    }
+
+    @Override
+    public List<Solicitud> listarSolicitudesCerradasPorUsuario(Long idUsuario) {
+        return this.repositorioPublicacion.listarSolicitudesCerradasPorUsuario(idUsuario);
+    }
+
 
     @Override
     public void pausarPublicacion(Long pid, Usuario userAuth) {

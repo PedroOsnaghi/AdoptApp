@@ -92,8 +92,9 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     public List<PublicacionDetallada> listarPublicacionesDetalladasPorUsuarioId(Long idUsuario){
         EntityManager entityManager = this.sessionFactory.createEntityManager();
 
-        List<PublicacionDetallada> publicacion_detallada = entityManager.createQuery("SELECT new ar.edu.unlam.tallerweb1.model.PublicacionDetallada(p, COUNT(m.id))  FROM Publicacion p LEFT JOIN Mensaje m on m.publicacion.id = p.id WHERE p.mascota.usuario.id = :user  group BY p.id", PublicacionDetallada.class)
+        List<PublicacionDetallada> publicacion_detallada = entityManager.createQuery("SELECT new ar.edu.unlam.tallerweb1.model.PublicacionDetallada(p, COUNT(m.id))  FROM Publicacion p LEFT JOIN Mensaje m on m.publicacion.id = p.id WHERE p.mascota.usuario.id = :user AND p.estado <> :estado  group BY p.id", PublicacionDetallada.class)
                 .setParameter("user", idUsuario)
+                .setParameter("estado", EstadoPublicacion.CERRADA)
                 .getResultList();
 
         return  publicacion_detallada;
@@ -110,6 +111,31 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
                 .list();
     }
 
+    @Override
+    public List<Solicitud> listarPublicacionesCerradasPorUsuario(Long idUsuario) {
+        return (List<Solicitud>) this.sessionFactory.getCurrentSession()
+                .createCriteria(Solicitud.class)
+                .createAlias("publicacion", "post")
+                .createAlias("publicacion.mascota.usuario", "u")
+                .add(Restrictions.eq("post.estado",EstadoPublicacion.CERRADA))
+                .add(Restrictions.eq("u.id", idUsuario))
+                .addOrder(Order.desc("update_at"))
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+                .list();
+    }
+
+    @Override
+    public List<Solicitud> listarSolicitudesCerradasPorUsuario(Long idUsuario) {
+        return (List<Solicitud>) this.sessionFactory.getCurrentSession()
+                .createCriteria(Solicitud.class)
+                .createAlias("publicacion", "post")
+                .createAlias("usuario", "user")
+                .add(Restrictions.eq("post.estado",EstadoPublicacion.CERRADA))
+                .add(Restrictions.eq("user.id", idUsuario))
+                .addOrder(Order.desc("update_at"))
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+                .list();
+    }
 
 
     @Override

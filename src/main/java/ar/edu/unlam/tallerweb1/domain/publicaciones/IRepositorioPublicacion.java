@@ -29,5 +29,7 @@ public interface IRepositorioPublicacion {
 
     List<Publicacion_favorito> ListarFavoritosDeUsuario(Long idUsuario);
 
+    List<Solicitud> listarPublicacionesCerradasPorUsuario(Long idUsuario);
 
+    List<Solicitud> listarSolicitudesCerradasPorUsuario(Long idUsuario);
 }

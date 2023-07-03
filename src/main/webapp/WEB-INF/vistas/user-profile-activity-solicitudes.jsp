@@ -41,12 +41,7 @@
                                     <div class="card">
 
                                         <div class="card-body">
-                                            <div class="tab-content">
 
-                                                <!-- POR ADOPTAR -->
-                                                <div class="tab-pane fade show active" id="v-pills-poradoptar-tab"
-                                                     role="tabpanel"
-                                                     aria-labelledby="v-pills-poradoptar-tab">
                                                     <h4>Mis Solicitudes de Adopción</h4>
                                                     <hr>
                                                     <ul class="request-list list-inline m-0 p-0">
@@ -107,10 +102,73 @@
 
                                                     </ul>
 
-                                                </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+
+                                        <div class="card-body">
+
+                                            <h4>Solicitudes Cerradas</h4>
+                                            <hr>
+                                            <ul class="request-list list-inline m-0 p-0">
+
+                                                <c:forEach items="${solicitudes_cerradas}" var="solicitud_cerrada">
+                                                    <li
+                                                            class="d-flex flex-nowrap align-items-center  justify-content-between flex-wrap">
+                                                        <div class="d-flex flex-nowrap w-100">
+                                                            <div class="user-img img-fluid flex-shrink-0">
+                                                                <img src="data:image/jpg;base64,${solicitud_cerrada.publicacion.mascota.foto}" alt="story-img"
+                                                                     class="rounded-circle avatar-40"
+                                                                     loading="lazy">
+                                                            </div>
+                                                            <div class="flex-grow-1 ms-3">
+                                                                <h6><strong>${solicitud_cerrada.publicacion.mascota.nombre}</strong> <small
+                                                                        class="text-muted">de <a
+                                                                        href="#">${solicitud_cerrada.publicacion.mascota.usuario.nombre}</a></small></h6>
+                                                                <p class="mb-0"><small><script>getLongTime("${solicitud_cerrada.update_at}")</script></small></p>
+                                                            </div>
+                                                        </div>
 
 
-                                            </div>
+                                                        <div class="d-flex flex-nowrap align-items-center justify-content-end w-100 mt-2 mt-md-0">
+
+                                                            <div class="confirm-click-btn">
+                                                                <a href="${pageContext.request.contextPath}/solicitud/adoptante?code=${solicitud_cerrada.codigo}&target=perfil"
+                                                                   class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
+
+                                                            </div>
+
+                                                            <div class="d-flex align-items-center h4">
+
+                                                                <c:if test="${solicitud_cerrada.calA eq true}">
+                                                                         <span class="badge badge-pill bg-soft-success  me-3 ms-2">
+                                                                            <i class="fa-solid fa-check"></i>
+                                                                                Calificada
+                                                                             </span>
+                                                                </c:if>
+                                                                <c:if test="${solicitud_cerrada.calA eq false}">
+                                                                         <span class="badge badge-pill bg-soft-light  me-3 ms-2">
+                                                                            <i class="fa-solid fa-triangle-exclamation"></i>
+                                                                                Sin calificar
+                                                                             </span>
+                                                                </c:if>
+                                                            </div>
+
+
+                                                        </div>
+                                                    </li>
+                                                </c:forEach>
+
+                                                <c:if test="${empty solicitudes_cerradas}">
+                                                    <p class="text-muted text-center">No tenés Solicitudes Cerradas.</p>
+                                                </c:if>
+
+
+                                            </ul>
+
+
                                         </div>
                                     </div>
                                 </div>
