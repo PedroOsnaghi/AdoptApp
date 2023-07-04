@@ -8,12 +8,13 @@ import javax.persistence.*;
 
 public class SolicitudDto {
 
+    private String codigo;
 
     private Usuario usuario;
 
-
     private Publicacion publicacion;
 
+    private String motivo_cancelacion;
 
 
     private String mensaje;
@@ -44,4 +45,35 @@ public class SolicitudDto {
         this.mensaje = mensaje;
     }
 
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Publicacion getPublicacion() {
+        return publicacion;
+    }
+
+    public void setPublicacion(Publicacion publicacion) {
+        this.publicacion = publicacion;
+    }
+
+    public String getMotivo_cancelacion() {
+        return motivo_cancelacion;
+    }
+
+    public void setMotivo_cancelacion(String motivo_cancelacion) {
+        this.motivo_cancelacion = motivo_cancelacion;
+    }
 }

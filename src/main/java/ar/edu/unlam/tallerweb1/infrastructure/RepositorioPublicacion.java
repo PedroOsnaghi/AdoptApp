@@ -80,7 +80,7 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     public List<PublicacionSolicitud> listarPublicacionesDisponiblesParaSolicitudPorUsuarioId(Long idUsuario) {
         EntityManager entityManager = this.sessionFactory.createEntityManager();
 
-        List<PublicacionSolicitud> publicaciones = entityManager.createQuery("select new ar.edu.unlam.tallerweb1.model.PublicacionSolicitud(p, COUNT(s.codigo)) from Publicacion p left join Solicitud s on s.publicacion = p where  p.mascota.usuario.id = :iduser and p.estado <> :estado group by p.id order by p.id desc ", PublicacionSolicitud.class)
+        List<PublicacionSolicitud> publicaciones = entityManager.createQuery("select new ar.edu.unlam.tallerweb1.model.PublicacionSolicitud(p, COUNT(s.codigo)) from Publicacion p left join Solicitud s on s.publicacion = p where  p.mascota.usuario.id = :iduser and p.estado <> :estado  group by p.id  order by p.id desc ", PublicacionSolicitud.class)
                 .setParameter("iduser", idUsuario)
                 .setParameter("estado", EstadoPublicacion.CERRADA)
                 .getResultList();
@@ -125,16 +125,14 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     }
 
     @Override
-    public List<Solicitud> listarSolicitudesCerradasPorUsuario(Long idUsuario) {
-        return (List<Solicitud>) this.sessionFactory.getCurrentSession()
-                .createCriteria(Solicitud.class)
-                .createAlias("publicacion", "post")
-                .createAlias("usuario", "user")
-                .add(Restrictions.eq("post.estado",EstadoPublicacion.CERRADA))
-                .add(Restrictions.eq("user.id", idUsuario))
-                .addOrder(Order.desc("update_at"))
-                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
-                .list();
+    public Long getPublicacionesPorUsuario(Long idUsuario) {
+        EntityManager entityManager = this.sessionFactory.createEntityManager();
+
+        Long cantidad = entityManager.createQuery("SELECT new java.lang.Long(COUNT(p.id))  FROM Publicacion p  WHERE p.mascota.usuario.id = :user  group BY p.id", Long.class)
+                .setParameter("user", idUsuario)
+                .getResultStream().count();
+
+        return  cantidad;
     }
 
 

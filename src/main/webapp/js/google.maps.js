@@ -21,9 +21,6 @@ let geocoder;
 
 
 
-
-
-
 function initAutocomplete() {
 
     map = new google.maps.Map(document.getElementById("map"), {
@@ -53,7 +50,11 @@ function initInverseAutocomplete() {
         mapTypeId: 'roadmap'
     });
 
-    setMap();
+    new google.maps.Marker({
+        position: { lat: parseFloat(input_lat.value), lng: parseFloat(input_lng.value) },
+        map,
+        title: "Tu lugar de Encuentro es Aqui!",
+    });
 }
 
 function setMap(){

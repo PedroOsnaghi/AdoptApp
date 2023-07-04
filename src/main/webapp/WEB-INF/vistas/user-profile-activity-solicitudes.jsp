@@ -79,6 +79,13 @@
                                                                             ${solicitud.estado}
                                                                              </span>
                                                                         </c:if>
+                                                                        <c:if test="${solicitud.estado.toString() eq 'CANCELADA'}">
+                                                                            <span class="badge badge-pill bg-soft-danger me-3 ms-2">
+                                                                            <i class="fa-solid fa-ban"></i>
+                                                                            ${solicitud.estado}
+                                                                             </span>
+                                                                        </c:if>
+
                                                                     </div>
                                                                     <div class="confirm-click-btn">
                                                                         <a href="${pageContext.request.contextPath}/solicitud/adoptante?code=${solicitud.codigo}&target=perfil"
@@ -141,19 +148,28 @@
                                                             </div>
 
                                                             <div class="d-flex align-items-center h4">
-
-                                                                <c:if test="${solicitud_cerrada.calA eq true}">
+                                                                <c:if test="${solicitud_cerrada.estado eq 'ACEPTADA'}">
+                                                                    <c:if test="${solicitud_cerrada.calA eq true}">
                                                                          <span class="badge badge-pill bg-soft-success  me-3 ms-2">
                                                                             <i class="fa-solid fa-check"></i>
                                                                                 Calificada
                                                                              </span>
-                                                                </c:if>
-                                                                <c:if test="${solicitud_cerrada.calA eq false}">
+                                                                    </c:if>
+                                                                    <c:if test="${solicitud_cerrada.calA eq false}">
                                                                          <span class="badge badge-pill bg-soft-light  me-3 ms-2">
                                                                             <i class="fa-solid fa-triangle-exclamation"></i>
                                                                                 Sin calificar
                                                                              </span>
+                                                                    </c:if>
                                                                 </c:if>
+                                                                <c:if test="${solicitud_cerrada.estado eq 'CERRADA'}">
+                                                                     <span class="badge badge-pill bg-soft-danger  me-3 ms-2">
+                                                                            <i class="fa-solid fa-ban"></i>
+                                                                                Cancelada - Cerrada
+                                                                             </span>
+                                                                </c:if>
+
+
                                                             </div>
 
 
