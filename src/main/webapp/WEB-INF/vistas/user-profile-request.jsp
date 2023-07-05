@@ -57,9 +57,13 @@
                                                                 </div>
 
                                                             </div>
-                                                            <c:if test="${not empty publicacion.new_solicitud and publicacion.new_solicitud > 0}">
-                                                                <span class="badge badge-pill bg-light text-dark ml-2"><strong>${publicacion.new_solicitud}</strong></span>
-                                                            </c:if>
+
+                                                                    <c:if test="${not empty publicacion.new_solicitud and publicacion.new_solicitud > 0}">
+                                                                        <span class="badge badge-pill bg-light text-dark ml-2"><strong>${publicacion.new_solicitud}</strong></span>
+                                                                    </c:if>
+
+
+
 
                                                         </div>
 
@@ -91,7 +95,7 @@
                                             </div>
                                         </c:if>
                                         <c:if test="${not empty selected_pub}">
-                                            <c:if test="${empty solicitud_aceptada}">
+                                            <c:if test="${empty solicitud_aceptada && empty solicitud_cancelada}">
                                                 <div>
                                                     <div class="">
                                                         <h4>Solicitudes de Adopción</h4>
@@ -118,37 +122,36 @@
                                                                             </div>
                                                                             <div class="flex-grow-1 ms-3">
                                                                                 <h6>${solicitud.usuario.nombre}</h6>
-                                                                                <div class="d-flex">
-                                                                                    <div class="shadow-none progress  w-100 mt-2 me-2"
-                                                                                         style="height: 6px">
-                                                                                        <div class="progress-bar bg-success "
-                                                                                             data-toggle="progress-bar"
-                                                                                             role="progressbar" aria-valuenow="90"
-                                                                                             aria-valuemin="0"
-                                                                                             aria-valuemax="100"
-                                                                                             style="width: 34%; transition: width 2s ease 0s;">
-                                                                                        </div>
-
-                                                                                    </div>
-                                                                                    <small class="text-warning">4.5</small>
-                                                                                </div>
-
                                                                             </div>
                                                                         </a>
 
+                                                                        <c:if test="${solicitud.estado eq 'CERRADA' && solicitud.calP eq false}">
+                                                                         <span class="badge badge-pill bg-soft-light h3 text-dark  me-3 ms-2">
+                                                                            <i class="fa-solid fa-triangle-exclamation"></i>
+                                                                                Sin calificar
+                                                                             </span>
+                                                                        </c:if>
+
                                                                         <div class="d-flex align-items-center mt-2 mt-md-0">
-                                                                            <a href="${pageContext.request.contextPath}/solicitud/publicador?code=${solicitud.codigo}&target=perfil"
+                                                                            <a href="${pageContext.request.contextPath}/solicitud/publicador?code=${solicitud.codigo}&target=perfil-solicitud"
                                                                                class="me-3 btn btn-primary rounded confirm-btn">Ver</a>
+                                                                            <c:if test="${solicitud.estado eq 'PENDIENTE'}">
+                                                                                <div class="confirm-click-btn me-3">
+                                                                                    <a class="btn btn-primary" onclick="confirmAceptar(this)" action="${pageContext.request.contextPath}/solicitud/aceptar?code=${solicitud.codigo}&target=perfil-solicitud" href="javascript:void(0);">
+                                                                                        Aceptar
+                                                                                    </a>
 
-                                                                            <div class="confirm-click-btn me-3">
-                                                                                <a class="btn btn-primary" onclick="confirmAceptar(this)" action="${pageContext.request.contextPath}/solicitud/aceptar?code=${solicitud.codigo}&target=perfil-solicitud" href="javascript:void(0);">
-                                                                                    Aceptar
+                                                                                </div>
+                                                                                <a class="btn btn-secondary d-block w-100" onclick="confirmRechazar(this)" action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=perfil-solicitud" href="javascript:void(0);">
+                                                                                    Rechazar
                                                                                 </a>
-
-                                                                            </div>
-                                                                            <a class="btn btn-secondary d-block w-100" onclick="confirmRechazar(this)" action="${pageContext.request.contextPath}/solicitud/cancelar?code=${solicitud.codigo}&target=perfil-solicitud" href="javascript:void(0);">
-                                                                                Rechazar
-                                                                            </a>
+                                                                            </c:if>
+                                                                            <c:if test="${solicitud.estado eq 'CERRADA'}">
+                                                                                 <span class="badge badge-pill bg-soft-danger h3 me-3 ms-3">
+                                                                                    <i class="fa-solid fa-ban"></i>
+                                                                                        Cancelada - Cerrada
+                                                                                     </span>
+                                                                            </c:if>
 
                                                                         </div>
                                                                     </li>
@@ -211,8 +214,54 @@
                                                     <hr>
                                                     <div class="mt-3">
                                                         <p>Puedes ver el estado del proceso de adopcion haciendo click en el siguiente boton</p>
-                                                        <a href="${pageContext.request.contextPath}/solicitud/publicador?code=${solicitud_aceptada.codigo}&target=perfil"
+                                                        <a href="${pageContext.request.contextPath}/solicitud/publicador?code=${solicitud_aceptada.codigo}&target=perfil-solicitud"
                                                            class="me-3 btn btn-primary rounded confirm-btn">Ver Estado de Solicitud</a>
+
+
+
+                                                    </div>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${not empty solicitud_cancelada}">
+                                                <div>
+                                                    <div class="">
+                                                        <div class="bg-soft-danger p-2 border-danger rounded" style="border: 1px solid #ff00008f;">
+                                                            <h4 class="text-danger" style="color:#db6262!important">El Adoptante Canceló el proceso</h4>
+                                                            <p class="font-size-12 text-danger mb-0">El Adoptante informó que no continuará con el proceso de Adopción.</p>
+                                                        </div>
+
+                                                        <div class="item4 mt-3 ms-1">
+                                                            <div class="d-flex justify-content-between">
+
+                                                                <div class="me-3">
+                                                                    <img class="rounded-circle img-fluid"
+                                                                         src="data:image/jpeg;base64,${solicitud_cancelada.usuario.imagen}" style="max-width: 40px;" alt="" loading="lazy">
+                                                                </div>
+
+
+                                                                <div class="w-100">
+                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                        <div class="">
+                                                                            <h6 class="mb-0 d-inline-block">${solicitud_cancelada.usuario.nombre}</h6>
+                                                                        </div>
+                                                                        <button type="button" class="btn btn-primary" disabled
+                                                                                data-bs-toggle="modal"
+                                                                                data-bs-target="#chat-solicitud">
+                                                                            ver mensajes
+                                                                        </button>
+
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <hr>
+                                                    <div class="mt-3">
+                                                        <p>Para más información sobre lo que informó el Adoptante, haz Click en el Botón Ver Estado de Solicitud</p>
+                                                        <a href="${pageContext.request.contextPath}/solicitud/publicador?code=${solicitud_cancelada.codigo}&target=perfil-solicitud"
+                                                           class="me-3 btn btn-danger rounded confirm-btn">Ver Estado de Solicitud</a>
 
 
 

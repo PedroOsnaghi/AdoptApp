@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -112,12 +113,16 @@ public class ControladorPerfilUsuarioTest  {
     private ModelAndView alAccederALaActividadDeSuPerfil(Usuario usuarioLogueado) {
 
         when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(usuarioLogueado);
+        when(this.servicioAdopcion.getAdoptadosPorUsuario(anyLong())).thenReturn(0L);
+        when(this.servicioPublicacion.getPublicacionesPorUsuario(anyLong())).thenReturn(0L);
 
         return this.controladorPerfilUsuario.misPublicaciones();
     }
 
     private Usuario dadoQueExisteUnUsuarioAutenticado() {
-        return new Usuario("Usuario Test", "test@test", "1234");
+        Usuario user = new Usuario("Usuario Test", "test@test", "1234");
+        user.setId(1L);
+        return user;
     }
 
 

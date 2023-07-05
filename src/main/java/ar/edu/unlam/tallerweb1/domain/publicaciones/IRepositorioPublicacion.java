@@ -31,5 +31,6 @@ public interface IRepositorioPublicacion {
 
     List<Solicitud> listarPublicacionesCerradasPorUsuario(Long idUsuario);
 
-    List<Solicitud> listarSolicitudesCerradasPorUsuario(Long idUsuario);
+
+    Long getPublicacionesPorUsuario(Long idUsuario);
 }

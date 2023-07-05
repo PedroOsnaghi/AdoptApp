@@ -42,5 +42,9 @@ public interface IServicioPublicacion {
 
     List<Solicitud> listarPublicacionesCerradasPorUsuario(Long idUsuario);
 
-    List<Solicitud> listarSolicitudesCerradasPorUsuario(Long idUsuario);
+
+
+    void reanudar(Publicacion publicacion);
+
+    Long getPublicacionesPorUsuario(Long id);
 }

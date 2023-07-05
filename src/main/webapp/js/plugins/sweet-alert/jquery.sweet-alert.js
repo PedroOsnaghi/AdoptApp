@@ -48,6 +48,31 @@ function confirmCancel(link){
 
 }
 
+function confirmCerrar(link){
+
+	Swal.fire({
+		title: "Confirmar",
+		html: '<p>¿Deseas Cerrar el proceso de Adopcíon?</p>',
+		icon: "question",
+		showCancelButton: true,
+		cancelButtonText: "Cancelar",
+		confirmButtonText: "Si, Deseo cerrarlo!",
+		customClass: {
+			title: 'h4',
+			confirmButton: 'btn btn-primary me-2',
+			cancelButton: 'btn btn-secondary',
+		},
+		buttonsStyling: false
+	}).then((result) => {
+		if (result.isConfirmed) {
+			window.location.href = link.getAttribute('action');
+		}
+	});
+
+}
+
+
+
 
 function confirmRechazar(link){
 

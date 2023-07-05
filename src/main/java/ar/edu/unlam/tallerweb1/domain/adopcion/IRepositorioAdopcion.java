@@ -7,5 +7,7 @@ import java.util.List;
 public interface IRepositorioAdopcion {
     void registrarAdopcion(Adopcion adopcion);
 
-    List<Adopcion> listarAdoptadasPorUsuario(long id);
+    List<Adopcion> listarAdoptadasPorUsuario(Long id);
+
+    Long getAdoptadosPorUsuario(Long idUsuario);
 }

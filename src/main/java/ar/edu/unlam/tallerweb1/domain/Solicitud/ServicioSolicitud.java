@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Solicitud;
 import ar.edu.unlam.tallerweb1.model.Usuario;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import ar.edu.unlam.tallerweb1.model.enumerated.EstadoSolicitud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,11 @@ public class ServicioSolicitud implements IServicioSolicitud{
     }
 
     @Override
+    public List<Solicitud> listarSolicitudesCerradasPorUsuario(Long idUsuario) {
+        return this.repositorioSolicitud.listarSolicitudesCerradasPorUsuario(idUsuario);
+    }
+
+    @Override
     public List<Solicitud> listarSolicitudesEnviadas(Usuario usuario) {
         return this.repositorioSolicitud.listarSolicitudesEnviadas(usuario.getId());
     }
@@ -62,6 +68,11 @@ public class ServicioSolicitud implements IServicioSolicitud{
     @Override
     public Solicitud getSolicitudAceptada(Long idPublicacion) {
         return this.repositorioSolicitud.getSolicitudAceptada(idPublicacion);
+    }
+
+    @Override
+    public Solicitud getSolicitudCanceladaSinInformar(Long idPublicacion) {
+        return this.repositorioSolicitud.getSolicitudCanceladaSinInformar(idPublicacion);
     }
 
     @Override
@@ -90,7 +101,32 @@ public class ServicioSolicitud implements IServicioSolicitud{
     }
 
     @Override
+    public void confirmarCierre(Solicitud solicitud, Usuario usuarioAutenticado) {
+        if(solicitud.getPublicacion().getMascota().getUsuario().getId() != usuarioAutenticado.getId())
+            throw new SolicitudException("Operación no permitida.");
+
+        solicitud.setEstado(EstadoSolicitud.CERRADA);
+        this.repositorioSolicitud.actualizarSolicitud(solicitud);
+
+        //reanudamos publicacion
+        this.servcioPublicacion.reanudar(solicitud.getPublicacion());
+
+
+    }
+
+    @Override
     public void actualizarSolicitud(Solicitud solicitud) {
         this.repositorioSolicitud.actualizarSolicitud(solicitud);
+    }
+
+    @Override
+    public void cancelarProcesoDeAdopcion(SolicitudDto solicitudDto) {
+
+        Solicitud solicitud = this.repositorioSolicitud.getSolicitud(solicitudDto.getCodigo());
+        solicitud.setEstado(EstadoSolicitud.CANCELADA);
+        solicitud.setMotivo_cancelacion(solicitudDto.getMotivo_cancelacion());
+
+        this.repositorioSolicitud.actualizarSolicitud(solicitud);
+
     }
 }

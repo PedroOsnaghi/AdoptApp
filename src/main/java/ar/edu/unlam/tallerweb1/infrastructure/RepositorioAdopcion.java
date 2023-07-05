@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
@@ -28,10 +29,21 @@ public class RepositorioAdopcion implements IRepositorioAdopcion {
     }
 
     @Override
-    public List<Adopcion> listarAdoptadasPorUsuario(long id) {
+    public List<Adopcion> listarAdoptadasPorUsuario(Long id) {
         return (List<Adopcion>) this.sessionFactory.getCurrentSession().createCriteria(Adopcion.class)
                 .add(Restrictions.eq("usuarioAdoptante.id", id))
                 .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .list();
+    }
+
+    @Override
+    public Long getAdoptadosPorUsuario(Long idUsuario) {
+        EntityManager entityManager = this.sessionFactory.createEntityManager();
+
+        Long cantidad = entityManager.createQuery("SELECT new java.lang.Long(COUNT(a.id)) FROM Adopcion a WHERE a.usuarioAdoptante.id = :user  group BY a.id", Long.class)
+                .setParameter("user", idUsuario)
+                .getResultStream().count();
+
+        return  cantidad;
     }
 }

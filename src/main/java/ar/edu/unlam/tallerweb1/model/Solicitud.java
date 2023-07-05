@@ -78,6 +78,8 @@ public class Solicitud {
 
     private boolean calP = false;
 
+    private String motivo_cancelacion;
+
     @CreationTimestamp
     private Timestamp created_at;
 
@@ -200,6 +202,14 @@ public class Solicitud {
 
     public void setCalP(boolean calP) {
         this.calP = calP;
+    }
+
+    public String getMotivo_cancelacion() {
+        return motivo_cancelacion;
+    }
+
+    public void setMotivo_cancelacion(String motivo_cancelacion) {
+        this.motivo_cancelacion = motivo_cancelacion;
     }
 
     @Override

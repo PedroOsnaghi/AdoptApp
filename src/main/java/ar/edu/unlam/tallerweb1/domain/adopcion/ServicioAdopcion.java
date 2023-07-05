@@ -27,4 +27,9 @@ public class ServicioAdopcion implements IServicioAdopcion {
     public List<Adopcion> listarAdoptadasPorUsuario(Usuario usuarioAutenticado) {
         return this.repositorioAdopcion.listarAdoptadasPorUsuario(usuarioAutenticado.getId());
     }
+
+    @Override
+    public Long getAdoptadosPorUsuario(Long idUsuario) {
+        return this.repositorioAdopcion.getAdoptadosPorUsuario(idUsuario);
+    }
 }

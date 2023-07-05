@@ -85,9 +85,17 @@ public class ServicioPublicacion implements IServicioPublicacion{
         return this.repositorioPublicacion.listarPublicacionesCerradasPorUsuario(idUsuario);
     }
 
+
+
     @Override
-    public List<Solicitud> listarSolicitudesCerradasPorUsuario(Long idUsuario) {
-        return this.repositorioPublicacion.listarSolicitudesCerradasPorUsuario(idUsuario);
+    public void reanudar(Publicacion publicacion) {
+        publicacion.setEstado(EstadoPublicacion.DISPONIBLE);
+        this.repositorioPublicacion.modificarPublicacion(publicacion);
+    }
+
+    @Override
+    public Long getPublicacionesPorUsuario(Long idUsuario) {
+        return this.repositorioPublicacion.getPublicacionesPorUsuario(idUsuario);
     }
 
 

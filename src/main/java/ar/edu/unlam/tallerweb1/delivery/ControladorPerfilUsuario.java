@@ -56,7 +56,8 @@ public class ControladorPerfilUsuario {
         ModelMap model = new ModelMap();
 
         model.put("usuario", this.servicioAuth.getUsuarioAutenticado());
-
+        model.put("publicados", this.servicioPublicacion.getPublicacionesPorUsuario(this.servicioAuth.getUsuarioAutenticado().getId()));
+        model.put("adoptados", this.servicioAdopcion.getAdoptadosPorUsuario(this.servicioAuth.getUsuarioAutenticado().getId()));
         model.put("target", target);
 
         return model;
@@ -116,7 +117,7 @@ public class ControladorPerfilUsuario {
 
         model.put("solicitudes", this.servicioSolicitud.listarSolicitudesEnviadas(this.servicioAuth.getUsuarioAutenticado()));
 
-        model.put("solicitudes_cerradas", this.servicioPublicacion.listarSolicitudesCerradasPorUsuario(this.servicioAuth.getUsuarioAutenticado().getId()));
+        model.put("solicitudes_cerradas", this.servicioSolicitud.listarSolicitudesCerradasPorUsuario(this.servicioAuth.getUsuarioAutenticado().getId()));
 
         model.put("ma_solicitud", new Solicitud());
 
@@ -163,6 +164,8 @@ public class ControladorPerfilUsuario {
         model.put("publicaciones", this.servicioPublicacion.listarPublicacionesDisponiblesParaSolicitudPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
 
         model.put("solicitud_aceptada", this.servicioSolicitud.getSolicitudAceptada(pid));
+
+        model.put("solicitud_cancelada", this.servicioSolicitud.getSolicitudCanceladaSinInformar(pid));
 
         model.put("solicitudes", this.servicioSolicitud.listarSolicitudesRecibidas(pid));
 
