@@ -135,6 +135,17 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
         return  cantidad;
     }
 
+    @Override
+    public List<Publicacion> listarPublicacionesDisponiblesPorUsuarioId(Long idUsuario) {
+        return (List<Publicacion>) this.sessionFactory.getCurrentSession()
+                .createCriteria(Publicacion.class)
+                .createAlias("mascota", "m")
+                .add(Restrictions.and(Restrictions.eq("m.usuario.id", idUsuario),Restrictions.eq("estado", EstadoPublicacion.DISPONIBLE)))
+                .addOrder(Order.desc("id"))
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+                .list();
+    }
+
 
     @Override
     public Publicacion_favorito agregarFavorito(Publicacion_favorito favorito){

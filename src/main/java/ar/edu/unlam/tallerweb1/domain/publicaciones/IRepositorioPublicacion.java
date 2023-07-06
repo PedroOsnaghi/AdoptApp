@@ -33,4 +33,6 @@ public interface IRepositorioPublicacion {
 
 
     Long getPublicacionesPorUsuario(Long idUsuario);
+
+    List<Publicacion> listarPublicacionesDisponiblesPorUsuarioId(Long idUsuario);
 }

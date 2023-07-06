@@ -16,4 +16,7 @@ public interface IServicioCalificacion {
 
     UsuarioConCalificacion getCalificacionAdoptante(Long idUsuario);
 
+    List<Calificacion> getComentariosComoAdoptante(Long idUsuario);
+
+    List<Calificacion> getComentariosComoPublicador(Long idUsuario);
 }
