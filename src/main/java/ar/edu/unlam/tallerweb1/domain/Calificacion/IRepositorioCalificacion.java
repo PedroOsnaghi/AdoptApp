@@ -12,4 +12,7 @@ public interface IRepositorioCalificacion {
 
     UsuarioConCalificacion getCalificacionUsuario(Long idUsuario, RolCalificacion rol);
 
+    List<Calificacion> getComentariosComoAdoptante(Long idUsuario);
+
+    List<Calificacion> getComentariosComoPublicador(Long idUsuario);
 }

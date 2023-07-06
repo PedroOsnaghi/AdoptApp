@@ -39,5 +39,10 @@ public class RepositorioUsuario implements IRepositorioUsuario {
         this.sessionFactory.getCurrentSession().update(usuario);
     }
 
+    @Override
+    public Usuario getUsuario(Long idUsuario) {
+        return this.sessionFactory.getCurrentSession().get(Usuario.class, idUsuario);
+    }
+
 
 }

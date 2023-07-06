@@ -55,7 +55,7 @@
                                                     </div>
                                                     <div class="flex-grow-1 ms-3">
                                                         <h6><strong>${favorito.publicacion.mascota.nombre} </strong> <small class="text-muted">de <a
-                                                                href="#">${favorito.publicacion.mascota.usuario.nombre}</a></small></h6>
+                                                                href="${pageContext.request.contextPath}/perfil/usuario?uid=${favorito.publicacion.mascota.usuario.id}">${favorito.publicacion.mascota.usuario.nombre}</a></small></h6>
                                                         <p class="mb-0">6 Interesados</p>
                                                     </div>
                                                     <div class="d-flex align-items-center mt-2 mt-md-0">

@@ -41,7 +41,7 @@
                                         </div>
                                         <div class="item4 ms-1">
                                             <div class="d-flex justify-content-between">
-                                                <a href="">
+                                                <a href="${pageContext.request.contextPath}/perfil/usuario?uid=${publicacion.mascota.usuario.id}">
                                                     <div class="me-3">
                                                         <img class="rounded-circle img-fluid"
                                                              src="data:image/jpeg;base64,${publicacion.mascota.usuario.imagen}"

@@ -23949,3 +23949,22 @@ input[readonly]{
 .dark .chat-time{
     color: #b3b3b3!important;
 }
+
+.rating-stars {
+    display: inline-block;
+    cursor: pointer;
+    color: #ebeefb;
+}
+
+.jq-star-svg {
+    padding-inline-start: 3px;
+    width: 100%;
+    height: 100%;
+}
+
+.jq-star {
+    width: 100px;
+    height: 100px;
+    display: inline-block;
+    cursor: pointer;
+}

@@ -8,4 +8,6 @@ public interface IRepositorioUsuario {
     Usuario buscarUsuarioPorEmail(String email);
 
     void actualizarDatos(Usuario usuario);
+
+    Usuario getUsuario(Long idUsuario);
 }

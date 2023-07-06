@@ -8,6 +8,8 @@ import ar.edu.unlam.tallerweb1.domain.Solicitud.IServicioSolicitud;
 import ar.edu.unlam.tallerweb1.domain.adopcion.IServicioAdopcion;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.chat.IServicioChat;
+import ar.edu.unlam.tallerweb1.domain.exceptions.NotFoundPostExcption;
+import ar.edu.unlam.tallerweb1.domain.exceptions.NotFoundUserExcption;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.IServicioUsuario;
@@ -235,6 +237,34 @@ public class ControladorPerfilUsuario {
         ModelMap modelo = this.iniciarModel(null);
 
         return new ModelAndView("user-profile-info", modelo);
+    }
+
+    @RequireAuth
+    @RequestMapping("/usuario")
+    public ModelAndView perfilUsuario(@RequestParam Long uid){
+        ModelMap model = new ModelMap();
+        try{
+
+
+        model.put("usuario", this.servicioAuth.getUsuarioAutenticado());
+        model.put("usuario_seleccionado", this.servicioUsuario.getUsuario(uid));
+        model.put("publicados", this.servicioPublicacion.getPublicacionesPorUsuario(uid));
+        model.put("adoptados", this.servicioAdopcion.getAdoptadosPorUsuario(uid));
+        model.put("publicaciones", this.servicioPublicacion.listarPublicacionesDisponiblesPorUsuarioId(uid));
+        model.put("cal_publicador", this.servicioCalificacion.getCalificacionPublicador(uid));
+        model.put("cal_adoptante", this.servicioCalificacion.getCalificacionAdoptante(uid));
+        model.put("comments_adopt", this.servicioCalificacion.getComentariosComoAdoptante(uid));
+        model.put("comments_pub", this.servicioCalificacion.getComentariosComoPublicador(uid));
+
+        }catch (
+        NotFoundUserExcption err){
+            model.put("error", err.getMessage());
+            return new ModelAndView("/404/post-404", model);
+        }
+
+        return new ModelAndView("profile", model);
+
+
     }
 
     private UsuarioDto setearDatos(Usuario usuario) {

@@ -115,7 +115,7 @@
                                                                 <c:forEach items="${solicitudes}" var="solicitud">
 
                                                                     <li class="d-flex align-items-center  justify-content-between flex-wrap">
-                                                                        <a href="" class="d-flex nav-link">
+                                                                        <a href="${pageContext.request.contextPath}/perfil/usuario?uid=${solicitud.usuario.id}" class="d-flex nav-link">
                                                                             <div class="user-img img-fluid flex-shrink-0">
                                                                                 <img src="data:image/jpg;base64,${solicitud.usuario.imagen}" alt="story-img"
                                                                                      class="rounded-circle avatar-40" loading="lazy">
