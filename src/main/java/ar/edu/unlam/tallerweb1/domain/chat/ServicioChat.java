@@ -29,7 +29,6 @@ public class ServicioChat implements IServicioChat {
     public Timestamp enviarMensaje(String codigo, Usuario usuario, String mensaje) {
         ChatMensaje chatMensaje = new ChatMensaje(codigo, usuario, mensaje);
 
-
         return this.repositorioChat.enviarMensaje(chatMensaje);
     }
 }
