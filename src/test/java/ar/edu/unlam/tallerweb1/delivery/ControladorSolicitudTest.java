@@ -85,10 +85,10 @@ public class ControladorSolicitudTest {
         when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(usuarioDuenio);
         when(this.servicioSolicitud.getSolicitud(anyString())).thenReturn(solicitud);
 
-        ModelAndView vista = controladorSolicitud.aceptarSolicitud(solicitud.getCodigo(), "publicacion", request);
+        ModelAndView vista = controladorSolicitud.aceptarSolicitud(solicitud.getCodigo(), "perfil-solicitud", request);
 
         verify(servicioSolicitud, times(1)).aceptarSolicitud(solicitud, servicioAuth.getUsuarioAutenticado());
-        assertThat(vista.getViewName()).isEqualTo("redirect: " + request.getContextPath() + "/publicacion/ver?pid=2");
+        assertThat(vista.getViewName()).isEqualTo("redirect: " + request.getContextPath() + "/perfil/solicitud?pid=2");
     }
 
     @Test

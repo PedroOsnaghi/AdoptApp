@@ -7,11 +7,14 @@ import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.Solicitud.IServicioSolicitud;
 import ar.edu.unlam.tallerweb1.domain.adopcion.IServicioAdopcion;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.chat.IServicioChat;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.IServicioUsuario;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Solicitud;
 import ar.edu.unlam.tallerweb1.model.Usuario;
+import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -37,10 +40,12 @@ public class ControladorPerfilUsuario {
     private final IServicioMascota servicioMascota;
     private final IServicioSolicitud servicioSolicitud;
     private final IServicioAdopcion servicioAdopcion;
+    private final IServicioChat servicioChat;
 
     @Autowired
     public ControladorPerfilUsuario(IServicioUsuario servicioUsuario, IServicioPublicacion servicioPublicacion, IServicioMensajes servicioMensajes, IServicioAuth servicioAuth,
-                                    IServicioCalificacion servicioCalificacion, IServicioMascota servicioMascota, IServicioSolicitud servicioSolicitud, IServicioAdopcion servicioAdopcion) {
+                                    IServicioCalificacion servicioCalificacion, IServicioMascota servicioMascota, IServicioSolicitud servicioSolicitud, IServicioAdopcion servicioAdopcion,
+                                    IServicioChat servicioChat) {
         this.servicioUsuario = servicioUsuario;
         this.servicioAuth = servicioAuth;
         this.servicioPublicacion = servicioPublicacion;
@@ -49,6 +54,7 @@ public class ControladorPerfilUsuario {
         this.servicioMascota = servicioMascota;
         this.servicioSolicitud = servicioSolicitud;
         this.servicioAdopcion = servicioAdopcion;
+        this.servicioChat = servicioChat;
     }
 
 
@@ -161,15 +167,23 @@ public class ControladorPerfilUsuario {
 
         ModelMap model = this.iniciarModel("solicitud");
 
+        Solicitud solicitud_aceptada = this.servicioSolicitud.getSolicitudAceptada(pid);
+
         model.put("publicaciones", this.servicioPublicacion.listarPublicacionesDisponiblesParaSolicitudPorUsuarioId(this.servicioAuth.getUsuarioAutenticado().getId()));
 
-        model.put("solicitud_aceptada", this.servicioSolicitud.getSolicitudAceptada(pid));
+        model.put("solicitud", solicitud_aceptada);
 
         model.put("solicitud_cancelada", this.servicioSolicitud.getSolicitudCanceladaSinInformar(pid));
 
         model.put("solicitudes", this.servicioSolicitud.listarSolicitudesRecibidas(pid));
 
-        model.put("selected_pub", pid);
+        model.put("mensajes_chat", this.servicioChat.listarMensajesDeSolicitud(solicitud_aceptada != null ? solicitud_aceptada.getCodigo() : null));
+
+        Publicacion seleccion = this.servicioPublicacion.getPublicacion(pid);
+
+        Long idSeleccionado = (seleccion == null || seleccion.getEstado() == EstadoPublicacion.CERRADA) ? null : pid;
+
+        model.put("selected_pub", idSeleccionado);
 
         model.put("ma_solicitud", new Solicitud());
 

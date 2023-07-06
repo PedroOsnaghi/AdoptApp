@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.delivery.dto.SolicitudDto;
 import ar.edu.unlam.tallerweb1.domain.Calificacion.IServicioCalificacion;
 import ar.edu.unlam.tallerweb1.domain.Solicitud.IServicioSolicitud;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.chat.IServicioChat;
 import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
 import ar.edu.unlam.tallerweb1.domain.exceptions.SolicitudException;
 import ar.edu.unlam.tallerweb1.model.Solicitud;
@@ -29,12 +30,14 @@ public class ControladorSolicitud {
     private final IServicioSolicitud servicioSolicitud;
     private final IServicioAuth servicioAuth;
     private final IServicioCalificacion serviciocalificacion;
+    private final IServicioChat servicioChat;
 
     @Autowired
-    public ControladorSolicitud(IServicioSolicitud servicioSolicitud, IServicioAuth servicioAuth, IServicioCalificacion servicioCalificacion){
+    public ControladorSolicitud(IServicioSolicitud servicioSolicitud, IServicioAuth servicioAuth, IServicioCalificacion servicioCalificacion, IServicioChat servicioChat){
         this.servicioSolicitud = servicioSolicitud;
         this.servicioAuth = servicioAuth;
         this.serviciocalificacion = servicioCalificacion;
+        this.servicioChat = servicioChat;
     }
 
     @RequireAuth
@@ -88,10 +91,9 @@ public class ControladorSolicitud {
         }
 
         switch (target){
-            case "publicacion":
-                return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + solicitud.getPublicacion().getId());
+
             case "solicitud":
-                return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + solicitud.getCodigo());
+                return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + solicitud.getCodigo() + "&target=perfil-solicitud");
             case "perfil-solicitud":
                 return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/solicitud?pid=" + solicitud.getPublicacion().getId());
 
@@ -144,6 +146,8 @@ public class ControladorSolicitud {
         model.put("error",error);
         model.put("calificacion", new CalificacionDto());
 
+        model.put("mensajes_chat", this.servicioChat.listarMensajesDeSolicitud(code));
+
         return new ModelAndView("post-solicitud-adoptante", model);
 
     }
@@ -158,6 +162,8 @@ public class ControladorSolicitud {
         model.put("target", target);
         model.put("error",error);
         model.put("calificacion", new CalificacionDto());
+
+        model.put("mensajes_chat", this.servicioChat.listarMensajesDeSolicitud(code));
 
 
         return new ModelAndView("post-solicitud-publicador", model);

@@ -410,3 +410,4 @@
     <!--- Internal Sweet-Alert js -->
     <script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/sweetalert.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/jquery.sweet-alert.js"></script>
+    <script src="${pageContext.request.contextPath}/js/chat.js"></script>

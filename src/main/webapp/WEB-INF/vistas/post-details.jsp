@@ -419,7 +419,7 @@
 
                         <c:if test="${usuario.id ne publicacion.mascota.usuario.id}">
                             <c:choose>
-                                <c:when test="${publicacion.estado.toString() eq 'DISPONIBLE'}">
+                                <c:when test="${((empty solicitud) || (solicitud.estado eq 'PENDIENTE')) && (publicacion.estado.toString() eq 'DISPONIBLE')}">
                                     <div class="card">
                                         <div class="card-header">
                                             <div class="header-title">
@@ -467,6 +467,13 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <p>El servicio de mensajería no se encuentra disponible para esta publicación.</p>
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:when test="${(not empty solicitud) && (solicitud.estado eq 'ACEPTADA')}">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <p>Contactate con el publicacor por Mensajería privada.</p>
                                         </div>
                                     </div>
                                 </c:when>
