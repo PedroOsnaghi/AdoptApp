@@ -95,7 +95,7 @@
                                             </div>
                                         </c:if>
                                         <c:if test="${not empty selected_pub}">
-                                            <c:if test="${empty solicitud_aceptada && empty solicitud_cancelada}">
+                                            <c:if test="${empty solicitud && empty solicitud_cancelada}">
                                                 <div>
                                                     <div class="">
                                                         <h4>Solicitudes de Adopción</h4>
@@ -179,7 +179,7 @@
                                                     </div>
                                                 </div>
                                             </c:if>
-                                            <c:if test="${not empty solicitud_aceptada}">
+                                            <c:if test="${not empty solicitud}">
                                                 <div>
                                                     <div class="">
                                                         <h4>Adoptante Aceptado</h4>
@@ -189,14 +189,14 @@
 
                                                                 <div class="me-3">
                                                                     <img class="rounded-circle img-fluid"
-                                                                         src="data:image/jpeg;base64,${solicitud_aceptada.usuario.imagen}" style="max-width: 40px;" alt="" loading="lazy">
+                                                                         src="data:image/jpeg;base64,${solicitud.usuario.imagen}" style="max-width: 40px;" alt="" loading="lazy">
                                                                 </div>
 
 
                                                                 <div class="w-100">
                                                                     <div class="d-flex justify-content-between align-items-center">
                                                                         <div class="">
-                                                                            <h6 class="mb-0 d-inline-block">${solicitud_aceptada.usuario.nombre}</h6>
+                                                                            <h6 class="mb-0 d-inline-block">${solicitud.usuario.nombre}</h6>
                                                                         </div>
                                                                         <button type="button" class="btn btn-primary"
                                                                                 data-bs-toggle="modal"
@@ -214,7 +214,7 @@
                                                     <hr>
                                                     <div class="mt-3">
                                                         <p>Puedes ver el estado del proceso de adopcion haciendo click en el siguiente boton</p>
-                                                        <a href="${pageContext.request.contextPath}/solicitud/publicador?code=${solicitud_aceptada.codigo}&target=perfil-solicitud"
+                                                        <a href="${pageContext.request.contextPath}/solicitud/publicador?code=${solicitud.codigo}&target=perfil-solicitud"
                                                            class="me-3 btn btn-primary rounded confirm-btn">Ver Estado de Solicitud</a>
 
 
@@ -292,6 +292,10 @@
 
 <%@ include file="partials/footer.jsp" %>
 
+<!-- chat-->
+
+<%@ include file="partials/chat-solicitud.jsp" %>
+
 <!-- scripts -->
 
 <%@ include file="partials/script.jsp" %>
@@ -299,3 +303,4 @@
 <!--- Internal Sweet-Alert js -->
 <script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/sweetalert.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/jquery.sweet-alert.js"></script>
+<script src="${pageContext.request.contextPath}/js/chat.js"></script>

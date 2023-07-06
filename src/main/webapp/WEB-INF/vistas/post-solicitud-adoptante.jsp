@@ -391,6 +391,8 @@
     <%@ include file="partials/chat-solicitud.jsp" %>
 
 
+
+
     <!-- cancelacion -->
 
     <%@ include file="partials/cancelar-solicitud.jsp" %>
@@ -415,3 +417,4 @@
     <script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/sweetalert.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/jquery.sweet-alert.js"></script>
     <script src="${pageContext.request.contextPath}/js/form-cancel-adopt.js"></script>
+    <script src="${pageContext.request.contextPath}/js/chat.js"></script>

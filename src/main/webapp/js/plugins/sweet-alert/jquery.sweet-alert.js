@@ -114,6 +114,7 @@ function confirmAceptar(link){
 		buttonsStyling: false
 	}).then((result) => {
 		if (result.isConfirmed) {
+			console.log(link.getAttribute('action'));
 			window.location.href = link.getAttribute('action');
 		}
 	});
