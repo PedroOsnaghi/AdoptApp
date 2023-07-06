@@ -8,4 +8,6 @@ public interface IServicioUsuario {
     Usuario buscarUsuarioPorEmail(String email);
     Usuario crearUsuario(String nombre, String email, String passwordHasheada);
     Usuario actualizarDatos(UsuarioDto usuarioDto, Usuario oldUser);
+
+    Usuario getUsuario(Long idUsuario);
 }

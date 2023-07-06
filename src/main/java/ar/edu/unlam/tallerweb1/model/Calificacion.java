@@ -21,15 +21,15 @@ public class Calificacion {
 
     private Double calificacion;
 
-    private String commentario;
+    private String comentario;
 
     public Calificacion(){}
 
-    public Calificacion(Usuario usuarioCalificado, RolCalificacion rol, Double calificacion, String commentario) {
+    public Calificacion(Usuario usuarioCalificado, RolCalificacion rol, Double calificacion, String comentario) {
         this.usuarioCalificado = usuarioCalificado;
         this.rol = rol;
         this.calificacion = calificacion;
-        this.commentario = commentario;
+        this.comentario = comentario;
     }
 
     public Calificacion(Double calificacion){
@@ -68,12 +68,12 @@ public class Calificacion {
         this.calificacion = calificacion;
     }
 
-    public String getCommentario() {
-        return commentario;
+    public String getComentario() {
+        return comentario;
     }
 
-    public void setCommentario(String commentario) {
-        this.commentario = commentario;
+    public void setComentario(String commentario) {
+        this.comentario = commentario;
     }
 
 

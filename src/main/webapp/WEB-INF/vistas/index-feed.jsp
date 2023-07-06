@@ -40,7 +40,7 @@
                                     <div class="card-body">
                                         <div class="user-post-data">
                                             <div class="d-flex justify-content-between">
-                                                <a href="">
+                                                <a href="${pageContext.request.contextPath}/perfil/usuario?uid=${publicacion.mascota.usuario.id}">
                                                     <div class="me-3">
                                                         <img class="rounded-circle img-fluid avatar-40"
                                                              src="data:image/jpeg;base64,${publicacion.mascota.usuario.imagen}"

@@ -160,6 +160,11 @@ public class ServicioPublicacion implements IServicioPublicacion{
     }
 
     @Override
+    public List<Publicacion> listarPublicacionesDisponiblesPorUsuarioId(Long idUsuario) {
+        return this.repositorioPublicacion.listarPublicacionesDisponiblesPorUsuarioId(idUsuario);
+    }
+
+    @Override
     public List<Publicacion_favorito> listarFavoritosDeUsuario(Long idUsuario) {
         return this.repositorioPublicacion.ListarFavoritosDeUsuario(idUsuario);
     }

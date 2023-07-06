@@ -2,6 +2,9 @@ package ar.edu.unlam.tallerweb1.domain.usuarios;
 
 import ar.edu.unlam.tallerweb1.delivery.dto.UsuarioDto;
 import ar.edu.unlam.tallerweb1.domain.archivos.IServicioArchivo;
+import ar.edu.unlam.tallerweb1.domain.exceptions.NotFoundPostExcption;
+import ar.edu.unlam.tallerweb1.domain.exceptions.NotFoundUserExcption;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +39,17 @@ public class ServicioUsuario implements IServicioUsuario {
         Usuario usuario = this.setDatosUsuario(usuarioDto , oldUsuer);
         this.repositorioUsuario.actualizarDatos(usuario);
         return usuario;
+    }
+
+    @Override
+    public Usuario getUsuario(Long idUsuario) {
+        if(idUsuario == null) return null;
+
+        Usuario u = this.repositorioUsuario.getUsuario(idUsuario);
+
+        if(u == null) throw new NotFoundUserExcption("El usuario que búscas no existe");
+
+        return u;
     }
 
     private Usuario setDatosUsuario(UsuarioDto uDto, Usuario user) {

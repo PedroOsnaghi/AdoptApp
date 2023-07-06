@@ -49,6 +49,16 @@ public class ServicioCalificacion implements IServicioCalificacion{
         return this.repositorioCalificacion.getCalificacionUsuario(idUsuario, RolCalificacion.ADOPTANTE);
     }
 
+    @Override
+    public List<Calificacion> getComentariosComoAdoptante(Long idUsuario) {
+        return this.repositorioCalificacion.getComentariosComoAdoptante(idUsuario);
+    }
+
+    @Override
+    public List<Calificacion> getComentariosComoPublicador(Long idUsuario) {
+        return this.repositorioCalificacion.getComentariosComoPublicador(idUsuario);
+    }
+
 
     private Calificacion validarDatos(CalificacionDto cDto, RolCalificacion rol) {
         if(cDto.getCommentario().isEmpty()) throw new DataValidationException("El comentario es obligatorio");

@@ -42,7 +42,7 @@ public interface IServicioPublicacion {
 
     List<Solicitud> listarPublicacionesCerradasPorUsuario(Long idUsuario);
 
-
+    List<Publicacion> listarPublicacionesDisponiblesPorUsuarioId(Long idUsuario);
 
     void reanudar(Publicacion publicacion);
 
