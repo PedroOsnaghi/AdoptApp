@@ -1,10 +1,12 @@
 package ar.edu.unlam.tallerweb1.delivery;
 
+import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.notificacion.IServicioNotificacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.IServicioUsuario;
 import ar.edu.unlam.tallerweb1.model.ChatMensaje;
 import ar.edu.unlam.tallerweb1.model.Notificacion;
 import ar.edu.unlam.tallerweb1.model.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,18 +21,21 @@ import java.util.List;
 public class ControladorNotificacion {
     IServicioNotificacion servicioNotificacion;
     IServicioUsuario servicioUsuario;
+    IServicioAuth servicioAuth;
 
-    public ControladorNotificacion(IServicioNotificacion sn, IServicioUsuario su) {
+    @Autowired
+    public ControladorNotificacion(IServicioNotificacion sn, IServicioUsuario su, IServicioAuth sa) {
         this.servicioNotificacion = sn;
         this.servicioUsuario = su;
+        this.servicioAuth = sa;
     }
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public ResponseEntity<List<Notificacion>> getNotificaciones(@RequestParam Long id) {
+    public ResponseEntity<List<Notificacion>> getNotificaciones() {
 
-        Usuario usuario = servicioUsuario.getUsuario(id);
+        Usuario usuario = servicioAuth.getUsuarioAutenticado();
 
-        List<Notificacion> notificaciones = new ArrayList<>();
+        List<Notificacion> notificaciones = servicioNotificacion.listarNotificaciones(usuario);
 
         return ResponseEntity.status(HttpStatus.OK).body(notificaciones);
     }

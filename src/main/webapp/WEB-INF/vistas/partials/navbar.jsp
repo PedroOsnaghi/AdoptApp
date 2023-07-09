@@ -124,7 +124,7 @@
                                 <div class="header-title bg-primary">
                                     <h5 class="mb-0 text-white">Notificaciones</h5>
                                 </div>
-                                <small class="badge  bg-light text-dark">4</small>
+                                <small class="badge  bg-light text-dark" id="notification-counter">0</small>
                             </div>
 
                             <div class="card-body p-0" id="notification-container">

@@ -8,7 +8,7 @@ import java.util.List;
 public interface IRepositorioNotificacion {
     Long crearNotificacion(Notificacion notificacion);
 
-    void eliminarNotificacion(Notificacion notificacion);
+    void eliminarNotificacion(Long id);
 
     List<Notificacion> listarNotificaciones (Long userId);
 

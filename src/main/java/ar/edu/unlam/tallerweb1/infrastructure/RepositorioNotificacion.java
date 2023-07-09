@@ -27,8 +27,11 @@ public class RepositorioNotificacion implements IRepositorioNotificacion {
         return (Long) this.sessionFactory.getCurrentSession().save(notificacion);
     }
 
-    public void eliminarNotificacion(Notificacion notificacion) {
-        this.sessionFactory.getCurrentSession().delete(notificacion);
+    public void eliminarNotificacion(Long id) {
+        Notificacion notificacion = (Notificacion) this.sessionFactory.getCurrentSession().load(Notificacion.class, id);
+        if (null != notificacion) {
+            this.sessionFactory.getCurrentSession().delete(notificacion);
+        }
     }
 
     public List<Notificacion> listarNotificaciones(Long idUsuario) {

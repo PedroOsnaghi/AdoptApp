@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IServicioNotificacion {
     Long crearNotificacion(Notificacion notificacion);
-    void eliminarNotificacion(Notificacion notificacion);
+    void eliminarNotificacion(Long id);
     List<Notificacion> listarNotificaciones(Usuario usuario);
 
 }
