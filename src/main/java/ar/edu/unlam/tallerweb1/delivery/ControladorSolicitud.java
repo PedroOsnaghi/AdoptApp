@@ -6,6 +6,7 @@ import ar.edu.unlam.tallerweb1.delivery.dto.SolicitudDto;
 import ar.edu.unlam.tallerweb1.domain.Calificacion.IServicioCalificacion;
 import ar.edu.unlam.tallerweb1.domain.Solicitud.IServicioSolicitud;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.chat.IServicioChat;
 import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
 import ar.edu.unlam.tallerweb1.domain.exceptions.SolicitudException;
 import ar.edu.unlam.tallerweb1.model.Solicitud;
@@ -29,12 +30,14 @@ public class ControladorSolicitud {
     private final IServicioSolicitud servicioSolicitud;
     private final IServicioAuth servicioAuth;
     private final IServicioCalificacion serviciocalificacion;
+    private final IServicioChat servicioChat;
 
     @Autowired
-    public ControladorSolicitud(IServicioSolicitud servicioSolicitud, IServicioAuth servicioAuth, IServicioCalificacion servicioCalificacion){
+    public ControladorSolicitud(IServicioSolicitud servicioSolicitud, IServicioAuth servicioAuth, IServicioCalificacion servicioCalificacion, IServicioChat servicioChat){
         this.servicioSolicitud = servicioSolicitud;
         this.servicioAuth = servicioAuth;
         this.serviciocalificacion = servicioCalificacion;
+        this.servicioChat = servicioChat;
     }
 
     @RequireAuth
@@ -88,10 +91,9 @@ public class ControladorSolicitud {
         }
 
         switch (target){
-            case "publicacion":
-                return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + solicitud.getPublicacion().getId());
+
             case "solicitud":
-                return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + solicitud.getCodigo());
+                return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + solicitud.getCodigo() + "&target=perfil-solicitud");
             case "perfil-solicitud":
                 return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/solicitud?pid=" + solicitud.getPublicacion().getId());
 
@@ -112,17 +114,24 @@ public class ControladorSolicitud {
             return new ModelAndView("redirect: " + request.getContextPath() + "/home?response=error#1001");
         }
 
-        switch (target){
-            case "publicacion":
-                return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + solicitud.getPublicacion().getId());
-            case "solicitud":
-                return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + solicitud.getCodigo());
-            case "perfil-solicitud":
-                return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/solicitud?pid=" + solicitud.getPublicacion().getId());
+        return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + solicitud.getCodigo()+"&target=" + target);
 
-            default:
-                return new ModelAndView("redirect: " + request.getContextPath() + "/home");
+    }
+
+    @RequireAuth
+    @RequestMapping(path = "/cerrar")
+    public ModelAndView cerrar(@RequestParam String code, @RequestParam(required = false) String target, HttpServletRequest request) {
+
+        Solicitud solicitud = this.servicioSolicitud.getSolicitud(code);
+
+        try {
+            this.servicioSolicitud.confirmarCierre(solicitud, this.servicioAuth.getUsuarioAutenticado());
+        }catch (SolicitudException err){
+            return new ModelAndView("redirect: " + request.getContextPath() + "/home?response=error#1001");
         }
+
+        return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + solicitud.getCodigo()+"&target=" + target);
+
     }
 
     @RequireAuth
@@ -132,9 +141,12 @@ public class ControladorSolicitud {
 
         model.put("usuario", this.servicioAuth.getUsuarioAutenticado());
         model.put("solicitud", this.servicioSolicitud.getSolicitud(code));
+        model.put("solicitudDto", new SolicitudDto());
         model.put("target", target);
         model.put("error",error);
         model.put("calificacion", new CalificacionDto());
+
+        model.put("mensajes_chat", this.servicioChat.listarMensajesDeSolicitud(code));
 
         return new ModelAndView("post-solicitud-adoptante", model);
 
@@ -151,14 +163,26 @@ public class ControladorSolicitud {
         model.put("error",error);
         model.put("calificacion", new CalificacionDto());
 
+        model.put("mensajes_chat", this.servicioChat.listarMensajesDeSolicitud(code));
+
 
         return new ModelAndView("post-solicitud-publicador", model);
 
     }
 
     @RequireAuth
+    @RequestMapping(path = "/cancelacion-adoptante", method = RequestMethod.POST)
+    public ModelAndView cancelacionAdoptante(@ModelAttribute("solicitudDto") SolicitudDto solicitudDto,@RequestParam(required = false) String target, HttpServletRequest request) {
+
+        this.servicioSolicitud.cancelarProcesoDeAdopcion(solicitudDto);
+
+        return new ModelAndView("redirect: "  + request.getContextPath() + "/solicitud/adoptante?code=" + solicitudDto.getCodigo() + "&target=" + target);
+
+    }
+
+    @RequireAuth
     @RequestMapping(path = "/calificarAdoptante", method = RequestMethod.POST)
-    public ModelAndView calificarAdoptante(@ModelAttribute("calificacion") CalificacionDto calificacion,  @RequestParam Long id, @RequestParam String code, HttpServletRequest request) {
+    public ModelAndView calificarAdoptante(@ModelAttribute("calificacion") CalificacionDto calificacion,  @RequestParam Long id, @RequestParam String code, @RequestParam(required = false) String target,HttpServletRequest request) {
         Usuario usuarioCalificado = new Usuario();
         usuarioCalificado.setId(id);
         calificacion.setUsuarioCalificado(usuarioCalificado);
@@ -166,7 +190,7 @@ public class ControladorSolicitud {
         try{
             this.serviciocalificacion.calificarAdoptante(calificacion);
         }catch (DataValidationException err){
-            return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + code+"&error=" + err.getMessage());
+            return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + code+"&target=" + target +"&error=" + err.getMessage());
 
         }
 
@@ -175,13 +199,13 @@ public class ControladorSolicitud {
         solicitud.setCalP(true);
         this.servicioSolicitud.actualizarSolicitud(solicitud);
 
-        return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + code);
+        return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + code + "&target=" + target);
 
     }
 
     @RequireAuth
     @RequestMapping(path = "/calificarPublicador", method = RequestMethod.POST)
-    public ModelAndView calificarPublicador(@ModelAttribute("calificacion") CalificacionDto calificacion,  @RequestParam Long id, @RequestParam String code, HttpServletRequest request) {
+    public ModelAndView calificarPublicador(@ModelAttribute("calificacion") CalificacionDto calificacion,  @RequestParam Long id, @RequestParam String code, @RequestParam(required = false) String target, HttpServletRequest request) {
         Usuario usuarioCalificado = new Usuario();
         usuarioCalificado.setId(id);
         calificacion.setUsuarioCalificado(usuarioCalificado);
@@ -189,7 +213,7 @@ public class ControladorSolicitud {
         try{
             this.serviciocalificacion.calificarPublicador(calificacion);
         }catch (DataValidationException err){
-            return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/adoptante?code=" + code+"&error=" + err.getMessage());
+            return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/adoptante?code=" + code+ "&target=" + target + "&error=" + err.getMessage());
 
         }
 
@@ -198,7 +222,7 @@ public class ControladorSolicitud {
         solicitud.setCalA(true);
         this.servicioSolicitud.actualizarSolicitud(solicitud);
 
-        return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/adoptante?code=" + code);
+        return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/adoptante?code=" + code + "&target=" + target);
 
     }
 }

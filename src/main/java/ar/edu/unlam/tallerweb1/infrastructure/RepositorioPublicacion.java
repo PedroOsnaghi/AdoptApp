@@ -80,7 +80,7 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     public List<PublicacionSolicitud> listarPublicacionesDisponiblesParaSolicitudPorUsuarioId(Long idUsuario) {
         EntityManager entityManager = this.sessionFactory.createEntityManager();
 
-        List<PublicacionSolicitud> publicaciones = entityManager.createQuery("select new ar.edu.unlam.tallerweb1.model.PublicacionSolicitud(p, COUNT(s.codigo)) from Publicacion p left join Solicitud s on s.publicacion = p where  p.mascota.usuario.id = :iduser and p.estado <> :estado group by p.id order by p.id desc ", PublicacionSolicitud.class)
+        List<PublicacionSolicitud> publicaciones = entityManager.createQuery("select new ar.edu.unlam.tallerweb1.model.PublicacionSolicitud(p, COUNT(s.codigo)) from Publicacion p left join Solicitud s on s.publicacion = p where  p.mascota.usuario.id = :iduser and p.estado <> :estado  group by p.id  order by p.id desc ", PublicacionSolicitud.class)
                 .setParameter("iduser", idUsuario)
                 .setParameter("estado", EstadoPublicacion.CERRADA)
                 .getResultList();
@@ -92,8 +92,9 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
     public List<PublicacionDetallada> listarPublicacionesDetalladasPorUsuarioId(Long idUsuario){
         EntityManager entityManager = this.sessionFactory.createEntityManager();
 
-        List<PublicacionDetallada> publicacion_detallada = entityManager.createQuery("SELECT new ar.edu.unlam.tallerweb1.model.PublicacionDetallada(p, COUNT(m.id))  FROM Publicacion p LEFT JOIN Mensaje m on m.publicacion.id = p.id WHERE p.mascota.usuario.id = :user  group BY p.id", PublicacionDetallada.class)
+        List<PublicacionDetallada> publicacion_detallada = entityManager.createQuery("SELECT new ar.edu.unlam.tallerweb1.model.PublicacionDetallada(p, COUNT(m.id))  FROM Publicacion p LEFT JOIN Mensaje m on m.publicacion.id = p.id WHERE p.mascota.usuario.id = :user AND p.estado <> :estado  group BY p.id", PublicacionDetallada.class)
                 .setParameter("user", idUsuario)
+                .setParameter("estado", EstadoPublicacion.CERRADA)
                 .getResultList();
 
         return  publicacion_detallada;
@@ -110,6 +111,40 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
                 .list();
     }
 
+    @Override
+    public List<Solicitud> listarPublicacionesCerradasPorUsuario(Long idUsuario) {
+        return (List<Solicitud>) this.sessionFactory.getCurrentSession()
+                .createCriteria(Solicitud.class)
+                .createAlias("publicacion", "post")
+                .createAlias("publicacion.mascota.usuario", "u")
+                .add(Restrictions.eq("post.estado",EstadoPublicacion.CERRADA))
+                .add(Restrictions.eq("u.id", idUsuario))
+                .addOrder(Order.desc("update_at"))
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+                .list();
+    }
+
+    @Override
+    public Long getPublicacionesPorUsuario(Long idUsuario) {
+        EntityManager entityManager = this.sessionFactory.createEntityManager();
+
+        Long cantidad = entityManager.createQuery("SELECT new java.lang.Long(COUNT(p.id))  FROM Publicacion p  WHERE p.mascota.usuario.id = :user  group BY p.id", Long.class)
+                .setParameter("user", idUsuario)
+                .getResultStream().count();
+
+        return  cantidad;
+    }
+
+    @Override
+    public List<Publicacion> listarPublicacionesDisponiblesPorUsuarioId(Long idUsuario) {
+        return (List<Publicacion>) this.sessionFactory.getCurrentSession()
+                .createCriteria(Publicacion.class)
+                .createAlias("mascota", "m")
+                .add(Restrictions.and(Restrictions.eq("m.usuario.id", idUsuario),Restrictions.eq("estado", EstadoPublicacion.DISPONIBLE)))
+                .addOrder(Order.desc("id"))
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+                .list();
+    }
 
 
     @Override

@@ -25,6 +25,8 @@ public class ServicioPublicacion implements IServicioPublicacion{
     @Override
     public Publicacion getPublicacion (Long id) {
 
+        if(id == null) return null;
+
         Publicacion p = repositorioPublicacion.buscarPublicacionPorId(id);
 
         if(p == null) throw new NotFoundPostExcption("El resurso no se encuentra disponible o no existe");
@@ -78,6 +80,24 @@ public class ServicioPublicacion implements IServicioPublicacion{
     public void cerrar(Publicacion publicacion) {
         publicacion.setEstado(EstadoPublicacion.CERRADA);
         this.repositorioPublicacion.modificarPublicacion(publicacion);
+    }
+
+    @Override
+    public List<Solicitud> listarPublicacionesCerradasPorUsuario(Long idUsuario) {
+        return this.repositorioPublicacion.listarPublicacionesCerradasPorUsuario(idUsuario);
+    }
+
+
+
+    @Override
+    public void reanudar(Publicacion publicacion) {
+        publicacion.setEstado(EstadoPublicacion.DISPONIBLE);
+        this.repositorioPublicacion.modificarPublicacion(publicacion);
+    }
+
+    @Override
+    public Long getPublicacionesPorUsuario(Long idUsuario) {
+        return this.repositorioPublicacion.getPublicacionesPorUsuario(idUsuario);
     }
 
 
@@ -137,6 +157,11 @@ public class ServicioPublicacion implements IServicioPublicacion{
     @Override
     public List<PublicacionSolicitud> listarPublicacionesDisponiblesParaSolicitudPorUsuarioId(Long idUsuario) {
         return this.repositorioPublicacion.listarPublicacionesDisponiblesParaSolicitudPorUsuarioId(idUsuario);
+    }
+
+    @Override
+    public List<Publicacion> listarPublicacionesDisponiblesPorUsuarioId(Long idUsuario) {
+        return this.repositorioPublicacion.listarPublicacionesDisponiblesPorUsuarioId(idUsuario);
     }
 
     @Override

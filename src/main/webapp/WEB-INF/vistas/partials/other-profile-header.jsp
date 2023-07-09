@@ -8,11 +8,11 @@
             </div>
             <div class="user-detail text-center mb-3">
                 <div class="profile-img">
-                    <img src="data:image/jpeg;base64,${usuario.imagen}" alt="profile-img" loading="lazy"
+                    <img src="data:image/jpeg;base64,${usuario_seleccionado.imagen}" alt="profile-img" loading="lazy"
                          class="avatar-130 img-fluid"/>
                 </div>
                 <div class="profile-detail">
-                    <h3 class="">${usuario.nombre}</h3>
+                    <h3 class="">${usuario_seleccionado.nombre}</h3>
                 </div>
             </div>
             <div

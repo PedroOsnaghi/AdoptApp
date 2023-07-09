@@ -20,7 +20,19 @@
                 <div class="card bg-primary">
                     <div class="card-body">
                         <div class="">
-                            <h3 class="text-white">Solicitud de Adopción</h3>
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h3 class="text-white">Solicitud de Adopción</h3>
+
+                                <c:choose>
+                                    <c:when test="${target eq 'perfil-post'}">
+                                        <c:set var="redirect" value="${pageContext.request.contextPath}/perfil/actividad/posts"/>
+                                    </c:when>
+                                    <c:when test="${target eq 'perfil-solicitud'}">
+                                        <c:set var="redirect" value="${pageContext.request.contextPath}/perfil/solicitud?pid=${solicitud.publicacion.id}"/>
+                                    </c:when>
+                                </c:choose>
+                                <a class="btn btn-secondary" href="${redirect}">Cerrar</a>
+                            </div>
                             <p class="text-white">Aquí gestionarás todo el proceso de Adopción</p>
                         </div>
                         <div class="card col-lg-5">
@@ -87,6 +99,15 @@
                                         <p>Le informaremos al Adoptante para que retire la mascota</p>
                                     </div>
                                 </c:if>
+                                <c:if test="${(solicitud.estado eq 'CANCELADA') || (solicitud.estado eq 'CERRADA') }">
+                                    <div class="timeline-dots border-success"></div>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="fw-bolder mb-1">Aceptaste la Solicitud</h6>
+                                    </div>
+                                    <div class="d-inline-block w-100">
+                                        <p>El adoptante ya fué informado y retirará la Mascota.</p>
+                                    </div>
+                                </c:if>
 
                             </li>
                             <li>
@@ -114,6 +135,26 @@
                                         </c:if>
 
                                 </c:if>
+                                <c:if test="${solicitud.estado eq 'CANCELADA'}">
+                                    <div class="timeline-dots border-danger"></div>
+
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="fw-bolder text-danger mb-1">El Adoptante Canceló el proceso</h6>
+                                        <small><script>getLongTime("${solicitud.update_at}")</script></small>
+
+                                    </div>
+                                    <p>Te mostramos los motivos que informó.</p>
+
+                                </c:if>
+                                <c:if test="${solicitud.estado eq 'CERRADA'}">
+                                    <div class="timeline-dots border-danger"></div>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="fw-bolder text-danger mb-1">Proceso de Adopcón fué Cerrado</h6>
+                                        <small><script>getLongTime("${solicitud.update_at}")</script></small>
+                                    </div>
+                                    <p>Finalizó el Proceso debido que el Adoptante ha cancelado la Adopción.</p>
+
+                                </c:if>
 
 
                             </li>
@@ -133,6 +174,12 @@
                                     </div>
 
                                 </c:if>
+                                <c:if test="${(solicitud.estado eq 'CANCELADA') || (solicitud.estado eq 'CERRADA')}">
+                                    <div class="timeline-dots border-light"></div>
+                                    <div class="d-flex align-items-center justify-content-between">
+                                        <h6 class="text-muted mb-1">Mascota adoptada</h6>
+                                    </div>
+                                </c:if>
 
                             </li>
 
@@ -141,6 +188,33 @@
 
 
                 </div>
+
+                <c:if test="${(solicitud.estado eq 'CANCELADA')}">
+                    <div class="card">
+
+                        <div class="card-header bg-soft-danger">
+                            <h5 style="color: #3e3e3e;"><strong>${solicitud.usuario.nombre}</strong> ha Cancelado el proceso de Adopcíon</h5>
+                        </div>
+                        <div class="card-body">
+
+                                <p>El Adoptante informó lo siguiente:</p>
+                                <div class="p-2 mt-2 bg-soft-light rounded">
+                                    <p class="text-dark ms-3">${solicitud.motivo_cancelacion}</p>
+                                </div>
+
+                            <div class="mt-3">
+                                <p class="text-muted">Al Cerrar el Proceso, la Publicación se Reanudará y estará disponible para que otros usuarios puedan verla y enviarte solicitudes de Adopcíon.</p>
+                                <a class="btn btn-primary mt-2" onclick="confirmCerrar(this)" action="${pageContext.request.contextPath}/solicitud/cerrar?code=${solicitud.codigo}&target=${target}" href="javascript:void(0);">Cerrar Proceso y Calificar</a>
+
+                            </div>
+
+
+
+
+                        </div>
+
+                    </div>
+                </c:if>
 
 
                     <c:if test="${(solicitud.estado eq 'ACEPTADA') && (solicitud.publicacion.estado eq 'RESERVADO')}">
@@ -152,7 +226,7 @@
                             <div class="card-body">
                                <div class="d-flex justify-content-between">
                                    <p>El Adoptante retirará a <strong>${solicitud.publicacion.mascota.nombre}</strong> en la dirección que aportaste.</p>
-                                   <a class="btn btn-primary" onclick="confirmEntrega(this)" action="${pageContext.request.contextPath}/solicitud/entregar?code=${solicitud.codigo}&target=solicitud" href="javascript:void(0);">Ya Entregué la Mascota</a>
+                                   <a class="btn btn-primary" onclick="confirmEntrega(this)" action="${pageContext.request.contextPath}/solicitud/entregar?code=${solicitud.codigo}&target=${target}" href="javascript:void(0);">Ya Entregué la Mascota</a>
                                </div>
 
 
@@ -193,13 +267,13 @@
                         <div class="card">
 
                             <div class="card-header bg-soft-success">
-                                <h5 style="color: #3e3e3e;">Felicitaciones!!, <strong>Olimpia</strong> ya está en su nueva casa.
+                                <h5 style="color: #3e3e3e;">Felicitaciones!!, <strong>${solicitud.publicacion.mascota.nombre}</strong> ya está en su nueva casa.
                                 </h5>
                             </div>
                             <div class="card-body">
                                 <h6>Contanos tu experiencia con <strong>${solicitud.usuario.nombre}</strong></h6>
                                 <div class="mt-3">
-                                    <form:form action="${pageContext.request.contextPath}/solicitud/calificarAdoptante?id=${solicitud.usuario.id}&code=${solicitud.codigo}" method="post" modelAttribute="calificacion">
+                                    <form:form action="${pageContext.request.contextPath}/solicitud/calificarAdoptante?id=${solicitud.usuario.id}&code=${solicitud.codigo}&target=${target}" method="post" modelAttribute="calificacion">
                                     <p class="ms-4"><strong>Que calificación le das?</strong><span class="text-muted"> (de 0 a 5 estrellas)</span>
                                     </p>
                                     <div class="rating-stars block" id="rating-1" data-stars="0" style="cursor: pointer;">
@@ -209,7 +283,7 @@
                                     <div class="px-4 d-flex flex-column justify-content-center">
                                         <form:textarea path="commentario" class="form-control" maxlength="255" rows="3" required="true"></form:textarea>
                                         <div class="d-flex justify-content-between align-items-center px-5">
-                                            <a  class="btn btn-secondary mt-3 mx-5" href="#" style="width: 50%">No deseo Calificar
+                                            <a  class="btn btn-secondary mt-3 mx-5" href="${redirect}" style="width: 50%">Calificar mas tarde..
                                             </a>
                                             <button type="submit" class="btn btn-primary mt-3 mx-5" style="width: 50%">Enviar
                                                 Calificación
@@ -223,6 +297,48 @@
                             </div>
                         </div>
                     </c:if>
+                <c:if test="${(solicitud.estado eq 'CERRADA')  && (solicitud.calP eq false)}">
+                    <div class="card">
+
+                        <div class="card-header bg-soft-success">
+                            <h5 style="color: #3e3e3e;">El Proceso se Cerró, puedes calificar tu experiencia con <strong>${solicitud.usuario.nombre}</strong>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <h6>Contanos tu experiencia con <strong>${solicitud.usuario.nombre}</strong></h6>
+                            <div class="mt-3">
+                                <form:form action="${pageContext.request.contextPath}/solicitud/calificarAdoptante?id=${solicitud.usuario.id}&code=${solicitud.codigo}&target=${target}" method="post" modelAttribute="calificacion">
+                                    <p class="ms-4"><strong>Que calificación le das?</strong><span class="text-muted"> (de 0 a 5 estrellas)</span>
+                                    </p>
+                                    <div class="rating-stars block" id="rating-1" data-stars="0" style="cursor: pointer;">
+                                    </div>
+                                    <p class="ms-4 mt-3"><strong>Opiná sobre el Adoptante</strong><span class="text-muted"> (máximo 255 caracteres)</span>
+                                    </p>
+                                    <div class="px-4 d-flex flex-column justify-content-center">
+                                        <form:textarea path="commentario" class="form-control" maxlength="255" rows="3" required="true"></form:textarea>
+                                        <div class="d-flex justify-content-between align-items-center px-5">
+                                            <a  class="btn btn-secondary mt-3 mx-5" href="${redirect}" style="width: 50%">Calificar mas tarde..
+                                            </a>
+                                            <button type="submit" class="btn btn-primary mt-3 mx-5" style="width: 50%">Enviar
+                                                Calificación
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                    <form:input path="calificacion" id="cal" type="hidden"/>
+                                </form:form>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+
+                <c:if test="${(solicitud.estado eq 'CERRADA')  && (solicitud.calP eq true)}">
+                    <div class="card bg-soft-danger">
+                        <div class="card-body">
+                            <p class="text-center mt-3">Este proceso se Cerró con fecha <strong><script>getLongTime('${solicitud.update_at}')</script></strong></p>
+                        </div>
+                    </div>
+                </c:if>
 
                 <c:if test="${(solicitud.estado eq 'ACEPTADA') && (solicitud.publicacion.estado eq 'CERRADA') && (solicitud.calP eq true)}">
                     <div class="card">
@@ -244,7 +360,16 @@
                         <h5>Necesitas ayuda?</h5>
                     </div>
                     <div class="card-body">
-                        <a class="btn btn-action text-dark" href="">El adoptante nunca retiró la mascota</a>
+                        <ul>
+                            <c:if test="${solicitud.publicacion.estado eq 'RESERVADO' && solicitud.estado eq 'ACEPTADA'}">
+                                <li>
+                                    <a class="btn btn-action text-dark" href="">El adoptante nunca retiró la mascota</a>
+                                </li>
+                            </c:if>
+                            <li>
+                                <a class="btn btn-action text-dark" href="#">Preguntas frecuentes</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
 
@@ -285,3 +410,4 @@
     <!--- Internal Sweet-Alert js -->
     <script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/sweetalert.min.js"></script>
     <script src="${pageContext.request.contextPath}/js/plugins/sweet-alert/jquery.sweet-alert.js"></script>
+    <script src="${pageContext.request.contextPath}/js/chat.js"></script>

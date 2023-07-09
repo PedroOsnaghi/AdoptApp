@@ -5,6 +5,7 @@ import ar.edu.unlam.tallerweb1.domain.Mensajes.ServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.Solicitud.ServicioSolicitud;
 import ar.edu.unlam.tallerweb1.domain.adopcion.ServicioAdopcion;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.chat.ServicioChat;
 import ar.edu.unlam.tallerweb1.domain.mascota.ServicioMascota;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -38,6 +40,7 @@ public class ControladorPerfilUsuarioTest  {
 
     private ServicioSolicitud servicioSolicitud;
     private ServicioAdopcion servicioAdopcion;
+    private ServicioChat servicioChat;
 
 
     @Before
@@ -50,7 +53,8 @@ public class ControladorPerfilUsuarioTest  {
         this.servicioMascota = mock(ServicioMascota.class);
         this.servicioSolicitud = mock(ServicioSolicitud.class);
         this.servicioAdopcion = mock(ServicioAdopcion.class);
-        this.controladorPerfilUsuario = new ControladorPerfilUsuario(this.servicioUsuario, this.servicioPublicacion, this.servicioMensajes, this.servicioAuth, this.servicioCalificacion,this.servicioMascota, this.servicioSolicitud, this.servicioAdopcion);
+        this.servicioChat = mock(ServicioChat.class);
+        this.controladorPerfilUsuario = new ControladorPerfilUsuario(this.servicioUsuario, this.servicioPublicacion, this.servicioMensajes, this.servicioAuth, this.servicioCalificacion,this.servicioMascota, this.servicioSolicitud, this.servicioAdopcion, this.servicioChat);
     }
 
     @Test
@@ -112,12 +116,16 @@ public class ControladorPerfilUsuarioTest  {
     private ModelAndView alAccederALaActividadDeSuPerfil(Usuario usuarioLogueado) {
 
         when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(usuarioLogueado);
+        when(this.servicioAdopcion.getAdoptadosPorUsuario(anyLong())).thenReturn(0L);
+        when(this.servicioPublicacion.getPublicacionesPorUsuario(anyLong())).thenReturn(0L);
 
         return this.controladorPerfilUsuario.misPublicaciones();
     }
 
     private Usuario dadoQueExisteUnUsuarioAutenticado() {
-        return new Usuario("Usuario Test", "test@test", "1234");
+        Usuario user = new Usuario("Usuario Test", "test@test", "1234");
+        user.setId(1L);
+        return user;
     }
 
 

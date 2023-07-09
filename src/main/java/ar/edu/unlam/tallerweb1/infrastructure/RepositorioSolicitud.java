@@ -8,6 +8,7 @@ import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import ar.edu.unlam.tallerweb1.model.enumerated.EstadoSolicitud;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.CriteriaSpecification;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -49,10 +50,23 @@ public class RepositorioSolicitud implements IRepositorioSolicitud {
     }
 
     @Override
+    public List<Solicitud> listarSolicitudesCerradasPorUsuario(Long idUsuario) {
+        return (List<Solicitud>) this.sessionFactory.getCurrentSession()
+                .createCriteria(Solicitud.class)
+                .createAlias("publicacion", "post")
+                .createAlias("usuario", "user")
+                .add(Restrictions.and(Restrictions.or(Restrictions.eq("post.estado",EstadoPublicacion.CERRADA),Restrictions.eq("estado", EstadoSolicitud.CERRADA)),Restrictions.eq("user.id", idUsuario)))
+                .addOrder(Order.desc("update_at"))
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+                .list();
+    }
+
+    @Override
     public List<Solicitud> listarSolicitudesEnviadas(Long idUsuario) {
         return (List<Solicitud>) this.sessionFactory.getCurrentSession()
                 .createCriteria(Solicitud.class)
-                .add(Restrictions.eq("usuario.id", idUsuario))
+                .createAlias("publicacion", "p")
+                .add(Restrictions.and(Restrictions.eq("usuario.id", idUsuario),Restrictions.not(Restrictions.eq("p.estado",EstadoPublicacion.CERRADA)),Restrictions.not(Restrictions.eq("estado",EstadoSolicitud.CERRADA))))
                 .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .list();
     }
@@ -87,7 +101,15 @@ public class RepositorioSolicitud implements IRepositorioSolicitud {
     @Override
     public Solicitud getSolicitudAceptada(Long idPublicacion) {
         return (Solicitud) this.sessionFactory.getCurrentSession().createCriteria(Solicitud.class)
-                .add(Restrictions.and(Restrictions.eq("estado", EstadoSolicitud.ACEPTADA), Restrictions.eq("publicacion.id", idPublicacion)))
+                .createAlias("publicacion","p")
+                .add(Restrictions.and(Restrictions.eq("estado", EstadoSolicitud.ACEPTADA), Restrictions.eq("p.id", idPublicacion),Restrictions.eq("p.estado",EstadoPublicacion.RESERVADO)))
+                .uniqueResult();
+    }
+
+    @Override
+    public Solicitud getSolicitudCanceladaSinInformar(Long idPublicacion) {
+        return (Solicitud) this.sessionFactory.getCurrentSession().createCriteria(Solicitud.class)
+                .add(Restrictions.and(Restrictions.eq("estado", EstadoSolicitud.CANCELADA),Restrictions.eq("publicacion.id", idPublicacion)))
                 .uniqueResult();
     }
 }

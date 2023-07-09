@@ -58,3 +58,15 @@ function getLongTime(fecha){
     console.log(f);
     document.write(f.format('LL'));
 }
+
+function getChatTime(fecha){
+    moment.locale('es');
+    console.log(moment(fecha).calendar());
+    return moment(fecha).calendar();
+}
+
+function getChatTimeDom(fecha){
+    moment.locale('es');
+    console.log(moment(fecha).calendar());
+    document.write(moment(fecha).calendar());
+}

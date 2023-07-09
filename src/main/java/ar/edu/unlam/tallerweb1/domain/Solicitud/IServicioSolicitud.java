@@ -14,6 +14,8 @@ public interface IServicioSolicitud {
 
     Solicitud getSolicitudDeUsuarioPorPublicacion(Publicacion publicacion, Usuario usuario);
 
+    List<Solicitud> listarSolicitudesCerradasPorUsuario(Long idUsuario);
+
     List<Solicitud> listarSolicitudesEnviadas(Usuario usuario);
 
     List<Solicitud> listarSolicitudesRecibidas(Long idPublicacion);
@@ -23,9 +25,15 @@ public interface IServicioSolicitud {
 
     Solicitud getSolicitudAceptada(Long idPublicacion);
 
+    Solicitud getSolicitudCanceladaSinInformar(Long idPublicacion);
+
     void aceptarSolicitud(Solicitud solicitud, Usuario usuarioAutenticado);
 
     void confirmarEntrega(Solicitud solicitud, Usuario usuarioAutenticado);
 
     void actualizarSolicitud(Solicitud solicitud);
+
+    void cancelarProcesoDeAdopcion(SolicitudDto solicitudDto);
+
+    void confirmarCierre(Solicitud solicitud, Usuario usuarioAutenticado);
 }

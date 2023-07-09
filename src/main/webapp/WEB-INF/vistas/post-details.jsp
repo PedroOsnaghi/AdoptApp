@@ -41,7 +41,7 @@
                                         </div>
                                         <div class="item4 ms-1">
                                             <div class="d-flex justify-content-between">
-                                                <a href="">
+                                                <a href="${pageContext.request.contextPath}/perfil/usuario?uid=${publicacion.mascota.usuario.id}">
                                                     <div class="me-3">
                                                         <img class="rounded-circle img-fluid"
                                                              src="data:image/jpeg;base64,${publicacion.mascota.usuario.imagen}"
@@ -102,32 +102,36 @@
                                                             <h6>Herramientas de publicador</h6>
                                                             <hr>
                                                             <div class="d-flex align-items-center justify-content-between">
+
+                                                                <!--TAGS ESTADOS-->
                                                                 <c:choose>
                                                                     <c:when test="${publicacion.estado.toString() eq 'DISPONIBLE'}">
-                                                            <span class="badge badge-pill bg-soft-success  ms-2">
-                                                            <i class="fa-solid fa-earth-americas"></i>
-                                                            ${publicacion.estado.toString()}
-                                                             </span>
+                                                                        <span class="badge badge-pill bg-soft-success  ms-2">
+                                                                        <i class="fa-solid fa-earth-americas"></i>
+                                                                        ${publicacion.estado.toString()}
+                                                                         </span>
                                                                     </c:when>
                                                                     <c:when test="${publicacion.estado.toString() eq 'PAUSADA'}">
-                                                            <span class="badge badge-pill bg-soft-warning  ms-2">
-                                                            <i class="fa-solid fa-pause"></i>
-                                                            ${publicacion.estado.toString()}
-                                                             </span>
+                                                                        <span class="badge badge-pill bg-soft-warning  ms-2">
+                                                                        <i class="fa-solid fa-pause"></i>
+                                                                        ${publicacion.estado.toString()}
+                                                                         </span>
                                                                     </c:when>
                                                                     <c:when test="${publicacion.estado.toString() eq 'RESERVADO'}">
-                                                            <span class="badge badge-pill bg-soft-info  ms-2">
-                                                            <i class="fa-solid fa-bookmark"></i>
-                                                            ${publicacion.estado.toString()}
-                                                             </span>
+                                                                        <span class="badge badge-pill bg-soft-info  ms-2">
+                                                                        <i class="fa-solid fa-bookmark"></i>
+                                                                        ${publicacion.estado.toString()}
+                                                                         </span>
                                                                     </c:when>
                                                                     <c:when test="${publicacion.estado.toString() eq 'CERRADA'}">
-                                                            <span class="badge badge-pill bg-soft-secondary  ms-2">
-                                                            <i class="fa-solid fa-lock"></i>
-                                                            ${publicacion.estado.toString()}
-                                                             </span>
+                                                                        <span class="badge badge-pill bg-soft-secondary  ms-2">
+                                                                        <i class="fa-solid fa-lock"></i>
+                                                                        ${publicacion.estado.toString()}
+                                                                         </span>
                                                                     </c:when>
                                                                 </c:choose>
+
+                                                                <!-- HERRAMIENTAS DE PUBLICADOR-->
                                                                 <c:if test="${(publicacion.estado.toString() eq 'DISPONIBLE') || (publicacion.estado.toString() eq 'PAUSADA')}">
                                                                     <div class="d-flex  justify-content-end">
                                                                         <a href="${pageContext.request.contextPath}/publicacion/editar?pid=${publicacion.id}"
@@ -158,22 +162,10 @@
 
                                                         </div>
                                                     </c:when>
+
                                                     <c:otherwise>
-                                                        <c:choose>
-                                                            <c:when test="${publicacion.estado.toString() eq 'PAUSADA'}">
-                                                                <div class="d-grid ms-2">
-                                                                    <div class="alert alert-solid alert-warning d-flex align-items-center mb-0 mt-5"
-                                                                         role="alert">
-                                                                        <span class="d-flex"><i
-                                                                                class="material-symbols-outlined">warning</i></span>
-                                                                        <div>
-                                                                            Publicación PAUSADA
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <div class="d-grid ms-2">
+
+                                                        <div class="d-grid ms-2">
 
                                                                     <c:if test="${empty solicitud}">
                                                                         <c:choose>
@@ -183,39 +175,60 @@
                                                                                     te necesita</h6>
                                                                             </c:when>
                                                                             <c:when test="${publicacion.estado.toString() eq 'PAUSADA'}">
-                                                            <span class="badge badge-pill bg-soft-warning  ms-2">
-                                                            <i class="fa-solid fa-pause"></i>
-                                                            ${publicacion.estado.toString()}
-                                                             </span>
+                                                                                <span class="badge badge-pill bg-soft-warning  ms-2">
+                                                                                <i class="fa-solid fa-pause"></i>
+                                                                                ${publicacion.estado.toString()}
+                                                                                 </span>
                                                                             </c:when>
                                                                             <c:when test="${publicacion.estado.toString() eq 'RESERVADO'}">
-                                                            <span class="badge badge-pill bg-soft-info  ms-2">
-                                                            <i class="fa-solid fa-bookmark"></i>
-                                                            ${publicacion.estado.toString()}
-                                                             </span>
+                                                                                <span class="badge badge-pill bg-soft-info  ms-2">
+                                                                                <i class="fa-solid fa-bookmark"></i>
+                                                                                ${publicacion.estado.toString()}
+                                                                                 </span>
                                                                             </c:when>
                                                                             <c:when test="${publicacion.estado.toString() eq 'CERRADA'}">
-                                                            <span class="badge badge-pill bg-soft-secondary  ms-2">
-                                                            <i class="fa-solid fa-lock"></i>
-                                                            ${publicacion.estado.toString()}
-                                                             </span>
+                                                                                <span class="badge badge-pill bg-soft-secondary  ms-2">
+                                                                                <i class="fa-solid fa-lock"></i>
+                                                                                ${publicacion.estado.toString()}
+                                                                                 </span>
                                                                             </c:when>
                                                                         </c:choose>
 
                                                                     </c:if>
+
+
+
                                                                     <c:if test="${not empty solicitud}">
                                                                         <c:choose>
-                                                                            <c:when test="${solicitud.estado.toString() eq 'PENDIENTE' && publicacion.estado.toString() eq 'DISPONIBLE'}">
+                                                                            <c:when test="${solicitud.estado eq 'PENDIENTE' && publicacion.estado.toString() eq 'DISPONIBLE'}">
                                                                                 <h6 class="mb-4">Tu solicitud</h6>
                                                                             </c:when>
-                                                                            <c:when test="${solicitud.estado.toString() eq 'ACEPTADA' && publicacion.estado.toString() eq 'RESERVADO'}">
+                                                                            <c:when test="${solicitud.estado eq 'ACEPTADA' && publicacion.estado.toString() eq 'RESERVADO'}">
                                                                                 <h6 class="mb-4">Tu solicitud fué ACEPTADA</h6>
                                                                             </c:when>
+                                                                            <c:when test="${solicitud.estado eq 'CANCELADA'}">
+                                                                                <div class="alert alert-solid alert-danger d-flex align-items-center mb-2 py-1 "
+                                                                                     role="alert">
+                                                                                    <div>
+                                                                                        Has Cancelado la Solicitud
+                                                                                    </div>
+                                                                                </div>
+                                                                                <p>Le informaremos al Publicador.</p>
+                                                                            </c:when>
+                                                                            <c:when test="${solicitud.estado eq 'CERRADA'}">
+                                                                                <div class="alert alert-solid alert-danger d-flex align-items-center mb-2 py-1 "
+                                                                                     role="alert">
+                                                                                    <div>
+                                                                                        No puedes enviar Solicitud a esta Publicación
+                                                                                    </div>
+                                                                                </div>
+                                                                                <p>Por politicas de AdoptApp no puedes enviar una solicitud a una publicación que has Cancelado.</p>
+                                                                            </c:when>
                                                                             <c:when test="${publicacion.estado.toString() eq 'CERRADA'}">
-                                                                            <span class="badge badge-pill bg-soft-secondary  mb-3">
-                                                                            <i class="fa-solid fa-bookmark"></i>
-                                                                            ${publicacion.estado.toString()}
-                                                                             </span>
+                                                                                <span class="badge badge-pill bg-soft-secondary  mb-3">
+                                                                                <i class="fa-solid fa-bookmark"></i>
+                                                                                ${publicacion.estado.toString()}
+                                                                                 </span>
                                                                             </c:when>
                                                                         </c:choose>
 
@@ -262,14 +275,12 @@
                                                                                     </c:if>
 
                                                                                 </div>
-
                                                                             </c:when>
                                                                         </c:choose>
 
                                                                     </div>
-                                                                </div>
-                                                            </c:otherwise>
-                                                        </c:choose>
+                                                        </div>
+
 
 
                                                     </c:otherwise>
@@ -383,9 +394,12 @@
                             </div>
                         </div>
                     </div>
-                    <c:choose>
-                        <c:when test="${usuario.id eq publicacion.mascota.usuario.id}">
-                            <c:if test="${not publicacion.estado.toString() eq 'CERRADA'}">
+
+
+
+
+                        <c:if test="${usuario.id eq publicacion.mascota.usuario.id}">
+                            <c:if test="${publicacion.estado.toString() ne 'CERRADA'}">
                                 <div class="card">
                                     <div class="card-header">
                                         <div class="header-title">
@@ -401,61 +415,79 @@
                                     </div>
                                 </div>
                             </c:if>
+                        </c:if>
 
-                        </c:when>
+                        <c:if test="${usuario.id ne publicacion.mascota.usuario.id}">
+                            <c:choose>
+                                <c:when test="${((empty solicitud) || (solicitud.estado eq 'PENDIENTE')) && (publicacion.estado.toString() eq 'DISPONIBLE')}">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <div class="header-title">
+                                                <h5 class="card-title">Preguntale a
+                                                    <strong>${publicacion.mascota.usuario.nombre}</strong> por mi</h5>
+                                            </div>
+                                            <div>
+                                                <form:form action="${pageContext.request.contextPath}/mensaje/enviar"
+                                                           modelAttribute="mensajeDto">
+                                                    <form:textarea path="pregunta" class="form-control mt-2" rows="3"
+                                                                   placeholder="Escribí tu pregunta..." required="true"/>
+                                                    <form:input path="publicacion.id" value="${publicacion.id}" type="hidden"/>
+                                                    <div class="d-flex justify-content-end">
+                                                        <button type="submit" class="btn btn-primary mt-2"><i
+                                                                class="fa-regular fa-paper-plane" style="font-size: 18px;"></i>
+                                                            Enviar
+                                                        </button>
 
-                        <c:when test="${publicacion.estado.toString() eq 'DISPONIBLE'}">
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="header-title">
-                                        <h5 class="card-title">Preguntale a
-                                            <strong>${publicacion.mascota.usuario.nombre}</strong> por mi</h5>
+                                                    </div>
+                                                </form:form>
+                                                <c:if test="${msj_response eq 'error'}">
+                                                    <div class="alert alert-solid alert-danger d-flex align-items-center mt-2 py-1 "
+                                                         role="alert">
+                                                        <div>
+                                                            No pudimos enviar tu mensaje debido a un error.
+                                                        </div>
+                                                    </div>
+                                                </c:if>
+                                                <c:if test="${msj_response eq 'success'}">
+                                                    <div class="alert alert-solid alert-success d-flex align-items-center mt-2 py-1 "
+                                                         role="alert">
+                                                        <div>
+                                                            Enviamos tu mensaje a ${publicacion.mascota.usuario.nombre}.
+                                                        </div>
+                                                    </div>
+                                                </c:if>
+                                            </div>
+
+                                        </div>
+
                                     </div>
-                                    <div>
-                                        <form:form action="${pageContext.request.contextPath}/mensaje/enviar"
-                                                   modelAttribute="mensajeDto">
-                                            <form:textarea path="pregunta" class="form-control mt-2" rows="3"
-                                                           placeholder="Escribí tu pregunta..." required="true"/>
-                                            <form:input path="publicacion.id" value="${publicacion.id}" type="hidden"/>
-                                            <div class="d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-primary mt-2"><i
-                                                        class="fa-regular fa-paper-plane" style="font-size: 18px;"></i>
-                                                    Enviar
-                                                </button>
 
-                                            </div>
-                                        </form:form>
-                                        <c:if test="${msj_response eq 'error'}">
-                                            <div class="alert alert-solid alert-danger d-flex align-items-center mt-2 py-1 "
-                                                 role="alert">
-                                                <div>
-                                                    No pudimos enviar tu mensaje debido a un error.
-                                                </div>
-                                            </div>
-                                        </c:if>
-                                        <c:if test="${msj_response eq 'success'}">
-                                            <div class="alert alert-solid alert-success d-flex align-items-center mt-2 py-1 "
-                                                 role="alert">
-                                                <div>
-                                                    Enviamos tu mensaje a ${publicacion.mascota.usuario.nombre}.
-                                                </div>
-                                            </div>
-                                        </c:if>
+                                </c:when>
+                                <c:when test="${(not empty solicitud) && (solicitud.estado eq 'CERRADA' || solicitud.estado eq 'CANCELADA')}">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <p>El servicio de mensajería no se encuentra disponible para esta publicación.</p>
+                                        </div>
                                     </div>
+                                </c:when>
+                                <c:when test="${(not empty solicitud) && (solicitud.estado eq 'ACEPTADA')}">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <p>Contactate con el publicacor por Mensajería privada.</p>
+                                        </div>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <p>El servicio de mensajería no se encuentra disponible para esta publicación.</p>
+                                        </div>
+                                    </div>
+                                </c:otherwise>
+                            </c:choose>
 
-                                </div>
+                        </c:if>
 
-                            </div>
-
-                        </c:when>
-                        <c:otherwise>
-                            <div class="card">
-                                <div class="card-header">
-                                    <p>El servicio de mensajería no se encuentra disponible para esta publicación.</p>
-                                </div>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
 
 
                     <div class="card">
@@ -545,7 +577,7 @@
                     <form:input path="usuarioSol.id" type="hidden" value="${usuario.id}"/>
                     <div class="form-group">
                         <label class="form-label" for="exampleFormControlTextarea1">Mensaje a María Guttierrez</label>
-                        <form:textarea path="mensaje" class="form-control" id="exampleFormControlTextarea1" rows="4"
+                        <form:textarea path="mensaje" class="form-control" id="exampleFormControlTextarea1" rows="4" maxlength="255"
                                        placeholder="Dile por qué debería aceptarte como Adoptante de Tobby"
                                        required="true"></form:textarea>
                     </div>

@@ -39,4 +39,12 @@ public interface IServicioPublicacion {
     void reservar(Publicacion publicacion);
 
     void cerrar(Publicacion publicacion);
+
+    List<Solicitud> listarPublicacionesCerradasPorUsuario(Long idUsuario);
+
+    List<Publicacion> listarPublicacionesDisponiblesPorUsuarioId(Long idUsuario);
+
+    void reanudar(Publicacion publicacion);
+
+    Long getPublicacionesPorUsuario(Long id);
 }

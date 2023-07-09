@@ -5,7 +5,7 @@ if (typeof jQuery === 'undefined'){
 	"use strict";
 	$.ratePicker = function (target, options){
 		if (typeof options === 'undefined') options = {};
-		options.max = typeof options.max === 'undefined' ? 5 : options.max;
+		options.max = typeof options.max === 'undefined' ? 6 : options.max;
 		options.rgbOn = typeof options.rgbOn === 'undefined' ? "#fcac1d" : options.rgbOn;
 		options.rgbOff = typeof options.rgbOff === 'undefined' ? "#ecf0f1" : options.rgbOff;
 		options.rgbSelection = typeof options.rgbSelection === 'undefined' ? "#f3d37c" : options.rgbSelection;

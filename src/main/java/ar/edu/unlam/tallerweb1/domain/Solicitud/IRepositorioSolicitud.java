@@ -18,6 +18,7 @@ public interface IRepositorioSolicitud {
 
     List<Solicitud> listarSolicitudesRecibidas(Long idPublicacion);
 
+    List<Solicitud> listarSolicitudesCerradasPorUsuario(Long idUsuario);
 
     Solicitud getSolicitud(String codigo);
 
@@ -26,6 +27,8 @@ public interface IRepositorioSolicitud {
     void actualizarSolicitud(Solicitud solicitud);
 
     Solicitud getSolicitudAceptada(Long idPublicacion);
+
+    Solicitud getSolicitudCanceladaSinInformar(Long idPublicacion);
 
 
 }

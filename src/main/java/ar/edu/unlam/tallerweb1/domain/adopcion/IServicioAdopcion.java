@@ -10,4 +10,6 @@ public interface IServicioAdopcion {
     void registrarAdopcion(Usuario usuarioAdoptante, Publicacion publicacion);
 
     List<Adopcion> listarAdoptadasPorUsuario(Usuario usuarioAutenticado);
+
+    Long getAdoptadosPorUsuario(Long idUsuario);
 }
