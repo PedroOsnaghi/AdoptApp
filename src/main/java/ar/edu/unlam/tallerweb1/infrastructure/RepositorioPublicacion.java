@@ -146,6 +146,17 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
                 .list();
     }
 
+    @Override
+    public List<Publicacion> buscar(String likeName) {
+        return (List <Publicacion>)this.sessionFactory.getCurrentSession()
+                .createCriteria(Publicacion.class)
+                .createAlias("mascota","m")
+                .createAlias("mascota.usuario","mu")
+                .add(Restrictions.and(Restrictions.or(Restrictions.like("m.nombre", likeName+"%"),Restrictions.like("mu.nombre", likeName+"%")),Restrictions.eq("estado",EstadoPublicacion.DISPONIBLE)))
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+                .list();
+    }
+
 
     @Override
     public Publicacion_favorito agregarFavorito(Publicacion_favorito favorito){

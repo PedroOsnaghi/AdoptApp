@@ -20,85 +20,27 @@
             </div>
             <!-- busqueda -->
             <div class="iq-search-bar device-search  position-relative">
-               <form action="#" class="searchbox" data-bs-toggle="modal" data-bs-target="#searchmodal">
+               <div  class="searchbox" data-bs-toggle="modal" data-bs-target="#searchmodal">
                   <a class="search-link d-none d-lg-block" href="javascript:void(0);">
                      <span class="material-symbols-outlined">search</span>
                   </a>
-                  <input type="text" class="text search-input form-control bg-soft-primary  d-none d-lg-block"
+                  <input type="text" id="search-input" class="text search-input form-control bg-soft-primary  d-none d-lg-block" path="${pageContext.request.contextPath}"
                      placeholder="Qué estas buscando?">
                   <a class="d-lg-none d-flex d-none d-lg-block" href="javascript:void(0);" data-bs-toggle="modal"
                      data-bs-target="#searchmodal">
                      <span class="material-symbols-outlined">search</span>
                   </a>
-               </form>
+               </div>
                <!-- SUGERENCIAS DE BUSQUEDA -->
                <div class="modal fade search-modal" id="searchmodal" aria-labelledby="searchmodalLabel"
                   aria-hidden="true">
                   <div class="modal-dialog modal-fullscreen-lg-down">
                      <div class="modal-content">
-                        <div class="modal-header py-2">
-                           <div class="d-flex align-items-center justify-content-between d-lg-none w-100">
-                              <form action="#" class="searchbox w-50" data-bs-toggle="modal"
-                                 data-bs-target="#searchmodal">
-                                 <a class="search-link" href="javascript:void(0);">
-                                    <span class="material-symbols-outlined">search</span>
-                                 </a>
-                                 <input type="text" class="text search-input form-control bg-soft-primary"
-                                    placeholder="Qué estas buscando?">
-                              </form>
-                              <a href="javascript:void(0);" class="material-symbols-outlined text-dark"
-                                 data-bs-dismiss="modal">close</a>
-                           </div>
-                           <div class="d-none d-lg-flex align-items-center justify-content-between w-100">
-                              <h4 class="modal-title" id="exampleModalFullscreenLabel">Busquedas recientes</h4>
-                              <a class="text-dark" href="javascript:void(0);">Limpiar</a>
-                           </div>
-                        </div>
-                        <div class="modal-body p-0">
-                           <div class="d-flex d-lg-none align-items-center justify-content-between w-100 p-3 pb-0">
-                              <h5 class="modal-title h4" id="exampleModalFullscreenLabel">Busquedas recientes</h5>
-                              <a href="javascript:void(0);" class="text-dark">Limpiar</a>
-                           </div>
+                        <div id="search-container" class="modal-body p-0">
 
-                           <div class="d-flex align-items-center border-bottom search-hover py-2 px-3">
-                              <div class="flex-shrink-0">
-                                 <img src="${pageContext.request.contextPath}/images/user/19.jpg"
-                                    class="align-self-center img-fluid avatar-50 rounded-pill" alt="#">
-                              </div>
-                              <div class="d-flex flex-column ms-3 w-100">
-                                 <a href="javascript:void(0);" class="h5">Paige Turner</a>
-                                 <span>Paige001</span>
-                              </div>
-                              <div class="d-flex align-items-center ms-auto">
-                                 <a href="javascript:void(0);"
-                                    class="me-3 d-flex align-items-center"><small>Publicación</small>
-                                 </a>
-                                 <a href="javascript:void(0);" class="material-symbols-outlined text-dark">close</a>
-                              </div>
-                           </div>
+                           <!-- RESULTADO -->
+                           <%@ include file="searchResult.jsp" %>
 
-                           <!-- SUGERENCIAS -->
-                           <div class="">
-                              <h4 class="px-3 py-2">Resultados</h4>
-
-                              <div class="d-flex align-items-center border-bottom search-hover py-2 px-3">
-                                 <div class="flex-shrink-0">
-                                    <img src="${pageContext.request.contextPath}/images/user/19.jpg"
-                                       class="align-self-center img-fluid avatar-50 rounded-pill" alt="#">
-                                 </div>
-                                 <div class="d-flex flex-column ms-3 w-100">
-                                    <a href="javascript:void(0);" class="h5">Paige Turner</a>
-                                    <span>Paige001</span>
-                                 </div>
-                                 <div class="d-flex align-items-center ms-auto">
-                                    <a href="javascript:void(0);"
-                                       class="me-3 d-flex align-items-center"><small>Publicación</small>
-                                    </a>
-                                    <a href="javascript:void(0);" class="material-symbols-outlined text-dark">close</a>
-                                 </div>
-                              </div>
-
-                           </div>
                         </div>
                      </div>
                   </div>
