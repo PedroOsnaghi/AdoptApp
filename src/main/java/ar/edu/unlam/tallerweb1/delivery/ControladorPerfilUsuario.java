@@ -80,8 +80,6 @@ public class ControladorPerfilUsuario {
     @RequestMapping("/actividad/posts")
     public ModelAndView misPublicaciones(){
 
-        Notificacion notificacion = new Notificacion(this.servicioAuth.getUsuarioAutenticado(), "/home/feed", "Noti de test");
-        servicioNotificacion.crearNotificacion(notificacion);
 
         ModelMap model = this.iniciarModel("actividad");
 

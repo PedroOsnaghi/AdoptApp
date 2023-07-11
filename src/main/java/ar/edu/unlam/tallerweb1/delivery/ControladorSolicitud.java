@@ -9,8 +9,13 @@ import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.chat.IServicioChat;
 import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
 import ar.edu.unlam.tallerweb1.domain.exceptions.SolicitudException;
+import ar.edu.unlam.tallerweb1.domain.notificacion.IServicioNotificacion;
+import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Notificacion;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Solicitud;
 import ar.edu.unlam.tallerweb1.model.Usuario;
+import ar.edu.unlam.tallerweb1.model.enumerated.TipoNotificacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,13 +36,17 @@ public class ControladorSolicitud {
     private final IServicioAuth servicioAuth;
     private final IServicioCalificacion serviciocalificacion;
     private final IServicioChat servicioChat;
+    private final IServicioNotificacion servicioNotificacion;
+    private final IServicioPublicacion servicioPublicacion;
 
     @Autowired
-    public ControladorSolicitud(IServicioSolicitud servicioSolicitud, IServicioAuth servicioAuth, IServicioCalificacion servicioCalificacion, IServicioChat servicioChat){
+    public ControladorSolicitud(IServicioSolicitud servicioSolicitud, IServicioAuth servicioAuth, IServicioCalificacion servicioCalificacion, IServicioChat servicioChat, IServicioNotificacion servicioNotificacion, IServicioPublicacion servicioPublicacion){
         this.servicioSolicitud = servicioSolicitud;
         this.servicioAuth = servicioAuth;
         this.serviciocalificacion = servicioCalificacion;
         this.servicioChat = servicioChat;
+        this.servicioNotificacion = servicioNotificacion;
+        this.servicioPublicacion = servicioPublicacion;
     }
 
     @RequireAuth
@@ -47,6 +56,13 @@ public class ControladorSolicitud {
         try{
 
             this.servicioSolicitud.enviarSolicitud(solicitudDto);
+
+            Publicacion publicacion = this.servicioPublicacion.getPublicacion(solicitudDto.getPublicacion().getId());
+
+
+            Notificacion notificacion = new Notificacion(TipoNotificacion.NUEVA_SOLICITUD, publicacion.getMascota().getUsuario(), publicacion.getId().toString() );
+
+            this.servicioNotificacion.enviarNotificacion(notificacion);
 
         }catch (DataValidationException error){
             return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + solicitudDto.getPublicacionSol().getId() + "&sol_response=error");

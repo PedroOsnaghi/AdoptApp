@@ -215,4 +215,4 @@
 
 <%@ include file="partials/script.jsp" %>
 
-
+<script src="${pageContext.request.contextPath}/js/notis.js" type="text/javascript"></script>

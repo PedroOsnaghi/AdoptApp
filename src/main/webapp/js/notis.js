@@ -2,46 +2,69 @@ const notificationContainer = document.getElementById('notification-container');
 const notificationCounter = document.getElementById('notification-counter');
 
 function addNotification(notification) {
-    const newAnchor = document.createElement('a');
-    newAnchor.className = "iq-sub-card notification-anchor";
-    newAnchor.href = `${notification.url}?notiId=${notification.id}`;
+    notificationContainer.insertAdjacentHTML( "beforeend",  '<a class="iq-sub-card notification-anchor notification-item" href="javascript:void(0);" data-notification-id="' + notification.id + '"><p class="fw-bold mb-1">' + notification.titulo + '</p><p class="mb-0">' + notification.mensaje + '</p><small class="text-muted"><script>getTime("' + notification.fechaCreacion + '")</script></small></a>');
 
-    const newText = document.createElement('p');
-    newText.innerText = notification.mensaje;
+}
 
-    const newSmall = document.createElement('small');
-    newSmall.innerText = "Hace XXX minutos";
-
-    newAnchor.dataset.notificationId = notification.id;
-
-    newAnchor.appendChild(newText);
-    newAnchor.appendChild(newSmall);
-
-    notificationContainer.appendChild(newAnchor);
+function addEvent(){
+    document.querySelectorAll(".notification-item").forEach(function (element){
+       element.addEventListener('click', function (){
+          $.ajax({
+              url: 'http://localhost:8080/proyecto_limpio_spring_war/notificacion/get?idn=' + element.getAttribute('data-notification-id') ,
+              type: 'GET',
+              success: function (resp){
+                console.log(resp);
+                  window.location.replace(resp);
+              }
+          });
+       });
+    });
 }
 
 
 function setNotifications() {
-    fetch(`http://localhost:8080/proyecto_limpio_spring_war/notificacion/`)
+    $.ajax({
+        url: 'http://localhost:8080/proyecto_limpio_spring_war/notificacion/list',
+        type: 'GET',
+        success: function (res){
+            console.log(res);
+            notificationContainer.innerHTML="";
+
+            res.forEach((notification) => {
+
+                addNotification(notification);
+
+            })
+
+            addEvent();
+
+            notificationCounter.innerText = res.length;
+        }
+    });
+    /*fetch(`http://localhost:8080/proyecto_limpio_spring_war/notificacion/list`)
         .then((res) => res.json())
         .then((data) => {
+
             const notifications = data;
             const currentNotifications = Array.from(document.querySelectorAll('.notification-anchor'));
 
             console.log(notifications);
 
+            notificationContainer.innerHTML="";
+
             notifications.forEach((notification) => {
-                if (!currentNotifications.some((currentNotification) => {
-                    console.log(currentNotification)
-                    return currentNotification.dataset.notificationId == notification.id;
-                })) {
+
                     addNotification(notification);
-                }
+
             })
 
+            addEvent();
+
             notificationCounter.innerText = notifications.length;
+
+
         });
+*/
 }
 
 setNotifications();
-setInterval(setNotifications, 5000);

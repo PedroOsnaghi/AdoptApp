@@ -27,11 +27,10 @@ public class RepositorioNotificacion implements IRepositorioNotificacion {
         return (Long) this.sessionFactory.getCurrentSession().save(notificacion);
     }
 
-    public void eliminarNotificacion(Long id) {
-        Notificacion notificacion = (Notificacion) this.sessionFactory.getCurrentSession().load(Notificacion.class, id);
-        if (null != notificacion) {
-            this.sessionFactory.getCurrentSession().delete(notificacion);
-        }
+    public void eliminarNotificacion(Notificacion notificacion) {
+
+        this.sessionFactory.getCurrentSession().delete(notificacion);
+
     }
 
     public List<Notificacion> listarNotificaciones(Long idUsuario) {
@@ -41,6 +40,11 @@ public class RepositorioNotificacion implements IRepositorioNotificacion {
                 .add(Restrictions.eq("u.id",idUsuario))
                 .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .list();
+    }
+
+    @Override
+    public Notificacion getNotificacion(Long idNotificacion) {
+        return this.sessionFactory.getCurrentSession().get(Notificacion.class, idNotificacion);
     }
 
 
