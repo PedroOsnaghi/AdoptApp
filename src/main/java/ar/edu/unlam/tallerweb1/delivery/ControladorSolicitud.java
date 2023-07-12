@@ -59,10 +59,8 @@ public class ControladorSolicitud {
 
             Publicacion publicacion = this.servicioPublicacion.getPublicacion(solicitudDto.getPublicacion().getId());
 
-
-            Notificacion notificacion = new Notificacion(TipoNotificacion.NUEVA_SOLICITUD, publicacion.getMascota().getUsuario(), publicacion.getId().toString() );
-
-            this.servicioNotificacion.enviarNotificacion(notificacion);
+            // notificacion
+            this.servicioNotificacion.crearNotificacion(TipoNotificacion.NUEVA_SOLICITUD, publicacion);
 
         }catch (DataValidationException error){
             return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + solicitudDto.getPublicacionSol().getId() + "&sol_response=error");
@@ -105,6 +103,9 @@ public class ControladorSolicitud {
         }catch (SolicitudException err){
             return new ModelAndView("redirect: " + request.getContextPath() + "/home?response=error#1001");
         }
+
+        //notificacion
+        this.servicioNotificacion.crearNotificacion(TipoNotificacion.ACEPT_SOLICITUD,solicitud);
 
         switch (target){
 
@@ -191,6 +192,9 @@ public class ControladorSolicitud {
     public ModelAndView cancelacionAdoptante(@ModelAttribute("solicitudDto") SolicitudDto solicitudDto,@RequestParam(required = false) String target, HttpServletRequest request) {
 
         this.servicioSolicitud.cancelarProcesoDeAdopcion(solicitudDto);
+
+        //notificacion
+        this.servicioNotificacion.crearNotificacion(TipoNotificacion.CANCEL_SOLICITUD,this.servicioSolicitud.getSolicitud(solicitudDto.getCodigo()));
 
         return new ModelAndView("redirect: "  + request.getContextPath() + "/solicitud/adoptante?code=" + solicitudDto.getCodigo() + "&target=" + target);
 

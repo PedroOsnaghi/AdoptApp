@@ -10810,7 +10810,8 @@ fieldset:disabled .btn {
     display: inline-block;
     width: 100%;
     color: #555770;
-    transition: all .4s ease
+    transition: all .4s ease;
+
 }
 .iq-navbar .dropdown .dropdown-menu.sub-drop .iq-sub-card:hover {
     background: var(--bs-primary-tint-90)
@@ -23967,4 +23968,77 @@ input[readonly]{
     height: 100px;
     display: inline-block;
     cursor: pointer;
+}
+
+
+@-webkit-keyframes noti {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    75% {
+        -webkit-transform: scale(1.75);
+        transform: scale(1.75);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+
+
+#notification-drop span {
+    position: absolute;
+    top: 20px;
+    right: 8px;
+    display: block;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+    border-radius: 50%;
+    font-size: 10px;
+    background-color: #3ED7FF;
+    color: #fff;
+    text-align: center;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+#notification-drop span::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    border-radius: 50%;
+    border: 1px solid #3ED7FF;
+    -webkit-animation: noti 1s linear infinite;
+    animation: noti 1s linear infinite;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+
+
+@keyframes noti{
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    75% {
+        -webkit-transform: scale(1.75);
+        transform: scale(1.75);
+        opacity: 1;
+    }
+    100% {
+        -webkit-transform: scale(2);
+        transform: scale(2);
+        opacity: 0;
+    }
 }

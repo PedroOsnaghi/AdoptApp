@@ -140,7 +140,7 @@
                                                             <button type="button" class="btn btn-primary"
                                                                     data-bs-toggle="modal" data-bs-target="#agregar-direccion"
                                                                     control-id="ControlID-4">
-                                                                Agregar Direcci?n
+                                                                Agregar Dirección
                                                             </button>
                                                         </div>
                                                         <div class="d-flex align-items-center justify-content-end w-100 col-12">
@@ -180,7 +180,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 
                 </button>
-                <h4 class="modal-title" id="exampleModalScrollableTitle">Agrega una direcci?n</h4>
+                <h4 class="modal-title" id="exampleModalScrollableTitle">Agrega una dirección</h4>
                 <p>Escribe la dirección que deseas agregar.</p>
 
             </div>

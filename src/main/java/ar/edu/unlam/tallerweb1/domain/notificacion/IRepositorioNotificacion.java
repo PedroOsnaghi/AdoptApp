@@ -13,4 +13,8 @@ public interface IRepositorioNotificacion {
     List<Notificacion> listarNotificaciones (Long userId);
 
     Notificacion getNotificacion(Long idNotificacion);
+
+    void marcarLeidas(Long id);
+
+    Long getNewNotifications(Long idUsuario);
 }

@@ -1,6 +1,8 @@
 package ar.edu.unlam.tallerweb1.domain.chat;
 
 
+import ar.edu.unlam.tallerweb1.domain.Solicitud.IServicioSolicitud;
+import ar.edu.unlam.tallerweb1.domain.notificacion.IServicioNotificacion;
 import ar.edu.unlam.tallerweb1.infrastructure.RepositorioChat;
 import ar.edu.unlam.tallerweb1.model.ChatMensaje;
 import ar.edu.unlam.tallerweb1.model.Solicitud;
@@ -26,6 +28,12 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 public class ServicioChatTest {
     @Mock
     private IRepositorioChat repositorioChat;
+
+    @Mock
+    private IServicioSolicitud servicioSolicitud;
+
+    @Mock
+    private IServicioNotificacion servicioNotificacion;
 
     @InjectMocks
     private ServicioChat servicioChat;
@@ -53,7 +61,13 @@ public class ServicioChatTest {
     }
 
     private Timestamp alEnviarMensaje(ChatMensaje chatMensaje) {
+        Solicitud s = new Solicitud();
+        Usuario u = new Usuario();
+        u.setId(1L);
+        s.setUsuario(u);
         when(this.repositorioChat.enviarMensaje(anyObject())).thenReturn(horaActual);
+        when(this.servicioSolicitud.getSolicitud(anyString())).thenReturn(s);
+
         return this.servicioChat.enviarMensaje(chatMensaje.getCodigo_solicitud(), chatMensaje.getUsuario(), chatMensaje.getContenido());
     }
 

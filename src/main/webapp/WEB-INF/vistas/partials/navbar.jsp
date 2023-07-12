@@ -24,7 +24,7 @@
                         <span class="material-symbols-outlined">search</span>
                     </a>
                     <input type="text" class="text search-input form-control bg-soft-primary  d-none d-lg-block"
-                           placeholder="Quï¿½ estas buscando?">
+                           placeholder="Qu? estas buscando?">
                     <a class="d-lg-none d-flex d-none d-lg-block" href="javascript:void(0);" data-bs-toggle="modal"
                        data-bs-target="#searchmodal">
                         <span class="material-symbols-outlined">search</span>
@@ -43,7 +43,7 @@
                                             <span class="material-symbols-outlined">search</span>
                                         </a>
                                         <input type="text" class="text search-input form-control bg-soft-primary"
-                                               placeholder="Quï¿½ estas buscando?">
+                                               placeholder="Qu? estas buscando?">
                                     </form>
                                     <a href="javascript:void(0);" class="material-symbols-outlined text-dark"
                                        data-bs-dismiss="modal">close</a>
@@ -70,7 +70,7 @@
                                     </div>
                                     <div class="d-flex align-items-center ms-auto">
                                         <a href="javascript:void(0);"
-                                           class="me-3 d-flex align-items-center"><small>Publicaciï¿½n</small>
+                                           class="me-3 d-flex align-items-center"><small>Publicaci?n</small>
                                         </a>
                                         <a href="javascript:void(0);"
                                            class="material-symbols-outlined text-dark">close</a>
@@ -92,7 +92,7 @@
                                         </div>
                                         <div class="d-flex align-items-center ms-auto">
                                             <a href="javascript:void(0);"
-                                               class="me-3 d-flex align-items-center"><small>Publicaciï¿½n</small>
+                                               class="me-3 d-flex align-items-center"><small>Publicaci?n</small>
                                             </a>
                                             <a href="javascript:void(0);" class="material-symbols-outlined text-dark">close</a>
                                         </div>
@@ -117,6 +117,7 @@
                     <a href="javascript:void(0);" class="search-toggle dropdown-toggle d-flex align-items-center"
                        id="notification-drop" data-bs-toggle="dropdown">
                         <i class="material-symbols-outlined">notifications</i>
+                        <span class="d-none" id="new-notifications">0</span>
                     </a>
                     <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop">
                         <div class="card shadow-none m-0">
@@ -183,7 +184,7 @@
                                     <div class="ms-3">
                                         <a href="#"
                                            class="mb-0 h6">
-                                            Configuracion de cuenta
+                                            Configuración de cuenta
                                         </a>
                                     </div>
                                 </div>
@@ -195,13 +196,13 @@
                                     <div class="ms-3">
                                         <form action="${pageContext.request.contextPath}/cerrarSesion" method="POST">
                                             <button class="btn border-0 mb-0 h6">
-                                                Cerrar Sesiï¿½n
+                                                Cerrar Sesión
                                             </button>
                                         </form>
                                     </div>
                                 </div>
                                 <div class=" iq-sub-card">
-                                    <h5>Configuraciï¿½n</h5>
+                                    <h5>Configuración</h5>
                                 </div>
                                 <div class=" mb-3 iq-sub-card border-0" data-setting="radio">
                                     <div class="form-check mb-0 w-100">

@@ -1,6 +1,7 @@
 
-function getTime(fecha_desde){
-    var fecha1 = moment(new Date(fecha_desde), "YYYY-MM-DD HH:mm:ss");
+function getTime(fecha_desde, isStamp = false){
+
+    var fecha1 = isStamp === true ? moment.unix(fecha_desde).format("YYYY-MM-DD HH:mm:ss") : moment(new Date(fecha_desde), "YYYY-MM-DD HH:mm:ss");
     var fecha2 = moment(new Date(), "YYYY-MM-DD HH:mm:ss");
 
     var diff = fecha2.diff(fecha1, 'm');

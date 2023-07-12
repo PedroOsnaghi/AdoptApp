@@ -37,6 +37,29 @@ public class ControladorNotificacion {
 
         return ResponseEntity.status(HttpStatus.OK).body(notificaciones);
     }
+    @RequestMapping(path = "/scan", method = RequestMethod.GET)
+    public ResponseEntity<Long> scanNotificaciones() {
+        try {
+            Usuario usuario = this.servicioAuth.getUsuarioAutenticado();
+
+            Long new_notifications = this.servicioNotificacion.getNewNotifications(usuario);
+
+            return ResponseEntity.status(HttpStatus.OK).body(new_notifications);
+        }catch (NullPointerException ex){
+            return ResponseEntity.status(HttpStatus.GONE).body(0L);
+        }
+
+    }
+
+    @RequestMapping(path = "/read", method = RequestMethod.GET)
+    public ResponseEntity<Boolean> readNotificaciones() {
+
+        Usuario usuario = this.servicioAuth.getUsuarioAutenticado();
+
+        this.servicioNotificacion.marcarLeidas(usuario);
+
+        return ResponseEntity.status(HttpStatus.OK).body(true);
+    }
 
     @RequestMapping(path = "/get", method = RequestMethod.GET)
     public ResponseEntity<String> getNotificacion(@RequestParam Long idn, HttpServletRequest request) {
@@ -50,6 +73,7 @@ public class ControladorNotificacion {
             case NUEVO_CHAT_PUB: url = request.getContextPath() +"/solicitud/adoptante?code=" + notificacion.getParams() + "&openchat=true"; break;
             case NUEVO_CHAT_ADOPT: url = request.getContextPath() +"/solicitud/publicador?code=" + notificacion.getParams() + "&openchat=true"; break;
             case NUEVA_PREGUNTA: url = request.getContextPath() + "/perfil/mensajes?pid=" + notificacion.getParams(); break;
+            case NUEVA_RESPUESTA: url = request.getContextPath() + "/publicacion/ver?pid=" + notificacion.getParams(); break;
             case NUEVA_SOLICITUD: url = request.getContextPath() + "/perfil/solicitud?pid=" + notificacion.getParams(); break;
             case ACEPT_SOLICITUD: url = request.getContextPath() + "/solicitud/adoptante?code=" + notificacion.getParams(); break;
             case CANCEL_SOLICITUD: url = request.getContextPath() + "/solicitud/publicador?code=" + notificacion.getParams(); break;
