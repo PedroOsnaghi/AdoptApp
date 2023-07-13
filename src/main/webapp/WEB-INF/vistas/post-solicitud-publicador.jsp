@@ -30,6 +30,9 @@
                                     <c:when test="${target eq 'perfil-solicitud'}">
                                         <c:set var="redirect" value="${pageContext.request.contextPath}/perfil/solicitud?pid=${solicitud.publicacion.id}"/>
                                     </c:when>
+                                    <c:otherwise>
+                                        <c:set var="redirect" value="${pageContext.request.contextPath}/home/feed"/>
+                                    </c:otherwise>
                                 </c:choose>
                                 <a class="btn btn-secondary" href="${redirect}">Cerrar</a>
                             </div>
@@ -249,7 +252,7 @@
                                                 <div class="">
                                                     <h6 class="mb-0 d-inline-block">${solicitud.usuario.nombre}</h6>
                                                 </div>
-                                                <button type="button" class="btn btn-primary"
+                                                <button type="button" class="btn btn-primary" id="chat-btn"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#chat-solicitud">
                                                     ver mensajes
@@ -380,6 +383,9 @@
 
     </div>
 
+
+
+
     <!-- chat-->
 
     <%@ include file="partials/chat-solicitud.jsp" %>
@@ -393,6 +399,9 @@
 
     <%@ include file="partials/script.jsp" %>
 
+    <c:if test="${openchat eq true}">
+    <script>document.getElementById('chat-btn').click()</script>
+    </c:if>
 
     <script
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBeluO_jCvIS_iT6Y3Thw8A6YJW5gyzh0M&callback=initAutocomplete&libraries=places&v=weekly"

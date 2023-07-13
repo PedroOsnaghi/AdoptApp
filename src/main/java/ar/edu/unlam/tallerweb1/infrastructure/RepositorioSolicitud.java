@@ -81,6 +81,15 @@ public class RepositorioSolicitud implements IRepositorioSolicitud {
     }
 
     @Override
+    public List<Solicitud> listarSolicitudesPendientes(Long idPublicacion) {
+        return (List<Solicitud>) this.sessionFactory.getCurrentSession()
+                .createCriteria(Solicitud.class)
+                .add(Restrictions.and(Restrictions.eq("publicacion.id", idPublicacion),Restrictions.eq("estado", EstadoSolicitud.PENDIENTE)) )
+                .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
+                .list();
+    }
+
+    @Override
     public Solicitud getSolicitud(String codigo) {
         return (Solicitud) this.sessionFactory.getCurrentSession().createCriteria(Solicitud.class)
                 .add(Restrictions.eq("codigo", codigo))

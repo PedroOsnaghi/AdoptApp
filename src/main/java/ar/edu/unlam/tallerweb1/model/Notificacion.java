@@ -81,10 +81,16 @@ public class Notificacion {
                 this.param_mensaje = this.solicitud.getPublicacion().getMascota().getUsuario().getNombre();
                 break;
             case ACEPT_SOLICITUD:
+            case ENTREGADA:
+            case EN_ESPERA:
+            case SE_ADOPTO:
+            case REANUDADA:
                 this.usuario = this.solicitud.getUsuario();
                 this.params = this.solicitud.getCodigo();
                 this.param_mensaje = this.solicitud.getPublicacion().getMascota().getNombre();
                 break;
+
+
 
 
 
@@ -126,6 +132,10 @@ public class Notificacion {
             case NUEVA_SOLICITUD: return "Nueva solicitud de adopción";
             case ACEPT_SOLICITUD: return "Solicitud aceptada";
             case CANCEL_SOLICITUD: return "Se canceló el proceso de Adopción";
+            case ENTREGADA: return "Felicitaciones, ya tenés tu mascota";
+            case EN_ESPERA: return "Estado de Solicitud";
+            case SE_ADOPTO: return "Tu solicitud fué Cerrada";
+            case REANUDADA: return "Cambio de Estado en Tu Solicitud";
             default: return "Nueva Notificación";
         }
     }
@@ -141,6 +151,10 @@ public class Notificacion {
             case NUEVA_SOLICITUD: return "Recibiste una solicitud para " + this.param_mensaje;
             case ACEPT_SOLICITUD: return "Aceptaron tu solicitud en la publicación de " + this.param_mensaje;
             case CANCEL_SOLICITUD: return this.param_mensaje + " canceló el proceso de adopción";
+            case ENTREGADA: return "El Publicador informó que ya te entregó a " + this.param_mensaje;
+            case EN_ESPERA: return "Tu solicitud en la publicaciób de " + this.param_mensaje + " pasó a lista de espera.";
+            case SE_ADOPTO: return this.param_mensaje + " ya fué adoptada por otra persona.";
+            case REANUDADA: return "La publicación de " + this.param_mensaje + " está disponible nuevamente";
             default: return "Tenés una nueva notificación";
         }
     }

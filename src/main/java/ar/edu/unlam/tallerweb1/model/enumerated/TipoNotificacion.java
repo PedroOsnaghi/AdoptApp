@@ -8,6 +8,10 @@ public enum TipoNotificacion {
     NUEVO_CHAT_PUB,
     CANCEL_SOLICITUD,
     ACEPT_SOLICITUD,
+    REANUDADA,
+    ENTREGADA,
+    EN_ESPERA,
+    SE_ADOPTO,
     WELCOME,
 
     }

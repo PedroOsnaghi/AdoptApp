@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/solicitud")
@@ -131,6 +132,15 @@ public class ControladorSolicitud {
             return new ModelAndView("redirect: " + request.getContextPath() + "/home?response=error#1001");
         }
 
+        //notificacion
+        this.servicioNotificacion.crearNotificacion(TipoNotificacion.ENTREGADA, solicitud);
+
+        List<Solicitud> restantes = this.servicioSolicitud.listarSolicitudesPendientes(solicitud.getPublicacion().getId());
+
+        for (Solicitud s : restantes){
+            this.servicioNotificacion.crearNotificacion(TipoNotificacion.SE_ADOPTO,s);
+        }
+
         return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + solicitud.getCodigo()+"&target=" + target);
 
     }
@@ -147,13 +157,20 @@ public class ControladorSolicitud {
             return new ModelAndView("redirect: " + request.getContextPath() + "/home?response=error#1001");
         }
 
+        //notificar a los usuarios en espera q la publicacion se reanudo
+        List<Solicitud> enEspera = this.servicioSolicitud.listarSolicitudesPendientes(solicitud.getPublicacion().getId());
+
+        for (Solicitud s : enEspera){
+            this.servicioNotificacion.crearNotificacion(TipoNotificacion.REANUDADA, s);
+        }
+
         return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + solicitud.getCodigo()+"&target=" + target);
 
     }
 
     @RequireAuth
     @RequestMapping(path = "/adoptante")
-    public ModelAndView adoptante(@RequestParam String code, @RequestParam(required = false) String target, @RequestParam(required = false)String error, HttpServletRequest request) {
+    public ModelAndView adoptante(@RequestParam String code, @RequestParam(required = false) String target, @RequestParam(required = false)String error, @RequestParam(required = false) Boolean openchat, HttpServletRequest request) {
         ModelMap model = new ModelMap();
 
         model.put("usuario", this.servicioAuth.getUsuarioAutenticado());
@@ -162,6 +179,7 @@ public class ControladorSolicitud {
         model.put("target", target);
         model.put("error",error);
         model.put("calificacion", new CalificacionDto());
+        model.put("openchat", openchat);
 
         model.put("mensajes_chat", this.servicioChat.listarMensajesDeSolicitud(code));
 
@@ -171,7 +189,7 @@ public class ControladorSolicitud {
 
     @RequireAuth
     @RequestMapping(path = "/publicador")
-    public ModelAndView publicador(@RequestParam String code, @RequestParam(required = false) String target, @RequestParam(required = false)String error, HttpServletRequest request) {
+    public ModelAndView publicador(@RequestParam String code, @RequestParam(required = false) String target, @RequestParam(required = false)String error, @RequestParam(required = false) Boolean openchat, HttpServletRequest request) {
         ModelMap model = new ModelMap();
 
         model.put("usuario", this.servicioAuth.getUsuarioAutenticado());
@@ -179,6 +197,7 @@ public class ControladorSolicitud {
         model.put("target", target);
         model.put("error",error);
         model.put("calificacion", new CalificacionDto());
+        model.put("openchat", openchat);
 
         model.put("mensajes_chat", this.servicioChat.listarMensajesDeSolicitud(code));
 
