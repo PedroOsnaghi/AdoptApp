@@ -23,6 +23,8 @@
  <!--select2 Script -->
  <script src="${pageContext.request.contextPath}/js/select2.js" type="text/javascript"></script>
 
+ <script src="${pageContext.request.contextPath}/js/search.js" type="text/javascript"></script>
+
  <script src="${pageContext.request.contextPath}/js/notis.js" type="text/javascript"></script>
 
 </body>
