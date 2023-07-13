@@ -75,7 +75,12 @@ public class ControladorNotificacion {
             case NUEVA_PREGUNTA: url = request.getContextPath() + "/perfil/mensajes?pid=" + notificacion.getParams(); break;
             case NUEVA_RESPUESTA: url = request.getContextPath() + "/publicacion/ver?pid=" + notificacion.getParams(); break;
             case NUEVA_SOLICITUD: url = request.getContextPath() + "/perfil/solicitud?pid=" + notificacion.getParams(); break;
-            case ACEPT_SOLICITUD: url = request.getContextPath() + "/solicitud/adoptante?code=" + notificacion.getParams(); break;
+            case ACEPT_SOLICITUD:
+            case ENTREGADA:
+            case EN_ESPERA:
+            case SE_ADOPTO:
+            case REANUDADA:
+                url = request.getContextPath() + "/solicitud/adoptante?code=" + notificacion.getParams(); break;
             case CANCEL_SOLICITUD: url = request.getContextPath() + "/solicitud/publicador?code=" + notificacion.getParams(); break;
             default: url = request.getContextPath() + "/home/mispublicaciones";
         };

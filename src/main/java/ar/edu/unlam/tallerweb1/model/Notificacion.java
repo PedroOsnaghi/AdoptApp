@@ -152,7 +152,7 @@ public class Notificacion {
             case ACEPT_SOLICITUD: return "Aceptaron tu solicitud en la publicación de " + this.param_mensaje;
             case CANCEL_SOLICITUD: return this.param_mensaje + " canceló el proceso de adopción";
             case ENTREGADA: return "El Publicador informó que ya te entregó a " + this.param_mensaje;
-            case EN_ESPERA: return "Tu solicitud en la publicaciób de " + this.param_mensaje + " pasó a lista de espera.";
+            case EN_ESPERA: return "Tu solicitud en la publicación de " + this.param_mensaje + " pasó a lista de espera.";
             case SE_ADOPTO: return this.param_mensaje + " ya fué adoptada por otra persona.";
             case REANUDADA: return "La publicación de " + this.param_mensaje + " está disponible nuevamente";
             default: return "Tenés una nueva notificación";

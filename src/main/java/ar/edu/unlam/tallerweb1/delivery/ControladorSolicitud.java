@@ -108,6 +108,12 @@ public class ControladorSolicitud {
         //notificacion
         this.servicioNotificacion.crearNotificacion(TipoNotificacion.ACEPT_SOLICITUD,solicitud);
 
+        List<Solicitud> pendientes = this.servicioSolicitud.listarSolicitudesPendientes(solicitud.getPublicacion().getId());
+
+        for (Solicitud s : pendientes){
+            this.servicioNotificacion.crearNotificacion(TipoNotificacion.EN_ESPERA, s);
+        }
+
         switch (target){
 
             case "solicitud":
