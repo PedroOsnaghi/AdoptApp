@@ -97,7 +97,7 @@
                                                         <h6>F. Nac:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">${usuario.f_nac}</p>
+                                                        <p class="mb-0"><script>getLongTime("${usuario.f_nac}")</script> </p>
                                                     </div>
                                                 </div>
                                                 <div class="row mb-2">
@@ -138,7 +138,7 @@
                                                         <h6>Unido el:</h6>
                                                     </div>
                                                     <div class="col-9">
-                                                        <p class="mb-0">${usuario.created_at}</p>
+                                                        <p class="mb-0"><script>getLongTime("${usuario.created_at}")</script> </p>
                                                     </div>
                                                 </div>
 

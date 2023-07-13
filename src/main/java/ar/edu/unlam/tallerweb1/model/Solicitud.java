@@ -68,7 +68,7 @@ public class Solicitud {
     @Column(name = "estado", nullable = false)
     private EstadoSolicitud estado;
 
-    @Column(name = "mensaje", nullable = false)
+    @Column(name = "mensaje")
     private String mensaje;
 
     @Column(nullable = false)

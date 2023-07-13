@@ -37,7 +37,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div class="item2 ">
                                             <h4 class=""><strong>${publicacion.mascota.nombre}</strong></h4>
-                                            <span>6 Interesados</span>
+
                                         </div>
                                         <div class="item4 ms-1">
                                             <div class="d-flex justify-content-between">
@@ -575,12 +575,7 @@
                            modelAttribute="solicitudDto">
                     <form:input path="publicacionSol.id" type="hidden" value="${publicacion.id}"/>
                     <form:input path="usuarioSol.id" type="hidden" value="${usuario.id}"/>
-                    <div class="form-group">
-                        <label class="form-label" for="exampleFormControlTextarea1">Mensaje a María Guttierrez</label>
-                        <form:textarea path="mensaje" class="form-control" id="exampleFormControlTextarea1" rows="4" maxlength="255"
-                                       placeholder="Dile por qué debería aceptarte como Adoptante de Tobby"
-                                       required="true"></form:textarea>
-                    </div>
+
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Lo pensaré</button>
                         <button type="submit" class="btn btn-primary">Estoy seguro</button>

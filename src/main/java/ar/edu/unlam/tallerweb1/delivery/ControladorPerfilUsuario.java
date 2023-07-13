@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.text.DecimalFormat;
 
 
 @Controller
@@ -251,13 +252,15 @@ public class ControladorPerfilUsuario {
         try{
 
 
+
+
         model.put("usuario", this.servicioAuth.getUsuarioAutenticado());
         model.put("usuario_seleccionado", this.servicioUsuario.getUsuario(uid));
         model.put("publicados", this.servicioPublicacion.getPublicacionesPorUsuario(uid));
         model.put("adoptados", this.servicioAdopcion.getAdoptadosPorUsuario(uid));
         model.put("publicaciones", this.servicioPublicacion.listarPublicacionesDisponiblesPorUsuarioId(uid));
-        model.put("cal_publicador", this.servicioCalificacion.getCalificacionPublicador(uid));
-        model.put("cal_adoptante", this.servicioCalificacion.getCalificacionAdoptante(uid));
+        model.put("cal_publicador", this.servicioCalificacion.getCalificacionPublicador(uid)) ;
+        model.put("cal_adoptante", this.servicioCalificacion.getCalificacionAdoptante(uid)) ;
         model.put("comments_adopt", this.servicioCalificacion.getComentariosComoAdoptante(uid));
         model.put("comments_pub", this.servicioCalificacion.getComentariosComoPublicador(uid));
 

@@ -2,6 +2,8 @@ package ar.edu.unlam.tallerweb1.model;
 
 import ar.edu.unlam.tallerweb1.model.enumerated.RolCalificacion;
 
+import java.text.DecimalFormat;
+
 public class UsuarioConCalificacion {
 
     private Usuario usuario;
@@ -20,8 +22,10 @@ public class UsuarioConCalificacion {
         this.usuario = usuario;
     }
 
-    public Double getCalificacion() {
-        return calificacion;
+    public String getCalificacion() {
+        DecimalFormat df = new DecimalFormat();
+        df.setMaximumFractionDigits(2);
+        return df.format(calificacion);
     }
 
     public void setCalificacion(Double calificacion) {
