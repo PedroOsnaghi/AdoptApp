@@ -186,7 +186,7 @@
             </div>
             <div class="modal-body">
                 <input  type="text" class="form-control"  id="pac-input"
-                        placeholder="Escribe tu direcci?n..." />
+                        placeholder="Escribe tu dirección..." />
 
                 <div class="w-100 d-block mt-2" style="height: 200px;" id="map">
 
