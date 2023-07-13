@@ -114,7 +114,7 @@
                                 <c:if test="${solicitud.estado eq 'PENDIENTE'}">
                                     <div class="timeline-dots border-light"></div>
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <h6 class="text-muted mb-1">Pendiente de entrega</h6>
+                                        <h6 class="text-muted mb-1">Pendiente de Adopción</h6>
 
                                     </div>
                                 </c:if>
@@ -123,7 +123,7 @@
 
                                         <c:if test="${solicitud.publicacion.estado eq 'RESERVADO'}">
                                              <div class="d-flex align-items-center justify-content-between">
-                                                  <h6 class="fw-bolder mb-1">Pendiente de entrega</h6>
+                                                  <h6 class="fw-bolder mb-1">Pendiente de Adopción</h6>
                                              </div>
                                             <p>Cuando el Adoptante Retire la mascota deberas informar la entrega.</p>
                                         </c:if>
@@ -131,7 +131,7 @@
                                             <div class="d-flex align-items-center justify-content-between">
                                                 <h6 class="fw-bolder mb-1">Entregada</h6>
                                             </div>
-                                            <p>El adoptante ya retiro la mascota</p>
+                                            <p>El adoptante ya tiene su mascota</p>
                                         </c:if>
 
                                 </c:if>
@@ -361,11 +361,6 @@
                     </div>
                     <div class="card-body">
                         <ul>
-                            <c:if test="${solicitud.publicacion.estado eq 'RESERVADO' && solicitud.estado eq 'ACEPTADA'}">
-                                <li>
-                                    <a class="btn btn-action text-dark" href="">El adoptante nunca retiró la mascota</a>
-                                </li>
-                            </c:if>
                             <li>
                                 <a class="btn btn-action text-dark" href="#">Preguntas frecuentes</a>
                             </li>

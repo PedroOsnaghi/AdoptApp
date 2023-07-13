@@ -35,4 +35,6 @@ public interface IRepositorioPublicacion {
     Long getPublicacionesPorUsuario(Long idUsuario);
 
     List<Publicacion> listarPublicacionesDisponiblesPorUsuarioId(Long idUsuario);
+
+    List<Publicacion> buscar(String likeName);
 }

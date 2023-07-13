@@ -146,7 +146,7 @@
                                 <c:if test="${solicitud.estado eq 'PENDIENTE'}">
                                     <div class="timeline-dots border-light"></div>
                                     <div class="d-flex align-items-center justify-content-between">
-                                        <h6 class="text-muted mb-1">Pendiente de entrega</h6>
+                                        <h6 class="text-muted mb-1">Pendiente de Adopción</h6>
 
                                     </div>
                                 </c:if>
@@ -154,7 +154,7 @@
                                     <div class="timeline-dots border-success"></div>
                                     <c:if test="${solicitud.publicacion.estado eq 'RESERVADO'}">
                                         <div class="d-flex align-items-center justify-content-between">
-                                            <h6 class="fw-bolder mb-1">Pendiente de entrega</h6>
+                                            <h6 class="fw-bolder mb-1">Pendiente de Adopción</h6>
                                         </div>
                                         <p>Ya puedes retirar tu mascota.</p>
                                     </c:if>
@@ -162,7 +162,7 @@
                                         <div class="d-flex align-items-center justify-content-between">
                                             <h6 class="fw-bolder mb-1">Entregada</h6>
                                         </div>
-                                        <p>Ya retiraste tu mascota.</p>
+                                        <p>Ya tenés tu mascota.</p>
                                     </c:if>
                                 </c:if>
                                 <c:if test="${solicitud.estado eq 'CANCELADA'}">
