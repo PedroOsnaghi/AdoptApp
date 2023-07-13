@@ -25,7 +25,7 @@
                      <span class="material-symbols-outlined">search</span>
                   </a>
                   <input type="text" id="search-input" class="text search-input form-control bg-soft-primary  d-none d-lg-block" path="${pageContext.request.contextPath}"
-                     placeholder="Qué estas buscando?">
+                         placeholder="Qué estas buscando?">
                   <a class="d-lg-none d-flex d-none d-lg-block" href="javascript:void(0);" data-bs-toggle="modal"
                      data-bs-target="#searchmodal">
                      <span class="material-symbols-outlined">search</span>
