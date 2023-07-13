@@ -36,4 +36,6 @@ public interface IServicioSolicitud {
     void cancelarProcesoDeAdopcion(SolicitudDto solicitudDto);
 
     void confirmarCierre(Solicitud solicitud, Usuario usuarioAutenticado);
+
+    List<Solicitud> listarSolicitudesPendientes(Long idPublicacion);
 }

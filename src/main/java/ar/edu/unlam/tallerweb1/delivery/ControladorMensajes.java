@@ -5,7 +5,9 @@ import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.exceptions.SendingMessageException;
+import ar.edu.unlam.tallerweb1.domain.notificacion.IServicioNotificacion;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
+import ar.edu.unlam.tallerweb1.model.enumerated.TipoNotificacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,12 +26,14 @@ public class ControladorMensajes {
     private final IServicioMensajes servicioMensajes;
     private final IServicioAuth servicioAuth;
     private final IServicioPublicacion servicioPublicacion;
+    private final IServicioNotificacion servicioNotificacion;
 
     @Autowired
-    public ControladorMensajes(IServicioMensajes servicioMensajes, IServicioAuth servicioAuth, IServicioPublicacion servicioPublicacion){
+    public ControladorMensajes(IServicioMensajes servicioMensajes, IServicioAuth servicioAuth, IServicioPublicacion servicioPublicacion, IServicioNotificacion servicioNotificacion){
         this.servicioMensajes = servicioMensajes;
         this.servicioAuth = servicioAuth;
         this.servicioPublicacion = servicioPublicacion;
+        this.servicioNotificacion = servicioNotificacion;
     }
 
     @RequireAuth
@@ -47,6 +51,10 @@ public class ControladorMensajes {
             return new ModelAndView("redirect: "  + request.getContextPath() + "/publicacion/ver?pid=" + mensajeDto.getPublicacion().getId() + "&msj_response=error");
         }
 
+        //envia notificacion
+        this.servicioNotificacion.crearNotificacion(TipoNotificacion.NUEVA_PREGUNTA, mensajeDto.getPublicacion());
+
+
         return new ModelAndView("redirect: "  + request.getContextPath() + "/publicacion/ver?pid=" + mensajeDto.getPublicacion().getId() + "&msj_response=success");
 
     }
@@ -62,6 +70,9 @@ public class ControladorMensajes {
         }catch (PersistenceException err){
             return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/mensajes?pid=" + mensajeDto.getPublicacion().getId() +"&response=error");
         }
+
+        //notificacion
+        this.servicioNotificacion.crearNotificacion(TipoNotificacion.NUEVA_RESPUESTA, this.servicioMensajes.getMensaje(mensajeDto.getId()));
 
         return new ModelAndView("redirect: " + request.getContextPath() + "/perfil/mensajes?pid=" + mensajeDto.getPublicacion().getId() + "&response=success");
     }

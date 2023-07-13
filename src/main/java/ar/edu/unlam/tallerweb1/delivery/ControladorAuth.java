@@ -4,8 +4,10 @@ import ar.edu.unlam.tallerweb1.delivery.dto.LoginDto;
 import ar.edu.unlam.tallerweb1.delivery.dto.RegistrarDto;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioSesion;
+import ar.edu.unlam.tallerweb1.domain.notificacion.IServicioNotificacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.IServicioUsuario;
 import ar.edu.unlam.tallerweb1.model.Usuario;
+import ar.edu.unlam.tallerweb1.model.enumerated.TipoNotificacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -20,12 +22,14 @@ public class ControladorAuth {
         private final IServicioUsuario servicioUsuario;
         private final IServicioAuth servicioAuth;
         private final IServicioSesion servicioSesion;
+    private final IServicioNotificacion servicioNotificacion;
 
-        @Autowired
-        public ControladorAuth(IServicioAuth servicioAuth, IServicioUsuario servicioUsuario, IServicioSesion servicioSesion) {
+    @Autowired
+        public ControladorAuth(IServicioAuth servicioAuth, IServicioUsuario servicioUsuario, IServicioSesion servicioSesion, IServicioNotificacion servicioNotificacion) {
             this.servicioAuth = servicioAuth;
             this.servicioUsuario = servicioUsuario;
             this.servicioSesion = servicioSesion;
+            this.servicioNotificacion = servicioNotificacion;
         }
 
 
@@ -102,6 +106,9 @@ public class ControladorAuth {
 
                 return new ModelAndView("/register", model);
             }
+
+            //mensaje de bienvenida
+            this.servicioNotificacion.crearNotificacion(TipoNotificacion.WELCOME,usuarioCreado);
 
             return new ModelAndView("/register-success");
         }

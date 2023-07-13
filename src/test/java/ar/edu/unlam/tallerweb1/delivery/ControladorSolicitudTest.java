@@ -5,6 +5,8 @@ import ar.edu.unlam.tallerweb1.domain.Solicitud.ServicioSolicitud;
 import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
 import ar.edu.unlam.tallerweb1.domain.exceptions.SolicitudException;
+import ar.edu.unlam.tallerweb1.domain.notificacion.IServicioNotificacion;
+import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Solicitud;
@@ -37,6 +39,12 @@ public class ControladorSolicitudTest {
 
     @Mock
     HttpServletRequest request;
+
+    @Mock
+    IServicioNotificacion servicioNotificacion;
+
+    @Mock
+    IServicioPublicacion servicioPublicacion;
 
     @InjectMocks
     ControladorSolicitud controladorSolicitud;
@@ -84,6 +92,7 @@ public class ControladorSolicitudTest {
         Solicitud solicitud = dadoQueExisteUnaSolicitud(usuarioDuenio);
         when(this.servicioAuth.getUsuarioAutenticado()).thenReturn(usuarioDuenio);
         when(this.servicioSolicitud.getSolicitud(anyString())).thenReturn(solicitud);
+
 
         ModelAndView vista = controladorSolicitud.aceptarSolicitud(solicitud.getCodigo(), "perfil-solicitud", request);
 
@@ -138,6 +147,7 @@ public class ControladorSolicitudTest {
         solicitud.setPublicacionSol(publicacion);
 
         when(this.request.getContextPath()).thenReturn("adoptapp");
+
 
         ModelAndView vista = controladorSolicitud.enviarSolicitud(solicitud, request);
 

@@ -11,8 +11,10 @@ import ar.edu.unlam.tallerweb1.domain.chat.IServicioChat;
 import ar.edu.unlam.tallerweb1.domain.exceptions.NotFoundPostExcption;
 import ar.edu.unlam.tallerweb1.domain.exceptions.NotFoundUserExcption;
 import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
+import ar.edu.unlam.tallerweb1.domain.notificacion.IServicioNotificacion;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.IServicioUsuario;
+import ar.edu.unlam.tallerweb1.model.Notificacion;
 import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Solicitud;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -43,11 +45,12 @@ public class ControladorPerfilUsuario {
     private final IServicioSolicitud servicioSolicitud;
     private final IServicioAdopcion servicioAdopcion;
     private final IServicioChat servicioChat;
+    private final IServicioNotificacion servicioNotificacion;
 
     @Autowired
     public ControladorPerfilUsuario(IServicioUsuario servicioUsuario, IServicioPublicacion servicioPublicacion, IServicioMensajes servicioMensajes, IServicioAuth servicioAuth,
                                     IServicioCalificacion servicioCalificacion, IServicioMascota servicioMascota, IServicioSolicitud servicioSolicitud, IServicioAdopcion servicioAdopcion,
-                                    IServicioChat servicioChat) {
+                                    IServicioChat servicioChat, IServicioNotificacion servicioNotificacion) {
         this.servicioUsuario = servicioUsuario;
         this.servicioAuth = servicioAuth;
         this.servicioPublicacion = servicioPublicacion;
@@ -57,6 +60,7 @@ public class ControladorPerfilUsuario {
         this.servicioSolicitud = servicioSolicitud;
         this.servicioAdopcion = servicioAdopcion;
         this.servicioChat = servicioChat;
+        this.servicioNotificacion = servicioNotificacion;
     }
 
 
@@ -75,6 +79,7 @@ public class ControladorPerfilUsuario {
     @RequireAuth
     @RequestMapping("/actividad/posts")
     public ModelAndView misPublicaciones(){
+
 
         ModelMap model = this.iniciarModel("actividad");
 

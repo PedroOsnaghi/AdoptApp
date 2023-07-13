@@ -7,6 +7,7 @@ import ar.edu.unlam.tallerweb1.domain.adopcion.ServicioAdopcion;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.chat.ServicioChat;
 import ar.edu.unlam.tallerweb1.domain.mascota.ServicioMascota;
+import ar.edu.unlam.tallerweb1.domain.notificacion.ServicioNotificacion;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
 import ar.edu.unlam.tallerweb1.domain.usuarios.ServicioUsuario;
 import ar.edu.unlam.tallerweb1.model.Usuario;
@@ -42,6 +43,8 @@ public class ControladorPerfilUsuarioTest  {
     private ServicioAdopcion servicioAdopcion;
     private ServicioChat servicioChat;
 
+    private ServicioNotificacion servicioNotificacion;
+
 
     @Before
     public void init(){
@@ -54,7 +57,8 @@ public class ControladorPerfilUsuarioTest  {
         this.servicioSolicitud = mock(ServicioSolicitud.class);
         this.servicioAdopcion = mock(ServicioAdopcion.class);
         this.servicioChat = mock(ServicioChat.class);
-        this.controladorPerfilUsuario = new ControladorPerfilUsuario(this.servicioUsuario, this.servicioPublicacion, this.servicioMensajes, this.servicioAuth, this.servicioCalificacion,this.servicioMascota, this.servicioSolicitud, this.servicioAdopcion, this.servicioChat);
+        this.servicioNotificacion = mock(ServicioNotificacion.class);
+        this.controladorPerfilUsuario = new ControladorPerfilUsuario(this.servicioUsuario, this.servicioPublicacion, this.servicioMensajes, this.servicioAuth, this.servicioCalificacion,this.servicioMascota, this.servicioSolicitud, this.servicioAdopcion, this.servicioChat, this.servicioNotificacion);
     }
 
     @Test

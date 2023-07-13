@@ -69,4 +69,9 @@ public class RepositorioMensajes implements IRepositorioMensajes {
 
         return mensajes;
     }
+
+    @Override
+    public Mensaje getMensaje(Long id) {
+        return this.sessionFactory.getCurrentSession().get(Mensaje.class, id);
+    }
 }

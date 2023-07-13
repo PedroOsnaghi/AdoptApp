@@ -19,4 +19,5 @@ public interface IServicioMensajes {
 
     List<Mensaje> listarMensajesRespondidos(Long idPublicacion);
 
+    Mensaje getMensaje(Long id);
 }

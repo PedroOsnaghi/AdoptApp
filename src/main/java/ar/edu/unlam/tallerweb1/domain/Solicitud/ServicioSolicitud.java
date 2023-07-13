@@ -115,6 +115,11 @@ public class ServicioSolicitud implements IServicioSolicitud{
     }
 
     @Override
+    public List<Solicitud> listarSolicitudesPendientes(Long idPublicacion) {
+        return this.repositorioSolicitud.listarSolicitudesPendientes(idPublicacion);
+    }
+
+    @Override
     public void actualizarSolicitud(Solicitud solicitud) {
         this.repositorioSolicitud.actualizarSolicitud(solicitud);
     }
