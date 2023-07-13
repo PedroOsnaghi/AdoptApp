@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.model.enumerated.RolCalificacion;
 
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 
 @Entity
 public class Calificacion {
@@ -61,7 +62,8 @@ public class Calificacion {
     }
 
     public Double getCalificacion() {
-        return calificacion;
+
+        return  calificacion;
     }
 
     public void setCalificacion(Double calificacion) {

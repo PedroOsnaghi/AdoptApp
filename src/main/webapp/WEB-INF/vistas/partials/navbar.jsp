@@ -117,19 +117,19 @@
                                  </a>
                               </div>
                            </div>
-
-                           <div class="d-flex align-items-center iq-sub-card border-0">
-                              <span class="material-symbols-outlined">
-                                 manage_accounts
-                              </span>
-                              <div class="ms-3">
-                                 <a href="#"
-                                    class="mb-0 h6">
-                                    Configuracion de cuenta
-                                 </a>
+                           <%--
+                              <div class="d-flex align-items-center iq-sub-card border-0">
+                                 <span class="material-symbols-outlined">
+                                    manage_accounts
+                                 </span>
+                                 <div class="ms-3">
+                                    <a href="#"
+                                       class="mb-0 h6">
+                                       Configuracion de cuenta
+                                    </a>
+                                 </div>
                               </div>
-                           </div>
-
+                           --%>
                            <div class="d-flex align-items-center iq-sub-card">
                               <span class="material-symbols-outlined">
                                  login

@@ -52,7 +52,7 @@
                    </a>
                 </li>
                 <li class="nav-item">
-                   <a class="nav-link " href="#">
+                   <a class="nav-link " href="${pageContext.request.contextPath}/home/mispublicaciones">
                       <i class="icon material-symbols-outlined filled">
                          fiber_manual_record
                       </i>
