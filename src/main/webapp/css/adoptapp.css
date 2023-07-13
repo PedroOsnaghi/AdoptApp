@@ -5089,6 +5089,10 @@ fieldset:disabled .btn {
     transition: transform .3s ease-out;
     transform: translate(0, -50px)
 }
+.modal.fade .search-motion {
+    transition: transform .3s ease-out;
+    transform: translate(0, -10px)
+}
 @media (prefers-reduced-motion: reduce) {
     .modal.fade .modal-dialog {
         transition: none
@@ -12126,7 +12130,7 @@ fieldset:disabled .btn {
     .iq-top-navbar .modal.search-modal {
         position: absolute;
         height: auto;
-        top: 1rem;
+        top: -2rem;
         --bs-modal-border-radius: .393em;
         --bs-modal-border-color: rgba(0, 0, 0, .1)
     }

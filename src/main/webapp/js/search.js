@@ -15,5 +15,5 @@ function buscar(path, value) {
 }
 
 search_input.addEventListener("keyup", function (){
-    if(this.value !== "") buscar(this.getAttribute("path"), this.value);
+    buscar(this.getAttribute("path"), this.value);
 });

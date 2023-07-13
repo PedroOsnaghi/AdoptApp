@@ -9,6 +9,7 @@ import ar.edu.unlam.tallerweb1.model.Usuario;
 import ar.edu.unlam.tallerweb1.model.enumerated.TipoBusqueda;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +30,9 @@ public class ServicioBusqueda implements IServicioBusqueda{
 
     @Override
     public List<ResultadoBusqueda> buscar(String textoBusqueda) {
+        String string_verify = StringUtils.trimWhitespace(textoBusqueda);
+        if(string_verify == "") return null;
+
         //Buscamos usuarios cuyo nombre incluya textoBusqueda
         List<Usuario> usuarios = this.repositorioUsuario.buscar(textoBusqueda);
         //Buscamos publicaciones de mascotas cuyo nombre contenga a textoBusqueda o el nombre de sus publicantes lo contengan

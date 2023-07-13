@@ -34,6 +34,7 @@ public class ControladorBusqueda {
         ModelMap model = new ModelMap();
 
         model.put("result", this.servicioBusqueda.buscar(searchText));
+        model.put("search_text", searchText);
 
         return new ModelAndView("partials/searchResult", model);
     }
