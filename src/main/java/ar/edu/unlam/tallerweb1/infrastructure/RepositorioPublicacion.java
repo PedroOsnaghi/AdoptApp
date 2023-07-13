@@ -4,6 +4,8 @@ import ar.edu.unlam.tallerweb1.domain.publicaciones.IRepositorioPublicacion;
 import ar.edu.unlam.tallerweb1.model.*;
 import ar.edu.unlam.tallerweb1.model.enumerated.EstadoPublicacion;
 import ar.edu.unlam.tallerweb1.model.enumerated.EstadoSolicitud;
+import ar.edu.unlam.tallerweb1.model.enumerated.TipoMascota;
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -144,6 +146,29 @@ public class RepositorioPublicacion implements IRepositorioPublicacion {
                 .addOrder(Order.desc("id"))
                 .setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY)
                 .list();
+    }
+
+    @Override
+    public List<Publicacion> buscar(String likeName) {
+        boolean tipoMatch = false;
+        //verificamos tipo
+        Disjunction or = Restrictions.disjunction();
+        for (TipoMascota tipo : TipoMascota.values()) {
+            if (tipo.name().equals(likeName.toUpperCase())) {
+                or.add(Restrictions.eq("m.tipo", tipo));
+                tipoMatch = true;
+            }
+        }
+
+        Criteria criteria = this.sessionFactory.getCurrentSession().createCriteria(Publicacion.class);
+
+                criteria.createAlias("mascota","m").createAlias("mascota.usuario","mu");
+
+                Disjunction ror = tipoMatch ? or : Restrictions.or(Restrictions.like("m.nombre", likeName+"%"),Restrictions.like("m.raza", likeName+"%"),Restrictions.like("mu.nombre", likeName+"%"));
+
+                criteria.add(Restrictions.and(ror,Restrictions.eq("estado",EstadoPublicacion.DISPONIBLE)));
+                criteria.setResultTransformer(CriteriaSpecification.DISTINCT_ROOT_ENTITY);
+        return (List<Publicacion>) criteria.list();
     }
 
 
