@@ -52,13 +52,13 @@
                             </div>
                             <div class="d-inline-block w-100 mb-1">
                                 <div class="form-check d-inline-block mt-2 pt-1">
-                                    <input type="checkbox" class="form-check-input" id="customCheck1"/>
-                                    <label class="form-check-label" for="customCheck1">Acepto los <a
+                                    <input type="checkbox" class="form-check-input" id="customCheck"/>
+                                    <label class="form-check-label" for="customCheck">Acepto los <a
                                             href="#">Terminos y condiciones</a></label>
                                 </div>
 
-                                <button type="submit"
-                                        class="btn btn-primary float-end ">Registrarme
+                                <button type="submit" id="btn-registrar"
+                                        class="btn btn-primary float-end disabled">Registrarme
                                 </button>
 
                             </div>
@@ -87,6 +87,16 @@
         </div>
     </section>
 </div>
+
+<script>
+    document.querySelector('#customCheck').addEventListener('change', function (){
+        if(this.checked === true){
+            document.getElementById('btn-registrar').classList.remove('disabled');
+        }else{
+            document.getElementById('btn-registrar').classList.add('disabled');
+        }
+    });
+</script>
 
 <!-- scripts -->
 

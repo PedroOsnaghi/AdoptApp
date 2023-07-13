@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label class="form-label" for="password">Contraseña</label>
-                                    <a href="#" class="float-end">Olvidaste tu contraseña?</a>
+
                                     <form:input path="password" name="password" type="password" class="form-control mb-0" id="password"
                                                 placeholder="Contraseña" required="true"/>
                                 </div>

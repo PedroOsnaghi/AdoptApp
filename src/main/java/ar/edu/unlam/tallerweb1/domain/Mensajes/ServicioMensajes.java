@@ -84,4 +84,9 @@ public class ServicioMensajes implements IServicioMensajes{
 
         return idPublicacion == null ? null : this.repositorioMensajes.listarMensajesRespondidos(idPublicacion);
     }
+
+    @Override
+    public Mensaje getMensaje(Long id) {
+        return this.repositorioMensajes.getMensaje(id);
+    }
 }

@@ -31,4 +31,5 @@ public interface IRepositorioSolicitud {
     Solicitud getSolicitudCanceladaSinInformar(Long idPublicacion);
 
 
+    List<Solicitud> listarSolicitudesPendientes(Long idPublicacion);
 }

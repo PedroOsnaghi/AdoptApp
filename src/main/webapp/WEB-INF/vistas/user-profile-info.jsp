@@ -58,13 +58,16 @@
                                                 </div>
 
                                                 <hr>
-                                                <div class="alert alert-warning d-flex align-items-center" role="alert">
-                                                    <i class="fa-solid fa-triangle-exclamation font-size-14 me-2"></i>
-                                                    <div>
-                                                        Actualiza tu Información Personal. Te dará mejor reputación para
-                                                        Adoptar.
+                                                <c:if test="${empty usuario.update_at}">
+                                                    <div class="alert alert-warning d-flex align-items-center" role="alert">
+                                                        <i class="fa-solid fa-triangle-exclamation font-size-14 me-2"></i>
+                                                        <div>
+                                                            Actualiza tu Información Personal. Te dará mejor reputación para
+                                                            Adoptar.
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                </c:if>
+
                                                 <div class="row mb-2">
                                                     <div class="col-3">
                                                         <h6>Presentación:</h6>

@@ -48,89 +48,46 @@
             </div>
 
             <ul class="navbar-nav navbar-list">
-               <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/home/" class="d-flex align-items-center">
-                     <i class="material-symbols-outlined">home</i>
-                  </a>
-               </li>
-               <%--
-               <!-- notificaciones -->
-               <li class="nav-item dropdown">
-                  <a href="javascript:void(0);" class="search-toggle dropdown-toggle d-flex align-items-center"
-                     id="notification-drop" data-bs-toggle="dropdown">
-                     <i class="material-symbols-outlined">notifications</i>
-                  </a>
-                  <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop">
-                     <div class="card shadow-none m-0">
-                        <div class="card-header d-flex justify-content-between bg-primary">
-                           <div class="header-title bg-primary">
-                              <h5 class="mb-0 text-white">Notificaciones</h5>
-                           </div>
-                           <small class="badge  bg-light text-dark">4</small>
-                        </div>
+                <li class="nav-item">
+                    <a href="${pageContext.request.contextPath}/home/" class="d-flex align-items-center">
+                        <i class="material-symbols-outlined">home</i>
+                    </a>
+                </li>
 
-                        <div class="card-body p-0">
-                           <a href="javascript:void(0);" class="iq-sub-card">
-                              <div class="d-flex align-items-center">
-                                 <div class="">
-                                    <img class="avatar-40 rounded" src="${pageContext.request.contextPath}/images/user/01.jpg" alt="">
-                                 </div>
-                                 <div class="ms-3 w-100">
-                                    <h6 class="mb-0 ">Emma Watson Bni</h6>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                       <p class="mb-0">95 MB</p>
-                                       <small class="float-right font-size-12">Just Now</small>
-                                    </div>
-                                 </div>
-                              </div>
-                           </a>
-                           <a href="javascript:void(0);" class="iq-sub-card">
-                              <div class="d-flex align-items-center">
-                                 <div class="">
-                                    <img class="avatar-40 rounded" src="${pageContext.request.contextPath}/images/user/02.jpg" alt="" loading="lazy">
-                                 </div>
-                                 <div class="ms-3 w-100">
-                                    <h6 class="mb-0 ">New customer is join</h6>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                       <p class="mb-0">Cyst Bni</p>
-                                       <small class="float-right font-size-12">5 days ago</small>
-                                    </div>
-                                 </div>
-                              </div>
-                           </a>
-                           <a href="javascript:void(0);" class="iq-sub-card">
-                              <div class="d-flex align-items-center">
-                                 <div class="">
-                                    <img class="avatar-40 rounded" src="${pageContext.request.contextPath}/images/user/03.jpg" alt="" loading="lazy">
-                                 </div>
-                                 <div class="ms-3 w-100">
-                                    <h6 class="mb-0 ">Two customer is left</h6>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                       <p class="mb-0">Cyst Bni</p>
-                                       <small class="float-right font-size-12">2 days ago</small>
-                                    </div>
-                                 </div>
-                              </div>
-                           </a>
-                           <a href="javascript:void(0);" class="iq-sub-card">
-                              <div class="d-flex align-items-center">
-                                 <div class="">
-                                    <img class="avatar-40 rounded" src="${pageContext.request.contextPath}/images/user/04.jpg" alt="" loading="lazy">
-                                 </div>
-                                 <div class="w-100 ms-3">
-                                    <h6 class="mb-0 ">New Mail from Fenny</h6>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                       <p class="mb-0">Cyst Bni</p>
-                                       <small class="float-right font-size-12">3 days ago</small>
-                                    </div>
-                                 </div>
-                              </div>
-                           </a>
+                <!-- notificaciones -->
+                <li class="nav-item dropdown">
+                    <a href="javascript:void(0);" class="search-toggle dropdown-toggle d-flex align-items-center"
+                       id="notification-drop" data-bs-toggle="dropdown">
+                        <i class="material-symbols-outlined">notifications</i>
+                        <span class="d-none" id="new-notifications">0</span>
+                    </a>
+                    <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop">
+                        <div class="card shadow-none m-0">
+                            <div class="card-header d-flex justify-content-between bg-primary">
+                                <div class="header-title bg-primary">
+                                    <h5 class="mb-0 text-white">Notificaciones</h5>
+                                </div>
+                                <small class="badge  bg-light text-dark" id="notification-counter">0</small>
+                            </div>
+
+                            <div class="card-body p-0" id="notification-container">
+<%--                                <a href="javascript:void(0);" class="iq-sub-card">--%>
+<%--                                    <p>Notificacion random 1234</p>--%>
+<%--                                    <small>hace xxx minutos</small>--%>
+<%--                                </a>--%>
+<%--                                <a href="javascript:void(0);" class="iq-sub-card">--%>
+<%--                                    <p>Notificacion mas random random</p>--%>
+<%--                                    <small>hace YYY minutos</small>--%>
+<%--                                </a>--%>
+<%--                                <a href="javascript:void(0);" class="iq-sub-card">--%>
+<%--                                    <p>Notificacion random asew 1234</p>--%>
+<%--                                    <small>hace zzz horas</small>--%>
+<%--                                </a>--%>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-               </li>
-               --%>
+                    </div>
+                </li>
+
 
                <li class="nav-item dropdown user-dropdown">
                   <a href="javascript:void(0);" class="d-flex align-items-center dropdown-toggle" id="drop-down-arrow"

@@ -9,8 +9,13 @@ import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.chat.IServicioChat;
 import ar.edu.unlam.tallerweb1.domain.exceptions.DataValidationException;
 import ar.edu.unlam.tallerweb1.domain.exceptions.SolicitudException;
+import ar.edu.unlam.tallerweb1.domain.notificacion.IServicioNotificacion;
+import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Notificacion;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
 import ar.edu.unlam.tallerweb1.model.Solicitud;
 import ar.edu.unlam.tallerweb1.model.Usuario;
+import ar.edu.unlam.tallerweb1.model.enumerated.TipoNotificacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/solicitud")
@@ -31,13 +37,17 @@ public class ControladorSolicitud {
     private final IServicioAuth servicioAuth;
     private final IServicioCalificacion serviciocalificacion;
     private final IServicioChat servicioChat;
+    private final IServicioNotificacion servicioNotificacion;
+    private final IServicioPublicacion servicioPublicacion;
 
     @Autowired
-    public ControladorSolicitud(IServicioSolicitud servicioSolicitud, IServicioAuth servicioAuth, IServicioCalificacion servicioCalificacion, IServicioChat servicioChat){
+    public ControladorSolicitud(IServicioSolicitud servicioSolicitud, IServicioAuth servicioAuth, IServicioCalificacion servicioCalificacion, IServicioChat servicioChat, IServicioNotificacion servicioNotificacion, IServicioPublicacion servicioPublicacion){
         this.servicioSolicitud = servicioSolicitud;
         this.servicioAuth = servicioAuth;
         this.serviciocalificacion = servicioCalificacion;
         this.servicioChat = servicioChat;
+        this.servicioNotificacion = servicioNotificacion;
+        this.servicioPublicacion = servicioPublicacion;
     }
 
     @RequireAuth
@@ -47,6 +57,11 @@ public class ControladorSolicitud {
         try{
 
             this.servicioSolicitud.enviarSolicitud(solicitudDto);
+
+            Publicacion publicacion = this.servicioPublicacion.getPublicacion(solicitudDto.getPublicacion().getId());
+
+            // notificacion
+            this.servicioNotificacion.crearNotificacion(TipoNotificacion.NUEVA_SOLICITUD, publicacion);
 
         }catch (DataValidationException error){
             return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/ver?pid=" + solicitudDto.getPublicacionSol().getId() + "&sol_response=error");
@@ -90,6 +105,15 @@ public class ControladorSolicitud {
             return new ModelAndView("redirect: " + request.getContextPath() + "/home?response=error#1001");
         }
 
+        //notificacion
+        this.servicioNotificacion.crearNotificacion(TipoNotificacion.ACEPT_SOLICITUD,solicitud);
+
+        List<Solicitud> pendientes = this.servicioSolicitud.listarSolicitudesPendientes(solicitud.getPublicacion().getId());
+
+        for (Solicitud s : pendientes){
+            this.servicioNotificacion.crearNotificacion(TipoNotificacion.EN_ESPERA, s);
+        }
+
         switch (target){
 
             case "solicitud":
@@ -114,6 +138,15 @@ public class ControladorSolicitud {
             return new ModelAndView("redirect: " + request.getContextPath() + "/home?response=error#1001");
         }
 
+        //notificacion
+        this.servicioNotificacion.crearNotificacion(TipoNotificacion.ENTREGADA, solicitud);
+
+        List<Solicitud> restantes = this.servicioSolicitud.listarSolicitudesPendientes(solicitud.getPublicacion().getId());
+
+        for (Solicitud s : restantes){
+            this.servicioNotificacion.crearNotificacion(TipoNotificacion.SE_ADOPTO,s);
+        }
+
         return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + solicitud.getCodigo()+"&target=" + target);
 
     }
@@ -130,13 +163,20 @@ public class ControladorSolicitud {
             return new ModelAndView("redirect: " + request.getContextPath() + "/home?response=error#1001");
         }
 
+        //notificar a los usuarios en espera q la publicacion se reanudo
+        List<Solicitud> enEspera = this.servicioSolicitud.listarSolicitudesPendientes(solicitud.getPublicacion().getId());
+
+        for (Solicitud s : enEspera){
+            this.servicioNotificacion.crearNotificacion(TipoNotificacion.REANUDADA, s);
+        }
+
         return new ModelAndView("redirect: " + request.getContextPath() + "/solicitud/publicador?code=" + solicitud.getCodigo()+"&target=" + target);
 
     }
 
     @RequireAuth
     @RequestMapping(path = "/adoptante")
-    public ModelAndView adoptante(@RequestParam String code, @RequestParam(required = false) String target, @RequestParam(required = false)String error, HttpServletRequest request) {
+    public ModelAndView adoptante(@RequestParam String code, @RequestParam(required = false) String target, @RequestParam(required = false)String error, @RequestParam(required = false) Boolean openchat, HttpServletRequest request) {
         ModelMap model = new ModelMap();
 
         model.put("usuario", this.servicioAuth.getUsuarioAutenticado());
@@ -145,6 +185,7 @@ public class ControladorSolicitud {
         model.put("target", target);
         model.put("error",error);
         model.put("calificacion", new CalificacionDto());
+        model.put("openchat", openchat);
 
         model.put("mensajes_chat", this.servicioChat.listarMensajesDeSolicitud(code));
 
@@ -154,7 +195,7 @@ public class ControladorSolicitud {
 
     @RequireAuth
     @RequestMapping(path = "/publicador")
-    public ModelAndView publicador(@RequestParam String code, @RequestParam(required = false) String target, @RequestParam(required = false)String error, HttpServletRequest request) {
+    public ModelAndView publicador(@RequestParam String code, @RequestParam(required = false) String target, @RequestParam(required = false)String error, @RequestParam(required = false) Boolean openchat, HttpServletRequest request) {
         ModelMap model = new ModelMap();
 
         model.put("usuario", this.servicioAuth.getUsuarioAutenticado());
@@ -162,6 +203,7 @@ public class ControladorSolicitud {
         model.put("target", target);
         model.put("error",error);
         model.put("calificacion", new CalificacionDto());
+        model.put("openchat", openchat);
 
         model.put("mensajes_chat", this.servicioChat.listarMensajesDeSolicitud(code));
 
@@ -175,6 +217,9 @@ public class ControladorSolicitud {
     public ModelAndView cancelacionAdoptante(@ModelAttribute("solicitudDto") SolicitudDto solicitudDto,@RequestParam(required = false) String target, HttpServletRequest request) {
 
         this.servicioSolicitud.cancelarProcesoDeAdopcion(solicitudDto);
+
+        //notificacion
+        this.servicioNotificacion.crearNotificacion(TipoNotificacion.CANCEL_SOLICITUD,this.servicioSolicitud.getSolicitud(solicitudDto.getCodigo()));
 
         return new ModelAndView("redirect: "  + request.getContextPath() + "/solicitud/adoptante?code=" + solicitudDto.getCodigo() + "&target=" + target);
 

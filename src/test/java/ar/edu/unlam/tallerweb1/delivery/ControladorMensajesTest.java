@@ -4,6 +4,7 @@ import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
 import ar.edu.unlam.tallerweb1.domain.Mensajes.ServicioMensajes;
 import ar.edu.unlam.tallerweb1.domain.auth.ServicioAuth;
 import ar.edu.unlam.tallerweb1.domain.exceptions.SendingMessageException;
+import ar.edu.unlam.tallerweb1.domain.notificacion.ServicioNotificacion;
 import ar.edu.unlam.tallerweb1.domain.publicaciones.ServicioPublicacion;
 import ar.edu.unlam.tallerweb1.model.Mascota;
 import ar.edu.unlam.tallerweb1.model.Mensaje;
@@ -36,6 +37,7 @@ public class ControladorMensajesTest {
 
     private ControladorMensajes controladorMensajes;
     private HttpServletRequest request;
+    private ServicioNotificacion servicioNotificacion;
 
     @Before
     public void init(){
@@ -43,7 +45,8 @@ public class ControladorMensajesTest {
         this.servicioAuth = mock(ServicioAuth.class);
         this.request = mock(HttpServletRequest.class);
         this.servicioPublicacion = mock(ServicioPublicacion.class);
-        this.controladorMensajes = new ControladorMensajes(this.servicioMensajes, this.servicioAuth, this.servicioPublicacion);
+        this.servicioNotificacion = mock(ServicioNotificacion.class);
+        this.controladorMensajes = new ControladorMensajes(this.servicioMensajes, this.servicioAuth, this.servicioPublicacion, this.servicioNotificacion);
 
     }
 

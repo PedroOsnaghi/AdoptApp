@@ -17,4 +17,6 @@ public interface IRepositorioMensajes {
     List<Mensaje> listarMensajesSinResponder(Long idPublicacion);
 
     List<Mensaje> listarMensajesRespondidos(Long idPublicacion);
+
+    Mensaje getMensaje(Long id);
 }
