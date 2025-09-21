@@ -1,0 +1,214 @@
+package ar.edu.unlam.tallerweb1.delivery;
+
+import ar.edu.unlam.tallerweb1.annotations.RequireAuth;
+import ar.edu.unlam.tallerweb1.delivery.dto.MensajeDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.PublicacionDto;
+import ar.edu.unlam.tallerweb1.delivery.dto.SolicitudDto;
+import ar.edu.unlam.tallerweb1.domain.Mensajes.IServicioMensajes;
+import ar.edu.unlam.tallerweb1.domain.Solicitud.IServicioSolicitud;
+import ar.edu.unlam.tallerweb1.domain.auth.IServicioAuth;
+import ar.edu.unlam.tallerweb1.domain.exceptions.*;
+import ar.edu.unlam.tallerweb1.domain.mascota.IServicioMascota;
+import ar.edu.unlam.tallerweb1.domain.publicaciones.IServicioPublicacion;
+import ar.edu.unlam.tallerweb1.model.Publicacion;
+import ar.edu.unlam.tallerweb1.model.Solicitud;
+import ar.edu.unlam.tallerweb1.model.Usuario;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.ModelAndView;
+
+
+import javax.servlet.http.HttpServletRequest;
+import javax.xml.bind.ValidationException;
+
+
+@Controller
+@RequestMapping("/publicacion")
+public class ControladorPublicacion {
+
+    private final IServicioAuth servicioAuth;
+    private final IServicioPublicacion servicioPublicacion;
+    private final IServicioMascota servicioMascota;
+    private final IServicioMensajes servicioMesnaje;
+    private final IServicioSolicitud servicioSolicitud;
+
+    private Usuario userAuth;
+
+    @Autowired
+    public ControladorPublicacion(IServicioPublicacion servicioPublicacion, IServicioMascota servicioMascota, IServicioMensajes servicioMensaje, IServicioAuth servicioAuth, IServicioSolicitud servicioSolicitud) {
+        this.servicioPublicacion = servicioPublicacion;
+        this.servicioAuth = servicioAuth;
+        this.servicioMascota = servicioMascota;
+        this.servicioMesnaje = servicioMensaje;
+        this.servicioSolicitud = servicioSolicitud;
+    }
+
+    private ModelMap iniciarModel() {
+        this.userAuth = this.servicioAuth.getUsuarioAutenticado();
+        ModelMap m = new ModelMap();
+        m.put("usuario", this.userAuth);
+        return m;
+    }
+
+    @RequireAuth
+    @RequestMapping(path = "/crear", method = RequestMethod.GET)
+    public ModelAndView crear() {
+
+        ModelMap model = this.iniciarModel();
+        
+        model.put("publicacionDto", new PublicacionDto());
+        model.put("mascotas", this.servicioMascota.listarMascotasAPublicar(this.userAuth));
+        model.put("max_upload", 4);
+
+        return new ModelAndView("new-post", model);
+    }
+
+
+    @RequireAuth
+    @RequestMapping(path = "/publicar", method = RequestMethod.POST)
+    public ModelAndView guardarPublicacion(@ModelAttribute("publicacionDto") PublicacionDto publicacionDto, HttpServletRequest request) {
+        ModelMap model = this.iniciarModel();
+
+        Long p_id;
+
+        try{
+
+           p_id = servicioPublicacion.guardarPublicacion(publicacionDto);
+
+        }catch (DataValidationException | PostCreationException error){
+            model.put("error", error.getMessage());
+            model.put("mascotas", this.servicioMascota.listarMascotasAPublicar(this.userAuth));
+            model.put("max_upload", 4);
+            return new ModelAndView("new-post",model);
+        }
+
+
+        return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones?pid=" + p_id);
+
+
+
+
+    }
+
+    @RequireAuth
+    @RequestMapping(path = "/ver", method = RequestMethod.GET)
+    public ModelAndView verPublicacion(@RequestParam Long pid, @RequestParam(required = false) String msj_response, @RequestParam(required = false) String sol_response){
+        ModelMap model = iniciarModel();
+
+        try{
+            Publicacion post = this.servicioPublicacion.getPublicacion(pid);
+
+            model.put("publicacion", post);
+            model.put("mensajes", this.servicioMesnaje.listarMensajesPublicacion(pid));
+            model.put("solicitud", this.servicioSolicitud.getSolicitudDeUsuarioPorPublicacion(post, this.servicioAuth.getUsuarioAutenticado()));
+            model.put("mensajeDto", new MensajeDto());
+            model.put("solicitudDto", new SolicitudDto());
+            model.put("msj_response", msj_response);
+            model.put("sol_response", sol_response);
+
+        }catch (NotFoundPostExcption err){
+            model.put("error", err.getMessage());
+            return new ModelAndView("/404/post-404", model);
+        }
+
+        return new ModelAndView("post-details", model);
+    }
+
+    @RequireAuth
+    @RequestMapping(path = "/pausar", method = RequestMethod.GET)
+    public ModelAndView pausar(@RequestParam Long pid, HttpServletRequest request){
+        try {
+
+            this.servicioPublicacion.pausarPublicacion(pid, this.servicioAuth.getUsuarioAutenticado());
+
+        }catch (PostChangeException error){
+             return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones?error=" + error.getErrorCode());
+        }
+
+       return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones");
+
+    }
+
+    @RequireAuth
+    @RequestMapping(path = "/reanudar", method = RequestMethod.GET)
+    public ModelAndView reanudar(@RequestParam Long pid, HttpServletRequest request){
+        try {
+
+            this.servicioPublicacion.reanudarPublicacion(pid, this.servicioAuth.getUsuarioAutenticado());
+
+        }catch (PostChangeException error){
+            return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones?error=" + error.getErrorCode());
+        }
+
+        return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones");
+
+    }
+
+    @RequireAuth
+    @RequestMapping(path = "/eliminar", method = RequestMethod.GET)
+    public ModelAndView eliminar(@RequestParam Long pid, HttpServletRequest request){
+        try {
+            this.servicioPublicacion.eliminarPublicacion(pid, this.servicioAuth.getUsuarioAutenticado());
+
+        }catch (PostChangeException error){
+            return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones?error=" + error.getErrorCode());
+        }
+
+        return new ModelAndView("redirect: " + request.getContextPath() + "/home/mispublicaciones");
+
+    }
+
+
+    @RequireAuth
+    @RequestMapping(path = "/editar", method = RequestMethod.GET)
+    public ModelAndView editar(@RequestParam Long pid, @RequestParam(required = false) String response) {
+
+        ModelMap model = this.iniciarModel();
+
+        model.put("publicacionDto", this.servicioPublicacion.getPublicacion(pid).toDto());
+        model.put("max_upload", 4);
+        model.put("success", response);
+
+        return new ModelAndView("edit-post", model);
+    }
+
+    @RequireAuth
+    @RequestMapping(path = "/actualizar", method = RequestMethod.POST)
+    public ModelAndView actualizarPublicacion(@ModelAttribute("publicacionDto") PublicacionDto publicacionDto, HttpServletRequest request) {
+        ModelMap model = this.iniciarModel();
+
+        Publicacion post = this.servicioPublicacion.getPublicacion(publicacionDto.getId());
+
+        publicacionDto.merge(post);
+
+        try{
+
+           this.servicioPublicacion.actualizarPublicacion(publicacionDto);
+
+        }catch (DataValidationException | PostCreationException error){
+            model.put("error", error.getMessage());
+            model.put("max_upload", 4);
+            return new ModelAndView("edit-post", model);
+        }
+
+
+        return new ModelAndView("redirect: " + request.getContextPath() + "/publicacion/editar?pid=" + publicacionDto.getId() + "&response=success");
+
+
+
+
+    }
+
+
+
+
+
+
+}
